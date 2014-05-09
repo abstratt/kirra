@@ -5,9 +5,7 @@ The Kirra API is a minimalistic API specification to access functionality of a b
 
 This original specification happens to use the Java language, but the intent is that it could be easily translated to other programming languages.
 
-N + M, not N x M
------------------
-By exposing the functionality of business applications in a way that is business agnostic and fairly independent from implementation concerns, one can build clients that can expose business applications (running on various stacks) to a myriad of client technologies in a much more cost effective way.
+The goal is that by detaching view technologies from model technologies, we can mix and match generic clients and domain-specific applications, no matter what technologies (within language silos) they are built on.
 
 The generic object model
 -----------------
