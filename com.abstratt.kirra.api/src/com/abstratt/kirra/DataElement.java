@@ -2,23 +2,9 @@ package com.abstratt.kirra;
 
 public abstract class DataElement extends TypedElement<DataScope> {
 	private static final long serialVersionUID = 1L;
-	private boolean showInMasterTable;
-	private boolean showInChildTable;
 	protected boolean derived;
 	private boolean initializable;
 	private boolean editable;
-	public boolean isShowInMasterTable() { 
-		return showInMasterTable;
-	}
-	public void setShowInMasterTable(boolean showInMasterTable) {
-		this.showInMasterTable = showInMasterTable;
-	}
-	public boolean isShowInChildTable() {
-		return showInChildTable;
-	}
-	public void setShowInChildTable(boolean showInChildTable) {
-		this.showInChildTable = showInChildTable;
-	}
 	public boolean isDerived() {
 		return derived;
 	}
