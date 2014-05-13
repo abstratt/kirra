@@ -4,9 +4,23 @@ import java.util.List;
 
 public class Operation extends TypedElement<BehaviorScope> {
 	public enum OperationKind {
+		/**
+		 * An operation that performs a change on the target object and or system (for static actions).
+		 */
 		Action,
+		/**
+		 * A finder finds instances of entities according to some internal criteria.
+		 * Finders always return sets of {@link Instance}s.
+		 */
 		Finder,
+		/**
+		 * A retriever produces data. The data may be backed by entity instances, but it can really be any arbitrary 
+		 * tuple-shaped data. Retrievers return sets of {@link Tuple}s.
+		 */
 		Retriever,
+		/**
+		 * Events are not operations per se, but share quite a few properties with operations, hence modeled as such.
+		 */
 		Event
 	}
 	
@@ -15,9 +29,6 @@ public class Operation extends TypedElement<BehaviorScope> {
 	private OperationKind kind;
 	private List<Parameter> parameters;
 	
-	public Operation() {
-		
-	}
 
 	public List<Parameter> getParameters() {
 		return parameters;

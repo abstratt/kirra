@@ -17,12 +17,18 @@ public abstract class DataElement extends TypedElement<DataScope> {
 		return this.owner + "->" + super.toString();
 	}
 
+	/**
+	 * A property is initializable if it can be assigned at instance creation time.
+	 */
 	public boolean isInitializable() {
 		return initializable;
 	}
 	public void setInitializable(boolean initializable) {
 		this.initializable = initializable;
 	}
+	/**
+	 * A property is editable if its value can be updated any time after the instance is created.
+	 */
 	public boolean isEditable() {
 		return editable;
 	}

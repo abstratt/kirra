@@ -27,6 +27,10 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
 		this.defaultValue = defaulting;
 	}
 
+	/**
+	 * In the case this typed element is typed by an enumeration, these are the 
+	 * enumeration values. 
+	 */
 	public List<String> getEnumerationLiterals() {
 		return enumerationLiterals;
 	}
