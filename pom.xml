@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.abstratt.kirra</groupId>
+	<artifactId>parent</artifactId>
+	<version>1.120.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+  <properties>
+    <tycho-version>0.19.0</tycho-version>
+  </properties>
+	<repositories>
+		<repository>
+			<id>Abstratt-OSS</id>
+			<name>Abstratt OSS Repo</name>
+			<url>http://repository-textuml.forge.cloudbees.com/snapshot/</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<!-- 3rd-party POM-first dependencies for modules -->
+	<dependencies>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+	</dependencies>
+
+	<modules>
+		<module>com.abstratt.kirra.api</module>
+		<module>kirra-api-dependencies</module>
+	</modules>
+	<build>
+       <pluginManagement>
+       <plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+       </plugins>
+       </pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<pomDependencies>consider</pomDependencies>
+					<target>
+						<artifact>
+							<groupId>com.abstratt.kirra</groupId>
+							<artifactId>kirra-api-dependencies</artifactId>
+							<version>1.120.1-SNAPSHOT</version>
+							<classifier>kirra-api-dependencies</classifier>
+						</artifact>
+					</target>
+                    <environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+                    </environments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
+  </build>
+
+</project>
+
