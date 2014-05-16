@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Kirra REST Client
+Bundle-SymbolicName: com.abstratt.kirra.rest.client
+Bundle-Version: 1.120.1.qualifier
+Bundle-Vendor: ABSTRATT
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.abstratt.kirra.rest.client
+Import-Package: com.abstratt.kirra, com.abstratt.kirra.json,
+ org.apache.commons.httpclient,
+ org.apache.commons.httpclient.methods,
+ org.codehaus.jackson.io,
+ org.codehaus.jackson.map,
+ org.codehaus.jackson.annotate,
+ org.codehaus.jackson
+
+
+

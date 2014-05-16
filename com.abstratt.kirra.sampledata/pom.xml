@@ -9,7 +9,7 @@
 	</parent>
   <groupId>com.abstratt</groupId>
   <version>1.120.1-SNAPSHOT</version>
-  <artifactId>com.abstratt.kirra.api</artifactId>
+  <artifactId>com.abstratt.kirra.sampledata</artifactId>
   <packaging>eclipse-plugin</packaging>
 
 </project>

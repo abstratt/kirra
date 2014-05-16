@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Kirra API
-Bundle-SymbolicName: com.abstratt.kirra.api
+Bundle-SymbolicName: com.abstratt.kirra.sampledata
 Bundle-Version: 1.120.1.qualifier
 Bundle-Vendor: ABSTRATT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: com.abstratt.kirra
+Export-Package: com.abstratt.kirra.sampledata
+Import-Package: com.abstratt.kirra
 
