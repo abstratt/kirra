@@ -9,8 +9,11 @@ Export-Package: com.abstratt.kirra.rest.client
 Import-Package: com.abstratt.kirra, com.abstratt.kirra.json,
  org.apache.commons.httpclient,
  org.apache.commons.httpclient.methods,
+ org.apache.commons.logging,
+ org.apache.commons.codec,
  org.codehaus.jackson.io,
  org.codehaus.jackson.map,
+ org.codehaus.jackson.node,
  org.codehaus.jackson.annotate,
  org.codehaus.jackson
 

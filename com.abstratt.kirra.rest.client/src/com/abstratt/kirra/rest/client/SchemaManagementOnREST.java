@@ -1,8 +1,13 @@
 package com.abstratt.kirra.rest.client;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.ObjectNode;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Namespace;
@@ -14,15 +19,38 @@ import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.Service;
 import com.abstratt.kirra.TupleType;
 import com.abstratt.kirra.TypeRef;
-import com.abstratt.kirra.json.EntityLinkJSONRepresentation;
 
 public class SchemaManagementOnREST implements SchemaManagement {
 
-    private RestHelper restHelper; 
-	
+	/**
+	 * The application's base URI.
+	 */
+	private URI baseUri;
+	private RestClient restClient;
+
+	public SchemaManagementOnREST(URI baseUri) {
+		this.baseUri = baseUri;
+		this.restClient = new RestClient();
+	}
+
 	@Override
 	public List<Entity> getEntities(String namespace) {
-		Entity restHelper.getList("entities/" + namespace, EntityLinkJSONRepresentation.class);
+		URI namespaceUri = URI.create(baseUri.toASCIIString() + namespace + "/");
+		GetMethod getEntities = new GetMethod(namespaceUri.resolve("entities").toString());
+		ArrayNode entityListNodes = (ArrayNode) restClient.executeMethod(getEntities);
+        List<Entity> entities = new ArrayList<Entity>(entityListNodes.size());
+        for (int i = 0; i < entityListNodes.size(); i++)
+        	entities.add(buildEntity((ObjectNode) entityListNodes.get(i)));
+		return entities;
+	}
+
+	private Entity buildEntity(ObjectNode objectNode) {
+		Entity entity = new Entity();
+		entity.setNamespace(objectNode.get("namespace").asText());
+		entity.setName(objectNode.get("name").asText());
+		entity.setLabel(objectNode.get("label").asText());
+		entity.setDescription(objectNode.get("description").asText());
+		return entity;
 	}
 
 	@Override
@@ -92,8 +120,7 @@ public class SchemaManagementOnREST implements SchemaManagement {
 	}
 
 	@Override
-	public List<Relationship> getEntityRelationships(String namespace,
-			String name) {
+	public List<Relationship> getEntityRelationships(String namespace, String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -145,5 +172,4 @@ public class SchemaManagementOnREST implements SchemaManagement {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

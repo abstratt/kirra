@@ -25,7 +25,7 @@ public class InstanceJSONRepresentation extends TupleJSONRepresentation {
 		public String domainUri;
 		public String shorthand;
 	}
-	
+
 	@JsonProperty
 	public String shorthand;
 	@JsonProperty
@@ -36,5 +36,7 @@ public class InstanceJSONRepresentation extends TupleJSONRepresentation {
 	public Map<String, MultipleLink> links;
 	@JsonProperty
 	public Map<String, Action> actions;
+	public String entityNamespace;
+	public String entityName;
 
 }

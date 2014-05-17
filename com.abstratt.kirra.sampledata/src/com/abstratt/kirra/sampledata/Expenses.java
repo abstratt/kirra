@@ -21,8 +21,8 @@ public class Expenses implements SampleBuilder {
 		Namespace expenseNamespace = new Namespace("expenses");
 		namespaces.add(expenseNamespace);
 		List<Entity> expenseEntities = new ArrayList<Entity>();
-		Entity categoryEntity = buildExpenseEntity();
-		expenseEntities.add(categoryEntity);
+		Entity expenseEntity = buildExpenseEntity();
+		expenseEntities.add(expenseEntity);
 		expenseNamespace.setEntities(expenseEntities);
 
 		newSchema.setNamespaces(namespaces);

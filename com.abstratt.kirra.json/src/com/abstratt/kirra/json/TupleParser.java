@@ -1,15 +1,25 @@
 package com.abstratt.kirra.json;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringWriter;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.node.ArrayNode;
-import org.eclipse.core.runtime.Path;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
@@ -23,6 +33,38 @@ import com.abstratt.kirra.TupleType;
 import com.abstratt.kirra.TypeRef;
 
 public class TupleParser {
+	
+    private static JsonFactory jsonFactory = new JsonFactory();
+
+    static {
+        jsonFactory.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+        jsonFactory.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+        jsonFactory.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
+        jsonFactory.configure(JsonParser.Feature.CANONICALIZE_FIELD_NAMES, true);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.enable(SerializationConfig.Feature.INDENT_OUTPUT);
+		objectMapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, true);
+		objectMapper.setDateFormat(new SimpleDateFormat("yyyy/MM/dd"));
+		jsonFactory.setCodec(objectMapper);
+    }
+
+
+	public static String renderAsJson(Object toRender) {
+		try {
+			StringWriter writer = new StringWriter();
+			((ObjectMapper) jsonFactory.getCodec()).defaultPrettyPrintingWriter().writeValue(writer, toRender);
+			return writer.toString();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+    public static <T extends JsonNode> T parse(Reader contents) throws IOException, JsonParseException, JsonProcessingException {
+        JsonParser parser = jsonFactory.createJsonParser(contents);
+        return (T) parser.readValueAsTree();
+    }
+	
+	
 	public static Tuple getTupleFromJsonRepresentation(JsonNode tupleRepresentation, TupleType tupleType) {
 		Tuple newTuple = new Tuple(tupleType.getTypeRef());
 		if (tupleRepresentation == null || tupleRepresentation.isNull())
@@ -97,7 +139,6 @@ public class TupleParser {
 			existingInstance.setSingleRelated(relationship.getName(), resolveLink(fieldValueNode.get("uri"), relationship.getTypeRef()));
 		}
 	}
-
 	
 	public static List<?> getValuesFromJsonRepresentation(SchemaManagement repository, JsonNode representation, TypeRef type, boolean multiple) {
 		if (representation == null)
@@ -143,8 +184,6 @@ public class TupleParser {
         	values.add(getTupleFromJsonRepresentation(jsonNode, tupleType));
 		return values;
 	}
-
-	
 
 	public static Instance resolveLink(JsonNode fieldValueNode, TypeRef type) {
 		if (fieldValueNode == null || fieldValueNode.isNull())

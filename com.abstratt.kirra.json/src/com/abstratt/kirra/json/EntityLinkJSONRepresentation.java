@@ -9,5 +9,9 @@ public class EntityLinkJSONRepresentation {
 	public String name;
 	@JsonProperty
 	public String uri;
+	@JsonProperty
+	public String description;
+	@JsonProperty
+	public String label;
 	public String extentUri;
 }

@@ -10,6 +10,7 @@ Import-Package:
  org.codehaus.jackson.annotate,
  org.codehaus.jackson,
  org.codehaus.jackson.node,
+ org.codehaus.jackson.map,
  com.abstratt.kirra
 
 

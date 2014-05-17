@@ -11,6 +11,10 @@ public class EntityJSONRepresentation {
 	@JsonProperty
 	public String name;
 	@JsonProperty
+	public String description;
+	@JsonProperty
+	public String label;
+	@JsonProperty
 	public String uri;
 	@JsonProperty
 	public String rootUri;

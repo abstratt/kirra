@@ -9,7 +9,6 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.codehaus.jackson.JsonNode;
 
 public class RestHelper {
@@ -43,15 +42,11 @@ public class RestHelper {
 		return (T) JsonHelper.parse(new InputStreamReader(new ByteArrayInputStream(executeMethod(method))));
 	}
 
-	public JsonNode get(String relativeUri, int... accepted) {
-		GetMethod getMethod = new GetMethod(baseUri.resolve(relativeUri).toString());
-		executeMethod(getMethod, accepted);
-	}
 	
-	public JsonNode getList(String relativeUri, int... accepted) {
-		GetMethod getMethod = new GetMethod(baseUri.resolve(relativeUri).toString());
-		
-		executeMethod(getMethod, accepted);
+
+	public <T> T getList(String relativeUri, Class<T> clazz) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

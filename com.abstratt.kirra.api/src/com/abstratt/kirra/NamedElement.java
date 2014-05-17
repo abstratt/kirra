@@ -7,6 +7,7 @@ public abstract class NamedElement<O extends NameScope> implements Serializable,
 	private static final long serialVersionUID = 1L;
 	protected String name;
 	protected String label;
+	protected String description;
 	protected String symbol;
 	public String getSymbol() {
 		return symbol;
@@ -59,6 +60,13 @@ public abstract class NamedElement<O extends NameScope> implements Serializable,
 		this.name = name;
 	}
 	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	@Override
 	public int hashCode() {
