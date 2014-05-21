@@ -118,6 +118,8 @@ public class InstanceManagementOnREST implements InstanceManagement {
 			Entry<String, JsonNode> current = fields.next();
 			instance.setValue(current.getKey(), current.getValue().asText());
 		}
+		if (instanceNode.has("shorthand"))
+			instance.setShorthand(instanceNode.get("shorthand").asText());
 		return instance;
 	}
 

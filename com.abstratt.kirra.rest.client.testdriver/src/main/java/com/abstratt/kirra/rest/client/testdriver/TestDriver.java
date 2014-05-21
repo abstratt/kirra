@@ -9,7 +9,7 @@ import com.abstratt.kirra.rest.client.SchemaManagementOnREST;
 
 public class TestDriver {
 	public static void main(String[] args) {
-		URI restUri = URI.create("http://localhost/services/api/demo-cloudfier-examples-");
+		URI restUri = URI.create("http://develop.cloudfier.com/services/api/demo-cloudfier-examples-");
 		SchemaManagementOnREST schemaManagement = new SchemaManagementOnREST(restUri);
 		for (Entity entity : schemaManagement.getEntities("expenses")) {
 			System.out.println(entity.getTypeRef());
@@ -26,6 +26,7 @@ public class TestDriver {
 			System.out.println(current.getEntityName());
 			System.out.println(current.getEntityNamespace());
 			System.out.println(current.getValues());
+			System.out.println(current.getShorthand());
 			System.out.println("");
 		}
 

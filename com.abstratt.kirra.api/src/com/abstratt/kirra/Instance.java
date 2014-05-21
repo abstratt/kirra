@@ -27,6 +27,7 @@ public class Instance extends Tuple {
 	private Map<String, String> disabledActions = new HashMap<String, String>();
 	private String objectId;
 	private boolean full;
+	private String shorthand;
 
 	public Instance() {}
 	
@@ -135,5 +136,15 @@ public class Instance extends Tuple {
 	@Override
 	protected TypeKind getTypeKind() {
 		return TypeKind.Entity;
+	}
+	
+	@Override
+	public String getShorthand() {
+		if (shorthand != null)
+			return shorthand;
+		return super.getShorthand();
+	}
+	public void setShorthand(String shorthand) {
+		this.shorthand = shorthand;
 	}
 }
