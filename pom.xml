@@ -39,7 +39,8 @@
 		<module>com.abstratt.kirra.api</module>
 		<module>com.abstratt.kirra.json</module>
 		<module>com.abstratt.kirra.rest.client</module>
-		<module>com.abstratt.kirra.feature</module>
+		<module>features/com.abstratt.kirra.feature</module>
+		<module>repositories/com.abstratt.kirra.repository</module>
 	</modules>
 	<build>
        <pluginManagement>
