@@ -31,6 +31,8 @@ public class InstanceJSONRepresentation extends TupleJSONRepresentation {
 	@JsonProperty
 	public String uri;
 	@JsonProperty
+	public String id;
+	@JsonProperty
 	public String type;
 	@JsonProperty
 	public Map<String, MultipleLink> links;

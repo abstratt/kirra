@@ -38,7 +38,9 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator",
       });
       this.getContent().add(list);
       list.addListener("changeSelection", function(evt) {
-        console.log(evt.getData());
+        var instanceSelected = me.instanceList.getModel().getItem(evt.getData());
+        console.log(instanceSelected);
+        qx.core.Init.getApplication().getRouting().executeGet("/entity/" + me._entityName + "/instances/" + instanceSelected.id);
       }, this);
     },
     _start : function() {
@@ -54,6 +56,7 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator",
         this.show();
         this.repository.loadInstances(this._entityName, function(instances) {
 	        me.instanceList.setModel(new qx.data.Array(instances));
+	        me.setTitle(entityName);
 	    });
     }
   }

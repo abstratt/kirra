@@ -75,11 +75,12 @@ qx.Class.define("kirra_qooxdoo.Application",
       this.repository = new kirra_qooxdoo.Repository(apiBaseUri);
       this.mainPage = new kirra_qooxdoo.EntityNavigator(this.repository);
       this.instanceNavigator = new kirra_qooxdoo.InstanceNavigator(this.repository);
-      this.mainPage.instanceNavigator = this.instanceNavigator;
+      this.instanceForm = new kirra_qooxdoo.InstanceForm(this.repository);
       
       var manager = new qx.ui.mobile.page.Manager(isTablet);
       manager.addMaster(this.mainPage);
-      manager.addDetail(this.mainPage.instanceNavigator);
+      manager.addDetail(this.instanceNavigator);
+      manager.addDetail(this.instanceForm);
       var nm = new qx.application.Routing();
 
       nm.onGet("/", function(data) {
@@ -88,6 +89,10 @@ qx.Class.define("kirra_qooxdoo.Application",
       
       nm.onGet("/entity/{entity}/instances/", function(data) {
         this.instanceNavigator.showFor(data.params.entity);
+      }, this);
+      
+      nm.onGet("/entity/{entity}/instances/{id}", function(data) {
+        this.instanceForm.showFor(data.params.entity, data.params.id);
       }, this);
       
       this.setRouting(nm);
