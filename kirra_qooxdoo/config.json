@@ -44,15 +44,37 @@
   "let" :
   {
     "APPLICATION"  : "kirra_qooxdoo",
-    "QOOXDOO_PATH" : "../../../dev/qooxdoo-3.5-sdk",
+    "APPLICATION_PATH" : "kirra_qooxdoo",    
+    "APPLICATION_CSS" : "${APPLICATION_PATH}/css/styles.css",  // resource id of custom css    
+    "QOOXDOO_PATH" : "../../qooxdoo",
     "QXTHEME"      : "kirra_qooxdoo.theme.Theme",
     "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.theme.*", "${APPLICATION}.test.*", "${APPLICATION}.simulation.*"],
     "LOCALES"      : [ "en" ],
     "CACHE"        : "${TMPDIR}/qx${QOOXDOO_VERSION}/cache",
-    "ROOT"         : "."
+    "MOBILE_THEME" : "custom",
+    "MOBILE_THEME_PATH" : "${APPLICATION_PATH}/css/${MOBILE_THEME}.css",
+    "CSS_COMB_URI" : "./resource/${APPLICATION_PATH}/css/${MOBILE_THEME}-style-min.css",
+    "CSS_COMBINED" : "${BUILD_PATH}/${CSS_COMB_URI}",
+    "ROOT"         : ".",
+    "QXTHEME"      : "", // preventing mobile app to load desktop icons
+    "ROOT"         : ".",
+    "SOURCE_SERVER_PORT" : 9999
   },
 
-  // You only need to edit the remainder of this file, if you want to customize
+  "config-warnings" :
+  {
+    "job-shadowing" : [
+      "source",
+      "build",
+      "source-all-script",
+      "source-hybrid",
+      "build-files",
+      "build-script",
+      "source-script"
+    ]
+  },
+
+  // You only need to edit the reminder of this file, if you want to customize
   // specific jobs, or add own job definitions.
 
   "jobs" :
@@ -62,7 +84,7 @@
     // using a contrib: library, it will be downloaded into the path specified
     // by the 'cache/downloads' config key
     /*
-    "libraries" :
+    , "libraries" :
     {
       "library" :
       [
@@ -70,23 +92,144 @@
           "manifest" : "contrib://SkeletonApplication/trunk/Manifest.json"
         }
       ]
-    }
+    },
     */
 
-    // If you want to tweak a job setting, see the following sample where
-    // the "format" feature of the "build-script" job is overridden.
-    // To see a list of available jobs, invoke 'generate.py x'.
-	/*
-    ,"build-script" :
+    "mobile-common" :
     {
+      "=include" :
+      [
+        "${APPLICATION}.Application"
+      ],
+
+      "environment" :
+      {
+        "qx.mobile.emulatetouch" : true,
+        "qx.theme" : "${MOBILE_THEME}"
+        /* Remove following inline comment if you want to optimize code for webkit browsers.
+         Attention: if webkit engine optimization is enabled, mobile app will not be
+         usable in Firefox. */
+        // ,"engine.name" : "webkit"
+      },
+
       "compile-options" :
       {
-        "code" :
+        "paths" :
         {
-          "format" : false
+          "loader-template" : "${QOOXDOO_PATH}/tool/data/generator/mobile.loader.tmpl.js"
+        }
+      }
+    },
+
+    "source-script" :
+    {
+      "extend" : ["mobile-common"],
+      "add-css" : [
+        { "uri" : "./resource/${MOBILE_THEME_PATH}" },
+        { "uri" : "./resource/${APPLICATION_CSS}" }
+      ]
+    },
+
+    "source-hybrid" :
+    {
+      "extend" : ["mobile-common"],
+      "add-css" : [
+        { "uri" : "./resource/${MOBILE_THEME_PATH}" },
+        { "uri" : "./resource/${APPLICATION_CSS}" }
+      ]
+    },
+
+    "build" :
+    {
+      "=run" : ["build-resources", "build-files", "build-script", "minify-css"]
+    },
+
+    "build-script" :
+    {
+      "extend" : ["mobile-common"],
+      "add-css" : [
+        { "uri" : "./resource/${MOBILE_THEME_PATH}" },
+        { "uri" : "./resource/${APPLICATION_CSS}" }
+      ]
+    },
+
+    "source-all-script" :
+    {
+      "extend" : ["mobile-common"],
+      "include" :
+      [
+        "qx.ui.mobile.*"
+      ],
+      "=exclude" :
+      [
+        "qx.test.*",
+        "${APPLICATION}.test.*",
+        "${APPLICATION}.simulation.*"
+      ],
+      "add-css" : [
+        { "uri" : "./resource/${MOBILE_THEME_PATH}" },
+        { "uri" : "./resource/${APPLICATION_CSS}" }
+      ]
+    },
+
+    "minify-combine-css" :
+    {
+      "extend" : ["cache"],
+      "let" :
+      {
+        "CATCMD"     : "${PYTHON_CMD} ${QOOXDOO_PATH}/tool/bin/cat.py",
+        "CSSMIN_CMD" : "${PYTHON_CMD} ${QOOXDOO_PATH}/tool/bin/cssmin.py"
+      },
+
+      "shell" :
+      {
+        "command" :
+        [
+          "${CATCMD} ${ROOT}/source/resource/${MOBILE_THEME_PATH} ${ROOT}/source/resource/${APPLICATION_CSS} | ${QOOXDOO_PATH}/tool/bin/cssmin.py > ${CSS_COMBINED}"
+        ]
+      }
+    },
+
+    "minify-css" :
+    {
+      "extend" : ["cache"],
+      "let" :
+      {
+        "MKDIRCMD"   : "${PYTHON_CMD} ${QOOXDOO_PATH}/tool/bin/mkdir.py",
+        "CATCMD"     : "${PYTHON_CMD} ${QOOXDOO_PATH}/tool/bin/cat.py",
+        "CSSMIN_CMD" : "${PYTHON_CMD} ${QOOXDOO_PATH}/tool/bin/cssmin.py"
+      },
+
+      "shell" :
+      {
+        "command" :
+        [
+          "${MKDIRCMD} ${BUILD_PATH}/resource/${APPLICATION}/css",
+          "${CATCMD} ${ROOT}/source/resource/${MOBILE_THEME_PATH} ${ROOT}/source/resource/${APPLICATION_CSS} | ${CSSMIN_CMD} > ${BUILD_PATH}/resource/${APPLICATION_CSS}"
+        ]
+      }
+    },
+
+
+    "watch-scss" :
+    {
+      "desc"   : "Watch and compile custom.scss",
+      "extend" : ["cache"],
+       "let" :
+      {
+        "MOBILE_THEME_PATH" : "${QOOXDOO_PATH}/framework/source/resource/qx/mobile/scss",
+        "SHARED_THEME_PATH" : "${QOOXDOO_PATH}/framework/source/resource/qx/scss"
+      },
+      "watch-files" :
+      {
+        "paths"    : ["source/resource/${APPLICATION_PATH}/scss"],
+        "command" :
+        {
+          "line"  : "${PYTHON_CMD} ${QOOXDOO_PATH}/tool/bin/scss.py source/resource/${APPLICATION_PATH}/scss/custom.scss -o source/resource/${APPLICATION_PATH}/css/custom.css --load-path=source/resource/${APPLICATION_PATH}/scss,${MOBILE_THEME_PATH},${SHARED_THEME_PATH}",
+          "exec-on-startup" : true,
+          "per-file" : false
         }
       }
     }
-    */
   }
 }

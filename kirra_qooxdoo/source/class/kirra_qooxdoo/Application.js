@@ -11,12 +11,20 @@
 /**
  * This is the main application class of your custom application "kirra_qooxdoo"
  *
+ * @require(kirra_qooxdoo.EntityManagement)
  * @asset(kirra_qooxdoo/*)
+ * @asset(qx/mobile/js/iscroll.js) 
  */
 qx.Class.define("kirra_qooxdoo.Application",
 {
-  extend : qx.application.Standalone,
-
+  extend : qx.application.Mobile,
+  
+  
+  properties : {
+    routing : {
+      init: null
+    }
+  },
 
 
   /*
@@ -52,20 +60,33 @@ qx.Class.define("kirra_qooxdoo.Application",
         Below is your actual application code...
       -------------------------------------------------------------------------
       */
+      
 
-      // Create a button
-      var button1 = new qx.ui.form.Button("First Button", "kirra_qooxdoo/test.png");
+      var uriMatches = window.location.search.match("[?&]?app-uri\=(.*)\&?");
+      var pathMatches = window.location.search.match("[?&]?app-path\=(.*)\&?");
+      if (!uriMatches && !pathMatches) {
+          throw Error("You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.");
+      }
+      var apiBaseUri = uriMatches ? uriMatches[1] : (window.location.origin + pathMatches[1]);
+      
+      var isTablet = (qx.core.Environment.get("device.type") == "tablet");
+      var isDesktop = (qx.core.Environment.get("device.type") == "desktop");
 
-      // Document is the application root
-      var doc = this.getRoot();
+      this.entityManagement = new kirra_qooxdoo.EntityManagement();
+      this.mainPage = new kirra_qooxdoo.EntityNavigator(this.entityManagement);
+      var manager = new qx.ui.mobile.page.Manager(isTablet);
+      manager.addMaster(this.mainPage);
+      var nm = new qx.application.Routing();
 
-      // Add button to document at fixed coordinates
-      doc.add(button1, {left: 100, top: 50});
+      nm.onGet("/", function(data) {
+        this.mainPage.show();
+      },this);
+      
+      this.setRouting(nm);
+      
+      this.entityManagement.loadApplication(apiBaseUri);
 
-      // Add an event listener
-      button1.addListener("execute", function(e) {
-        alert("Hello World!");
-      });
+      nm.init();
     }
   }
 });
