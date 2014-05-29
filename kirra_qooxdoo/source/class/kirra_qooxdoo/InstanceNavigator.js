@@ -2,12 +2,13 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator",
 {
   extend : qx.ui.mobile.page.NavigationPage,
 
-  construct : function()
+  construct : function(repository)
   {
     this.base(arguments);
-    this.setTitle("Overview");
+    this.repository = repository;
+    this.setTitle("Instances");
     this.setShowBackButton(true);
-    this.setBackButtonText("Log out");
+    this.setBackButtonText("Back");
   },
 
 
@@ -20,22 +21,21 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator",
 
   members :
   {
+    _entityName : null,
     // overridden
     _initialize : function()
     {
       this.base(arguments);
       var me = this;
-      var list = this.list = new qx.ui.mobile.list.List({
+      var list = this.instanceList = new qx.ui.mobile.list.List({
         configureItem : function(item, data, row)
         {
-          item.setTitle(data.getName());
-          item.setSubtitle(data.getDescription());
+          item.setTitle(data.shorthand);
+          item.setSubtitle("");
           item.setShowArrow(true);
           item.data = data;
         }
       });
-      this.entityStore = new qx.data.store.Json(null);
-      this.entityStore.bind("model", list, "model");
       this.getContent().add(list);
       list.addListener("changeSelection", function(evt) {
         console.log(evt.getData());
@@ -43,15 +43,18 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator",
     },
     _start : function() {
         this.base(arguments);
-        this.entityStore.setUrl(window.location.origin + "/services/api/demo-cloudfier-examples-expenses/entities/");
     },
     _back : function()
     {
-        if (this.getBackButtonText() == "Log out") {
-            this.setBackButtonText("Log in");
-        } else if (this.getBackButtonText() == "Log in") {
-            this.setBackButtonText("Log out");
-        }
+	     qx.core.Init.getApplication().getRouting().executeGet("/", {reverse:true});
+    },
+    showFor : function (entityName) {
+        var me = this;
+        this._entityName = entityName;
+        this.show();
+        this.repository.loadInstances(this._entityName, function(instances) {
+	        me.instanceList.setModel(new qx.data.Array(instances));
+	    });
     }
   }
 });

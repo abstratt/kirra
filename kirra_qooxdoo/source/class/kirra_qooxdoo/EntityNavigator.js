@@ -2,10 +2,10 @@ qx.Class.define("kirra_qooxdoo.EntityNavigator",
 {
   extend : qx.ui.mobile.page.NavigationPage,
 
-  construct : function(entityManagement)
+  construct : function(repository)
   {
     this.base(arguments);
-    this.entityManagement = entityManagement;
+    this.repository = repository;
     this.setTitle("Overview");
     this.setShowBackButton(true);
     this.setBackButtonText("Log out");
@@ -37,9 +37,11 @@ qx.Class.define("kirra_qooxdoo.EntityNavigator",
       });
       this.getContent().add(list);
       list.addListener("changeSelection", function(evt) {
-        console.log(evt.getData());
+        var selectedEntity = list.getModel().getItem(evt.getData());
+        qx.core.Init.getApplication().getRouting().executeGet("/entity/" + selectedEntity.name + "/instances/");
       }, this);
-      this.entityManagement.addEntityListListener(function(entities) {
+      
+      this.repository.loadEntities(function (entities) {
           me.entityList.setModel(new qx.data.Array(entities));
       });
     },
