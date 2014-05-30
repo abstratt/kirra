@@ -196,7 +196,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
         var widget = new qx.ui.mobile.form.SelectBox();
         var values = [];
         if (property.enumerationLiterals) {
-            if (!property.isRequired) {
+            if (!property.required) {
                 values.push('- None -');
             }
             for (var i in property.enumerationLiterals) {
