@@ -90,13 +90,85 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
     },
     
     buildWidgetFor : function (form, property) {
-	    var widget = new qx.ui.mobile.form.TextField();
-        widget.setRequired(property.required === true);
+	    var widget = this.createWidget(property);
+        if (widget.setRequired)
+            widget.setRequired(property.required === true);
 	    if (widget.setReadOnly) 
 	        widget.setReadOnly(property.editable === false);
 	    if (widget.setEnabled) 
 	        widget.setEnabled(property.editable !== false);
 	    form.add(widget, property.label);
-    }
+    },
+    
+    createWidget : function (property) {
+        var kind = property.typeRef && property.typeRef.kind
+        var factoryMethodName = 'create' + kind + 'Widget';
+        var factory = this[factoryMethodName];
+        if (typeof(factory) !== 'function') {
+            console.log("No factory found for: " + kind);
+            return this.createStringWidget();
+        }
+        return factory.call(this, property);
+    },
+    
+    createPrimitiveWidget : function (property) {
+        var factoryMethodName = 'create' + property.type + 'Widget';
+        var factory = this[factoryMethodName];
+        if (typeof(factory) !== 'function') {
+            console.log("No factory found for: " + property.type);
+            return this.createStringWidget();
+        }
+        return factory.call(this, property);
+    },
+    
+    createStringWidget : function(attribute) { return new qx.ui.mobile.form.TextField(); },
+    
+    createIntegerWidget : function(attribute) { return new qx.ui.mobile.form.TextField(); },
+    
+    createDoubleWidget : function(attribute) { return new qx.ui.mobile.form.TextField(); },
+    
+    createDateWidget : function(attribute) { return new qx.ui.mobile.form.TextField(); },    
+    
+    createMemoWidget : function(attribute) { return new qx.ui.mobile.form.TextArea(); },
+
+    createBooleanWidget : function(attribute) { return new qx.ui.mobile.form.ToggleButton(); },
+/*    
+    createDateWidget : function(attribute) { 
+        var days = [];
+        for (var day = 1;day <= 31;day++) {
+            days.push("" + day);
+        } 
+        var daySlot = new qx.data.Array(days);
+        var monthSlot = new qx.data.Array(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
+        var years = [];
+        for (var year = 1900 + new Date().getYear();year > 1900;year--) {
+            years.push("" + year);
+        }
+        var yearSlot = new qx.data.Array(years);
+        var picker = new qx.ui.mobile.dialog.Picker();
+		picker.addSlot(daySlot);
+		picker.addSlot(monthSlot);
+		picker.addSlot(yearSlot);
+		return picker;
+    },
+*/
+    createStateMachineWidget : function(attribute) {
+        return new qx.ui.mobile.form.TextField();
+    },
+
+    createEnumerationWidget : function(property) {
+        var widget = new qx.ui.mobile.form.SelectBox();
+        var values = [];
+        if (property.enumerationLiterals) {
+            if (!property.isRequired) {
+                values.push('- None -');
+            }
+            for (var i in property.enumerationLiterals) {
+                values.push(property.enumerationLiterals[i]);
+            }
+        }
+		widget.setModel(new qx.data.Array(values));
+		return widget;
+	}
   }
 });
