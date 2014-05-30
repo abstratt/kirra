@@ -77,6 +77,10 @@ qx.Class.define("kirra_qooxdoo.Application",
       this.instanceNavigator = new kirra_qooxdoo.InstanceNavigator(this.repository);
       this.instanceForm = new kirra_qooxdoo.InstanceForm(this.repository);
       
+      this.repository.loadApplication(function (application) {
+          document.title = application.applicationName;
+      });
+      
       var manager = new qx.ui.mobile.page.Manager(isTablet);
       manager.addMaster(this.mainPage);
       manager.addDetail(this.instanceNavigator);
