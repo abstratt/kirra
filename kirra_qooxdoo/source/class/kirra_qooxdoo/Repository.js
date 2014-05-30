@@ -71,6 +71,15 @@ qx.Class.define("kirra_qooxdoo.Repository",
         });
     },
     
+    loadInstance : function(entity, objectId, callback) {
+        if (!entity || !entity.instances)
+            throw Error("Missing entity");
+        if (!objectId)
+            throw Error("Missing object id");
+        this.load(entity.instances + "/" + objectId, callback);  
+    },
+    
+    
     /* Generic helper for performing Ajax invocations. */
     load : function(uri, successHandler, slotName) {
 	    var req = new qx.io.request.Xhr(uri);

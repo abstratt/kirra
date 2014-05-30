@@ -23,7 +23,8 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
     _entityName : null,
     _objectId : null,    
     _instance : null,  
-    _entity : null,      
+    _entity : null,
+    _widgets : {},      
     // overridden
     _initialize : function()
     {
@@ -38,15 +39,42 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
     },
     showFor : function (entityName, id) {
         var me = this;
-        this._entityName = entityName;
-        this._objectId = id;
-        this.repository.loadEntity(entityName, function (entity) {
+        me._widgets = {},
+        me._entityName = entityName;
+        me._objectId = id;
+        me._entity = null;
+        me._instance = null;
+        me.repository.loadEntity(entityName, function (entity) {
            me._entity = entity;
-           me.build();
+           me.buildForm();
+           me.repository.loadInstance(entity, me._objectId, function (instance) {
+               me._instance = instance;
+               me.populateForm();    
+           });
         });
         this.show();
     },
-    build : function () {
+    populateForm : function () {
+      if (!this._instance || !this._entity) {
+          return;
+      }
+      for (var propertyName in this._instance.values) {
+          var value = this._instance.values[propertyName];
+          if (this._widgets[propertyName]) {
+              this._widgets[propertyName].setValue(value);
+          }
+      }
+      var menuItems = [];
+      for (var actionName in this._instance.actions) {
+          this.buildMenuItemFor(menuItems, actionName, this._instance.actions[actionName]); 
+      }
+      if (menuItems.length > 0) {
+          this.actionMenuButton.setEnabled(true);
+          this.actionMenu.setItems(new qx.data.Array(menuItems));
+      }
+      
+    },
+    buildForm : function () {
     
       if (!this.getContent() || !this._entity) {
           return;
@@ -59,8 +87,11 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
       var toolbar = this.toolbar = new qx.ui.mobile.toolbar.ToolBar();
       this.add(toolbar);
 
+      
+      console.log(this._entity.actions);
       var actionMenuButton = this.actionMenuButton = new qx.ui.mobile.form.Button("Actions");
       var actionMenu = this.actionMenu = new qx.ui.mobile.dialog.Menu(new qx.data.Array([]), actionMenuButton);
+      this.actionMenuButton.setEnabled(false);
       actionMenu.setTitle("Actions");
       actionMenuButton.addListener("tap", function(e) {
           actionMenu.show();
@@ -72,12 +103,10 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
       toolbar.add(actionMenuButton);
 
       var form = this.form = new qx.ui.mobile.form.Form();
-      
       for (var i in this._entity.properties) {
           this.buildWidgetFor(form, this._entity.properties[i]); 
       }
       var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
-      
       this.getContent().add(instanceFormRenderer);
       
       var button = new qx.ui.mobile.form.Button("Save");
@@ -89,8 +118,15 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
       this.show(); 
     },
     
+    buildMenuItemFor : function (menuItems, actionName, actionData) {
+        if (actionData.enabled) {
+            menuItems.push(actionName);
+        }
+    },
+    
     buildWidgetFor : function (form, property) {
         var widget = this.createWidget(property);
+        this._widgets[property.name] = widget;
         if (widget.setRequired)
             widget.setRequired(property.required === true);
         if (widget.setReadOnly) 
