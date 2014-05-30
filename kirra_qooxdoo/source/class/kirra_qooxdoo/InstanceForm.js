@@ -34,7 +34,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
     },
     _back : function()
     {
-	     qx.core.Init.getApplication().getRouting().executeGet("/entity/" + this._entityName + "/instances/", {reverse:true});
+         qx.core.Init.getApplication().getRouting().executeGet("/entity/" + this._entityName + "/instances/", {reverse:true});
     },
     showFor : function (entityName, id) {
         var me = this;
@@ -90,14 +90,14 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
     },
     
     buildWidgetFor : function (form, property) {
-	    var widget = this.createWidget(property);
+        var widget = this.createWidget(property);
         if (widget.setRequired)
             widget.setRequired(property.required === true);
-	    if (widget.setReadOnly) 
-	        widget.setReadOnly(property.editable === false);
-	    if (widget.setEnabled) 
-	        widget.setEnabled(property.editable !== false);
-	    form.add(widget, property.label);
+        if (widget.setReadOnly) 
+            widget.setReadOnly(property.editable === false);
+        if (widget.setEnabled) 
+            widget.setEnabled(property.editable !== false);
+        form.add(widget, property.label);
     },
     
     createWidget : function (property) {
@@ -146,10 +146,10 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
         }
         var yearSlot = new qx.data.Array(years);
         var picker = new qx.ui.mobile.dialog.Picker();
-		picker.addSlot(daySlot);
-		picker.addSlot(monthSlot);
-		picker.addSlot(yearSlot);
-		return picker;
+        picker.addSlot(daySlot);
+        picker.addSlot(monthSlot);
+        picker.addSlot(yearSlot);
+        return picker;
     },
 */
     createStateMachineWidget : function(attribute) {
@@ -167,8 +167,8 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
                 values.push(property.enumerationLiterals[i]);
             }
         }
-		widget.setModel(new qx.data.Array(values));
-		return widget;
-	}
+        widget.setModel(new qx.data.Array(values));
+        return widget;
+    }
   }
 });
