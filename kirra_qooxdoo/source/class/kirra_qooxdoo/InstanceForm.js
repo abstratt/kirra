@@ -90,8 +90,13 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
     },
     
     buildWidgetFor : function (form, property) {
-	    var widget = new qx.ui.mobile.form.TextField()
-	    form.add(widget, property.name);
+	    var widget = new qx.ui.mobile.form.TextField();
+        widget.setRequired(property.required === true);
+	    if (widget.setReadOnly) 
+	        widget.setReadOnly(property.editable === false);
+	    if (widget.setEnabled) 
+	        widget.setEnabled(property.editable !== false);
+	    form.add(widget, property.label);
     }
   }
 });
