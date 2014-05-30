@@ -42,7 +42,12 @@ qx.Class.define("kirra_qooxdoo.EntityNavigator",
       }, this);
       
       this.repository.loadEntities(function (entities) {
-          me.entityList.setModel(new qx.data.Array(entities));
+          var topLevel = [];
+          for (var i in entities) {
+              if (entities[i].topLevel)
+                  topLevel.push(entities[i]);
+          }
+          me.entityList.setModel(new qx.data.Array(topLevel));
       });
     },
     _start : function() {
