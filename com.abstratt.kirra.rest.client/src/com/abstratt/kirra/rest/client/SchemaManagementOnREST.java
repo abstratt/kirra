@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.codehaus.jackson.node.ArrayNode;
@@ -169,6 +170,18 @@ public class SchemaManagementOnREST implements SchemaManagement {
 
 	@Override
 	public List<TupleType> getAllTupleTypes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String getApplicationName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String getBuild() {
 		// TODO Auto-generated method stub
 		return null;
 	}
