@@ -10,9 +10,19 @@ public class Namespace extends NamedElement<NameScope> implements NameScope {
 	private List<Entity> entities;
 	private List<Service> services;
 	private List<TupleType> tupleTypes;
+	
+	private String timestamp;
 
 	public List<Entity> getEntities() {
 		return entities;
+	}
+	
+	public String getTimestamp() {
+		return timestamp;
+	}
+	
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public void setEntities(List<Entity> entities) {

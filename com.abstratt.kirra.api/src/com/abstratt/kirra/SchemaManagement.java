@@ -66,4 +66,7 @@ public interface SchemaManagement {
 	List<Entity> getAllEntities();
 	List<Service> getAllServices();
 	List<TupleType> getAllTupleTypes();
+	
+	public String getApplicationName();
+	public String getBuild();
 }

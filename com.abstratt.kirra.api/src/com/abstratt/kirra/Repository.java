@@ -21,5 +21,4 @@ public interface Repository extends SchemaManagement, InstanceManagement {
 	public void dispose();
 	public void initialize();
 	public Properties getProperties();
-	public String getBuild();
 }

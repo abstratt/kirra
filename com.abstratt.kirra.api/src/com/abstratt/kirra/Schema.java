@@ -6,6 +6,8 @@ import java.util.List;
 public class Schema {
 	private static final long serialVersionUID = 1L;
 	private List<Namespace> namespaces;
+	private String applicationName;
+	private String build;
 
 	public List<Namespace> getNamespaces() {
 		return namespaces;
@@ -43,4 +45,18 @@ public class Schema {
 		return allTupleTypes;
 	}
 
+	public String getApplicationName() {
+		return applicationName;
+	}
+
+	public String getBuild() {
+		return build;
+	}
+    public void setApplicationName(String applicationName) {
+		this.applicationName = applicationName;
+	}
+    
+    public void setBuild(String build) {
+		this.build = build;
+	}
 }
