@@ -93,4 +93,8 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
 	public void setMultiple(boolean multiple) {
 		this.multiple = multiple;
 	}
+	
+	public String getType() {
+		return this.typeRef != null ? this.typeRef.getTypeName() : null;
+	}
 }

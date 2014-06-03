@@ -28,7 +28,15 @@ public class Operation extends TypedElement<BehaviorScope> {
 	private boolean instanceOperation;
 	private OperationKind kind;
 	private List<Parameter> parameters;
+	private boolean enabled = true;
 	
+	public boolean isEnabled() {
+		return enabled;
+	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public List<Parameter> getParameters() {
 		return parameters;
