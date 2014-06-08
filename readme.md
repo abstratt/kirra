@@ -3,9 +3,9 @@ Kirra API
 
 The Kirra API is a minimalistic API specification to access functionality of a business application in a business and technology agnostic way. 
 
-This original specification happens to use the Java language, but the intent is that it could be easily translated to other programming languages.
+This reference implementation happens to use the Java language, but the intent is that it could be easily translated to other programming languages (or computing domains, such as network-oriented APIs).
 
-The goal is that by detaching view technologies from model technologies, we can mix and match generic clients and domain-specific applications, no matter what technologies (within language silos) they are built on.
+The goal is that by detaching view technologies from model technologies, we can mix and match generic clients and domain-specific applications, no matter what particular technology (within and across language silos) for domain-driven development they are built on.
 
 The generic object model
 -----------------
