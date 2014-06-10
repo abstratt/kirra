@@ -11,18 +11,18 @@ import com.abstratt.kirra.TypeRef.TypeKind;
 
 public class Entity extends TopLevelElement implements BehaviorScope, DataScope {
 	private static final long serialVersionUID = 1L;
-	private Map<String, Operation> operations;
-	private Map<String, Property> properties;
-	private Map<String, Relationship> relationships;
+	protected Map<String, Operation> operations;
+	protected Map<String, Property> properties;
+	protected Map<String, Relationship> relationships;
 	/**
 	 * A map of disabled action names -> reasons.
 	 */
-	private Map<String, String> disabledActions = new HashMap<String, String>();
-	private boolean standalone;
-	private boolean topLevel;
-	private boolean concrete;
-	private List<TypeRef> superTypes = Collections.emptyList();
-	private boolean user;
+	protected Map<String, String> disabledActions;
+	protected boolean standalone;
+	protected boolean topLevel;
+	protected boolean concrete;
+	protected List<TypeRef> superTypes;
+	protected boolean user;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -63,11 +63,11 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
 	}
 
 	public List<Operation> getOperations() {
-		return new ArrayList<Operation>(operations.values());
+		return operations == null ? null : new ArrayList<Operation>(operations.values());
 	}
 	
 	public List<Property> getProperties() {
-		return new ArrayList<Property>(properties.values());
+		return properties == null ? null : new ArrayList<Property>(properties.values());
 	}
 	
 	public Property getProperty(String name) {
@@ -75,7 +75,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
 	}
 
 	public List<Relationship> getRelationships() {
-		return new ArrayList<Relationship>(relationships.values());
+		return relationships == null ? null : new ArrayList<Relationship>(relationships.values());
 	}
 	
 	public Relationship getRelationship(String name) {
@@ -184,9 +184,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     }
 
     public boolean isA(TypeRef anotherType) {
-        if (anotherType.getEntityNamespace().equals(this.namespace) && anotherType.getTypeName().equals(this.name))
-            return true;
-        return superTypes.contains(anotherType);
+        return super.isA(anotherType) || (superTypes != null && superTypes.contains(anotherType));
     }
 
     @Override

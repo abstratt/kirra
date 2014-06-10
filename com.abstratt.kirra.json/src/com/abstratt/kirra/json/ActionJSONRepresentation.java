@@ -2,14 +2,9 @@ package com.abstratt.kirra.json;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class ActionJSONRepresentation  {
-	@JsonProperty
-    public String name;
-	
+import com.abstratt.kirra.json.InstanceJSONRepresentation.Action;
+
+public class ActionJSONRepresentation extends Action {
 	@JsonProperty
 	public String uri;
-	
-	public Boolean enabled;
-	
-	public boolean instance;
 }

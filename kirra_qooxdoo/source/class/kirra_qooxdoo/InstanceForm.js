@@ -65,14 +65,12 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
           }
       }
       var menuItems = [];
-      for (var actionName in this._instance.actions) {
-          this.buildMenuItemFor(menuItems, actionName, this._instance.actions[actionName]); 
-      }
-      if (menuItems.length > 0) {
-          this.actionMenuButton.setEnabled(true);
-          this.actionMenu.setItems(new qx.data.Array(menuItems));
-      }
-      
+      for (var actionName in this._instance.actions)
+          if (this._instance.actions[actionName].enabled)
+              this.buildMenuItemFor(menuItems, actionName, this._instance.actions[actionName]);
+               
+      this.actionMenu.setItems(new qx.data.Array(menuItems));
+      this.actionMenuButton.setEnabled(menuItems.length > 0);
     },
     buildForm : function () {
     

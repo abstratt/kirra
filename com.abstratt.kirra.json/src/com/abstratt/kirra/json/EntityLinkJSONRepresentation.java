@@ -14,4 +14,5 @@ public class EntityLinkJSONRepresentation {
 	@JsonProperty
 	public String label;
 	public String extentUri;
+	public Boolean topLevel;
 }

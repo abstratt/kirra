@@ -8,22 +8,29 @@ public class TypeRef implements Serializable {
 	}
 
 	private static final long serialVersionUID = 1L;
-	public static String COLON_SEPARATOR = "::";
-	public static String SEPARATOR = ".";
-	private String entityNamespace;
-	private String typeName;
-	private TypeKind kind;
+	private static final String COLON_SEPARATOR = "::";
+	private static final String SEPARATOR = ".";
+	protected String entityNamespace;
+	protected String typeName;
+	protected TypeKind kind;
 
+	public static String sanitize(String externalTypeName) {
+		if (externalTypeName.indexOf(COLON_SEPARATOR) > 0)
+			return externalTypeName.replace(COLON_SEPARATOR, SEPARATOR);
+		return externalTypeName;
+	}
+	
 	public TypeRef(String typeName, TypeKind kind) {
-		if (typeName.indexOf(COLON_SEPARATOR) > 0)
-			typeName = typeName.replace(COLON_SEPARATOR, SEPARATOR);
+		typeName = sanitize(typeName);
 		if (typeName.indexOf(SEPARATOR) > 0) {
 			this.typeName = typeName
 					.substring(typeName.lastIndexOf(SEPARATOR) + 1);
 			this.entityNamespace = typeName.substring(0,
 					typeName.lastIndexOf(SEPARATOR));
-		} else
+		} else {
+			this.entityNamespace = "";
 			this.typeName = typeName;
+		}
 		this.kind = kind;
 	}
 
@@ -41,10 +48,25 @@ public class TypeRef implements Serializable {
 
 	}
 
+	public TypeRef() {
+	}
+	
 	public TypeRef(String namespace, String name, TypeKind kind) {
 		this.typeName = name;
 		this.entityNamespace = namespace;
 		this.kind = kind;
+	}
+	
+	public void setEntityNamespace(String entityNamespace) {
+		this.entityNamespace = entityNamespace;
+	}
+	
+	public void setKind(TypeKind kind) {
+		this.kind = kind;
+	}
+	
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 
 	public TypeKind getKind() {
@@ -62,6 +84,10 @@ public class TypeRef implements Serializable {
 	}
 
 	public String getEntityNamespace() {
+		return entityNamespace;
+	}
+	
+	public String getNamespace() {
 		return entityNamespace;
 	}
 
@@ -89,6 +115,8 @@ public class TypeRef implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		TypeRef other = (TypeRef) obj;
+		if (kind != other.kind)
+			return false;
 		if (typeName == null) {
 			if (other.typeName != null)
 				return false;

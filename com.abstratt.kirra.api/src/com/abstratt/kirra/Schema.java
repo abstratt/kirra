@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Schema {
-	private static final long serialVersionUID = 1L;
-	private List<Namespace> namespaces;
-	private String applicationName;
-	private String build;
+	protected List<Namespace> namespaces;
+	protected String applicationName;
+	protected String build;
 
 	public List<Namespace> getNamespaces() {
 		return namespaces;

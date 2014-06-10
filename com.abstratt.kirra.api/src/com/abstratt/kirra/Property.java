@@ -6,7 +6,7 @@ package com.abstratt.kirra;
  */
 public class Property extends DataElement {
 	
-	private boolean unique;
+	protected boolean unique;
 
 	private static final long serialVersionUID = 1;
 	

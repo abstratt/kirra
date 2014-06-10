@@ -1,14 +1,16 @@
 package com.abstratt.kirra.rest.client;
 
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
+import org.apache.commons.lang.StringUtils;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Namespace;
@@ -20,6 +22,9 @@ import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.Service;
 import com.abstratt.kirra.TupleType;
 import com.abstratt.kirra.TypeRef;
+import com.abstratt.kirra.TypeRef.TypeKind;
+import com.abstratt.kirra.rest.common.Paths;
+import com.google.gson.reflect.TypeToken;
 
 public class SchemaManagementOnREST implements SchemaManagement {
 
@@ -36,22 +41,12 @@ public class SchemaManagementOnREST implements SchemaManagement {
 
 	@Override
 	public List<Entity> getEntities(String namespace) {
-		URI namespaceUri = URI.create(baseUri.toASCIIString() + namespace + "/");
-		GetMethod getEntities = new GetMethod(namespaceUri.resolve("entities").toString());
-		ArrayNode entityListNodes = (ArrayNode) restClient.executeMethod(getEntities);
-        List<Entity> entities = new ArrayList<Entity>(entityListNodes.size());
-        for (int i = 0; i < entityListNodes.size(); i++)
-        	entities.add(buildEntity((ObjectNode) entityListNodes.get(i)));
-		return entities;
-	}
-
-	private Entity buildEntity(ObjectNode objectNode) {
-		Entity entity = new Entity();
-		entity.setNamespace(objectNode.get("namespace").asText());
-		entity.setName(objectNode.get("name").asText());
-		entity.setLabel(objectNode.get("label").asText());
-		entity.setDescription(objectNode.get("description").asText());
-		return entity;
+		List<Entity> allEntities = getAllEntities();
+		List<Entity> namespaceEntities = new ArrayList<Entity>();
+		for (Entity entity : allEntities)
+			if (entity.getNamespace().equals(namespace))
+				namespaceEntities.add(entity);
+		return namespaceEntities;
 	}
 
 	@Override
@@ -62,8 +57,7 @@ public class SchemaManagementOnREST implements SchemaManagement {
 
 	@Override
 	public List<TupleType> getTupleTypes(String namespace) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -74,115 +68,118 @@ public class SchemaManagementOnREST implements SchemaManagement {
 
 	@Override
 	public Entity getEntity(String namespace, String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return getEntity(new TypeRef(namespace, name, TypeKind.Entity));
 	}
 
 	@Override
 	public Entity getEntity(TypeRef typeRef) {
-		// TODO Auto-generated method stub
-		return null;
+		return get(Entity.class, Paths.ENTITIES, typeRef.getFullName());
 	}
 
 	@Override
 	public Service getService(String namespace, String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return getService(new TypeRef(namespace, name, TypeKind.Service));
 	}
 
 	@Override
 	public Service getService(TypeRef typeRef) {
-		// TODO Auto-generated method stub
-		return null;
+		return get(Service.class, Paths.SERVICES, typeRef.getFullName());
 	}
 
 	@Override
 	public TupleType getTupleType(String namespace, String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return getTupleType(new TypeRef(namespace, name, TypeKind.Tuple));
 	}
 
 	@Override
 	public TupleType getTupleType(TypeRef typeRef) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public List<Operation> getEntityOperations(String namespace, String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return getEntity(namespace, name).getOperations();
 	}
 
 	@Override
 	public List<Property> getEntityProperties(String namespace, String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return getEntity(namespace, name).getProperties();
 	}
 
 	@Override
 	public List<Relationship> getEntityRelationships(String namespace, String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return getEntity(namespace, name).getRelationships();
 	}
 
 	@Override
 	public List<String> getNamespaces() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Entity> allEntities = getAllEntities();
+		Set<String> namespaces = new LinkedHashSet<String>();
+		for (Entity entity : allEntities)
+			namespaces.add(entity.getEntityNamespace());
+		return new ArrayList<String>(namespaces);
 	}
 
 	@Override
 	public Namespace getNamespace(String namespaceName) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public List<Entity> getTopLevelEntities(String namespace) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Entity> topLevel = new ArrayList<Entity>();
+		for (Entity entity : getAllEntities())
+			topLevel.add(entity);
+		return topLevel;
+		
 	}
 
 	@Override
 	public Relationship getOpposite(Relationship relationship) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Collection<TypeRef> getEntityNames() {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<TypeRef> entityNames = new LinkedHashSet<TypeRef>();
+		for (Entity entity : getAllEntities())
+			entityNames.add(entity.getTypeRef());
+		return entityNames;
 	}
 
 	@Override
 	public List<Entity> getAllEntities() {
-		// TODO Auto-generated method stub
-		return null;
+		return get(new TypeToken<List<Entity>>() {}.getType(), Paths.ENTITIES);
 	}
 
 	@Override
 	public List<Service> getAllServices() {
-		// TODO Auto-generated method stub
-		return null;
+		return get(new TypeToken<List<Service>>() {}.getType(), Paths.SERVICES);
 	}
 
 	@Override
 	public List<TupleType> getAllTupleTypes() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 	
+
 	@Override
 	public String getApplicationName() {
-		// TODO Auto-generated method stub
-		return null;
+		return getIndex().get("applicationName").toString();
 	}
-	
+
 	@Override
 	public String getBuild() {
-		// TODO Auto-generated method stub
-		return null;
+		return getIndex().get("build").toString();
 	}
+	
+	private Map<String, Object> getIndex() {
+		return (Map<String, Object>) get(new TypeToken<Map<String, Object>>() {}.getType());
+	}
+	
+	private <T> T get(Type type, String... segments) {
+		GetMethod get = new GetMethod(baseUri.resolve(StringUtils.join(segments, "/")).toString());
+		return restClient.executeMethod(get, type);
+	}
+
 }

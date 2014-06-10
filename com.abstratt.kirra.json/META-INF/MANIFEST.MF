@@ -7,10 +7,10 @@ Bundle-Vendor: ABSTRATT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.abstratt.kirra.json
 Import-Package: 
- org.codehaus.jackson.annotate,
- org.codehaus.jackson,
- org.codehaus.jackson.node,
- org.codehaus.jackson.map,
+ org.codehaus.jackson.annotate;version="1.9.2",
+ org.codehaus.jackson;version="1.9.2",
+ org.codehaus.jackson.node;version="1.9.2",
+ org.codehaus.jackson.map;version="1.9.2",
  com.abstratt.kirra
 
 

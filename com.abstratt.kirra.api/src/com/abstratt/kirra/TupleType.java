@@ -9,7 +9,7 @@ import com.abstratt.kirra.TypeRef.TypeKind;
 
 public class TupleType extends TopLevelElement implements DataScope {
 	private static final long serialVersionUID = 1L;
-	private Map<String, Property> properties;
+	protected Map<String, Property> properties;
 
 	@Override
 	public boolean equals(Object obj) {

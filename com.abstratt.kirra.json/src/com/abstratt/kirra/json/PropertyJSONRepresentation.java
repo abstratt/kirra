@@ -1,10 +1,6 @@
 package com.abstratt.kirra.json;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.abstratt.kirra.Property;
 
-public class PropertyJSONRepresentation {
-	@JsonProperty
-    public String name;
-	@JsonProperty
-	public String type;
+public class PropertyJSONRepresentation extends Property {
 }

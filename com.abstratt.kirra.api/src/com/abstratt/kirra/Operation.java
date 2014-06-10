@@ -25,10 +25,10 @@ public class Operation extends TypedElement<BehaviorScope> {
 	}
 	
 	private static final long serialVersionUID = 1L;
-	private boolean instanceOperation;
-	private OperationKind kind;
-	private List<Parameter> parameters;
-	private boolean enabled = true;
+	protected boolean instanceOperation;
+	protected OperationKind kind;
+	protected List<Parameter> parameters;
+	protected boolean enabled = true;
 	
 	public boolean isEnabled() {
 		return enabled;

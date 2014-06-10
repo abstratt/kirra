@@ -1,9 +1,9 @@
 package com.abstratt.kirra;
 
 public class InstanceRef {
-	private String entityName;
-	private String entityNamespace;
-	private String objectId;
+	protected String entityName;
+	protected String entityNamespace;
+	protected String objectId;
 
 	public String getEntityName() {
 		return entityName;

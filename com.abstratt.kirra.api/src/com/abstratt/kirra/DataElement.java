@@ -3,8 +3,8 @@ package com.abstratt.kirra;
 public abstract class DataElement extends TypedElement<DataScope> {
 	private static final long serialVersionUID = 1L;
 	protected boolean derived;
-	private boolean initializable;
-	private boolean editable;
+	protected boolean initializable;
+	protected boolean editable;
 	public boolean isDerived() {
 		return derived;
 	}
@@ -14,7 +14,7 @@ public abstract class DataElement extends TypedElement<DataScope> {
 	
 	@Override
 	public String toString() {
-		return this.owner + "->" + super.toString();
+		return this.getOwner() + "->" + super.toString();
 	}
 
 	/**

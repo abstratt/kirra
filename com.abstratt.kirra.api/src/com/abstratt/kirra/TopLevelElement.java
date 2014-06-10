@@ -15,4 +15,10 @@ public abstract class TopLevelElement extends NamedElement<Namespace> implements
 	public final TypeRef getTypeRef() {
 		return new TypeRef(this.namespace, this.name, getTypeKind());
 	}
+	
+	public boolean isA(TypeRef anotherType) {
+        if (anotherType.getNamespace().equals(this.namespace) && anotherType.getTypeName().equals(this.name))
+            return this.getTypeKind() == anotherType.getKind();
+        return false;
+    }
 }

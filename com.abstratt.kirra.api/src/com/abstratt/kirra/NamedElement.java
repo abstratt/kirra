@@ -20,6 +20,8 @@ public abstract class NamedElement<O extends NameScope> implements Serializable,
 	public String getLabel() {
 		if (label != null)
 			return label;
+		if (name == null)
+			return name;
 		// ignore non-alphabetic prefixes
 		String base = name;
 		while (!Character.isLetter(base.charAt(0)))

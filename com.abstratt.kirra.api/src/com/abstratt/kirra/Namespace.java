@@ -1,5 +1,6 @@
 package com.abstratt.kirra;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.abstratt.kirra.TypeRef.TypeKind;
@@ -7,11 +8,11 @@ import com.abstratt.kirra.TypeRef.TypeKind;
 
 public class Namespace extends NamedElement<NameScope> implements NameScope {
 	private static final long serialVersionUID = 1L;
-	private List<Entity> entities;
-	private List<Service> services;
-	private List<TupleType> tupleTypes;
+	protected List<Entity> entities = Collections.emptyList();
+	protected List<Service> services = Collections.emptyList();
+	protected List<TupleType> tupleTypes = Collections.emptyList();
 	
-	private String timestamp;
+	protected String timestamp;
 
 	public List<Entity> getEntities() {
 		return entities;

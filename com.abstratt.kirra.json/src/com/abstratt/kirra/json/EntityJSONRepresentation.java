@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import com.abstratt.kirra.Property;
+
 public class EntityJSONRepresentation {
+	public boolean topLevel;
 	@JsonProperty
 	public String namespace;
 	@JsonProperty
@@ -26,6 +29,6 @@ public class EntityJSONRepresentation {
 	@JsonProperty
 	public List<QueryJSONRepresentation> finders = new ArrayList<QueryJSONRepresentation>();
 	@JsonProperty
-	public List<PropertyJSONRepresentation> properties = new ArrayList<PropertyJSONRepresentation>();
+	public List<Property> properties = new ArrayList<Property>();
 	public List<RelationshipJSONRepresentation> relationships = new ArrayList<RelationshipJSONRepresentation>();
 }

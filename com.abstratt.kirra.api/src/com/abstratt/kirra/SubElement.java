@@ -2,7 +2,7 @@ package com.abstratt.kirra;
 
 public class SubElement<O extends NameScope> extends NamedElement<O> {
 	private static final long serialVersionUID = 1;
-	protected TypeRef owner; 
+	private TypeRef owner; 
 
 	public TypeRef getOwner() {
 		return owner;

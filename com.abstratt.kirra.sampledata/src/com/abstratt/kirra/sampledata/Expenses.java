@@ -3,7 +3,9 @@ package com.abstratt.kirra.sampledata;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
@@ -30,14 +32,14 @@ public class Expenses implements SampleBuilder {
 	}
 
 	@Override
-	public List<Instance> getInstances(String namespace, String name) {
+	public Map<TypeRef, List<Instance>> getInstances() {
 		List<Instance> expenses = new ArrayList<Instance>();
 		try {
 			buildExpenses(expenses);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
-		return expenses;
+		return Collections.singletonMap(buildExpenseEntity().getTypeRef(), expenses);
 	}
 
 	private void buildExpenses(List<Instance> expenses) throws ParseException {
@@ -60,14 +62,15 @@ public class Expenses implements SampleBuilder {
 
 	private Entity buildExpenseEntity() {
 		Entity expenseEntity = new Entity();
-		expenseEntity.setName("expense");
+		expenseEntity.setNamespace("expenses");
+		expenseEntity.setName("Expense");
 		expenseEntity.setLabel("Expense");
 		List<Property> properties = new ArrayList<Property>();
-		expenseEntity.setProperties(properties);
 		properties.add(buildPrimitiveProperty("description", "Description", "String"));
 		properties.add(buildPrimitiveProperty("expenseDate", "expenseDate", "Date"));
 		properties.add(buildPrimitiveProperty("submissionDate", "submissionDate", "Date"));
 		properties.add(buildPrimitiveProperty("amount", "amount", "Double"));
+		//expenseEntity.setProperties(properties);
 		return expenseEntity;
 	}
 
@@ -83,7 +86,8 @@ public class Expenses implements SampleBuilder {
 	public static void main(String[] args) {
 		Expenses expensesApp = new Expenses();
 		Schema schema = expensesApp.getSchema();
-		List<Instance> expenses = expensesApp.getInstances("expenses" , "Expense");
+		Map<TypeRef, List<Instance>> instances = expensesApp.getInstances();
 		System.out.println(schema);
+		System.out.println(instances);
 	}
 }

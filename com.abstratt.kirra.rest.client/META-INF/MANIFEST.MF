@@ -5,17 +5,19 @@ Bundle-SymbolicName: com.abstratt.kirra.rest.client
 Bundle-Version: 1.120.1.qualifier
 Bundle-Vendor: ABSTRATT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: com.abstratt.kirra.rest.client
-Import-Package: com.abstratt.kirra, com.abstratt.kirra.json,
+Import-Package: 
+ com.abstratt.kirra,
+ com.abstratt.kirra.rest.common,
+ com.google.gson,
+ com.google.gson.reflect;version="2.2.4",
+ javax.servlet,
+ org.apache.commons.codec,
  org.apache.commons.httpclient,
  org.apache.commons.httpclient.methods,
  org.apache.commons.logging,
- org.apache.commons.codec,
- org.codehaus.jackson.io,
- org.codehaus.jackson.map,
- org.codehaus.jackson.node,
- org.codehaus.jackson.annotate,
- org.codehaus.jackson
+ org.apache.commons.lang
+Export-Package: 
+ com.abstratt.kirra.rest.client
 
 
 

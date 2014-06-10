@@ -1,0 +1,35 @@
+[
+  {
+    "standalone": true,
+    "topLevel": true,
+    "concrete": true,
+    "user": false,
+    "namespace": "expenses",
+    "name": "Category",
+    "label": "Category",
+    "description": "The category for an expense.",
+    "symbol": "Category"
+  },
+  {
+    "standalone": true,
+    "topLevel": true,
+    "concrete": true,
+    "user": false,
+    "namespace": "expenses",
+    "name": "Expense",
+    "label": "Expense",
+    "description": "The expense as reported by an employee.",
+    "symbol": "Expense"
+  },
+  {
+   "standalone": true,
+    "topLevel": true,
+    "concrete": true,
+    "user": true,
+    "namespace": "expenses",
+    "name": "Employee",
+    "label": "Employee",
+    "description": "An employee reports expenses.",
+    "symbol": "Employee"
+  }
+]

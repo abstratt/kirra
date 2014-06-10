@@ -8,12 +8,12 @@ import com.abstratt.kirra.KirraException.Kind;
 public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
 	private static final long serialVersionUID = 1L;
 
-	private List<String> enumerationLiterals;
+	protected List<String> enumerationLiterals;
 	protected TypeRef typeRef;
 
-	private boolean required;
-	private boolean defaultValue;
-	private boolean multiple;
+	protected boolean required;
+	protected boolean defaultValue;
+	protected boolean multiple;
 
 	protected TypedElement() {
 

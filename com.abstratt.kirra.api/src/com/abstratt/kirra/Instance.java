@@ -20,14 +20,14 @@ import com.abstratt.kirra.TypeRef.TypeKind;
  */
 public class Instance extends Tuple {
 	private static final long serialVersionUID = 1L;
-	private Map<String, List<Instance>> links = new HashMap<String, List<Instance>>();
+	protected Map<String, List<Instance>> links = new HashMap<String, List<Instance>>();
 	/**
 	 * A map of disabled action names -> reasons.
 	 */
-	private Map<String, String> disabledActions = new HashMap<String, String>();
-	private String objectId;
-	private boolean full;
-	private String shorthand;
+	protected Map<String, String> disabledActions = new HashMap<String, String>();
+	protected String objectId;
+	protected boolean full;
+	protected String shorthand;
 
 	public Instance() {}
 	

@@ -14,10 +14,10 @@ import com.abstratt.kirra.TypeRef.TypeKind;
  */
 public class Tuple implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Map<String, Object> values = new LinkedHashMap<String, Object>();
+	protected Map<String, Object> values = new LinkedHashMap<String, Object>();
 	protected String scopeName;
 	protected String scopeNamespace;
-	private String mnemonicProperty;
+	protected String mnemonicProperty;
 
 	public Tuple() {}
 	

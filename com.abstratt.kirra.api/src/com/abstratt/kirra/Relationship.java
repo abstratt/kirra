@@ -14,12 +14,12 @@ public class Relationship extends DataElement {
 		/** This relationship refers to one or more related objects which are not children or parents of the instance on this side.*/
 		LINK;
 	}
-	private Style style;
-	private boolean visible;
-	private boolean primary;
-	private String opposite;
-	private boolean navigable;
-	private String associationName;
+	protected Style style;
+	protected boolean visible;
+	protected boolean primary;
+	protected String opposite;
+	protected boolean navigable;
+	protected String associationName;
 	
 	/**
 	 * Is this the primary end of the association?

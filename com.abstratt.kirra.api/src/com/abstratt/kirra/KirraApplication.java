@@ -1,7 +1,7 @@
 package com.abstratt.kirra;
 
 public class KirraApplication {
-    private String name;
+	protected String name;
 
 	public KirraApplication(String name) {
 		this.name = name;

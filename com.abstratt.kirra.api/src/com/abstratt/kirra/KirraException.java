@@ -11,6 +11,10 @@ public class KirraException extends RuntimeException {
 
 	private String context;
 	
+	public KirraException(String message, Kind kind) {
+		this(message, null, kind, null);
+	}
+	
 	public KirraException(String message, Throwable cause, Kind kind) {
 		this(message, cause, kind, null);
 	}
