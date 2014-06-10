@@ -5,7 +5,7 @@
   <groupId>com.abstratt</groupId>
   <version>1.120.1-SNAPSHOT</version>
   <artifactId>com.abstratt.kirra.rest.tests</artifactId>
-  <packaging>eclipse-plugin</packaging>
+  <packaging>eclipse-test-plugin</packaging>
 
 	<parent>
         	<groupId>com.abstratt.kirra</groupId>
@@ -15,18 +15,33 @@
 	
 
    <build>
-   <pluginManagement>
-    <plugins>
-	<plugin>
-		<groupId>org.eclipse.tycho</groupId>
-		<artifactId>tycho-compiler-plugin</artifactId>
-		<version>${tycho-version}</version>
-		<configuration>
-			<source>1.8</source>
-			<target>1.8</target>
-		</configuration>
-	</plugin>
-    </plugins>
-  </pluginManagement>
-  </build>
+	<pluginManagement>
+	    <plugins>
+                <plugin>
+			<groupId>org.eclipse.tycho</groupId>
+			<artifactId>tycho-compiler-plugin</artifactId>
+			<version>${tycho-version}</version>
+			<configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+			</configuration>
+		</plugin>
+	    </plugins>
+	</pluginManagement>
+	<plugins>
+	   <plugin>
+	      <groupId>org.eclipse.tycho</groupId>
+		 <artifactId>tycho-surefire-plugin</artifactId>
+		 <version>${tycho-version}</version>
+		 <configuration>
+		    <testSuite>com.abstratt.kirra.rest.tests</testSuite>
+		    <testClass>com.abstratt.kirra.rest.tests.AllTests</testClass> 
+            <systemProperties>
+                <eclipse.consoleLog>true</eclipse.consoleLog>
+            </systemProperties>
+		  </configuration>
+	      </plugin>
+	</plugins>
+</build>
+
 </project>

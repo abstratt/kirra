@@ -5,16 +5,16 @@
 	<artifactId>parent</artifactId>
 	<version>1.120.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-  <properties>
-    <tycho-version>0.21.0-SNAPSHOT</tycho-version>
-  </properties>
+	<properties>
+		<tycho-version>0.21.0-SNAPSHOT</tycho-version>
+	</properties>
 
-<pluginRepositories>
-  <pluginRepository>
-    <id>tycho-snapshots</id>
-    <url>https://oss.sonatype.org/content/groups/public/</url>
-  </pluginRepository>
-</pluginRepositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>tycho-snapshots</id>
+			<url>http://oss.sonatype.org/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<repositories>
 		<repository>
@@ -27,45 +27,25 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-	<!-- 3rd-party POM-first dependencies for modules -->
-	<dependencies>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
-			<version>1.9.2</version>
-		</dependency>
-	</dependencies>
-
-	<modules>
-		<module>kirra-api-dependencies</module>
-		<module>com.abstratt.kirra.api</module>
-		<module>com.abstratt.kirra.rest.common</module>
-		<module>com.abstratt.kirra.rest.client</module>
-		<module>com.abstratt.kirra.rest.resources</module>
-		<module>com.abstratt.kirra.rest.tests</module>
-		<module>features/com.abstratt.kirra.feature</module>
-		<module>repositories/com.abstratt.kirra.repository</module>
-	</modules>
 	<build>
-       <pluginManagement>
-       <plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-compiler-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-       </plugins>
-       </pluginManagement>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 
 		<plugins>
 			<plugin>
@@ -82,7 +62,7 @@
 							<classifier>kirra-api-dependencies</classifier>
 						</artifact>
 					</target>
-                    <environments>
+					<environments>
 						<environment>
 							<os>linux</os>
 							<ws>gtk</ws>
@@ -93,7 +73,7 @@
 							<ws>gtk</ws>
 							<arch>x86_64</arch>
 						</environment>
-                    </environments>
+					</environments>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -103,7 +83,19 @@
 				<extensions>true</extensions>
 			</plugin>
 		</plugins>
-  </build>
+	</build>
+
+
+	<modules>
+		<module>kirra-api-dependencies</module>
+		<module>com.abstratt.kirra.api</module>
+		<module>com.abstratt.kirra.rest.common</module>
+		<module>com.abstratt.kirra.rest.client</module>
+		<module>com.abstratt.kirra.rest.resources</module>
+		<module>com.abstratt.kirra.rest.tests</module>
+		<module>features/com.abstratt.kirra.feature</module>
+		<module>repositories/com.abstratt.kirra.repository</module>
+	</modules>
 
 </project>
 

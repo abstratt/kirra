@@ -11,8 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import junit.framework.Assert;
+
 import org.apache.commons.lang.StringUtils;
-import org.junit.Assert;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.KirraException;

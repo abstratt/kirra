@@ -1,10 +1,5 @@
 package com.abstratt.kirra.rest.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
@@ -15,12 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import junit.framework.TestCase;
+
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import org.restlet.Application;
 import org.restlet.Context;
 import org.restlet.ext.jaxrs.JaxRsApplication;
@@ -34,7 +28,7 @@ import com.abstratt.kirra.rest.client.SchemaManagementOnREST;
 import com.abstratt.kirra.rest.resources.KirraContext;
 import com.abstratt.kirra.rest.resources.KirraJaxRsApplication;
 
-public class SchemaTests {
+public class SchemaTests extends TestCase {
 	
 	private static final int TEST_SERVER_PORT = 38080;
 	private static final String TEST_SERVER_PATH = "/kirra/appName/";
@@ -46,7 +40,7 @@ public class SchemaTests {
 	private SchemaManagement clientSchemaManagement;
 
 
-	@Before
+	@Override
 	public void setUp() throws Exception {
 		this.serverSchemaManagement = new SchemaManagementOnFixtures();
 		Server server = new Server(TEST_SERVER_PORT);
@@ -81,13 +75,12 @@ public class SchemaTests {
 		this.clientSchemaManagement = new SchemaManagementOnREST(TEST_SERVER_URI);
 	}
 	
-	@After
+	@Override
 	public void tearDown() throws Exception {
 		server.stop();
 		server.join();
 	}
 	
-	@Test
 	public void testNamespaces() {
 		SchemaManagement schemaManagement = clientSchemaManagement;
 		List<String> namespaces = schemaManagement.getNamespaces();
@@ -95,7 +88,6 @@ public class SchemaTests {
 		assertTrue(namespaces.contains("expenses"));
 	}
 	
-	@Test
 	public void testEntities() {
 		SchemaManagement schemaManagement = clientSchemaManagement;
 		List<Entity> allEntities = schemaManagement.getAllEntities();
@@ -106,8 +98,7 @@ public class SchemaTests {
 	}
 	
 	
-	@Test
-	public void testEntiyOperations() {
+	public void testEntityOperations() {
 		SchemaManagement schemaManagement = clientSchemaManagement;
 		List<Operation> operations = schemaManagement.getEntityOperations("expenses", "Expense");
 		
@@ -116,7 +107,6 @@ public class SchemaTests {
 		assertTrue(findByName(operations, "review").isInstanceOperation());
 	}
 	
-	@Test
 	public void testEntity() {
 		SchemaManagement schemaManagement = clientSchemaManagement;
 		Entity expense = schemaManagement.getEntity("expenses", "Expense");
