@@ -2,7 +2,7 @@ package com.abstratt.kirra;
 
 public class KirraException extends RuntimeException {
 	public static enum Kind {
-		ENTITY, SCHEMA, VALIDATION, OBJECT_NOT_FOUND, EXTERNAL
+		ENTITY, SCHEMA, VALIDATION, ELEMENT_NOT_FOUND, OBJECT_NOT_FOUND, EXTERNAL
 	}
 
 	private static final long serialVersionUID = 1L;

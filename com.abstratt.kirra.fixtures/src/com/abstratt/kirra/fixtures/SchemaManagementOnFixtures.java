@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -134,7 +136,10 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 
 	@Override
 	public List<Entity> getAllEntities() {
-		return loadFixture(new TypeToken<List<Entity>>() {}.getType(), Paths.ENTITIES);
+		List<Entity> fixture = loadFixture(new TypeToken<List<Entity>>() {}.getType(), Paths.ENTITIES);
+		if (fixture == null)
+			return Arrays.<Entity>asList();
+		return fixture;
 	}
 
 	private <T> T loadFixture(Type type, String... segments) {
@@ -142,7 +147,7 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 		String resourcePath = "/fixtures/" + relativePath + ".json";
 		try (InputStream contents = getClass().getResourceAsStream(resourcePath)) {
 			if (contents == null)
-				throw new KirraException("Not found: " + relativePath, Kind.SCHEMA);
+				return null;
 			return new Gson().fromJson(new InputStreamReader(contents), type);
 		} catch (IOException e) {
 			throw new KirraException("Unexpected", e, Kind.SCHEMA);
@@ -151,7 +156,10 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 
 	@Override
 	public List<Service> getAllServices() {
-		return loadFixture(new TypeToken<List<Service>>() {}.getType(), Paths.SERVICES); 
+		List<Service> fixture = loadFixture(new TypeToken<List<Service>>() {}.getType(), Paths.SERVICES);
+		if (fixture == null)
+			return Arrays.<Service>asList();
+		return fixture; 
 	}
 
 	@Override
@@ -161,16 +169,17 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 
 	@Override
 	public String getApplicationName() {
-		return getIndex().get("applicationName").toString();
+		return (String) getIndex().get("applicationName");
 	}
 
 	@Override
 	public String getBuild() {
-		return getIndex().get("build").toString();
+		return (String) getIndex().get("build");
 	}
 
 	private Map<String, Object> getIndex() {
-		return (Map<String, Object>) loadFixture(new TypeToken<Map<String, Object>>() {}.getType(), "index.json");
+		Map<String, Object> index = (Map<String, Object>) loadFixture(new TypeToken<Map<String, Object>>() {}.getType(), "index.json");
+		return index == null ? Collections.emptyMap() : index;
 	}
 }
 

@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.NamedElement;
+import com.abstratt.kirra.Service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -54,6 +55,7 @@ public class ResourceHelper {
 		gsonBuilder.setPrettyPrinting();
 		gsonBuilder.excludeFieldsWithModifiers(Modifier.PRIVATE.ordinal());
 		gsonBuilder.registerTypeAdapter(Entity.class, new EntitySerializer(baseURI));
+		gsonBuilder.registerTypeAdapter(Service.class, new TopLevelElementSerializer<Service>(baseURI));
 		gsonBuilder.registerTypeAdapter(Instance.class, new InstanceSerializer(baseURI));
 		return gsonBuilder.create();
 	}

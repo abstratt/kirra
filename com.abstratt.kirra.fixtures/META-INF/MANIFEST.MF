@@ -6,9 +6,27 @@ Bundle-Version: 1.120.1.qualifier
 Bundle-Vendor: ABSTRATT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.abstratt.kirra.fixtures
+Require-Bundle: 
+ org.restlet;bundle-version="2.2.0.v20140327-1540",
+ org.restlet.ext.servlet;bundle-version="2.2.0.v20140327-1540",
+ org.restlet.ext.jaxrs
 Import-Package: com.abstratt.kirra,
+ com.abstratt.kirra.rest.resources,
  com.abstratt.kirra.rest.common,
  com.google.gson;version="2.2.4",
  com.google.gson.reflect;version="2.2.4",
- org.apache.commons.lang
+ org.apache.commons.lang,
+ javax.servlet,
+ javax.servlet.http;version="2.6.0",
+ javax.ws.rs.core,
+ org.eclipse.jetty.server;version="8.1",
+ org.eclipse.jetty.server.handler;version="8.1",
+ org.eclipse.jetty.servlet;version="8.1",
+ org.eclipse.jetty.http;version="8.1",
+ org.eclipse.jetty.io;version="8.1",
+ org.eclipse.jetty.security;version="8.1",
+ org.eclipse.jetty.continuation;version="8.1",
+ org.eclipse.jetty.util;version="8.1",
+ org.eclipse.jetty.util.component;version="8.1"
+
 

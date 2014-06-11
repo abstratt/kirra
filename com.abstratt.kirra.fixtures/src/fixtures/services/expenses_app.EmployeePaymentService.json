@@ -1,0 +1,40 @@
+
+[
+  {
+    "operations": {
+      "expenseApproved": {
+        "instanceOperation": false,
+        "kind": "Event",
+        "parameters": [
+          {
+            "typeRef": {
+              "entityNamespace": "payment",
+              "typeName": "ExpenseApproved",
+              "kind": "Tuple"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "name": "approval",
+            "label": "Approval",
+            "description": "",
+            "symbol": "approval"
+          }
+        ],
+        "enabled": true,
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "name": "expenseApproved",
+        "label": "Expense Approved",
+        "description": "",
+        "symbol": "expenseApproved"
+      }
+    },
+    "namespace": "expenses_app",
+    "name": "EmployeePaymentService",
+    "label": "Employee Payment Service",
+    "description": "",
+    "symbol": "EmployeePaymentService"
+  }
+]

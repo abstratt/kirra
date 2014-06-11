@@ -26,6 +26,8 @@ public interface Paths {
 	String ROOT_PATH = "{application}/";
 	String ENTITIES_PATH = ROOT_PATH + ENTITIES + "/";
 	String ENTITY_PATH = ENTITIES_PATH + "{entityName}/";
+	String SERVICES_PATH = ROOT_PATH + SERVICES + "/";
+	String SERVICE_PATH = SERVICES_PATH + "{serviceName}/";
 	String INSTANCES_PATH = ENTITY_PATH + INSTANCES + "/";
 	String INSTANCE_PATH = ENTITY_PATH + INSTANCES + "/{objectId}";
 }

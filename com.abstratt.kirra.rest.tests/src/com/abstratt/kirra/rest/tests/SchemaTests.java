@@ -1,78 +1,31 @@
 package com.abstratt.kirra.rest.tests;
 
-import java.io.IOException;
-import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import junit.framework.TestCase;
 
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.restlet.Application;
-import org.restlet.Context;
-import org.restlet.ext.jaxrs.JaxRsApplication;
-import org.restlet.ext.servlet.ServerServlet;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.NamedElement;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.SchemaManagement;
-import com.abstratt.kirra.fixtures.SchemaManagementOnFixtures;
+import com.abstratt.kirra.fixtures.FixtureServer;
 import com.abstratt.kirra.rest.client.SchemaManagementOnREST;
-import com.abstratt.kirra.rest.resources.KirraContext;
-import com.abstratt.kirra.rest.resources.KirraJaxRsApplication;
 
 public class SchemaTests extends TestCase {
 	
-	private static final int TEST_SERVER_PORT = 38080;
-	private static final String TEST_SERVER_PATH = "/kirra/appName/";
-	private static final URI TEST_SERVER_URI = URI.create("http://localhost:" + TEST_SERVER_PORT + TEST_SERVER_PATH);
-
-	
 	private Server server;
-	private SchemaManagement serverSchemaManagement;
 	private SchemaManagement clientSchemaManagement;
 	
 	@Override
 	public void setUp() throws Exception {
-		this.serverSchemaManagement = new SchemaManagementOnFixtures();
-		Server server = new Server(TEST_SERVER_PORT);
-		ServletContextHandler context = new ServletContextHandler();
-        context.setContextPath("/kirra");
-        server.setHandler(context);
-        context.addServlet(new ServletHolder(new ServerServlet() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-        	protected Application createApplication(Context parentContext) {
-        		JaxRsApplication jaxRsApplication = new JaxRsApplication(parentContext);
-        		KirraJaxRsApplication jaxApplication = new KirraJaxRsApplication();
-        		jaxRsApplication.add(jaxApplication);
-        		return jaxRsApplication;
-        	}
-			
-			@Override
-			public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				KirraContext.setSchemaManagement(serverSchemaManagement);
-				KirraContext.setBaseURI(TEST_SERVER_URI);
-				try {
-					super.service(request, response);
-				} finally {
-					KirraContext.setSchemaManagement(null);
-					KirraContext.setBaseURI(null);
-				}
-			}
-        }),"/*");
+		Server server = new FixtureServer();
         server.start();
 		this.server = server;
-		this.clientSchemaManagement = new SchemaManagementOnREST(TEST_SERVER_URI);
+		this.clientSchemaManagement = new SchemaManagementOnREST(FixtureServer.TEST_SERVER_URI);
 	}
 	
 	@Override

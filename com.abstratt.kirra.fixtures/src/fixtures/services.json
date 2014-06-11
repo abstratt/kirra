@@ -1,6 +1,8 @@
 
 [ {
-  "namespace" : "expenses_app",
-  "name" : "EmployeePaymentService",
-  "uri" : "http://develop.cloudfier.com/services/api/demo-cloudfier-examples-expenses/services/expenses_app.EmployeePaymentService"
+    "namespace": "expenses_app",
+    "name": "EmployeePaymentService",
+    "label": "Employee Payment Service",
+    "description": "",
+    "symbol": "EmployeePaymentService"
 } ]

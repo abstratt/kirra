@@ -11,7 +11,7 @@ import com.abstratt.kirra.TypeRef.TypeKind;
 public class Service extends TopLevelElement implements BehaviorScope {
 	private static final long serialVersionUID = 1L;
 
-	protected Map<String, Operation> operations = Collections.emptyMap();
+	protected Map<String, Operation> operations;
 
 	public List<Operation> getOperations() {
 		return new ArrayList<Operation>(operations.values());

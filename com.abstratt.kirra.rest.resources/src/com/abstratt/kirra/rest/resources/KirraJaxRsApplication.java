@@ -11,6 +11,8 @@ public class KirraJaxRsApplication extends javax.ws.rs.core.Application {
 				IndexResource.class,
 				EntityResource.class,
 				EntityListResource.class,
+				ServiceResource.class,
+				ServiceListResource.class,
 				InstanceResource.class,
 				InstanceListResource.class
 			};
