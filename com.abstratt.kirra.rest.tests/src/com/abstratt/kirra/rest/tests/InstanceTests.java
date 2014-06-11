@@ -1,12 +1,8 @@
 package com.abstratt.kirra.rest.tests;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 
 public class InstanceTests extends AbstractRestTests {
@@ -30,7 +26,7 @@ public class InstanceTests extends AbstractRestTests {
 	
 	public void testGetInstances() {
 		int count = 4;
-		IntStream.range(0, count).forEach((i) -> instanceManagement.createInstance(new Instance("expenses", "Expense")));
+		IntStream.range(0, count).forEach(i -> instanceManagement.createInstance(new Instance("expenses", "Expense")));
 		List<Instance> retrieved = instanceManagement.getInstances("expenses", "Expense", false);
 		assertEquals(count, retrieved.size());
 	}

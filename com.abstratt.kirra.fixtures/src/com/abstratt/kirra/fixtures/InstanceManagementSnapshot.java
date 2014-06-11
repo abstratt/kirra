@@ -46,7 +46,7 @@ public class InstanceManagementSnapshot implements InstanceManagement {
 	}
 
 	private List<Instance> getInstances(TypeRef typeRef) {
-		return instances.computeIfAbsent(typeRef, (it) -> new ArrayList<>());
+		return instances.computeIfAbsent(typeRef, i -> new ArrayList<>());
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class InstanceManagementSnapshot implements InstanceManagement {
 	@Override
 	public synchronized Instance getInstance(String namespace, String name, String externalId, boolean full) {
 		List<Instance> entityInstances = getInstances(new TypeRef(namespace, name, TypeKind.Entity));
-		return entityInstances.stream().filter((i) -> i.getObjectId().equals(externalId)).findAny().orElse(null);
+		return entityInstances.stream().filter(i -> i.getObjectId().equals(externalId)).findAny().orElse(null);
 	}
 
 	@Override
