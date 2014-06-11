@@ -2,8 +2,6 @@ package com.abstratt.kirra.fixtures;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,14 +22,15 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.service.StatusService;
 
-import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.SchemaManagement;
-import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.resources.KirraContext;
 import com.abstratt.kirra.rest.resources.KirraJaxRsApplication;
 import com.abstratt.kirra.rest.resources.KirraRestException;
 
+/**
+ * A simple Jetty-powered server that exposes one application based on sample data collected from Java resources.
+ */
 public class FixtureServer extends Server {
 	public static final int TEST_SERVER_PORT = Integer.parseInt(System.getProperty("kirra.fixtures.port", "38080"));
 	public static final String TEST_CONTEXT_PATH = "/kirra";
