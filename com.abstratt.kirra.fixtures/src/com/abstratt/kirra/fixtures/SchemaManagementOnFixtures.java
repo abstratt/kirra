@@ -178,7 +178,7 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 	}
 
 	private Map<String, Object> getIndex() {
-		Map<String, Object> index = (Map<String, Object>) loadFixture(new TypeToken<Map<String, Object>>() {}.getType(), "index.json");
+		Map<String, Object> index = loadFixture(new TypeToken<Map<String, Object>>() {}.getType(), "index.json");
 		return index == null ? Collections.emptyMap() : index;
 	}
 }

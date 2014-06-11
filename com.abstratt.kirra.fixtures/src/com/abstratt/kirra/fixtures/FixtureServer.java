@@ -84,7 +84,7 @@ public class FixtureServer extends Server {
         this.serverSchemaManagement = new SchemaManagementOnFixtures();
     }
     
-    public static void main(String[] args) throws Exception {
+    public static void main(String... args) throws Exception {
 		FixtureServer server = new FixtureServer();
 		server.start();
 		System.out.println("Server at "+ TEST_SERVER_URI);
