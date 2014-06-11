@@ -2,6 +2,8 @@ package com.abstratt.kirra.fixtures;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +24,10 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.service.StatusService;
 
+import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.SchemaManagement;
+import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.resources.KirraContext;
 import com.abstratt.kirra.rest.resources.KirraJaxRsApplication;
 import com.abstratt.kirra.rest.resources.KirraRestException;
@@ -32,7 +36,8 @@ public class FixtureServer extends Server {
 	public static final int TEST_SERVER_PORT = Integer.parseInt(System.getProperty("kirra.fixtures.port", "38080"));
 	public static final String TEST_CONTEXT_PATH = "/kirra";
 	public static final String TEST_APPLICATION_PATH = TEST_CONTEXT_PATH + "/appName/";
-	public static final URI TEST_SERVER_URI = URI.create("http://localhost:" + TEST_SERVER_PORT + TEST_APPLICATION_PATH);
+	public static final URI TEST_DEFAULT_SERVER_URI = URI.create("http://localhost:" + TEST_SERVER_PORT + TEST_APPLICATION_PATH);
+	public static final URI TEST_SERVER_URI = URI.create(System.getProperty("kirra.fixtures.uri", TEST_DEFAULT_SERVER_URI.toString()));
 
     private SchemaManagement serverSchemaManagement;
     private InstanceManagement serverInstanceManagement;
@@ -87,10 +92,10 @@ public class FixtureServer extends Server {
         }),"/*");
         setHandler(context);
         this.serverSchemaManagement = new SchemaManagementOnFixtures();
-        this.serverInstanceManagement = new InstanceManagementSnapshot();
+        this.serverInstanceManagement = new InMemoryInstanceManagement();
     }
-    
-    public static void main(String... args) throws Exception {
+
+	public static void main(String... args) throws Exception {
 		FixtureServer server = new FixtureServer();
 		server.start();
 		System.out.println("Server at "+ TEST_SERVER_URI);

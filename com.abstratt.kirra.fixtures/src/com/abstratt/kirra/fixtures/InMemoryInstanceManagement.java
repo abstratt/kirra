@@ -14,16 +14,19 @@ import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
+import com.abstratt.kirra.rest.common.Page;
+import com.abstratt.kirra.rest.common.Paths;
+import com.google.gson.reflect.TypeToken;
 
-public class InstanceManagementSnapshot implements InstanceManagement {
+public class InMemoryInstanceManagement implements InstanceManagement {
 
 	private final Map<TypeRef, List<Instance>> instances;
 
-	public InstanceManagementSnapshot(Map<TypeRef, List<Instance>> instances) {
+	public InMemoryInstanceManagement(Map<TypeRef, List<Instance>> instances) {
 		this.instances = instances;
 	}
-	
-	public InstanceManagementSnapshot() {
+
+	public InMemoryInstanceManagement() {
 		this.instances = new HashMap<>();
 	}
 
@@ -46,7 +49,12 @@ public class InstanceManagementSnapshot implements InstanceManagement {
 	}
 
 	private List<Instance> getInstances(TypeRef typeRef) {
-		return instances.computeIfAbsent(typeRef, i -> new ArrayList<>());
+		return instances.computeIfAbsent(typeRef, this::loadInstances);
+	}
+
+	private List<Instance> loadInstances(TypeRef typeRef) {
+		Page<Instance> entityInstances = FixtureHelper.loadFixture(new TypeToken<Page<Instance>>() {}.getType(), Paths.ENTITIES, typeRef.toString() + '.' +  Paths.INSTANCES);
+		return entityInstances == null ? new ArrayList<>() : entityInstances.contents;
 	}
 
 	@Override

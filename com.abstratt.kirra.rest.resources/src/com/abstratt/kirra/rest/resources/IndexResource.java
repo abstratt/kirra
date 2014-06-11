@@ -15,12 +15,12 @@ import com.google.gson.GsonBuilder;
 @Produces("application/json")
 public class IndexResource {
 	public static class Index {
-		public final URI url;
+		public final URI uri;
 		public final String entities;
 		public final String services;
 		public final String applicationName;
 		private Index() {
-			this.url = ResourceHelper.resolve();
+			this.uri = ResourceHelper.resolve();
 			this.applicationName = KirraContext.getSchemaManagement().getApplicationName();
 		    this.entities = ResourceHelper.resolve(Paths.ENTITIES).toString();	
 		    this.services = ResourceHelper.resolve(Paths.SERVICES).toString();	

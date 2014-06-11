@@ -95,8 +95,8 @@ qx.Class.define("kirra_qooxdoo.Application",
         this.instanceNavigator.showFor(data.params.entity);
       }, this);
       
-      nm.onGet("/entity/{entity}/instances/{id}", function(data) {
-        this.instanceForm.showFor(data.params.entity, data.params.id);
+      nm.onGet("/entity/{entity}/instances/{objectId}", function(data) {
+        this.instanceForm.showFor(data.params.entity, data.params.objectId);
       }, this);
       
       this.setRouting(nm);

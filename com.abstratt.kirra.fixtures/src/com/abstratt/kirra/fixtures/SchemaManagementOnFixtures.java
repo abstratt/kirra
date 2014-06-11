@@ -66,7 +66,8 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 
 	@Override
 	public Entity getEntity(TypeRef typeRef) {
-		return loadFixture(Entity.class, Paths.ENTITIES, typeRef.getFullName());
+		String[] segments = { Paths.ENTITIES, typeRef.getFullName() };
+		return FixtureHelper.loadFixture(Entity.class, segments);
 	}
 
 	@Override
@@ -136,27 +137,17 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 
 	@Override
 	public List<Entity> getAllEntities() {
-		List<Entity> fixture = loadFixture(new TypeToken<List<Entity>>() {}.getType(), Paths.ENTITIES);
+		String[] segments = { Paths.ENTITIES };
+		List<Entity> fixture = FixtureHelper.loadFixture(new TypeToken<List<Entity>>() {}.getType(), segments);
 		if (fixture == null)
 			return Arrays.<Entity>asList();
 		return fixture;
 	}
 
-	private <T> T loadFixture(Type type, String... segments) {
-		String relativePath = StringUtils.join(segments, "/");
-		String resourcePath = "/fixtures/" + relativePath + ".json";
-		try (InputStream contents = getClass().getResourceAsStream(resourcePath)) {
-			if (contents == null)
-				return null;
-			return new Gson().fromJson(new InputStreamReader(contents), type);
-		} catch (IOException e) {
-			throw new KirraException("Unexpected", e, Kind.SCHEMA);
-		}
-	}
-
 	@Override
 	public List<Service> getAllServices() {
-		List<Service> fixture = loadFixture(new TypeToken<List<Service>>() {}.getType(), Paths.SERVICES);
+		String[] segments = { Paths.SERVICES };
+		List<Service> fixture = FixtureHelper.loadFixture(new TypeToken<List<Service>>() {}.getType(), segments);
 		if (fixture == null)
 			return Arrays.<Service>asList();
 		return fixture; 
@@ -178,7 +169,8 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 	}
 
 	private Map<String, Object> getIndex() {
-		Map<String, Object> index = loadFixture(new TypeToken<Map<String, Object>>() {}.getType(), "index.json");
+		String[] segments = { "index.json" };
+		Map<String, Object> index = FixtureHelper.loadFixture(new TypeToken<Map<String, Object>>() {}.getType(), segments);
 		return index == null ? Collections.emptyMap() : index;
 	}
 }

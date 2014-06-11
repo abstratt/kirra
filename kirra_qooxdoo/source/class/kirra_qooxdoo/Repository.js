@@ -72,11 +72,11 @@ qx.Class.define("kirra_qooxdoo.Repository",
     },
     
     loadInstance : function(entity, objectId, callback) {
-        if (!entity || !entity.instances)
+        if (!entity || !entity.extentUri)
             throw Error("Missing entity");
         if (!objectId)
             throw Error("Missing object id");
-        this.load(entity.instances + "/" + objectId, callback);  
+        this.load(entity.extentUri + "/" + objectId, callback);  
     },
     
     

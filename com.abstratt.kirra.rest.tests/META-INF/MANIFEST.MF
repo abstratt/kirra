@@ -8,23 +8,14 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: 
  org.restlet;bundle-version="2.2.0.v20140327-1540",
  org.restlet.ext.servlet;bundle-version="2.2.0.v20140327-1540",
- org.restlet.ext.jaxrs
+ org.restlet.ext.jaxrs,
+ com.abstratt.kirra.fixtures
 Export-Package: 
  com.abstratt.kirra.rest.tests
 Import-Package: 
  com.abstratt.kirra,
  com.abstratt.kirra.rest.client,
  com.abstratt.kirra.rest.common,
- com.abstratt.kirra.rest.resources,
- com.abstratt.kirra.fixtures,
- javax.servlet,
- javax.servlet.http;version="2.6.0",
- javax.ws.rs.core,
- org.eclipse.jetty.server;version="8.1",
- org.eclipse.jetty.server.handler;version="8.1",
- org.eclipse.jetty.servlet;version="8.1",
- org.eclipse.jetty.util;version="8.1",
- org.eclipse.jetty.util.component;version="8.1",
  junit.framework
 
 

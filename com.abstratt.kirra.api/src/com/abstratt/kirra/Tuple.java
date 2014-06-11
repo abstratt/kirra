@@ -17,7 +17,7 @@ public class Tuple implements Serializable {
 	protected Map<String, Object> values = new LinkedHashMap<String, Object>();
 	protected String scopeName;
 	protected String scopeNamespace;
-	protected String mnemonicProperty;
+	protected String shorthand;
 
 	public Tuple() {}
 	
@@ -59,19 +59,12 @@ public class Tuple implements Serializable {
 	}
 
 	public String getShorthand() {
-		Object shorthandNode = mnemonicProperty == null ? null : values.get(mnemonicProperty);
-		return shorthandNode == null ? null : shorthandNode.toString();
+		return shorthand;
+	}
+	public void setShorthand(String shorthand) {
+		this.shorthand = shorthand;
 	}
 	
-	public void setShorthandProperty(String mnemonicProperty) {
-		this.mnemonicProperty = mnemonicProperty;
-	}
-	
-	public String getMnemonicProperty() {
-		return mnemonicProperty;
-	}
-
-
 	public TypeRef getTypeRef() {
 		return new TypeRef(scopeNamespace, scopeName, getTypeKind());
 	}

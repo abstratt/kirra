@@ -4,8 +4,6 @@ import java.util.Collection;
 
 import junit.framework.TestCase;
 
-import org.eclipse.jetty.server.Server;
-
 import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.NamedElement;
 import com.abstratt.kirra.SchemaManagement;
@@ -14,16 +12,15 @@ import com.abstratt.kirra.rest.client.InstanceManagementOnREST;
 import com.abstratt.kirra.rest.client.SchemaManagementOnREST;
 
 public class AbstractRestTests extends TestCase {
-	
-	private Server server;
+
+	private FixtureServer server;
 	protected SchemaManagement schemaManagement;
 	protected InstanceManagement instanceManagement;
 	
 	@Override
 	public void setUp() throws Exception {
-		Server server = new FixtureServer();
+		server = new FixtureServer();
         server.start();
-		this.server = server;
 		this.schemaManagement = new SchemaManagementOnREST(FixtureServer.TEST_SERVER_URI);
 		this.instanceManagement = new InstanceManagementOnREST(FixtureServer.TEST_SERVER_URI);
 	}

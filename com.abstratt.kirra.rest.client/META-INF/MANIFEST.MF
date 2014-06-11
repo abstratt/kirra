@@ -18,6 +18,3 @@ Import-Package:
  org.apache.commons.lang
 Export-Package: 
  com.abstratt.kirra.rest.client
-
-
-
