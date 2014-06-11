@@ -1,0 +1,293 @@
+
+{
+  "offset": 0,
+  "contents": [
+    {
+      "links": {
+        "category": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "6",
+            "full": true,
+            "values": {
+              "name": "Transportation"
+            },
+            "scopeName": "Category",
+            "scopeNamespace": "expenses",
+            "shorthand": "Transportation"
+          }
+        ],
+        "employee": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "14",
+            "full": true,
+            "values": {
+              "name": "Peter Jones",
+              "totalRecorded": 0,
+              "totalSubmitted": 0,
+              "totalApproved": 40.5,
+              "totalRejected": 0
+            },
+            "scopeName": "Employee",
+            "scopeNamespace": "expenses",
+            "shorthand": "Peter Jones"
+          }
+        ]
+      },
+      "disabledActions": {
+        "approve": "",
+        "reject": "",
+        "submit": "",
+        "review": ""
+      },
+      "objectId": "19",
+      "full": true,
+      "values": {
+        "moniker": "Cab airport-\u003edowntown on 2012/07/13",
+        "description": "Cab airport-\u003edowntown",
+        "status": "Approved",
+        "amount": 40.5,
+        "date": "2012-07-13T00:00-0300",
+        "expenseId": 20,
+        "automaticApproval": true
+      },
+      "scopeName": "Expense",
+      "scopeNamespace": "expenses",
+      "shorthand": "Cab airport-\u003edowntown on 2012/07/13",
+      "uri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances/19",
+      "entityUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/"
+    },
+    {
+      "links": {
+        "category": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "4",
+            "full": true,
+            "values": {
+              "name": "Meal"
+            },
+            "scopeName": "Category",
+            "scopeNamespace": "expenses",
+            "shorthand": "Meal"
+          }
+        ],
+        "employee": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "10",
+            "full": true,
+            "values": {
+              "name": "Camille Jouel",
+              "totalRecorded": 0,
+              "totalSubmitted": 35.75,
+              "totalApproved": 0,
+              "totalRejected": 0
+            },
+            "scopeName": "Employee",
+            "scopeNamespace": "expenses",
+            "shorthand": "Camille Jouel"
+          }
+        ]
+      },
+      "disabledActions": {
+        "reject": "",
+        "submit": ""
+      },
+      "objectId": "22",
+      "full": true,
+      "values": {
+        "moniker": "Lunch in LA on 2012/09/14",
+        "description": "Lunch in LA",
+        "status": "Submitted",
+        "amount": 35.75,
+        "date": "2012-09-14T00:00-0300",
+        "expenseId": 23,
+        "automaticApproval": true
+      },
+      "scopeName": "Expense",
+      "scopeNamespace": "expenses",
+      "shorthand": "Lunch in LA on 2012/09/14",
+      "uri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances/22",
+      "entityUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/"
+    },
+    {
+      "links": {
+        "category": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "2",
+            "full": true,
+            "values": {
+              "name": "Airfare"
+            },
+            "scopeName": "Category",
+            "scopeNamespace": "expenses",
+            "shorthand": "Airfare"
+          }
+        ],
+        "employee": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "12",
+            "full": true,
+            "values": {
+              "name": "John Ford",
+              "totalRecorded": 190.5,
+              "totalSubmitted": 0,
+              "totalApproved": 304.5,
+              "totalRejected": 20.5
+            },
+            "scopeName": "Employee",
+            "scopeNamespace": "expenses",
+            "shorthand": "John Ford"
+          }
+        ]
+      },
+      "disabledActions": {
+        "approve": "",
+        "reject": "",
+        "review": ""
+      },
+      "objectId": "28",
+      "full": true,
+      "values": {
+        "moniker": "YVR/LAX on 2012/09/13",
+        "description": "YVR/LAX",
+        "status": "Draft",
+        "amount": 190.5,
+        "date": "2012-09-13T00:00-0300",
+        "expenseId": 29,
+        "automaticApproval": false
+      },
+      "scopeName": "Expense",
+      "scopeNamespace": "expenses",
+      "shorthand": "YVR/LAX on 2012/09/13",
+      "uri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances/28",
+      "entityUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/"
+    },
+    {
+      "links": {
+        "category": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "4",
+            "full": true,
+            "values": {
+              "name": "Meal"
+            },
+            "scopeName": "Category",
+            "scopeNamespace": "expenses",
+            "shorthand": "Meal"
+          }
+        ],
+        "employee": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "12",
+            "full": true,
+            "values": {
+              "name": "John Ford",
+              "totalRecorded": 190.5,
+              "totalSubmitted": 0,
+              "totalApproved": 304.5,
+              "totalRejected": 20.5
+            },
+            "scopeName": "Employee",
+            "scopeNamespace": "expenses",
+            "shorthand": "John Ford"
+          }
+        ]
+      },
+      "disabledActions": {
+        "approve": "",
+        "reject": "",
+        "submit": "",
+        "review": ""
+      },
+      "objectId": "25",
+      "full": true,
+      "values": {
+        "moniker": "Lunch at subway on 2012/09/13",
+        "description": "Lunch at subway",
+        "status": "Rejected",
+        "amount": 20.5,
+        "date": "2012-09-13T00:00-0300",
+        "expenseId": 26,
+        "automaticApproval": true
+      },
+      "scopeName": "Expense",
+      "scopeNamespace": "expenses",
+      "shorthand": "Lunch at subway on 2012/09/13",
+      "uri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances/25",
+      "entityUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/"
+    },
+    {
+      "links": {
+        "category": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "8",
+            "full": true,
+            "values": {
+              "name": "Lodging"
+            },
+            "scopeName": "Category",
+            "scopeNamespace": "expenses",
+            "shorthand": "Lodging"
+          }
+        ],
+        "employee": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "12",
+            "full": true,
+            "values": {
+              "name": "John Ford",
+              "totalRecorded": 190.5,
+              "totalSubmitted": 0,
+              "totalApproved": 304.5,
+              "totalRejected": 20.5
+            },
+            "scopeName": "Employee",
+            "scopeNamespace": "expenses",
+            "shorthand": "John Ford"
+          }
+        ]
+      },
+      "disabledActions": {
+        "approve": "",
+        "reject": "",
+        "submit": "",
+        "review": ""
+      },
+      "objectId": "16",
+      "full": true,
+      "values": {
+        "moniker": "Hilton LA downtown on 2012/09/13",
+        "description": "Hilton LA downtown",
+        "status": "Approved",
+        "amount": 304.5,
+        "date": "2012-09-13T00:00-0300",
+        "expenseId": 17,
+        "automaticApproval": false
+      },
+      "scopeName": "Expense",
+      "scopeNamespace": "expenses",
+      "shorthand": "Hilton LA downtown on 2012/09/13",
+      "uri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances/16",
+      "entityUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/"
+    }
+  ]
+}
