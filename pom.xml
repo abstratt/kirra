@@ -15,7 +15,7 @@
 		    property
 		-->
 		<connection>scm:git:https://abstratt@bitbucket.org/abstratt/kirra-api.git</connection>
-		<developerConnection>scm:https://abstratt@bitbucket.org/abstratt/kirra-api.git</developerConnection>
+		<developerConnection>scm:git:https://abstratt@bitbucket.org/abstratt/kirra-api.git</developerConnection>
 		<url>https://bitbucket.org/abstratt/kirra-api/src</url>
 	    </scm>
 
