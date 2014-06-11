@@ -3,12 +3,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.abstratt</groupId>
-  <version>1.120.1-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
   <artifactId>com.abstratt.kirra.rest.client</artifactId>
   <packaging>eclipse-plugin</packaging>
 	<parent>
         	<groupId>com.abstratt.kirra</groupId>
 	        <artifactId>com.abstratt.kirra.parent</artifactId>
-	        <version>1.120.1-SNAPSHOT</version>
+	        <version>0.1.0-SNAPSHOT</version>
 	</parent>
 </project>

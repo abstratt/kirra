@@ -1,6 +1,5 @@
 package com.abstratt.kirra.rest.tests;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import com.abstratt.kirra.Instance;
@@ -25,8 +24,9 @@ public class InstanceTests extends AbstractRestTests {
 
 	public void testGetInstances() {
 		int count = 10;
+		int before = instanceManagement.getInstances("expenses", "Expense", false).size();
 		Stream.generate(() -> instanceManagement.createInstance(new Instance("expenses", "Expense"))).limit(count).count();
-		List<Instance> retrieved = instanceManagement.getInstances("expenses", "Expense", false);
-		assertEquals(count, retrieved.size());
+		int after = instanceManagement.getInstances("expenses", "Expense", false).size();
+		assertEquals(count, after - before);
 	}
 }

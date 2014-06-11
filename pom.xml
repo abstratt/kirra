@@ -3,11 +3,22 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.kirra</groupId>
 	<artifactId>com.abstratt.kirra.parent</artifactId>
-	<version>1.120.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
 		<tycho-version>0.21.0-SNAPSHOT</tycho-version>
 	</properties>
+
+	    <scm>
+		<!--
+		    maven release plug in manages these properties, do not refactor into
+		    property
+		-->
+		<connection>scm:git:https://abstratt@bitbucket.org/abstratt/kirra-api.git</connection>
+		<developerConnection>scm:https://abstratt@bitbucket.org/abstratt/kirra-api.git</developerConnection>
+		<url>https://bitbucket.org/abstratt/kirra-api/src</url>
+	    </scm>
+
 
 	<pluginRepositories>
 		<pluginRepository>
@@ -58,7 +69,7 @@
 						<artifact>
 							<groupId>com.abstratt.kirra</groupId>
 							<artifactId>kirra-api-dependencies</artifactId>
-							<version>1.120.1-SNAPSHOT</version>
+							<version>0.1.0-SNAPSHOT</version>
 							<classifier>kirra-api-dependencies</classifier>
 						</artifact>
 					</target>

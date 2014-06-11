@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.abstratt.kirra.feature_1.120.1.qualifier.jar" id="com.abstratt.kirra.feature" version="1.120.1.qualifier">
+   <feature url="features/com.abstratt.kirra.feature_0.1.0.qualifier.jar" id="com.abstratt.kirra.feature" version="0.1.0.qualifier">
       <category name="com.abstratt.mdd.category"/>
    </feature>
    <category-def name="com.abstratt.mdd.category" label="Modeling"/>
