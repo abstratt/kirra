@@ -1,4 +1,4 @@
-package com.abstratt.kirra.rest.tests;
+package com.abstratt.kirra.fixtures;
 
 import static java.util.stream.Collectors.toList;
 
@@ -10,8 +10,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-
-import junit.framework.Assert;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -140,9 +138,11 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 	}
 
 	private <T> T loadFixture(Type type, String... segments) {
-		String resourcePath = "/fixtures/" + StringUtils.join(segments, "/") + ".json";
+		String relativePath = StringUtils.join(segments, "/");
+		String resourcePath = "/fixtures/" + relativePath + ".json";
 		try (InputStream contents = getClass().getResourceAsStream(resourcePath)) {
-			Assert.assertNotNull(contents);
+			if (contents == null)
+				throw new KirraException("Not found: " + relativePath, Kind.SCHEMA);
 			return new Gson().fromJson(new InputStreamReader(contents), type);
 		} catch (IOException e) {
 			throw new KirraException("Unexpected", e, Kind.SCHEMA);

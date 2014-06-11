@@ -16,8 +16,7 @@ Import-Package:
  com.abstratt.kirra.rest.client,
  com.abstratt.kirra.rest.common,
  com.abstratt.kirra.rest.resources,
- com.google.gson;version="2.2.4",
- com.google.gson.reflect;version="2.2.4",
+ com.abstratt.kirra.fixtures,
  javax.servlet,
  javax.servlet.http;version="2.6.0",
  javax.ws.rs.core,
@@ -26,8 +25,7 @@ Import-Package:
  org.eclipse.jetty.servlet;version="8.1",
  org.eclipse.jetty.util;version="8.1",
  org.eclipse.jetty.util.component;version="8.1",
- junit.framework,
- org.apache.commons.lang
+ junit.framework
 
 
 

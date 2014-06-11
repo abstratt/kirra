@@ -7,7 +7,7 @@
   <version>1.120.1-SNAPSHOT</version>
   <packaging>eclipse-feature</packaging>
 	<parent>
-		<artifactId>parent</artifactId>
+		<artifactId>com.abstratt.kirra.parent</artifactId>
 		<groupId>com.abstratt.kirra</groupId>
 		<version>1.120.1-SNAPSHOT</version>
 		<relativePath>../..</relativePath>

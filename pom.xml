@@ -2,7 +2,7 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.kirra</groupId>
-	<artifactId>parent</artifactId>
+	<artifactId>com.abstratt.kirra.parent</artifactId>
 	<version>1.120.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
@@ -92,6 +92,7 @@
 		<module>com.abstratt.kirra.rest.common</module>
 		<module>com.abstratt.kirra.rest.client</module>
 		<module>com.abstratt.kirra.rest.resources</module>
+		<module>com.abstratt.kirra.fixtures</module>
 		<module>com.abstratt.kirra.rest.tests</module>
 		<module>features/com.abstratt.kirra.feature</module>
 		<module>repositories/com.abstratt.kirra.repository</module>

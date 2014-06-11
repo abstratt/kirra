@@ -24,6 +24,7 @@ import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.NamedElement;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.SchemaManagement;
+import com.abstratt.kirra.fixtures.SchemaManagementOnFixtures;
 import com.abstratt.kirra.rest.client.SchemaManagementOnREST;
 import com.abstratt.kirra.rest.resources.KirraContext;
 import com.abstratt.kirra.rest.resources.KirraJaxRsApplication;
@@ -38,8 +39,7 @@ public class SchemaTests extends TestCase {
 	private Server server;
 	private SchemaManagement serverSchemaManagement;
 	private SchemaManagement clientSchemaManagement;
-
-
+	
 	@Override
 	public void setUp() throws Exception {
 		this.serverSchemaManagement = new SchemaManagementOnFixtures();

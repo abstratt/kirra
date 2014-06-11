@@ -9,7 +9,7 @@
 
 	<parent>
         	<groupId>com.abstratt.kirra</groupId>
-	        <artifactId>parent</artifactId>
+	        <artifactId>com.abstratt.kirra.parent</artifactId>
 	        <version>1.120.1-SNAPSHOT</version>
 	</parent>
 	
