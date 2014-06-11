@@ -1,4 +1,4 @@
-package com.abstratt.kirra.rest.resources;
+package com.abstratt.kirra.rest.common;
 
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -23,8 +23,8 @@ public class InstanceSerializer implements JsonSerializer<Instance> {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mmZ");
 		JsonObject asJson = (JsonObject) gsonBuilder.create().toJsonTree(element);
-		asJson.addProperty("uri", ResourceHelper.resolve(instancesUri, element.getObjectId()).toString());
-		asJson.addProperty("entityUri", ResourceHelper.resolve(instancesUri, "..").toString());
+		asJson.addProperty("uri", CommonHelper.resolve(instancesUri, element.getObjectId()).toString());
+		asJson.addProperty("entityUri", CommonHelper.resolve(instancesUri, "..").toString());
 		return asJson;
 	}
 

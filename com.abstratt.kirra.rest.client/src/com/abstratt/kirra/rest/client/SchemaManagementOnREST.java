@@ -178,8 +178,7 @@ public class SchemaManagementOnREST implements SchemaManagement {
 	}
 	
 	private <T> T get(Type type, String... segments) {
-		GetMethod get = new GetMethod(baseUri.resolve(StringUtils.join(segments, "/")).toString());
-		return restClient.executeMethod(get, type);
+		return restClient.get(baseUri, type, segments);
 	}
 
 }

@@ -22,17 +22,20 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.service.StatusService;
 
+import com.abstratt.kirra.InstanceManagement;
+import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.rest.resources.KirraContext;
 import com.abstratt.kirra.rest.resources.KirraJaxRsApplication;
 import com.abstratt.kirra.rest.resources.KirraRestException;
 
 public class FixtureServer extends Server {
-	public static final int TEST_SERVER_PORT = 38080;
+	public static final int TEST_SERVER_PORT = Integer.parseInt(System.getProperty("kirra.fixtures.port", "38080"));
 	public static final String TEST_CONTEXT_PATH = "/kirra";
 	public static final String TEST_APPLICATION_PATH = TEST_CONTEXT_PATH + "/appName/";
 	public static final URI TEST_SERVER_URI = URI.create("http://localhost:" + TEST_SERVER_PORT + TEST_APPLICATION_PATH);
 
-    private SchemaManagementOnFixtures serverSchemaManagement;
+    private SchemaManagement serverSchemaManagement;
+    private InstanceManagement serverInstanceManagement;
 
     public FixtureServer() {
     	super(TEST_SERVER_PORT);
@@ -71,17 +74,20 @@ public class FixtureServer extends Server {
 			@Override
 			public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				KirraContext.setSchemaManagement(serverSchemaManagement);
+				KirraContext.setInstanceManagement(serverInstanceManagement);
 				KirraContext.setBaseURI(TEST_SERVER_URI);
 				try {
 					super.service(request, response);
 				} finally {
 					KirraContext.setSchemaManagement(null);
+					KirraContext.setInstanceManagement(null);
 					KirraContext.setBaseURI(null);
 				}
 			}
         }),"/*");
         setHandler(context);
         this.serverSchemaManagement = new SchemaManagementOnFixtures();
+        this.serverInstanceManagement = new InstanceManagementSnapshot();
     }
     
     public static void main(String... args) throws Exception {

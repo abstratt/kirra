@@ -1,4 +1,4 @@
-package com.abstratt.kirra.rest.resources;
+package com.abstratt.kirra.rest.common;
 
 import java.util.LinkedHashMap;
 import java.util.List;

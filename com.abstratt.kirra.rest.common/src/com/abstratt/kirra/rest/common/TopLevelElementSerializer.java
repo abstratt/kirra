@@ -1,4 +1,4 @@
-package com.abstratt.kirra.rest.resources;
+package com.abstratt.kirra.rest.common;
 
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -26,7 +26,7 @@ public class TopLevelElementSerializer<T extends TopLevelElement> implements Jso
 	}
 
 	protected URI getTopLevelURI(T element) {
-		return ResourceHelper.resolve(uri, element.getTypeRef().toString());
+		return CommonHelper.resolve(uri, element.getTypeRef().toString());
 	}
 
 }
