@@ -1,4 +1,5 @@
 {
+    "applicationName" : "Expenses sample application (as static fixtures)",
     "uri":".",
     "entities" : "entities/entities.json",
     "services" : "services/services.json"
