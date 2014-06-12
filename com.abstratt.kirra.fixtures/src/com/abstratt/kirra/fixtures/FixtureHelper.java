@@ -15,7 +15,7 @@ public class FixtureHelper {
 	public static <T> T loadFixture(Type type, String... segments) {
 		return loadFixture(true, type, segments);
 	}
-	public static <T> T loadFixture(boolean tryVariants, Type type, String... segments) {
+	private static <T> T loadFixture(boolean tryVariants, Type type, String... segments) {
 		String relativePath = StringUtils.join(segments, "/");
 		String resourcePath = "/fixtures/" + relativePath;
 		System.out.print("Loading fixtures from " + resourcePath + "... ");
