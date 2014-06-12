@@ -28,9 +28,7 @@ public class AbstractRestTests extends TestCase {
 	@Override
 	public void tearDown() throws Exception {
 		server.stop();
-		server.join();
 	}
-	
 	
     protected <T extends NamedElement<?>, C extends Collection<T>> T findByName(C collection, String name) {
     	return collection.stream().filter(named -> name.equals(named.getName())).findAny().get(); 

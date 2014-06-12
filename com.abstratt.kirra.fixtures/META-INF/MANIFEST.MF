@@ -10,13 +10,13 @@ Require-Bundle:
  org.restlet;bundle-version="2.2.0.v20140327-1540",
  org.restlet.ext.servlet;bundle-version="2.2.0.v20140327-1540",
  org.restlet.ext.jaxrs,
- org.eclipse.jetty.server;bundle-version="8.1";visibility:=reexport,
- org.eclipse.jetty.util;bundle-version="8.1";visibility:=reexport,
- org.eclipse.jetty.servlet;bundle-version="8.1",
- org.eclipse.jetty.http;bundle-version="8.1",
- org.eclipse.jetty.io;bundle-version="8.1",
- org.eclipse.jetty.security;bundle-version="8.1",
- org.eclipse.jetty.continuation;bundle-version="8.1"
+ org.eclipse.jetty.server;bundle-version="8.1.14";visibility:=reexport,
+ org.eclipse.jetty.util;bundle-version="8.1.14";visibility:=reexport,
+ org.eclipse.jetty.servlet;bundle-version="8.1.14",
+ org.eclipse.jetty.http;bundle-version="8.1.14",
+ org.eclipse.jetty.io;bundle-version="8.1.14",
+ org.eclipse.jetty.security;bundle-version="8.1.14",
+ org.eclipse.jetty.continuation;bundle-version="8.1.14"
 Import-Package: com.abstratt.kirra,
  com.abstratt.kirra.rest.resources,
  com.abstratt.kirra.rest.common,
@@ -25,5 +25,4 @@ Import-Package: com.abstratt.kirra,
  org.apache.commons.lang,
  javax.servlet,
  javax.servlet.http;version="2.6.0",
- javax.ws.rs.core 
-
+ javax.ws.rs.core

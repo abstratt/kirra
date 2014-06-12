@@ -8,14 +8,14 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: 
  org.restlet;bundle-version="2.2.0.v20140327-1540",
  org.restlet.ext.servlet;bundle-version="2.2.0.v20140327-1540",
- org.restlet.ext.jaxrs,
- com.abstratt.kirra.fixtures
+ org.restlet.ext.jaxrs
 Export-Package: 
  com.abstratt.kirra.rest.tests
 Import-Package: 
  com.abstratt.kirra,
  com.abstratt.kirra.rest.client,
  com.abstratt.kirra.rest.common,
+ com.abstratt.kirra.fixtures,
  junit.framework
 
 

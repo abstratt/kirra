@@ -31,7 +31,7 @@ import com.abstratt.kirra.rest.resources.KirraRestException;
 /**
  * A simple Jetty-powered server that exposes one application based on sample data collected from Java resources.
  */
-public class FixtureServer extends Server {
+public class FixtureServer {
 	public static final int TEST_SERVER_PORT = Integer.parseInt(System.getProperty("kirra.fixtures.port", "38080"));
 	public static final String TEST_CONTEXT_PATH = "/kirra";
 	public static final String TEST_APPLICATION_PATH = TEST_CONTEXT_PATH + "/appName/";
@@ -40,9 +40,10 @@ public class FixtureServer extends Server {
 
     private SchemaManagement serverSchemaManagement;
     private InstanceManagement serverInstanceManagement;
+    private Server webServer;
 
     public FixtureServer() {
-    	super(TEST_SERVER_PORT);
+    	webServer = new Server(TEST_SERVER_PORT);
 		ServletContextHandler context = new ServletContextHandler();
         context.setContextPath(TEST_CONTEXT_PATH);
         StatusService statusService = new StatusService() {
@@ -89,7 +90,7 @@ public class FixtureServer extends Server {
 				}
 			}
         }),"/*");
-        setHandler(context);
+        webServer.setHandler(context);
         this.serverSchemaManagement = new SchemaManagementOnFixtures();
         this.serverInstanceManagement = new InMemoryInstanceManagement();
     }
@@ -98,5 +99,14 @@ public class FixtureServer extends Server {
 		FixtureServer server = new FixtureServer();
 		server.start();
 		System.out.println("Server at "+ TEST_SERVER_URI);
+	}
+
+	public void start() throws Exception {
+		webServer.start();
+	}
+	
+	public void stop() throws Exception {
+		webServer.stop();
+		webServer.join();
 	}
 }

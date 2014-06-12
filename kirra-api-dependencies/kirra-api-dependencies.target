@@ -9,9 +9,23 @@
 			<unit id="org.eclipse.platform.feature.group" version="0.0.0" />
 			<unit id="org.junit" version="0.0.0" />
 			<unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0" />
+			
                         <!-- Specific release to avoid Eclipse bug 430375 -->
 			<repository location="http://download.eclipse.org/releases/kepler/201402280900" />
 		</location>
+		<location includeAllPlatforms="false" includeMode="planner"
+			includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.jetty.http" version="0.0.0" />
+			<unit id="org.eclipse.jetty.io" version="0.0.0" />
+			<unit id="org.eclipse.jetty.util" version="0.0.0" />
+			<unit id="org.eclipse.jetty.servlet" version="0.0.0" />
+			<unit id="org.eclipse.jetty.security" version="0.0.0" />
+			<unit id="org.eclipse.jetty.server" version="0.0.0" />
+			<unit id="org.eclipse.jetty.continuation" version="0.0.0" />
+			<repository location="http://download.eclipse.org/jetty/updates/jetty-bundles-8.x/8.1.14.v20131031" />
+		</location>
+		
+		
 		<location includeAllPlatforms="false" includeMode="planner"
 			includeSource="true" type="InstallableUnit">
 			<unit id="org.apache.commons.lang" version="0.0.0" />
