@@ -12,6 +12,7 @@ public interface Paths {
     String EVENTS = "events";
     String FINDERS = "finders";
     String INSTANCE_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/{objectId}";
+    String INSTANCE_ACTION_PATH = INSTANCE_PATH + "/" + Paths.ACTIONS + "/{actionName}";
     String INSTANCES = "instances";
     String INSTANCES_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/";
     String LOGIN = "login";

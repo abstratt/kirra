@@ -1,10 +1,14 @@
 package com.abstratt.kirra.rest.tests;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import junit.framework.TestCase;
 
+import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.Operation;
+import com.abstratt.kirra.Property;
 
 public class InstanceTests extends AbstractRestTests {
     public void testCreateInstance() {
@@ -30,5 +34,17 @@ public class InstanceTests extends AbstractRestTests {
         Stream.generate(() -> instanceManagement.createInstance(new Instance("expenses", "Expense"))).limit(count).count();
         int after = instanceManagement.getInstances("expenses", "Expense", false).size();
         TestCase.assertEquals(count, after - before);
+    }
+    
+    public void testInvokeAction() {
+        Instance instance = instanceManagement.createInstance(new Instance("expenses", "Expense"));
+        Entity entity = schemaManagement.getEntity(instance.getTypeRef());
+        Property property = findByName(entity.getProperties(), "status");
+        Operation operation = findByName(entity.getOperations(), "submit");
+        
+        assertEquals("Draft", instance.getValue(property.getName()));
+        instanceManagement.executeOperation(operation, instance.getObjectId(), Arrays.asList());
+        Instance afterSubmitted = instanceManagement.getInstance(instance.getEntityNamespace(), instance.getEntityName(), instance.getObjectId(), true);
+        assertEquals("Submitted", afterSubmitted.getValue(property.getName()));
     }
 }

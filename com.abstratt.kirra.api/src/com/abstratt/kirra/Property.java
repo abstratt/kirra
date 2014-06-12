@@ -8,6 +8,7 @@ public class Property extends DataElement {
     private static final long serialVersionUID = 1;
 
     protected boolean unique;
+    protected Object defaultValue;
 
     public Property() {
     }
@@ -28,5 +29,13 @@ public class Property extends DataElement {
 
     public void setUnique(boolean unique) {
         this.unique = unique;
+    }
+    
+    public Object getDefaultValue() {
+        return defaultValue;
+    }
+    
+    public void setDefaultValue(Object value) {
+        this.defaultValue = value;
     }
 }

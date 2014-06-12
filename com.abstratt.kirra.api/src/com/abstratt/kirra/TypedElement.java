@@ -16,7 +16,7 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
     }
 
     private static final long serialVersionUID = 1L;
-    protected boolean defaultValue;
+    protected boolean hasDefault;
 
     protected List<String> enumerationLiterals;
     protected boolean multiple;
@@ -65,8 +65,8 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
         return result;
     }
 
-    public boolean isDefaultValue() {
-        return defaultValue;
+    public boolean isHasDefault() {
+        return hasDefault;
     }
 
     public boolean isMultiple() {
@@ -77,8 +77,8 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
         return required;
     }
 
-    public void setDefaulValue(boolean defaulting) {
-        this.defaultValue = defaulting;
+    public void setHasDefault(boolean defaulting) {
+        this.hasDefault = defaulting;
     }
 
     public void setEnumerationLiterals(List<String> enumerationLiterals) {

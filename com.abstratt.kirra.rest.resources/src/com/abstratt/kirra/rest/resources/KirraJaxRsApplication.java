@@ -8,7 +8,7 @@ public class KirraJaxRsApplication extends javax.ws.rs.core.Application {
     @Override
     public Set<Class<?>> getClasses() {
         Class<?>[] resourceClasses = new Class[] { IndexResource.class, EntityResource.class, EntityListResource.class,
-                ServiceResource.class, ServiceListResource.class, InstanceResource.class, InstanceListResource.class };
+                ServiceResource.class, ServiceListResource.class, InstanceResource.class, InstanceListResource.class, InstanceActionResource.class };
         return new HashSet<Class<?>>(Arrays.asList(resourceClasses));
     }
 }

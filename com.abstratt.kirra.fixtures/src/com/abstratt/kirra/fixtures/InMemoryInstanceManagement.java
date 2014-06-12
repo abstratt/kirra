@@ -1,17 +1,22 @@
 package com.abstratt.kirra.fixtures;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
+import com.abstratt.kirra.KirraException;
+import com.abstratt.kirra.KirraException.Kind;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.Relationship;
+import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.Page;
@@ -21,19 +26,21 @@ import com.google.gson.reflect.TypeToken;
 public class InMemoryInstanceManagement implements InstanceManagement {
 
     private final Map<TypeRef, List<Instance>> instances;
+    private SchemaManagement schemaManagement;
 
-    public InMemoryInstanceManagement() {
+    public InMemoryInstanceManagement(SchemaManagement schemaManagement) {
         this.instances = new HashMap<>();
-    }
-
-    public InMemoryInstanceManagement(Map<TypeRef, List<Instance>> instances) {
-        this.instances = instances;
+        this.schemaManagement = schemaManagement;
     }
 
     @Override
     public synchronized Instance createInstance(Instance instance) {
         List<Instance> instances = getInstances(instance.getTypeRef());
         instance.setObjectId(generateId());
+
+        Entity entity = schemaManagement.getEntity(instance.getTypeRef());
+        entity.getProperties().stream().filter(p -> p.isHasDefault()).forEach(p -> instance.setValue(p.getName(), p.getDefaultValue()));
+
         instances.add(instance);
         return instance;
     }
@@ -48,8 +55,18 @@ public class InMemoryInstanceManagement implements InstanceManagement {
 
     @Override
     public synchronized List<?> executeOperation(Operation operation, String externalId, List<?> arguments) {
-        // TODO Auto-generated method stub
-        return null;
+        Instance found = getInstance(operation.getOwner(), externalId);
+        if (Objects.isNull(found))
+            throw new KirraException("Not found", Kind.OBJECT_NOT_FOUND);
+        switch (operation.getOwner().getTypeName()) {
+        case "Expense":
+            switch (operation.getName()) {
+            case "submit":
+                found.setValue("status", "Submitted");
+                return Arrays.asList();
+            }
+        }
+        throw new KirraException("Not implemented: " + operation.getName(), Kind.ELEMENT_NOT_FOUND);
     }
 
     @Override
@@ -65,7 +82,12 @@ public class InMemoryInstanceManagement implements InstanceManagement {
 
     @Override
     public synchronized Instance getInstance(String namespace, String name, String externalId, boolean full) {
-        List<Instance> entityInstances = getInstances(new TypeRef(namespace, name, TypeKind.Entity));
+        TypeRef typeRef = new TypeRef(namespace, name, TypeKind.Entity);
+        return getInstance(typeRef, externalId);
+    }
+
+    private Instance getInstance(TypeRef typeRef, String externalId) {
+        List<Instance> entityInstances = getInstances(typeRef);
         return entityInstances.stream().filter(i -> i.getObjectId().equals(externalId)).findAny().orElse(null);
     }
 

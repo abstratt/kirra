@@ -1,11 +1,16 @@
 package com.abstratt.kirra.rest.client;
 
+import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
+import com.abstratt.kirra.KirraException;
+import com.abstratt.kirra.KirraException.Kind;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.Relationship;
@@ -29,7 +34,7 @@ public class InstanceManagementOnREST implements InstanceManagement {
 
     @Override
     public Instance createInstance(Instance instance) {
-        return restClient.post(baseUri, instance, Paths.ENTITIES, instance.getTypeRef().toString(), Paths.INSTANCES, "");
+        return restClient.post(baseUri, instance, (Type) Instance.class, Paths.ENTITIES, instance.getTypeRef().toString(), Paths.INSTANCES, "");
     }
 
     @Override
@@ -46,8 +51,13 @@ public class InstanceManagementOnREST implements InstanceManagement {
 
     @Override
     public List<?> executeOperation(Operation operation, String externalId, List<?> arguments) {
-        // TODO Auto-generated method stub
-        return null;
+        List<Parameter> parameters = operation.getParameters();
+        if (parameters.size() != arguments.size())
+            throw new KirraException("Mismatch", Kind.SCHEMA);
+        Map<String, Object> values = new LinkedHashMap<String, Object>();
+        for (int i = 0; i < parameters.size(); i++)
+            values.put(parameters.get(i).getName(), arguments.get(i));
+        return (List<?>) restClient.post(baseUri, values, List.class, Paths.ENTITIES, operation.getOwner().getFullName(), Paths.INSTANCES, externalId, Paths.ACTIONS, operation.getName());
     }
 
     @Override

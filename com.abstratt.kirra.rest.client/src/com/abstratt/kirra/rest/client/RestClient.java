@@ -26,7 +26,7 @@ public class RestClient {
         this.httpClient = new HttpClient();
     }
 
-    public <T> T executeMethod(HttpMethod method, Type type, int... acceptedStatuses) {
+    public <T> T executeMethod(HttpMethod method, Type resultType, int... acceptedStatuses) {
         try {
             System.out.println(method.getName() + " - " + method.getURI());
             if (method instanceof EntityEnclosingMethod)
@@ -40,7 +40,7 @@ public class RestClient {
                         + Arrays.asList(acceptedStatuses).toString());
             String responseBody = new String(method.getResponseBody());
             System.out.println(responseBody);
-            return new Gson().fromJson(new StringReader(responseBody), type);
+            return new Gson().fromJson(new StringReader(responseBody), resultType);
         } catch (JsonParseException e) {
             throw e;
         } catch (IOException e) {
@@ -55,7 +55,7 @@ public class RestClient {
         return executeMethod(get, type);
     }
 
-    public <T> T post(URI baseUri, T toCreate, String... segments) {
+    public <T> T post(URI baseUri, Object toCreate, Type resultType, String... segments) {
         PostMethod post = new PostMethod(baseUri.resolve(StringUtils.join(segments, "/")).toString());
         String asJson = new Gson().toJson(toCreate);
         try {
@@ -63,7 +63,7 @@ public class RestClient {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-        return executeMethod(post, toCreate.getClass());
+        return executeMethod(post, resultType);
     }
 
 }

@@ -102,7 +102,7 @@ public class FixtureServer {
         }), "/*");
         webServer.setHandler(context);
         this.serverSchemaManagement = new SchemaManagementOnFixtures();
-        this.serverInstanceManagement = new InMemoryInstanceManagement();
+        this.serverInstanceManagement = new InMemoryInstanceManagement(this.serverSchemaManagement);
     }
 
     public void start() throws Exception {
