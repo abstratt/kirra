@@ -2,18 +2,12 @@ package com.abstratt.kirra.fixtures;
 
 import static java.util.stream.Collectors.toList;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-
-import org.apache.commons.lang.StringUtils;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.KirraException;
@@ -30,7 +24,6 @@ import com.abstratt.kirra.TupleType;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.Paths;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class SchemaManagementOnFixtures implements SchemaManagement {
@@ -66,7 +59,7 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 
 	@Override
 	public Entity getEntity(TypeRef typeRef) {
-		String[] segments = { Paths.ENTITIES, typeRef.getFullName() };
+		String[] segments = { Paths.ENTITIES, typeRef.getFullName(), "entity" };
 		return FixtureHelper.loadFixture(Entity.class, segments);
 	}
 
@@ -137,7 +130,7 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 
 	@Override
 	public List<Entity> getAllEntities() {
-		String[] segments = { Paths.ENTITIES };
+		String[] segments = { Paths.ENTITIES, Paths.ENTITIES };
 		List<Entity> fixture = FixtureHelper.loadFixture(new TypeToken<List<Entity>>() {}.getType(), segments);
 		if (fixture == null)
 			return Arrays.<Entity>asList();
@@ -146,7 +139,7 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
 
 	@Override
 	public List<Service> getAllServices() {
-		String[] segments = { Paths.SERVICES };
+		String[] segments = { Paths.SERVICES, Paths.SERVICES };
 		List<Service> fixture = FixtureHelper.loadFixture(new TypeToken<List<Service>>() {}.getType(), segments);
 		if (fixture == null)
 			return Arrays.<Service>asList();
