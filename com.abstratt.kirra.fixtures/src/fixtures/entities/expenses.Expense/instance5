@@ -1,0 +1,59 @@
+{
+      "links": {
+        "category": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "8",
+            "full": true,
+            "values": {
+              "name": "Lodging"
+            },
+            "scopeName": "Category",
+            "scopeNamespace": "expenses",
+            "shorthand": "Lodging"
+          }
+        ],
+        "employee": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "12",
+            "full": true,
+            "values": {
+              "name": "John Ford",
+              "totalRecorded": 190.5,
+              "totalSubmitted": 0,
+              "totalApproved": 304.5,
+              "totalRejected": 20.5
+            },
+            "scopeName": "Employee",
+            "scopeNamespace": "expenses",
+            "shorthand": "John Ford"
+          }
+        ]
+      },
+      "disabledActions": {
+        "approve": "",
+        "reject": "",
+        "submit": "",
+        "review": ""
+      },
+      "objectId": "5",
+      "full": true,
+      "values": {
+        "moniker": "Hilton LA downtown on 2012/09/13",
+        "description": "Hilton LA downtown",
+        "status": "Approved",
+        "amount": 304.5,
+        "date": "2012-09-13T00:00-0300",
+        "expenseId": 17,
+        "automaticApproval": false
+      },
+      "scopeName": "Expense",
+      "scopeNamespace": "expenses",
+      "shorthand": "Hilton LA downtown on 2012/09/13",
+      "uri": "entities/expenses.Expense/1.json",
+      "entityUri": "entities/expenses.Expense/"
+    }
+ 

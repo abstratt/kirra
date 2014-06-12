@@ -1,0 +1,58 @@
+{
+      "links": {
+        "category": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "4",
+            "full": true,
+            "values": {
+              "name": "Meal"
+            },
+            "scopeName": "Category",
+            "scopeNamespace": "expenses",
+            "shorthand": "Meal"
+          }
+        ],
+        "employee": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "12",
+            "full": true,
+            "values": {
+              "name": "John Ford",
+              "totalRecorded": 190.5,
+              "totalSubmitted": 0,
+              "totalApproved": 304.5,
+              "totalRejected": 20.5
+            },
+            "scopeName": "Employee",
+            "scopeNamespace": "expenses",
+            "shorthand": "John Ford"
+          }
+        ]
+      },
+      "disabledActions": {
+        "approve": "",
+        "reject": "",
+        "submit": "",
+        "review": ""
+      },
+      "objectId": "4",
+      "full": true,
+      "values": {
+        "moniker": "Lunch at subway on 2012/09/13",
+        "description": "Lunch at subway",
+        "status": "Rejected",
+        "amount": 20.5,
+        "date": "2012-09-13T00:00-0300",
+        "expenseId": 26,
+        "automaticApproval": true
+      },
+      "scopeName": "Expense",
+      "scopeNamespace": "expenses",
+      "shorthand": "Lunch at subway on 2012/09/13",
+      "uri": "entities/expenses.Expense/4.json",
+      "entityUri": "entities/expenses.Expense/"
+    }

@@ -1,0 +1,58 @@
+
+    {
+      "links": {
+        "category": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "2",
+            "full": true,
+            "values": {
+              "name": "Airfare"
+            },
+            "scopeName": "Category",
+            "scopeNamespace": "expenses",
+            "shorthand": "Airfare"
+          }
+        ],
+        "employee": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "12",
+            "full": true,
+            "values": {
+              "name": "John Ford",
+              "totalRecorded": 190.5,
+              "totalSubmitted": 0,
+              "totalApproved": 304.5,
+              "totalRejected": 20.5
+            },
+            "scopeName": "Employee",
+            "scopeNamespace": "expenses",
+            "shorthand": "John Ford"
+          }
+        ]
+      },
+      "disabledActions": {
+        "approve": "",
+        "reject": "",
+        "review": ""
+      },
+      "objectId": "3",
+      "full": true,
+      "values": {
+        "moniker": "YVR/LAX on 2012/09/13",
+        "description": "YVR/LAX",
+        "status": "Draft",
+        "amount": 190.5,
+        "date": "2012-09-13T00:00-0300",
+        "expenseId": 29,
+        "automaticApproval": false
+      },
+      "scopeName": "Expense",
+      "scopeNamespace": "expenses",
+      "shorthand": "YVR/LAX on 2012/09/13",
+      "uri": "entities/expenses.Expense/3.json",
+      "entityUri": "entities/expenses.Expense/"
+    }

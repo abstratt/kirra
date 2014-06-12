@@ -1,0 +1,56 @@
+    {
+      "links": {
+        "category": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "4",
+            "full": true,
+            "values": {
+              "name": "Meal"
+            },
+            "scopeName": "Category",
+            "scopeNamespace": "expenses",
+            "shorthand": "Meal"
+          }
+        ],
+        "employee": [
+          {
+            "links": {},
+            "disabledActions": {},
+            "objectId": "10",
+            "full": true,
+            "values": {
+              "name": "Camille Jouel",
+              "totalRecorded": 0,
+              "totalSubmitted": 35.75,
+              "totalApproved": 0,
+              "totalRejected": 0
+            },
+            "scopeName": "Employee",
+            "scopeNamespace": "expenses",
+            "shorthand": "Camille Jouel"
+          }
+        ]
+      },
+      "disabledActions": {
+        "reject": "",
+        "submit": ""
+      },
+      "objectId": "2",
+      "full": true,
+      "values": {
+        "moniker": "Lunch in LA on 2012/09/14",
+        "description": "Lunch in LA",
+        "status": "Submitted",
+        "amount": 35.75,
+        "date": "2012-09-14T00:00-0300",
+        "expenseId": 23,
+        "automaticApproval": true
+      },
+      "scopeName": "Expense",
+      "scopeNamespace": "expenses",
+      "shorthand": "Lunch in LA on 2012/09/14",
+      "uri": "entities/expenses.Expense/2.json",
+      "entityUri": "entities/expenses.Expense/"
+    }
