@@ -6,9 +6,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class TupleJSONRepresentation {
 
-	@JsonProperty
-	public String typeName;
-	
-	@JsonProperty
-	public Map<String, Object> values;
+    @JsonProperty
+    public String typeName;
+
+    @JsonProperty
+    public Map<String, Object> values;
 }

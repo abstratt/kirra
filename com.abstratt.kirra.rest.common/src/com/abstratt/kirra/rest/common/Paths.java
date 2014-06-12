@@ -1,33 +1,32 @@
 package com.abstratt.kirra.rest.common;
 
 public interface Paths {
-	String UI = "ui";
-	String API = "api";
-	String RETRIEVERS = "retrievers";
-	String ENTITIES = "entities";
-	String SERVICES = "services";
+    String ACTIONS = "actions";
+    String API = "api";
+    String DATA = "data";
+    String DOMAIN = "domain";
+    String ENTITIES = "entities";
 
-	
-	String FINDERS = "finders";
-	String ACTIONS = "actions";
-	String EVENTS = "events";
-	String INSTANCES = "instances";
-	String RELATIONSHIPS = "relationships";
-	String PROFILE = "profile";
-	String LOGIN = "login";
-	String LOGOUT = "logout";
-	String DATA = "data";
-	String TESTS = "tests";
-	String SIGNUP = "signup";
-	String PASSWORD_RESET = "passwordReset";
-	String PARAMETERS = "parameters";
-	String DOMAIN = "domain";
-	
-	String ROOT_PATH = "{application}/";
-	String ENTITIES_PATH = ROOT_PATH + ENTITIES + "/";
-	String ENTITY_PATH = ENTITIES_PATH + "{entityName}/";
-	String SERVICES_PATH = ROOT_PATH + SERVICES + "/";
-	String SERVICE_PATH = SERVICES_PATH + "{serviceName}/";
-	String INSTANCES_PATH = ENTITY_PATH + INSTANCES + "/";
-	String INSTANCE_PATH = ENTITY_PATH + INSTANCES + "/{objectId}";
+    String ENTITIES_PATH = Paths.ROOT_PATH + Paths.ENTITIES + "/";
+    String ENTITY_PATH = Paths.ENTITIES_PATH + "{entityName}/";
+    String EVENTS = "events";
+    String FINDERS = "finders";
+    String INSTANCE_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/{objectId}";
+    String INSTANCES = "instances";
+    String INSTANCES_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/";
+    String LOGIN = "login";
+    String LOGOUT = "logout";
+    String PARAMETERS = "parameters";
+    String PASSWORD_RESET = "passwordReset";
+    String PROFILE = "profile";
+    String RELATIONSHIPS = "relationships";
+    String RETRIEVERS = "retrievers";
+
+    String ROOT_PATH = "{application}/";
+    String SERVICE_PATH = Paths.SERVICES_PATH + "{serviceName}/";
+    String SERVICES = "services";
+    String SERVICES_PATH = Paths.ROOT_PATH + Paths.SERVICES + "/";
+    String SIGNUP = "signup";
+    String TESTS = "tests";
+    String UI = "ui";
 }

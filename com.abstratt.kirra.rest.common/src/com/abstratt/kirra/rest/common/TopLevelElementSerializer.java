@@ -10,23 +10,23 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-public class TopLevelElementSerializer<T extends TopLevelElement> implements JsonSerializer<T>{
+public class TopLevelElementSerializer<T extends TopLevelElement> implements JsonSerializer<T> {
 
-	protected URI uri;
+    protected URI uri;
 
-	public TopLevelElementSerializer(URI uri) {
-	    this.uri = uri;
-	}
+    public TopLevelElementSerializer(URI uri) {
+        this.uri = uri;
+    }
 
-	@Override
-	public JsonElement serialize(T element, Type type, JsonSerializationContext context) {
-		JsonObject asJson = (JsonObject) new Gson().toJsonTree(element);
-		asJson.addProperty("uri", getTopLevelURI(element).toString());
-		return asJson;
-	}
+    @Override
+    public JsonElement serialize(T element, Type type, JsonSerializationContext context) {
+        JsonObject asJson = (JsonObject) new Gson().toJsonTree(element);
+        asJson.addProperty("uri", getTopLevelURI(element).toString());
+        return asJson;
+    }
 
-	protected URI getTopLevelURI(T element) {
-		return CommonHelper.resolve(uri, element.getTypeRef().toString());
-	}
+    protected URI getTopLevelURI(T element) {
+        return CommonHelper.resolve(uri, element.getTypeRef().toString());
+    }
 
 }

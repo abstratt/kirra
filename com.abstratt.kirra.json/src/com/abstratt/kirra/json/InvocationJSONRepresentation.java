@@ -5,6 +5,6 @@ import java.util.Map;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class InvocationJSONRepresentation {
-	@JsonProperty
-	public Map<String, Object> arguments;
+    @JsonProperty
+    public Map<String, Object> arguments;
 }

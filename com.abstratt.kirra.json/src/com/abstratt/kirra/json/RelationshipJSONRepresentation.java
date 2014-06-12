@@ -3,10 +3,10 @@ package com.abstratt.kirra.json;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class RelationshipJSONRepresentation {
-	@JsonProperty
+    @JsonProperty
     public String name;
-	@JsonProperty
-	public String type;
-	@JsonProperty
-	public String typeUri;
+    @JsonProperty
+    public String type;
+    @JsonProperty
+    public String typeUri;
 }

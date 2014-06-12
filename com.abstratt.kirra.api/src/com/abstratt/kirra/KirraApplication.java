@@ -1,13 +1,13 @@
 package com.abstratt.kirra;
 
 public class KirraApplication {
-	protected String name;
+    protected String name;
 
-	public KirraApplication(String name) {
-		this.name = name;
-	}
+    public KirraApplication(String name) {
+        this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 }

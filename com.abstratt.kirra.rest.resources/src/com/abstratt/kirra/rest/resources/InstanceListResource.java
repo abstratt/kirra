@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.TypeRef;
+import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.Page;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.Gson;
@@ -19,22 +20,26 @@ import com.google.gson.Gson;
 @Produces("application/json")
 @Consumes("application/json")
 public class InstanceListResource {
-	private class InstanceList extends Page<Instance> {
-		public InstanceList(List<Instance> contents) {
-			super(contents);
-		}
-	}
-	@GET
-	public String getInstances(@PathParam("entityName") String entityName) {
-		TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
-		List<Instance> allInstances = KirraContext.getInstanceManagement().getInstances(entityRef.getEntityNamespace(), entityRef.getTypeName(), false);
-		InstanceList instanceList = new InstanceList(allInstances);
-		return ResourceHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).toJson(instanceList);
-	} 
-	@POST
-	public String createInstance(@PathParam("entityName") String entityName, String newInstanceRepresentation) {
-		Instance toCreate = new Gson().fromJson(newInstanceRepresentation, Instance.class);
-		Instance created = KirraContext.getInstanceManagement().createInstance(toCreate);
-		return ResourceHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES, created.getObjectId())).toJson(created);
-	}
+    private class InstanceList extends Page<Instance> {
+        public InstanceList(List<Instance> contents) {
+            super(contents);
+        }
+    }
+
+    @POST
+    public String createInstance(@PathParam("entityName") String entityName, String newInstanceRepresentation) {
+        Instance toCreate = new Gson().fromJson(newInstanceRepresentation, Instance.class);
+        Instance created = KirraContext.getInstanceManagement().createInstance(toCreate);
+        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES, created.getObjectId()))
+                .toJson(created);
+    }
+
+    @GET
+    public String getInstances(@PathParam("entityName") String entityName) {
+        TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        List<Instance> allInstances = KirraContext.getInstanceManagement().getInstances(entityRef.getEntityNamespace(),
+                entityRef.getTypeName(), false);
+        InstanceList instanceList = new InstanceList(allInstances);
+        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).toJson(instanceList);
+    }
 }

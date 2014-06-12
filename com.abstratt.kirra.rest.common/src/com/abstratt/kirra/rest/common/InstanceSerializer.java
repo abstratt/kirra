@@ -12,20 +12,20 @@ import com.google.gson.JsonSerializer;
 
 public class InstanceSerializer implements JsonSerializer<Instance> {
 
-	private URI instancesUri;
+    private URI instancesUri;
 
-	public InstanceSerializer(URI uri) {
-		this.instancesUri = uri;
-	}
+    public InstanceSerializer(URI uri) {
+        this.instancesUri = uri;
+    }
 
-	@Override
-	public JsonElement serialize(Instance element, Type type, JsonSerializationContext context) {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mmZ");
-		JsonObject asJson = (JsonObject) gsonBuilder.create().toJsonTree(element);
-		asJson.addProperty("uri", CommonHelper.resolve(instancesUri, element.getObjectId()).toString());
-		asJson.addProperty("entityUri", CommonHelper.resolve(instancesUri, "..").toString());
-		return asJson;
-	}
+    @Override
+    public JsonElement serialize(Instance element, Type type, JsonSerializationContext context) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mmZ");
+        JsonObject asJson = (JsonObject) gsonBuilder.create().toJsonTree(element);
+        asJson.addProperty("uri", CommonHelper.resolve(instancesUri, element.getObjectId()).toString());
+        asJson.addProperty("entityUri", CommonHelper.resolve(instancesUri, "..").toString());
+        return asJson;
+    }
 
 }

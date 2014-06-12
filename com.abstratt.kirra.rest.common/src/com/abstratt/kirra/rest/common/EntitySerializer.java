@@ -10,16 +10,16 @@ import com.google.gson.JsonSerializationContext;
 
 public class EntitySerializer extends TopLevelElementSerializer<Entity> {
 
-	public EntitySerializer(URI uri) {
-	    super(uri);
-	}
+    public EntitySerializer(URI uri) {
+        super(uri);
+    }
 
-	@Override
-	public JsonElement serialize(Entity element, Type type, JsonSerializationContext context) {
-		JsonObject asJson = (JsonObject) super.serialize(element, type, context);
-		URI entityUri = getTopLevelURI(element);
-		asJson.addProperty("extentUri", CommonHelper.resolve(entityUri, Paths.INSTANCES).toString());
-		return asJson;
-	}
+    @Override
+    public JsonElement serialize(Entity element, Type type, JsonSerializationContext context) {
+        JsonObject asJson = (JsonObject) super.serialize(element, type, context);
+        URI entityUri = getTopLevelURI(element);
+        asJson.addProperty("extentUri", CommonHelper.resolve(entityUri, Paths.INSTANCES).toString());
+        return asJson;
+    }
 
 }

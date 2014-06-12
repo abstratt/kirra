@@ -14,26 +14,27 @@ import com.google.gson.GsonBuilder;
 @Path(Paths.ROOT_PATH)
 @Produces("application/json")
 public class IndexResource {
-	public static class Index {
-		public final URI uri;
-		public final String entities;
-		public final String services;
-		public final String applicationName;
-		private Index() {
-			this.uri = ResourceHelper.resolve();
-			this.applicationName = KirraContext.getSchemaManagement().getApplicationName();
-		    this.entities = ResourceHelper.resolve(Paths.ENTITIES).toString();	
-		    this.services = ResourceHelper.resolve(Paths.SERVICES).toString();	
-		}
-	}
-	
-	@GET
-	public String getIndex() {
-		Index index = new Index();
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.excludeFieldsWithModifiers(Modifier.PRIVATE.ordinal());
-		Gson gson = gsonBuilder.create();
-		return gson.toJson(index);
-	}
-	
+    public static class Index {
+        public final String applicationName;
+        public final String entities;
+        public final String services;
+        public final URI uri;
+
+        private Index() {
+            this.uri = ResourceHelper.resolve();
+            this.applicationName = KirraContext.getSchemaManagement().getApplicationName();
+            this.entities = ResourceHelper.resolve(Paths.ENTITIES).toString();
+            this.services = ResourceHelper.resolve(Paths.SERVICES).toString();
+        }
+    }
+
+    @GET
+    public String getIndex() {
+        Index index = new Index();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.excludeFieldsWithModifiers(Modifier.PRIVATE.ordinal());
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(index);
+    }
+
 }

@@ -1,12 +1,11 @@
 package com.abstratt.kirra.fixtures;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.abstratt.kirra.Entity;
@@ -28,143 +27,145 @@ import com.google.gson.reflect.TypeToken;
 
 public class SchemaManagementOnFixtures implements SchemaManagement {
 
-	@Override
-	public List<Entity> getEntities(String namespace) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<Entity> getAllEntities() {
+        String[] segments = { Paths.ENTITIES, Paths.ENTITIES };
+        List<Entity> fixture = FixtureHelper.loadFixture(new TypeToken<List<Entity>>() {
+        }.getType(), segments);
+        if (fixture == null)
+            return Arrays.<Entity> asList();
+        return fixture;
+    }
 
-	@Override
-	public List<Service> getServices(String namespace) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<Service> getAllServices() {
+        String[] segments = { Paths.SERVICES, Paths.SERVICES };
+        List<Service> fixture = FixtureHelper.loadFixture(new TypeToken<List<Service>>() {
+        }.getType(), segments);
+        if (fixture == null)
+            return Arrays.<Service> asList();
+        return fixture;
+    }
 
-	@Override
-	public List<TupleType> getTupleTypes(String namespace) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<TupleType> getAllTupleTypes() {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-	public Schema getSchema() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getApplicationName() {
+        return (String) getIndex().get("applicationName");
+    }
 
-	@Override
-	public Entity getEntity(String namespace, String name) {
-		return getEntity(new TypeRef(namespace, name, TypeKind.Entity));
-	}
+    @Override
+    public String getBuild() {
+        return (String) getIndex().get("build");
+    }
 
-	@Override
-	public Entity getEntity(TypeRef typeRef) {
-		String[] segments = { Paths.ENTITIES, typeRef.getFullName(), "entity" };
-		return FixtureHelper.loadFixture(Entity.class, segments);
-	}
+    @Override
+    public List<Entity> getEntities(String namespace) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Service getService(String namespace, String name) {
-		return getService(new TypeRef(namespace, name, TypeKind.Service));
-	}
-	
-	private <T extends TopLevelElement> T findByType(Stream<T> elements, TypeRef type) {
-		return elements.filter(it -> it.isA(type)).findAny().orElseThrow(() -> new KirraException("Not found", Kind.SCHEMA));
-	}
+    @Override
+    public Entity getEntity(String namespace, String name) {
+        return getEntity(new TypeRef(namespace, name, TypeKind.Entity));
+    }
 
-	@Override
-	public Service getService(TypeRef typeRef) {
-		return findByType(getAllServices().stream(), typeRef);
-	}
+    @Override
+    public Entity getEntity(TypeRef typeRef) {
+        String[] segments = { Paths.ENTITIES, typeRef.getFullName(), "entity" };
+        return FixtureHelper.loadFixture(Entity.class, segments);
+    }
 
-	@Override
-	public TupleType getTupleType(String namespace, String name) {
-		return getTupleType(new TypeRef(namespace, name, TypeKind.Tuple));
-	}
+    @Override
+    public Collection<TypeRef> getEntityNames() {
+        return getAllEntities().stream().map(Entity::getTypeRef).collect(Collectors.toList());
+    }
 
-	@Override
-	public TupleType getTupleType(TypeRef typeRef) {
-		return findByType(getAllTupleTypes().stream(), typeRef);
-	}
+    @Override
+    public List<Operation> getEntityOperations(String namespace, String name) {
+        return getEntity(namespace, name).getOperations();
+    }
 
-	@Override
-	public List<Operation> getEntityOperations(String namespace, String name) {
-		return getEntity(namespace, name).getOperations();
-	}
+    @Override
+    public List<Property> getEntityProperties(String namespace, String name) {
+        return getEntity(namespace, name).getProperties();
+    }
 
-	@Override
-	public List<Property> getEntityProperties(String namespace, String name) {
-		return getEntity(namespace, name).getProperties();
-	}
+    @Override
+    public List<Relationship> getEntityRelationships(String namespace, String name) {
+        return getEntity(namespace, name).getRelationships();
+    }
 
-	@Override
-	public List<Relationship> getEntityRelationships(String namespace, String name) {
-		return getEntity(namespace, name).getRelationships();
-	}
+    @Override
+    public Namespace getNamespace(String namespaceName) {
+        return null;
+    }
 
-	@Override
-	public List<String> getNamespaces() {
-		return getAllEntities().stream().map(e -> e.getName()).collect(toList());
-	}
+    @Override
+    public List<String> getNamespaces() {
+        return getAllEntities().stream().map(e -> e.getName()).collect(Collectors.toList());
+    }
 
-	@Override
-	public Namespace getNamespace(String namespaceName) {
-		return null;
-	}
+    @Override
+    public Relationship getOpposite(Relationship relationship) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public List<Entity> getTopLevelEntities(String namespace) {
-		return getAllEntities().stream().filter(Entity::isTopLevel).collect(toList());
-	}
+    @Override
+    public Schema getSchema() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Relationship getOpposite(Relationship relationship) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Service getService(String namespace, String name) {
+        return getService(new TypeRef(namespace, name, TypeKind.Service));
+    }
 
-	@Override
-	public Collection<TypeRef> getEntityNames() {
-		return getAllEntities().stream().map(Entity::getTypeRef).collect(toList());
-	}
+    @Override
+    public Service getService(TypeRef typeRef) {
+        return findByType(getAllServices().stream(), typeRef);
+    }
 
-	@Override
-	public List<Entity> getAllEntities() {
-		String[] segments = { Paths.ENTITIES, Paths.ENTITIES };
-		List<Entity> fixture = FixtureHelper.loadFixture(new TypeToken<List<Entity>>() {}.getType(), segments);
-		if (fixture == null)
-			return Arrays.<Entity>asList();
-		return fixture;
-	}
+    @Override
+    public List<Service> getServices(String namespace) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public List<Service> getAllServices() {
-		String[] segments = { Paths.SERVICES, Paths.SERVICES };
-		List<Service> fixture = FixtureHelper.loadFixture(new TypeToken<List<Service>>() {}.getType(), segments);
-		if (fixture == null)
-			return Arrays.<Service>asList();
-		return fixture; 
-	}
+    @Override
+    public List<Entity> getTopLevelEntities(String namespace) {
+        return getAllEntities().stream().filter(Entity::isTopLevel).collect(Collectors.toList());
+    }
 
-	@Override
-	public List<TupleType> getAllTupleTypes() {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public TupleType getTupleType(String namespace, String name) {
+        return getTupleType(new TypeRef(namespace, name, TypeKind.Tuple));
+    }
 
-	@Override
-	public String getApplicationName() {
-		return (String) getIndex().get("applicationName");
-	}
+    @Override
+    public TupleType getTupleType(TypeRef typeRef) {
+        return findByType(getAllTupleTypes().stream(), typeRef);
+    }
 
-	@Override
-	public String getBuild() {
-		return (String) getIndex().get("build");
-	}
+    @Override
+    public List<TupleType> getTupleTypes(String namespace) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	private Map<String, Object> getIndex() {
-		String[] segments = { "index.json" };
-		Map<String, Object> index = FixtureHelper.loadFixture(new TypeToken<Map<String, Object>>() {}.getType(), segments);
-		return index == null ? Collections.emptyMap() : index;
-	}
+    private <T extends TopLevelElement> T findByType(Stream<T> elements, TypeRef type) {
+        return elements.filter(it -> it.isA(type)).findAny().orElseThrow(() -> new KirraException("Not found", Kind.SCHEMA));
+    }
+
+    private Map<String, Object> getIndex() {
+        String[] segments = { "index.json" };
+        Map<String, Object> index = FixtureHelper.loadFixture(new TypeToken<Map<String, Object>>() {
+        }.getType(), segments);
+        return index == null ? Collections.emptyMap() : index;
+    }
 }
-

@@ -5,40 +5,40 @@ import java.util.Map;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class InstanceJSONRepresentation extends TupleJSONRepresentation {
-    public static class ActionParameter {
-    	public String domainUri;
+    public static class Action {
+        public boolean enabled;
+        public Map<String, ActionParameter> parameters;
+        public String uri;
     }
-	
-	public static class Action {
-		public String uri;
-		public boolean enabled;
-		public Map<String, ActionParameter> parameters;
-	}
-	
-	public static class MultipleLink {
-		public String uri;
-		public String domainUri;
-	}
-	
-	public static class SingleLink {
-		public String uri;
-		public String domainUri;
-		public String shorthand;
-	}
 
-	@JsonProperty
-	public String shorthand;
-	@JsonProperty
-	public String uri;
-	@JsonProperty
-	public String id;
-	@JsonProperty
-	public String type;
-	@JsonProperty
-	public Map<String, MultipleLink> links;
-	@JsonProperty
-	public Map<String, Action> actions;
-	public String entityNamespace;
-	public String entityName;
+    public static class ActionParameter {
+        public String domainUri;
+    }
+
+    public static class MultipleLink {
+        public String domainUri;
+        public String uri;
+    }
+
+    public static class SingleLink {
+        public String domainUri;
+        public String shorthand;
+        public String uri;
+    }
+
+    @JsonProperty
+    public Map<String, Action> actions;
+    public String entityName;
+    public String entityNamespace;
+    @JsonProperty
+    public String id;
+    @JsonProperty
+    public Map<String, MultipleLink> links;
+    @JsonProperty
+    public String shorthand;
+    @JsonProperty
+    public String type;
+    @JsonProperty
+    public String uri;
 
 }
