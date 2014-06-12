@@ -5,6 +5,7 @@ qx.Class.define("kirra_qooxdoo.Repository",
   construct : function(applicationUri)
   {
     this.base(arguments);
+    this._parsedApplicationUri = qx.util.Uri.parseUri(applicationUri);
     this._applicationUri = applicationUri;
   },
   
@@ -13,6 +14,7 @@ qx.Class.define("kirra_qooxdoo.Repository",
     _application : {},
     _entityList : [],
     _applicationUri : null, 
+    _parsedApplicationUri : null,
     
     loadApplication : function(callback) {
         this.load(this._applicationUri, callback, "_application");    
@@ -57,7 +59,9 @@ qx.Class.define("kirra_qooxdoo.Repository",
         for (var i in this._entityList) {
             if (this._entityList[i].name == entityName) {
                 var extentUri = this._entityList[i].extentUri;
-                this.load(extentUri, callback);  
+                this.load(extentUri, function (instances) {
+                    callback(instances);             
+                });  
                 return;
             }
         }
@@ -73,16 +77,25 @@ qx.Class.define("kirra_qooxdoo.Repository",
     
     loadInstance : function(entity, objectId, callback) {
         if (!entity || !entity.extentUri)
-            throw Error("Missing entity");
+            throw Error("Missing entity or extentUri");
         if (!objectId)
-            throw Error("Missing object id");
-        this.load(entity.extentUri + "/" + objectId, callback);  
+            throw Error("Missing objectId");
+        this.load(entity.extentUri + objectId, callback);  
     },
     
     
     /* Generic helper for performing Ajax invocations. */
-    load : function(uri, successHandler, slotName) {
+    load : function(uri, callback, slotName) {
+        var parsedUri = qx.util.Uri.parseUri(uri);
+        console.log({ uri: uri });
+        console.log({ parsedUri: parsedUri });
+        console.log({ _parsedApplicationUri: this._parsedApplicationUri });
+        if (!parsedUri.protocol) {
+            uri = this._parsedApplicationUri.protocol + "://" + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (":"+this._parsedApplicationUri.port) : "") + this._parsedApplicationUri.directory + uri;
+        }
+        console.log({ uri: uri });
 	    var req = new qx.io.request.Xhr(uri);
+	    
 		req.addListener("success", function(e) {
 		  var req = e.getTarget();
 		  var response = req.getResponse();
@@ -90,7 +103,9 @@ qx.Class.define("kirra_qooxdoo.Repository",
 		      this[slotName] = response;
 		  console.log(uri);
 		  console.log(response);
-		  successHandler(response);
+		  if (typeof(response) === 'string')
+		      response = JSON.parse(response);
+		  callback(response);
 		}, this);    
         req.send();
     }

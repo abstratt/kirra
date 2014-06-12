@@ -8,64 +8,6 @@
           {
             "links": {},
             "disabledActions": {},
-            "objectId": "6",
-            "full": true,
-            "values": {
-              "name": "Transportation"
-            },
-            "scopeName": "Category",
-            "scopeNamespace": "expenses",
-            "shorthand": "Transportation"
-          }
-        ],
-        "employee": [
-          {
-            "links": {},
-            "disabledActions": {},
-            "objectId": "14",
-            "full": true,
-            "values": {
-              "name": "Peter Jones",
-              "totalRecorded": 0,
-              "totalSubmitted": 0,
-              "totalApproved": 40.5,
-              "totalRejected": 0
-            },
-            "scopeName": "Employee",
-            "scopeNamespace": "expenses",
-            "shorthand": "Peter Jones"
-          }
-        ]
-      },
-      "disabledActions": {
-        "approve": "",
-        "reject": "",
-        "submit": "",
-        "review": ""
-      },
-      "objectId": "19",
-      "full": true,
-      "values": {
-        "moniker": "Cab airport-\u003edowntown on 2012/07/13",
-        "description": "Cab airport-\u003edowntown",
-        "status": "Approved",
-        "amount": 40.5,
-        "date": "2012-07-13T00:00-0300",
-        "expenseId": 20,
-        "automaticApproval": true
-      },
-      "scopeName": "Expense",
-      "scopeNamespace": "expenses",
-      "shorthand": "Cab airport-\u003edowntown on 2012/07/13",
-      "uri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances/19",
-      "entityUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/"
-    },
-    {
-      "links": {
-        "category": [
-          {
-            "links": {},
-            "disabledActions": {},
             "objectId": "4",
             "full": true,
             "values": {
@@ -99,7 +41,7 @@
         "reject": "",
         "submit": ""
       },
-      "objectId": "22",
+      "objectId": "2",
       "full": true,
       "values": {
         "moniker": "Lunch in LA on 2012/09/14",
@@ -113,8 +55,8 @@
       "scopeName": "Expense",
       "scopeNamespace": "expenses",
       "shorthand": "Lunch in LA on 2012/09/14",
-      "uri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances/22",
-      "entityUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/"
+      "uri": "entities/expenses.Expense/instance2",
+      "entityUri": "entities/expenses.Expense/"
     },
     {
       "links": {
@@ -156,7 +98,7 @@
         "reject": "",
         "review": ""
       },
-      "objectId": "28",
+      "objectId": "3",
       "full": true,
       "values": {
         "moniker": "YVR/LAX on 2012/09/13",
@@ -170,8 +112,8 @@
       "scopeName": "Expense",
       "scopeNamespace": "expenses",
       "shorthand": "YVR/LAX on 2012/09/13",
-      "uri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances/28",
-      "entityUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/"
+      "uri": "entities/expenses.Expense/instance3",
+      "entityUri": "entities/expenses.Expense/"
     },
     {
       "links": {
@@ -214,7 +156,7 @@
         "submit": "",
         "review": ""
       },
-      "objectId": "25",
+      "objectId": "4",
       "full": true,
       "values": {
         "moniker": "Lunch at subway on 2012/09/13",
@@ -228,8 +170,8 @@
       "scopeName": "Expense",
       "scopeNamespace": "expenses",
       "shorthand": "Lunch at subway on 2012/09/13",
-      "uri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances/25",
-      "entityUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/"
+      "uri": "entities/expenses.Expense/instance4",
+      "entityUri": "entities/expenses.Expense/"
     },
     {
       "links": {
@@ -272,7 +214,7 @@
         "submit": "",
         "review": ""
       },
-      "objectId": "16",
+      "objectId": "5",
       "full": true,
       "values": {
         "moniker": "Hilton LA downtown on 2012/09/13",
@@ -286,8 +228,8 @@
       "scopeName": "Expense",
       "scopeNamespace": "expenses",
       "shorthand": "Hilton LA downtown on 2012/09/13",
-      "uri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances/16",
-      "entityUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/"
+      "uri": "entities/expenses.Expense/instance5",
+      "entityUri": "entities/expenses.Expense/"
     }
   ]
 }

@@ -655,6 +655,6 @@
   "label": "Expense",
   "description": "The expense as reported by an employee.",
   "symbol": "Expense",
-  "url": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense",
-  "extentUri": "http://localhost/services/api-v2/demo-cloudfier-examples-expenses/entities/expenses.Expense/instances"
+  "url": "entities/expenses.Expense/entity.json",
+  "extentUri": "entities/expenses.Expense/instance"
 }

@@ -1,0 +1,1162 @@
+
+[
+  {
+    "operations": {
+      "newCategory": {
+        "instanceOperation": false,
+        "kind": "Action",
+        "parameters": [
+          {
+            "typeRef": {
+              "entityNamespace": "mdd_types",
+              "typeName": "String",
+              "kind": "Primitive"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Category",
+              "kind": "Entity"
+            },
+            "name": "name",
+            "label": "Name",
+            "description": "",
+            "symbol": "name"
+          }
+        ],
+        "enabled": true,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Category",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Category",
+          "kind": "Entity"
+        },
+        "name": "newCategory",
+        "label": "New Category",
+        "description": "",
+        "symbol": "newCategory"
+      }
+    },
+    "properties": {
+      "name": {
+        "unique": false,
+        "derived": false,
+        "initializable": true,
+        "editable": true,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "String",
+          "kind": "Primitive"
+        },
+        "required": true,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Category",
+          "kind": "Entity"
+        },
+        "name": "name",
+        "label": "Name",
+        "description": "",
+        "symbol": "name"
+      }
+    },
+    "relationships": {
+      "expensesInThisCategory": {
+        "style": "LINK",
+        "visible": true,
+        "primary": true,
+        "navigable": true,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": true,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Category",
+          "kind": "Entity"
+        },
+        "name": "expensesInThisCategory",
+        "label": "Expenses In This Category",
+        "description": "",
+        "symbol": "expensesInThisCategory"
+      }
+    },
+    "standalone": true,
+    "topLevel": true,
+    "concrete": true,
+    "user": false,
+    "namespace": "expenses",
+    "name": "Category",
+    "label": "Category",
+    "description": "The category for an expense.",
+    "symbol": "Category",
+    "uri": "entities/expenses.Category/entity.json",
+    "extentUri": "entities/expenses.Category/instance"
+  },
+  {
+    "operations": {
+      "newExpense": {
+        "instanceOperation": false,
+        "kind": "Action",
+        "parameters": [
+          {
+            "typeRef": {
+              "entityNamespace": "mdd_types",
+              "typeName": "String",
+              "kind": "Primitive"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Expense",
+              "kind": "Entity"
+            },
+            "name": "description",
+            "label": "Description",
+            "description": "",
+            "symbol": "description"
+          },
+          {
+            "typeRef": {
+              "entityNamespace": "mdd_types",
+              "typeName": "Double",
+              "kind": "Primitive"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Expense",
+              "kind": "Entity"
+            },
+            "name": "amount",
+            "label": "Amount",
+            "description": "",
+            "symbol": "amount"
+          },
+          {
+            "typeRef": {
+              "entityNamespace": "mdd_types",
+              "typeName": "Date",
+              "kind": "Primitive"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Expense",
+              "kind": "Entity"
+            },
+            "name": "date",
+            "label": "Date",
+            "description": "",
+            "symbol": "date"
+          },
+          {
+            "typeRef": {
+              "entityNamespace": "expenses",
+              "typeName": "Category",
+              "kind": "Entity"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Expense",
+              "kind": "Entity"
+            },
+            "name": "category",
+            "label": "Category",
+            "description": "",
+            "symbol": "category"
+          },
+          {
+            "typeRef": {
+              "entityNamespace": "expenses",
+              "typeName": "Employee",
+              "kind": "Entity"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Expense",
+              "kind": "Entity"
+            },
+            "name": "employee",
+            "label": "Employee",
+            "description": "",
+            "symbol": "employee"
+          }
+        ],
+        "enabled": true,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "newExpense",
+        "label": "New Expense",
+        "description": "",
+        "symbol": "newExpense"
+      },
+      "review": {
+        "instanceOperation": true,
+        "kind": "Action",
+        "parameters": [],
+        "enabled": true,
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "review",
+        "label": "Review",
+        "description": "Sends this expense back to Draft state.",
+        "symbol": "review"
+      },
+      "approve": {
+        "instanceOperation": true,
+        "kind": "Action",
+        "parameters": [],
+        "enabled": true,
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "approve",
+        "label": "Approve",
+        "description": "",
+        "symbol": "approve"
+      },
+      "reject": {
+        "instanceOperation": true,
+        "kind": "Action",
+        "parameters": [
+          {
+            "typeRef": {
+              "entityNamespace": "mdd_types",
+              "typeName": "Memo",
+              "kind": "Primitive"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Expense",
+              "kind": "Entity"
+            },
+            "name": "reason",
+            "label": "Reason",
+            "description": "",
+            "symbol": "reason"
+          }
+        ],
+        "enabled": true,
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "reject",
+        "label": "Reject",
+        "description": "Reject this expense. Please provide a reason.",
+        "symbol": "reject"
+      },
+      "submit": {
+        "instanceOperation": true,
+        "kind": "Action",
+        "parameters": [],
+        "enabled": true,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "Boolean",
+          "kind": "Primitive"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "submit",
+        "label": "Submit",
+        "description": "Submit this expense.",
+        "symbol": "submit"
+      },
+      "findExpensesByCategory": {
+        "instanceOperation": false,
+        "kind": "Finder",
+        "parameters": [
+          {
+            "typeRef": {
+              "entityNamespace": "expenses",
+              "typeName": "Category",
+              "kind": "Entity"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Expense",
+              "kind": "Entity"
+            },
+            "name": "category",
+            "label": "Category",
+            "description": "",
+            "symbol": "category"
+          }
+        ],
+        "enabled": true,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "findExpensesByCategory",
+        "label": "Find Expenses By Category",
+        "description": "",
+        "symbol": "findExpensesByCategory"
+      },
+      "findExpensesInPeriod": {
+        "instanceOperation": false,
+        "kind": "Finder",
+        "parameters": [
+          {
+            "typeRef": {
+              "entityNamespace": "mdd_types",
+              "typeName": "Date",
+              "kind": "Primitive"
+            },
+            "required": false,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Expense",
+              "kind": "Entity"
+            },
+            "name": "start",
+            "label": "Start",
+            "description": "",
+            "symbol": "start"
+          },
+          {
+            "typeRef": {
+              "entityNamespace": "mdd_types",
+              "typeName": "Date",
+              "kind": "Primitive"
+            },
+            "required": false,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Expense",
+              "kind": "Entity"
+            },
+            "name": "end_",
+            "label": "End ",
+            "description": "",
+            "symbol": "end_"
+          }
+        ],
+        "enabled": true,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "findExpensesInPeriod",
+        "label": "Find Expenses In Period",
+        "description": "",
+        "symbol": "findExpensesInPeriod"
+      },
+      "findByStatus": {
+        "instanceOperation": false,
+        "kind": "Finder",
+        "parameters": [
+          {
+            "enumerationLiterals": [
+              "Draft",
+              "Submitted",
+              "Approved",
+              "Rejected"
+            ],
+            "typeRef": {
+              "entityNamespace": "expenses.Expense",
+              "typeName": "Status",
+              "kind": "Enumeration"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Expense",
+              "kind": "Entity"
+            },
+            "name": "status",
+            "label": "Status",
+            "description": "",
+            "symbol": "status"
+          }
+        ],
+        "enabled": true,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "findByStatus",
+        "label": "Find By Status",
+        "description": "",
+        "symbol": "findByStatus"
+      }
+    },
+    "properties": {
+      "moniker": {
+        "unique": false,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "String",
+          "kind": "Primitive"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "moniker",
+        "label": "Moniker",
+        "description": "",
+        "symbol": "moniker"
+      },
+      "description": {
+        "unique": false,
+        "derived": false,
+        "initializable": true,
+        "editable": true,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "String",
+          "kind": "Primitive"
+        },
+        "required": true,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "description",
+        "label": "Description",
+        "description": "",
+        "symbol": "description"
+      },
+      "status": {
+        "unique": false,
+        "derived": false,
+        "initializable": false,
+        "editable": false,
+        "enumerationLiterals": [
+          "Draft",
+          "Submitted",
+          "Approved",
+          "Rejected"
+        ],
+        "typeRef": {
+          "entityNamespace": "expenses.Expense",
+          "typeName": "Status",
+          "kind": "Enumeration"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "status",
+        "label": "Status",
+        "description": "",
+        "symbol": "status"
+      },
+      "amount": {
+        "unique": false,
+        "derived": false,
+        "initializable": true,
+        "editable": true,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "Double",
+          "kind": "Primitive"
+        },
+        "required": true,
+        "defaultValue": true,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "amount",
+        "label": "Amount",
+        "description": "",
+        "symbol": "amount"
+      },
+      "date": {
+        "unique": false,
+        "derived": false,
+        "initializable": true,
+        "editable": true,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "Date",
+          "kind": "Primitive"
+        },
+        "required": true,
+        "defaultValue": true,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "date",
+        "label": "Date",
+        "description": "",
+        "symbol": "date"
+      },
+      "rejectionReason": {
+        "unique": false,
+        "derived": false,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "Memo",
+          "kind": "Primitive"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "rejectionReason",
+        "label": "Rejection Reason",
+        "description": "",
+        "symbol": "rejectionReason"
+      },
+      "expenseId": {
+        "unique": true,
+        "derived": false,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "Integer",
+          "kind": "Primitive"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "expenseId",
+        "label": "Expense Id",
+        "description": "",
+        "symbol": "expenseId"
+      },
+      "automaticApproval": {
+        "unique": false,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "Boolean",
+          "kind": "Primitive"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "automaticApproval",
+        "label": "Automatic Approval",
+        "description": "Whether this expense qualifies for automatic approval.",
+        "symbol": "automaticApproval"
+      }
+    },
+    "relationships": {
+      "category": {
+        "style": "LINK",
+        "visible": true,
+        "primary": true,
+        "navigable": true,
+        "derived": false,
+        "initializable": true,
+        "editable": true,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Category",
+          "kind": "Entity"
+        },
+        "required": true,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "category",
+        "label": "Category",
+        "description": "",
+        "symbol": "category"
+      },
+      "employee": {
+        "style": "LINK",
+        "visible": true,
+        "primary": true,
+        "opposite": "expenses",
+        "navigable": true,
+        "associationName": "EmployeeExpenses",
+        "derived": false,
+        "initializable": true,
+        "editable": true,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "required": true,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "employee",
+        "label": "Employee",
+        "description": "",
+        "symbol": "employee"
+      },
+      "approver": {
+        "style": "LINK",
+        "visible": true,
+        "primary": true,
+        "navigable": true,
+        "derived": false,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "name": "approver",
+        "label": "Approver",
+        "description": "",
+        "symbol": "approver"
+      }
+    },
+    "standalone": true,
+    "topLevel": true,
+    "concrete": true,
+    "user": false,
+    "namespace": "expenses",
+    "name": "Expense",
+    "label": "Expense",
+    "description": "The expense as reported by an employee.",
+    "symbol": "Expense",
+    "uri": "entities/expenses.Expense/entity.json",
+    "extentUri": "entities/expenses.Expense/instance"
+  },
+  {
+    "operations": {
+      "declareExpense": {
+        "instanceOperation": true,
+        "kind": "Action",
+        "parameters": [
+          {
+            "typeRef": {
+              "entityNamespace": "mdd_types",
+              "typeName": "String",
+              "kind": "Primitive"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Employee",
+              "kind": "Entity"
+            },
+            "name": "description",
+            "label": "Description",
+            "description": "",
+            "symbol": "description"
+          },
+          {
+            "typeRef": {
+              "entityNamespace": "mdd_types",
+              "typeName": "Double",
+              "kind": "Primitive"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Employee",
+              "kind": "Entity"
+            },
+            "name": "amount",
+            "label": "Amount",
+            "description": "",
+            "symbol": "amount"
+          },
+          {
+            "typeRef": {
+              "entityNamespace": "mdd_types",
+              "typeName": "Date",
+              "kind": "Primitive"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Employee",
+              "kind": "Entity"
+            },
+            "name": "date",
+            "label": "Date",
+            "description": "",
+            "symbol": "date"
+          },
+          {
+            "typeRef": {
+              "entityNamespace": "expenses",
+              "typeName": "Category",
+              "kind": "Entity"
+            },
+            "required": true,
+            "defaultValue": false,
+            "multiple": false,
+            "owner": {
+              "entityNamespace": "expenses",
+              "typeName": "Employee",
+              "kind": "Entity"
+            },
+            "name": "category",
+            "label": "Category",
+            "description": "",
+            "symbol": "category"
+          }
+        ],
+        "enabled": true,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "declareExpense",
+        "label": "Declare Expense",
+        "description": "",
+        "symbol": "declareExpense"
+      }
+    },
+    "properties": {
+      "name": {
+        "unique": false,
+        "derived": false,
+        "initializable": true,
+        "editable": true,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "String",
+          "kind": "Primitive"
+        },
+        "required": true,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "name",
+        "label": "Name",
+        "description": "",
+        "symbol": "name"
+      },
+      "totalRecorded": {
+        "unique": false,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "Double",
+          "kind": "Primitive"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "totalRecorded",
+        "label": "Total Recorded",
+        "description": "",
+        "symbol": "totalRecorded"
+      },
+      "totalSubmitted": {
+        "unique": false,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "Double",
+          "kind": "Primitive"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "totalSubmitted",
+        "label": "Total Submitted",
+        "description": "",
+        "symbol": "totalSubmitted"
+      },
+      "totalApproved": {
+        "unique": false,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "Double",
+          "kind": "Primitive"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "totalApproved",
+        "label": "Total Approved",
+        "description": "",
+        "symbol": "totalApproved"
+      },
+      "totalRejected": {
+        "unique": false,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "Double",
+          "kind": "Primitive"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "totalRejected",
+        "label": "Total Rejected",
+        "description": "",
+        "symbol": "totalRejected"
+      },
+      "username": {
+        "unique": false,
+        "derived": false,
+        "initializable": true,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "String",
+          "kind": "Primitive"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "username",
+        "label": "Username",
+        "description": "",
+        "symbol": "username"
+      }
+    },
+    "relationships": {
+      "expenses": {
+        "style": "LINK",
+        "visible": true,
+        "primary": false,
+        "opposite": "employee",
+        "navigable": true,
+        "associationName": "EmployeeExpenses",
+        "derived": false,
+        "initializable": true,
+        "editable": true,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": false,
+        "multiple": true,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "expenses",
+        "label": "Expenses",
+        "description": "",
+        "symbol": "expenses"
+      },
+      "recordedExpenses": {
+        "style": "LINK",
+        "visible": true,
+        "primary": true,
+        "navigable": true,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": true,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "recordedExpenses",
+        "label": "Recorded Expenses",
+        "description": "",
+        "symbol": "recordedExpenses"
+      },
+      "submittedExpenses": {
+        "style": "LINK",
+        "visible": true,
+        "primary": true,
+        "navigable": true,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": true,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "submittedExpenses",
+        "label": "Submitted Expenses",
+        "description": "",
+        "symbol": "submittedExpenses"
+      },
+      "approvedExpenses": {
+        "style": "LINK",
+        "visible": true,
+        "primary": true,
+        "navigable": true,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": true,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "approvedExpenses",
+        "label": "Approved Expenses",
+        "description": "",
+        "symbol": "approvedExpenses"
+      },
+      "rejectedExpenses": {
+        "style": "LINK",
+        "visible": true,
+        "primary": true,
+        "navigable": true,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": true,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Employee",
+          "kind": "Entity"
+        },
+        "name": "rejectedExpenses",
+        "label": "Rejected Expenses",
+        "description": "",
+        "symbol": "rejectedExpenses"
+      }
+    },
+    "standalone": true,
+    "topLevel": true,
+    "concrete": true,
+    "user": true,
+    "namespace": "expenses",
+    "name": "Employee",
+    "label": "Employee",
+    "description": "An employee reports expenses.",
+    "symbol": "Employee",
+    "uri": "entities/expenses.Employee/entity.json",
+    "extentUri": "entities/expenses.Employee/instance"
+  }
+]

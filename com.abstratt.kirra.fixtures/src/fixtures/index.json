@@ -1,1 +1,5 @@
-{}
+{
+    "uri":".",
+    "entities" : "entities/entities.json",
+    "services" : "services/services.json"
+}

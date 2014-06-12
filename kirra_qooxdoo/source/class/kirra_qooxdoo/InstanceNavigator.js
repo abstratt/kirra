@@ -41,7 +41,7 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator",
         var instanceSelected = me.instanceList.getModel().getItem(evt.getData());
         console.log(instanceSelected);
         qx.core.Init.getApplication().getRouting().executeGet("/entity/" + me._entityName + "/instances/" + instanceSelected.objectId);
-      }, this);
+          }, this);
     },
     _start : function() {
         this.base(arguments);

@@ -65,9 +65,11 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
           }
       }
       var menuItems = [];
-      for (var actionName in this._instance.actions)
-          if (this._instance.actions[actionName].enabled)
-              this.buildMenuItemFor(menuItems, actionName, this._instance.actions[actionName]);
+      for (var actionName in this._entity.operations) {
+          var operation = this._entity.operations[actionName];
+          if (operation.instanceOperation && operation.kind === "Action" && this._instance.disabledActions[actionName] === undefined)
+              menuItems.push(operation.label);
+      }
                
       this.actionMenu.setItems(new qx.data.Array(menuItems));
       this.actionMenuButton.setEnabled(menuItems.length > 0);
@@ -116,12 +118,6 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
       this.show(); 
     },
     
-    buildMenuItemFor : function (menuItems, actionName, actionData) {
-        if (actionData.enabled) {
-            menuItems.push(actionName);
-        }
-    },
-    
     buildWidgetFor : function (form, property) {
         var widget = this.createWidget(property);
         this._widgets[property.name] = widget;
@@ -139,17 +135,18 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
         var factoryMethodName = 'create' + kind + 'Widget';
         var factory = this[factoryMethodName];
         if (typeof(factory) !== 'function') {
-            console.log("No factory found for: " + kind);
+            console.log("No factory found for: " +  + property.name + " : " + kind);
             return this.createStringWidget();
         }
         return factory.call(this, property);
     },
     
     createPrimitiveWidget : function (property) {
-        var factoryMethodName = 'create' + property.type + 'Widget';
+        var typeName = property.typeRef && property.typeRef.typeName
+        var factoryMethodName = 'create' + typeName + 'Widget';
         var factory = this[factoryMethodName];
         if (typeof(factory) !== 'function') {
-            console.log("No factory found for: " + property.type);
+            console.log("No factory found for: " + property.name + " : " + typeName);
             return this.createStringWidget();
         }
         return factory.call(this, property);
