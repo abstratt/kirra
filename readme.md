@@ -23,7 +23,7 @@ The SchemaManagement API gives access to the schema of the application.
 The Repository merges both instance and schema-related features. 
 
 This API specification has no dependencies. 
-___________________
+
 
 Implementations
 ----------------
