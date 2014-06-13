@@ -657,5 +657,6 @@
   "description": "The expense as reported by an employee.",
   "symbol": "Expense",
   "url": "entities/expenses.Expense/entity.json",
-  "extentUri": "entities/expenses.Expense/instance"
+  "extentUri": "entities/expenses.Expense/instance",
+  "instanceUriTemplate": "entities/expenses.Expense/instances(objectId)"
 }
