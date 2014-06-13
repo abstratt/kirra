@@ -1,7 +1,9 @@
 package com.abstratt.kirra.fixtures;
 
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toMap;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,15 +60,34 @@ public class InMemoryInstanceManagement implements InstanceManagement {
         Instance found = getInstance(operation.getOwner(), externalId);
         if (Objects.isNull(found))
             throw new KirraException("Not found", Kind.OBJECT_NOT_FOUND);
+        Entity entity = schemaManagement.getEntity(found.getTypeRef());
         switch (operation.getOwner().getTypeName()) {
         case "Expense":
             switch (operation.getName()) {
             case "submit":
                 found.setValue("status", "Submitted");
-                return Arrays.asList();
+                found.setDisabledActions(buildDisabledActions("submit"));
+                return asList();
+            case "review":
+                found.setValue("status", "Draft");
+                found.setDisabledActions(buildDisabledActions("approve", "reject", "review"));
+                return asList();
+            case "approve":
+                found.setValue("status", "Approved");
+                found.setDisabledActions(buildDisabledActions("submit", "approve", "reject", "review"));
+                return asList();
+            case "reject":
+                found.setValue("status", "Rejected");
+                found.setDisabledActions(buildDisabledActions("submit", "approve", "reject", "review"));
+                return asList();
             }
+
         }
         throw new KirraException("Not implemented: " + operation.getName(), Kind.ELEMENT_NOT_FOUND);
+    }
+
+    private Map<String, String> buildDisabledActions(String... operationNames) {
+        return asList(operationNames).stream().collect(toMap(o -> o, o -> ""));
     }
 
     @Override
@@ -161,7 +182,7 @@ public class InMemoryInstanceManagement implements InstanceManagement {
 
     private List<Instance> loadInstances(TypeRef typeRef) {
         Page<Instance> entityInstances = FixtureHelper.loadFixture(new TypeToken<Page<Instance>>() {
-        }.getType(), Paths.ENTITIES, typeRef.toString() + '.' + Paths.INSTANCES);
+        }.getType(), Paths.ENTITIES, typeRef.toString() + '/' + Paths.INSTANCES);
         return entityInstances == null ? new ArrayList<>() : entityInstances.contents;
     }
 }

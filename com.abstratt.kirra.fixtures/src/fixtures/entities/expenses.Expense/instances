@@ -55,7 +55,7 @@
       "scopeName": "Expense",
       "scopeNamespace": "expenses",
       "shorthand": "Lunch in LA on 2012/09/14",
-      "uri": "entities/expenses.Expense/instance2",
+      "uri": "entities/expenses.Expense/instances2",
       "entityUri": "entities/expenses.Expense/"
     },
     {
@@ -112,7 +112,7 @@
       "scopeName": "Expense",
       "scopeNamespace": "expenses",
       "shorthand": "YVR/LAX on 2012/09/13",
-      "uri": "entities/expenses.Expense/instance3",
+      "uri": "entities/expenses.Expense/instances3",
       "entityUri": "entities/expenses.Expense/"
     },
     {
@@ -170,7 +170,7 @@
       "scopeName": "Expense",
       "scopeNamespace": "expenses",
       "shorthand": "Lunch at subway on 2012/09/13",
-      "uri": "entities/expenses.Expense/instance4",
+      "uri": "entities/expenses.Expense/instances4",
       "entityUri": "entities/expenses.Expense/"
     },
     {
@@ -228,7 +228,7 @@
       "scopeName": "Expense",
       "scopeNamespace": "expenses",
       "shorthand": "Hilton LA downtown on 2012/09/13",
-      "uri": "entities/expenses.Expense/instance5",
+      "uri": "entities/expenses.Expense/instances5",
       "entityUri": "entities/expenses.Expense/"
     }
   ]

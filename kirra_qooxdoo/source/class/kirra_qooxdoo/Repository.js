@@ -81,21 +81,23 @@ qx.Class.define("kirra_qooxdoo.Repository",
             throw Error("Missing entity or extentUri");
         if (!objectId)
             throw Error("Missing objectId");
-        this.load(entity.extentUri + objectId, callback);  
+        this.load(entity.instanceUriTemplate.replace("(objectId)", objectId), callback);  
+    },
+    
+    sendAction : function(entity, objectId, operation, callback) {
+        var me = this;
+        console.log("Running action");
+        console.log(objectId);
+        console.log(operation);
+        this.post(entity.instanceActionUriTemplate.replace("(objectId)", objectId).replace("(actionName)", operation.name), {}, function () {
+            me.loadInstance(entity, objectId, callback);
+        });
     },
     
     
     /* Generic helper for performing Ajax invocations. */
     load : function(uri, callback, slotName) {
-        var parsedUri = qx.util.Uri.parseUri(uri);
-        console.log({ uri: uri });
-        console.log({ parsedUri: parsedUri });
-        console.log({ _parsedApplicationUri: this._parsedApplicationUri });
-        if (!parsedUri.protocol) {
-            uri = this._parsedApplicationUri.protocol + "://" + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (":"+this._parsedApplicationUri.port) : "") + this._parsedApplicationUri.directory + uri;
-        }
-        console.log({ uri: uri });
-	    var req = new qx.io.request.Xhr(uri);
+        var req = this.buildRequest(uri);
 	    
 		req.addListener("success", function(e) {
 		  var req = e.getTarget();
@@ -109,6 +111,30 @@ qx.Class.define("kirra_qooxdoo.Repository",
 		  callback(response);
 		}, this);    
         req.send();
+    },
+    
+    post : function(uri, data, callback) {
+        var req = this.buildRequest(uri, "POST");
+        req.setRequestHeader("Content-Type", "application/json");
+        req.setRequestData(qx.util.Serializer.toJson(data, (function() {}), new qx.util.format.DateFormat("yyyy/MM/dd")));
+        req.addListener("success", function(e) {
+          var req = e.getTarget();
+          var response = req.getResponse();
+          console.log(response);
+          if (callback)
+              callback(response);
+        }, this);    
+        req.send();
+    },
+    
+    
+    buildRequest : function (uri, method) {
+        var parsedUri = qx.util.Uri.parseUri(uri);
+        if (!parsedUri.protocol) {
+            uri = this._parsedApplicationUri.protocol + "://" + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (":"+this._parsedApplicationUri.port) : "") + this._parsedApplicationUri.directory + uri;
+        }
+        return new qx.io.request.Xhr(uri, method);
+    
     }
   }
 });

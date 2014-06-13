@@ -24,7 +24,8 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
     _objectId : null,    
     _instance : null,  
     _entity : null,
-    _widgets : {},      
+    _widgets : {},
+    _actions : [],
     // overridden
     _initialize : function()
     {
@@ -65,16 +66,21 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
           }
       }
       var menuItems = [];
+      this._actions = [];
       for (var actionName in this._entity.operations) {
           var operation = this._entity.operations[actionName];
-          if (operation.instanceOperation && operation.kind === "Action" && this._instance.disabledActions[actionName] === undefined)
+          if (operation.instanceOperation && operation.kind === "Action" && this._instance.disabledActions[actionName] === undefined) {
               menuItems.push(operation.label);
+              this._actions.push(operation);
+          }
       }
-               
+      this.actionMenu.hide();
       this.actionMenu.setItems(new qx.data.Array(menuItems));
       this.actionMenuButton.setEnabled(menuItems.length > 0);
     },
     buildForm : function () {
+    
+      var me = this;
     
       if (!this.getContent() || !this._entity) {
           return;
@@ -97,8 +103,13 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
           actionMenu.show();
       }, this);
       actionMenu.addListener("tap", function(e) {
-         alert("Actions not implemented yet");
+          me.repository.sendAction(me._entity, me._objectId, me._actions[actionMenu.getSelectedIndex()], function (instance) {
+               me._instance = instance;
+               me.populateForm();    
+          });
+          console.log(e);
       }, this);
+      
       this.actionMenu = actionMenu; 
       toolbar.add(actionMenuButton);
 

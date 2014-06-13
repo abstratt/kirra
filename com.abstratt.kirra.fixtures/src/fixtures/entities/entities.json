@@ -1157,6 +1157,6 @@
     "description": "An employee reports expenses.",
     "symbol": "Employee",
     "uri": "entities/expenses.Employee/entity.json",
-    "extentUri": "entities/expenses.Employee/instance"
+    "extentUri": "entities/expenses.Employee/instances"
   }
 ]
