@@ -1,5 +1,6 @@
-Kirra API
-=====================
+---
+title: Kirra API
+---
 
 The Kirra API is a minimalistic API specification to access functionality of a business application in a business and technology agnostic way. 
 
