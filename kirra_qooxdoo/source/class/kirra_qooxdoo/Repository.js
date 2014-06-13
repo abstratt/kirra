@@ -81,7 +81,8 @@ qx.Class.define("kirra_qooxdoo.Repository",
             throw Error("Missing entity or extentUri");
         if (!objectId)
             throw Error("Missing objectId");
-        this.load(entity.instanceUriTemplate.replace("(objectId)", objectId), callback);  
+        var instanceUri = entity.instanceUriTemplate || (entity.extentUri + objectId);
+        this.load(instanceUri.replace("(objectId)", objectId), callback);  
     },
     
     sendAction : function(entity, objectId, operation, callback) {
@@ -93,7 +94,8 @@ qx.Class.define("kirra_qooxdoo.Repository",
             alert("This application does not support invoking actions");
             return;
         }
-        this.post(entity.instanceActionUriTemplate.replace("(objectId)", objectId).replace("(actionName)", operation.name), {}, function () {
+        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + objectId + "/actions/" + operation.name) ;
+        this.post(instanceActionUri, {}, function () {
             me.loadInstance(entity, objectId, callback);
         });
     },
