@@ -109,7 +109,7 @@
     "description": "The category for an expense.",
     "symbol": "Category",
     "uri": "entities/expenses.Category/entity.json",
-    "extentUri": "entities/expenses.Category/instance"
+    "extentUri": "entities/expenses.Category/instances"
   },
   {
     "operations": {
@@ -768,7 +768,7 @@
     "description": "The expense as reported by an employee.",
     "symbol": "Expense",
     "uri": "entities/expenses.Expense/entity.json",
-    "extentUri": "entities/expenses.Expense/instance"
+    "extentUri": "entities/expenses.Expense/instances"
   },
   {
     "operations": {
