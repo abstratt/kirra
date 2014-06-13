@@ -89,6 +89,10 @@ qx.Class.define("kirra_qooxdoo.Repository",
         console.log("Running action");
         console.log(objectId);
         console.log(operation);
+        if (!entity.instanceActionUriTemplate) {
+            alert("This application does not support invoking actions");
+            return;
+        }
         this.post(entity.instanceActionUriTemplate.replace("(objectId)", objectId).replace("(actionName)", operation.name), {}, function () {
             me.loadInstance(entity, objectId, callback);
         });
