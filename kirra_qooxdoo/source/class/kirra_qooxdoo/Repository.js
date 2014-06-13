@@ -5,6 +5,7 @@ qx.Class.define("kirra_qooxdoo.Repository",
   construct : function(applicationUri)
   {
     this.base(arguments);
+    applicationUri = applicationUri.replace(/\/$/, "");
     this._parsedApplicationUri = qx.util.Uri.parseUri(applicationUri);
     this._applicationUri = applicationUri;
   },
