@@ -1,5 +1,4 @@
 ---
-layout: post
 ---
 Kirra API
 ===
@@ -31,8 +30,8 @@ Implementations
 #### Cloudfier
 Cloudfier implements the Kirra API to expose the funcionality of business applications running off of executable UML models. Cloudfier can generate fully functional clients based on the schema exposed by the Kirra API. Status: [released](http://cloudfier.com/doc).
 
-#### Kirra Android Client
-A generic client that provides access to any business application that provides a Kirra compliant API. Status: [TBD](https://bitbucket.org/abstratt/kirra-android).
+#### HTML5 mobile-styled client
+A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [in progress](./kirra_qooxdoo).
 
 ###Ideas
 
