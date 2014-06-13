@@ -31,7 +31,7 @@ Implementations
 Cloudfier implements the Kirra API to expose the funcionality of business applications running off of executable UML models. Cloudfier can generate fully functional clients based on the schema exposed by the Kirra API. Status: [released](http://cloudfier.com/doc).
 
 #### HTML5 mobile-styled client
-A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [in progress](http://abstratt.github.io/kirra/kirra_qooxdoo/source/?app-path=/kirra/com.abstratt.kirra.fixtures/src/fixtures/index.json).
+A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [in progress](http://github.com/kirra/kirra_qooxdoo) ([demo](http://abstratt.github.io/kirra/kirra_qooxdoo/source/?app-path=/kirra/com.abstratt.kirra.fixtures/src/fixtures/index.json)).
 
 ###Ideas
 
