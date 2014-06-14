@@ -1,4 +1,4 @@
-This is a generic mobile-styled HTML5/JavaScript client for any Kirra-compliant applications. It is implemented using the [Qooxdoo](http://qooxdoo.org) Javascript http://qooxdoo.org/framework.
+This is a generic mobile-styled HTML5/JavaScript client for any Kirra-compliant applications. It is implemented using the [Qooxdoo](http://qooxdoo.org) Javascript framework.
 
 In order to work on this project, you need to:
 
