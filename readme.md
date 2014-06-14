@@ -21,11 +21,19 @@ The SchemaManagement API gives access to the schema of the application.
 
 The Repository merges both instance and schema-related features. 
 
-This API specification has no dependencies. 
-
+[![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=kirra-api)](https://textuml.ci.cloudbees.com/job/kirra-api/)
 
 Implementations
 ----------------
+
+#### Java Model
+A Java-based specification of the Kirra metamodel. This specification has no dependencies and can be used in any Java-based application. Status: [released](http://github.com/abstratt/kirra/tree/master/com.abstratt.kirra.api).
+
+#### JAX-RS-based REST API implementation
+JAX-RS based implementation of Kirra as a REST API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/com.abstratt.kirra.rest.resources).
+
+#### Java-based REST API CLient
+Implements the SchemaManagement and InstanceManagement protocols as a proxy to any REST-based implementation of the Kirra API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/com.abstratt.kirra.rest.client)
 
 #### Cloudfier
 Cloudfier implements the Kirra API to expose the funcionality of business applications running off of executable UML models. Cloudfier can generate fully functional clients based on the schema exposed by the Kirra API. Status: [released](http://cloudfier.com/doc).
