@@ -1,6 +1,4 @@
-This is a generic mobile-styled HTML5/JavaScript client for any Kirr- compliant applivccations.
-
-ea
+This is a generic mobile-styled HTML5/JavaScript client for any Kirra-compliant applications.
 
 In order to work on this project, you need to:
 
