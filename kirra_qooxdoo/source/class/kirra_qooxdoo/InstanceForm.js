@@ -105,7 +105,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
       actionMenu.addListener("tap", function(e) {
           me.repository.sendAction(me._entity, me._objectId, me._actions[actionMenu.getSelectedIndex()], function (instance) {
                me._instance = instance;
-               me.populateForm();    
+               me.populateForm();
           });
           console.log(e);
       }, this);

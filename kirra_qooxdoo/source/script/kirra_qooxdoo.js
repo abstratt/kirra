@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.c8a398231601.js","kirra_qooxdoo:kirra_qooxdoo/Repository.js","__out__:kirra_qooxdoo.28d5cc553609.js","kirra_qooxdoo:kirra_qooxdoo/Application.js","__out__:kirra_qooxdoo.78353aa45bc9.js","kirra_qooxdoo:kirra_qooxdoo/EntityNavigator.js","__out__:kirra_qooxdoo.82a630f5a6f9.js","kirra_qooxdoo:kirra_qooxdoo/InstanceNavigator.js","kirra_qooxdoo:kirra_qooxdoo/InstanceForm.js","__out__:kirra_qooxdoo.4645e97172e0.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.c8a398231601.js","kirra_qooxdoo:kirra_qooxdoo/Repository.js","__out__:kirra_qooxdoo.28d5cc553609.js","kirra_qooxdoo:kirra_qooxdoo/Application.js","__out__:kirra_qooxdoo.78353aa45bc9.js","kirra_qooxdoo:kirra_qooxdoo/EntityNavigator.js","__out__:kirra_qooxdoo.82a630f5a6f9.js","kirra_qooxdoo:kirra_qooxdoo/InstanceNavigator.js","kirra_qooxdoo:kirra_qooxdoo/InstanceForm.js","__out__:kirra_qooxdoo.c77c6e429f03.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",

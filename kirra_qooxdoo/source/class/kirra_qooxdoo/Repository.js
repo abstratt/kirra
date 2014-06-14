@@ -90,8 +90,8 @@ qx.Class.define("kirra_qooxdoo.Repository",
         console.log("Running action");
         console.log(objectId);
         console.log(operation);
-        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + objectId + "/actions/" + operation.name) ;
-        this.post(instanceActionUri, {}, function () {
+        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + "(objectId)/actions/(actionName)") ;
+        this.post(instanceActionUri.replace("(objectId)", objectId).replace("(actionName)", operation.name), {}, function () {
             me.loadInstance(entity, objectId, callback);
         });
     },
@@ -100,33 +100,39 @@ qx.Class.define("kirra_qooxdoo.Repository",
     /* Generic helper for performing Ajax invocations. */
     load : function(uri, callback, slotName) {
         var req = this.buildRequest(uri);
-	    
-		req.addListener("success", function(e) {
-		  var req = e.getTarget();
-		  var response = req.getResponse();
-		  if (slotName)
-		      this[slotName] = response;
-		  console.log(uri);
-		  console.log(response);
-		  if (typeof(response) === 'string')
-		      response = JSON.parse(response);
-		  callback(response);
-		}, this);    
-        req.send();
+        this.sendRequest(req, callback, slotName);
     },
     
     post : function(uri, data, callback) {
         var req = this.buildRequest(uri, "POST");
         req.setRequestHeader("Content-Type", "application/json");
         req.setRequestData(qx.util.Serializer.toJson(data, (function() {}), new qx.util.format.DateFormat("yyyy/MM/dd")));
+        this.sendRequest(req, callback);    
+    },
+    
+    sendRequest : function (req, callback, slotName) {
+        var me = this;
+        
+        var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator("Please wait");
+        var busyPopup = new qx.ui.mobile.dialog.Popup(busyIndicator)
+        busyPopup.toggleVisibility(); 
+ 
         req.addListener("success", function(e) {
           var req = e.getTarget();
           var response = req.getResponse();
-          console.log(response);
+          if (slotName)
+              me[slotName] = response;
+          if (typeof(response) === 'string')
+              response = JSON.parse(response);
           if (callback)
               callback(response);
         }, this);    
-        req.send();
+    
+        req.addListener("loadEnd", function(e) {
+            busyPopup.hide();
+        }, this);    
+    
+        req.send();        
     },
     
     
