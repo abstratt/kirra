@@ -3,6 +3,9 @@
 Kirra API
 ===
 
+[![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=kirra-api)](https://textuml.ci.cloudbees.com/job/kirra-api/)
+
+
 The Kirra API is a minimalistic API specification to access functionality of a business application in a business and technology agnostic way. 
 
 This reference implementation happens to use the Java language, but the intent is that it could be easily translated to other programming languages (or computing domains, such as network-oriented APIs).
@@ -21,7 +24,6 @@ The SchemaManagement API gives access to the schema of the application.
 
 The Repository merges both instance and schema-related features. 
 
-[![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=kirra-api)](https://textuml.ci.cloudbees.com/job/kirra-api/)
 
 Implementations
 ----------------
@@ -32,7 +34,7 @@ A Java-based specification of the Kirra metamodel. This specification has no dep
 #### JAX-RS-based REST API implementation
 JAX-RS based implementation of Kirra as a REST API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/com.abstratt.kirra.rest.resources).
 
-#### Java-based REST API CLient
+#### Java-based REST API Client
 Implements the SchemaManagement and InstanceManagement protocols as a proxy to any REST-based implementation of the Kirra API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/com.abstratt.kirra.rest.client)
 
 #### Cloudfier
