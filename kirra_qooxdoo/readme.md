@@ -1,8 +1,8 @@
-This is a generic mobile-styled HTML5/JavaScript client for any Kirra-compliant applications.
+This is a generic mobile-styled HTML5/JavaScript client for any Kirra-compliant applications. It is implemented using the [Qooxdoo](http://qooxdoo.org) Javascript http://qooxdoo.org/framework.
 
 In order to work on this project, you need to:
 
-- download and install the Qooxdoo SDK
+- download and install the [Qooxdoo SDK](http://qooxdoo.org/downloads).
 - create a symbolic link called 'qooxdoo' from here to the path where you installed the Qooxdoo SDK
 - run "./generate.py" whenever you add new dependencies to Qooxdoo classes
 - run "./generate.py source-server" to run a local webserver where you can test the application
