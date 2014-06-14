@@ -46,13 +46,15 @@ A generic mobile-styled HTML5 client that allows accessing any business applicat
 ###Ideas
 
 #### EJB/JPA
-
 Implement the Kirra API over the object model of a EJB/JPA application.
 
 #### Apache ISIS
 Apache ISIS seems to have a generic API for accessing the functionality of Isis applications but it is far from minimalistic. It is unclear if the current level of functionality ISIS provides could be a offered via a simpler API (if not as simple as Kirra, hopefully not nearly as complex as Isis').
 
 Isis has several viewer implementations, it would be great of they could be detached from the Isis runtime implementation and rely on an implementation-agnostic API like Kirra. 
+
+#### EMF/ECore
+Implement the Kirra API on top of EMF's ECore API.
 
 #### OpenXava
 OpenXava is similar to Apache Isis, but does not have a metamodel API. 
