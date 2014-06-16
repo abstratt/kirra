@@ -55,6 +55,8 @@
     "MOBILE_THEME_PATH" : "${APPLICATION_PATH}/css/${MOBILE_THEME}.css",
     "CSS_COMB_URI" : "./resource/${APPLICATION_PATH}/css/${MOBILE_THEME}-style-min.css",
     "CSS_COMBINED" : "${BUILD_PATH}/${CSS_COMB_URI}",
+    // turns off optimization
+    "OPTIMIZE"     : ["basecalls", "comments", "privates", "strings", "variants"], 
     "ROOT"         : ".",
     "QXTHEME"      : "", // preventing mobile app to load desktop icons
     "ROOT"         : ".",
