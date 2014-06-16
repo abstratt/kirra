@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.429d3dc6a916.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.1e53e245c2e7.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",
@@ -15343,16 +15343,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "Missing entity or extentUri",b = "loadEnd",c = "(objectId)",d = "(actionName)",f = "application/json",g = "kirra_qooxdoo.Repository",h = ":",j = "Running action",k = "success",l = "yyyy/MM/dd",m = "://",n = "Please wait",o = "Missing entityName: ",p = "",q = "Entity not found: ",r = "(objectId)/actions/(actionName)",s = "POST",t = "entity.",u = "_entityList",v = 'string',w = "Content-Type",x = "_application",y = "Missing objectId";
-  qx.Class.define(g, {
+  var a = "Missing entity or extentUri",b = "loadEnd",c = "(objectId)",d = "Missing instance or instance URI",f = "(actionName)",g = "application/json",h = "kirra_qooxdoo.Repository",j = "PUT",k = ":",l = "Running action",m = "success",n = "yyyy/MM/dd",o = "://",p = "Please wait",q = "Missing entityName: ",r = "",s = "Entity not found: ",t = "(objectId)/actions/(actionName)",u = "POST",v = "entity.",w = "_entityList",x = 'string',y = "Content-Type",z = " ",A = "_application",B = "Missing objectId";
+  qx.Class.define(h, {
     extend : qx.core.Object,
     construct : function(applicationUri){
 
       qx.core.Object.call(this);
-      applicationUri = applicationUri.replace(/\/$/, p);
+      applicationUri = applicationUri.replace(/\/$/, r);
       this._parsedApplicationUri = qx.util.Uri.parseUri(applicationUri);
       this._applicationUri = applicationUri;
-      var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator(n);
+      var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator(p);
       this._busyPopup = new qx.ui.mobile.dialog.Popup(busyIndicator);
     },
     members : {
@@ -15365,7 +15365,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _busyPopup : null,
       loadApplication : function(callback){
 
-        this.load(this._applicationUri, callback, x);
+        this.load(this._applicationUri, callback, A);
       },
       loadEntities : function(callback, retry){
 
@@ -15379,21 +15379,21 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           });
           return;
         };
-        this.load(me._application.entities, callback, u);
+        this.load(me._application.entities, callback, w);
       },
       loadEntity : function(entityName, callback, retry){
 
-        if(!entityName)throw Error(o + entityName);
+        if(!entityName)throw Error(q + entityName);
         for(var i in this._entityList){
 
           if(this._entityList[i].name == entityName){
 
             var entityUri = this._entityList[i].uri;
-            this.load(entityUri, callback, t + entityName);
+            this.load(entityUri, callback, v + entityName);
             return;
           };
         };
-        if(retry === false)throw Error(q + entityName);
+        if(retry === false)throw Error(s + entityName);
         var me = this;
         this.loadEntities(function(){
 
@@ -15402,7 +15402,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       loadInstances : function(entityName, callback, retry){
 
-        if(!entityName)throw Error(o + entityName);
+        if(!entityName)throw Error(q + entityName);
         for(var i in this._entityList){
 
           if(this._entityList[i].name == entityName){
@@ -15415,7 +15415,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             return;
           };
         };
-        if(retry === false)throw Error(q + entityName);
+        if(retry === false)throw Error(s + entityName);
         var me = this;
         this.loadEntities(function(){
 
@@ -15425,18 +15425,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       loadInstance : function(entity, objectId, callback){
 
         if(!entity || !entity.extentUri)throw Error(a);
-        if(!objectId)throw Error(y);
+        if(!objectId)throw Error(B);
         var instanceUri = entity.instanceUriTemplate || (entity.extentUri + objectId);
         this.load(instanceUri.replace(c, objectId), callback);
+      },
+      saveInstance : function(entity, instance, callback){
+
+        if(!instance || !instance.uri)throw Error(d);
+        this.put(instance.uri, instance, callback);
       },
       sendAction : function(entity, objectId, operation, callback){
 
         var me = this;
-        console.log(j);
+        console.log(l);
         console.log(objectId);
         console.log(operation);
-        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + r);
-        this.post(instanceActionUri.replace(c, objectId).replace(d, operation.name), {
+        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + t);
+        this.post(instanceActionUri.replace(c, objectId).replace(f, operation.name), {
         }, function(){
 
           me.loadInstance(entity, objectId, callback);
@@ -15449,10 +15454,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       post : function(uri, data, callback){
 
-        var req = this.buildRequest(uri, s);
-        req.setRequestHeader(w, f);
+        var req = this.buildRequest(uri, u);
+        req.setRequestHeader(y, g);
         req.setRequestData(qx.util.Serializer.toJson(data, (function(){
-        }), new qx.util.format.DateFormat(l)));
+        }), new qx.util.format.DateFormat(n)));
+        this.sendRequest(req, callback);
+      },
+      put : function(uri, data, callback){
+
+        var req = this.buildRequest(uri, j);
+        req.setRequestHeader(y, g);
+        req.setRequestData(qx.util.Serializer.toJson(data, (function(){
+        }), new qx.util.format.DateFormat(n)));
         this.sendRequest(req, callback);
       },
       sendRequest : function(req, callback, slotName){
@@ -15460,12 +15473,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var me = this;
         if(me._level == 0)me._busyPopup.toggleVisibility();
         me._level = me._level + 1;
-        req.addListener(k, function(e){
+        req.addListener(m, function(e){
 
           var req = e.getTarget();
           var response = req.getResponse();
           if(slotName)me[slotName] = response;
-          if(typeof (response) === v)response = JSON.parse(response);
+          if(typeof (response) === x)response = JSON.parse(response);
+          console.log(req.method + z + req.getUrl());
+          console.log(response);
           if(callback)callback(response);
         }, this);
         req.addListener(b, function(e){
@@ -15480,7 +15495,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var parsedUri = qx.util.Uri.parseUri(uri);
         if(!parsedUri.protocol){
 
-          uri = this._parsedApplicationUri.protocol + m + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (h + this._parsedApplicationUri.port) : p) + this._parsedApplicationUri.directory + uri;
+          uri = this._parsedApplicationUri.protocol + o + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (k + this._parsedApplicationUri.port) : r) + this._parsedApplicationUri.directory + uri;
         };
         return new qx.io.request.Xhr(uri, method);
       }
@@ -40541,8 +40556,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = 'create',b = 'function',c = "/instances/",d = "Action",f = "Save",g = "/entity/",h = " : ",j = "Back",k = "No factory found for: ",l = "Actions",m = "Saving not implemented yet",n = "tap",o = '- None -',p = 'Widget',q = "kirra_qooxdoo.InstanceForm",r = "qx.event.type.Data";
-  qx.Class.define(q, {
+  var a = 'create',b = 'function',c = "/instances/",d = "Action",f = "Save",g = "/entity/",h = " : ",j = "Back",k = "No factory found for: ",l = "Actions",m = "tap",n = '- None -',o = 'Widget',p = "kirra_qooxdoo.InstanceForm",q = "qx.event.type.Data";
+  qx.Class.define(p, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
@@ -40552,7 +40567,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       this.setBackButtonText(j);
     },
     events : {
-      "show" : r
+      "show" : q
     },
     members : {
       _entityName : null,
@@ -40641,11 +40656,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var actionMenu = this.actionMenu = new qx.ui.mobile.dialog.Menu(new qx.data.Array([]), actionMenuButton);
         this.actionMenuButton.setEnabled(false);
         actionMenu.setTitle(l);
-        actionMenuButton.addListener(n, function(e){
+        actionMenuButton.addListener(m, function(e){
 
           actionMenu.show();
         }, this);
-        actionMenu.addListener(n, function(e){
+        actionMenu.addListener(m, function(e){
 
           me.repository.sendAction(me._entity, me._objectId, me._actions[actionMenu.getSelectedIndex()], function(instance){
 
@@ -40664,12 +40679,30 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
         this.getContent().add(instanceFormRenderer);
         var button = new qx.ui.mobile.form.Button(f);
-        button.addListener(n, function(){
+        button.addListener(m, function(){
 
-          alert(m);
+          me.saveInstance();
         });
         toolbar.add(button);
         this.show();
+      },
+      saveInstance : function(){
+
+        var me = this;
+        var updates = {
+          values : {
+          },
+          uri : me._instance.uri
+        };
+        for(var i in this._entity.properties){
+
+          updates.values[i] = me._widgets[i].getValue();
+        };
+        me.repository.saveInstance(me._entity, updates, function(updated){
+
+          me._instance = updated;
+          me.populateForm();
+        });
       },
       buildWidgetFor : function(form, property){
 
@@ -40683,7 +40716,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       createWidget : function(property){
 
         var kind = property.typeRef && property.typeRef.kind;
-        var factoryMethodName = a + kind + p;
+        var factoryMethodName = a + kind + o;
         var factory = this[factoryMethodName];
         if(typeof (factory) !== b){
 
@@ -40695,7 +40728,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       createPrimitiveWidget : function(property){
 
         var typeName = property.typeRef && property.typeRef.typeName;
-        var factoryMethodName = a + typeName + p;
+        var factoryMethodName = a + typeName + o;
         var factory = this[factoryMethodName];
         if(typeof (factory) !== b){
 
@@ -40740,7 +40773,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           if(!property.required){
 
-            values.push(o);
+            values.push(n);
           };
           for(var i in property.enumerationLiterals){
 

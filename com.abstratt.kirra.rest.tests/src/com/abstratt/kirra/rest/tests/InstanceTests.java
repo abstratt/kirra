@@ -27,6 +27,17 @@ public class InstanceTests extends AbstractRestTests {
         Instance retrieved = instanceManagement.getInstance("expenses", "Expense", created.getObjectId(), false);
         TestCase.assertEquals(10.0, retrieved.getValue("amount"));
     }
+    
+    public void testPutInstance() {
+        Instance newInstance = new Instance("expenses", "Expense");
+        newInstance.setValue("amount", 10);
+        Instance created = instanceManagement.createInstance(newInstance);
+        created.setValue("amount", 20);
+        Instance updated = instanceManagement.updateInstance(created);
+        TestCase.assertEquals(20.0, updated.getValue("amount"));
+        Instance retrieved = instanceManagement.getInstance("expenses", "Expense", created.getObjectId(), false);
+        TestCase.assertEquals(20.0, retrieved.getValue("amount"));
+    }
 
     public void testGetInstances() {
         int count = 10;

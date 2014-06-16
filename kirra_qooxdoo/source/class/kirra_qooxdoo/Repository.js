@@ -89,6 +89,12 @@ qx.Class.define("kirra_qooxdoo.Repository",
         this.load(instanceUri.replace("(objectId)", objectId), callback);  
     },
     
+    saveInstance : function(entity, instance, callback) {
+        if (!instance || !instance.uri)
+            throw Error("Missing instance or instance URI");
+        this.put(instance.uri, instance, callback);  
+    },
+    
     sendAction : function(entity, objectId, operation, callback) {
         var me = this;
         console.log("Running action");
@@ -114,6 +120,13 @@ qx.Class.define("kirra_qooxdoo.Repository",
         this.sendRequest(req, callback);    
     },
     
+    put : function(uri, data, callback) {
+        var req = this.buildRequest(uri, "PUT");
+        req.setRequestHeader("Content-Type", "application/json");
+        req.setRequestData(qx.util.Serializer.toJson(data, (function() {}), new qx.util.format.DateFormat("yyyy/MM/dd")));
+        this.sendRequest(req, callback);    
+    },
+    
     sendRequest : function (req, callback, slotName) {
         var me = this;
         
@@ -128,6 +141,8 @@ qx.Class.define("kirra_qooxdoo.Repository",
               me[slotName] = response;
           if (typeof(response) === 'string')
               response = JSON.parse(response);
+          console.log(req.method + " " + req.getUrl());              
+          console.log(response);
           if (callback)
               callback(response);
         }, this);    

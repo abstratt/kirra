@@ -128,8 +128,7 @@ public class InstanceManagementOnREST implements InstanceManagement {
 
     @Override
     public Instance updateInstance(Instance instance) {
-        // TODO Auto-generated method stub
-        return null;
+        return restClient.put(baseUri, instance, Paths.ENTITIES, instance.getTypeRef().toString(), Paths.INSTANCES, instance.getObjectId());
     }
 
     @Override

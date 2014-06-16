@@ -12,6 +12,7 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.lang.StringUtils;
 
@@ -53,6 +54,17 @@ public class RestClient {
     public <T> T get(URI baseUri, Type type, String... segments) {
         GetMethod get = new GetMethod(baseUri.resolve(StringUtils.join(segments, "/")).toString());
         return executeMethod(get, type);
+    }
+    
+    public <T> T put(URI baseUri, T toUpdate, String... segments) {
+        PutMethod put = new PutMethod(baseUri.resolve(StringUtils.join(segments, "/")).toString());
+        String asJson = new Gson().toJson(toUpdate);
+        try {
+            put.setRequestEntity(new StringRequestEntity(asJson, "application/json", "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        return executeMethod(put, toUpdate.getClass());
     }
 
     public <T> T post(URI baseUri, Object toCreate, Type resultType, String... segments) {

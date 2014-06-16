@@ -25,6 +25,8 @@ public class InstanceSerializer implements JsonSerializer<Instance> {
         JsonObject asJson = (JsonObject) gsonBuilder.create().toJsonTree(element);
         asJson.addProperty("uri", CommonHelper.resolve(instancesUri, element.getObjectId()).toString());
         asJson.addProperty("entityUri", CommonHelper.resolve(instancesUri, "..").toString());
+        if (element.getShorthand() == null)
+            asJson.addProperty("shorthand", element.getValues().values().iterator().next().toString());
         return asJson;
     }
 

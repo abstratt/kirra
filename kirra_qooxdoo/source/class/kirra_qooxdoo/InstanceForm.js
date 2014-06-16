@@ -122,11 +122,23 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
       
       var button = new qx.ui.mobile.form.Button("Save");
       button.addListener("tap", function () {
-          alert("Saving not implemented yet");
-      });
+          me.saveInstance();
+      });   
       toolbar.add(button);
     
       this.show(); 
+    },
+    
+    saveInstance : function () {
+        var me = this;
+        var updates = { values : {}, uri : me._instance.uri };
+        for (var i in this._entity.properties) {
+            updates.values[i] = me._widgets[i].getValue(); 
+        }
+        me.repository.saveInstance(me._entity, updates, function (updated) {
+            me._instance = updated;
+            me.populateForm();
+        });
     },
     
     buildWidgetFor : function (form, property) {

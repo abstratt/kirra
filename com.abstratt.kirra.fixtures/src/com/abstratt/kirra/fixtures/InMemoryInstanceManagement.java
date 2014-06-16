@@ -114,6 +114,10 @@ public class InMemoryInstanceManagement implements InstanceManagement {
 
     private Instance getInstance(TypeRef typeRef, String externalId) {
         List<Instance> entityInstances = getInstances(typeRef);
+        return getInstance(entityInstances, externalId);
+    }
+
+    private Instance getInstance(List<Instance> entityInstances, String externalId) {
         return entityInstances.stream().filter(i -> i.getObjectId().equals(externalId)).findAny().orElse(null);
     }
 
@@ -162,9 +166,14 @@ public class InMemoryInstanceManagement implements InstanceManagement {
     }
 
     @Override
-    public synchronized Instance updateInstance(Instance instance) {
-        // TODO Auto-generated method stub
-        return null;
+    public synchronized Instance updateInstance(Instance newState) {
+        List<Instance> entityInstances = getInstances(newState.getTypeRef());
+        Instance existing = getInstance(entityInstances, newState.getObjectId());
+        if (existing == null)
+            throw new KirraException("Not found", Kind.OBJECT_NOT_FOUND);
+        entityInstances.remove(existing);
+        entityInstances.add(newState);
+        return newState;
     }
 
     @Override
