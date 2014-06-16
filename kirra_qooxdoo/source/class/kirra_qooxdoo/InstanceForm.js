@@ -56,6 +56,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
         this.show();
     },
     populateForm : function () {
+      var me = this;
       if (!this._instance || !this._entity) {
           return;
       }
@@ -65,19 +66,65 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
               this._widgets[propertyName].setValue(value);
           }
       }
+      
+      this.addToolbar();
+      var actionMenuButton = this.actionMenuButton = new qx.ui.mobile.form.Button("...");
+      var actionMenu = this.actionMenu = new qx.ui.mobile.dialog.Menu(new qx.data.Array([]), actionMenuButton);
+
+      this.actionMenu = actionMenu; 
+      
       var menuItems = [];
       this._actions = [];
+      var firstLevelItems = [];
       for (var actionName in this._entity.operations) {
           var operation = this._entity.operations[actionName];
           if (operation.instanceOperation && operation.kind === "Action" && this._instance.disabledActions[actionName] === undefined) {
-              menuItems.push(operation.label);
               this._actions.push(operation);
+              if (firstLevelItems.length >= 2) { 
+                  menuItems.push(operation.label);
+              } else {
+                  firstLevelItems.push(operation.label);
+              }
           }
       }
+      
+      for (var i in firstLevelItems) {
+          var actionButton = new qx.ui.mobile.form.Button(firstLevelItems[i]);
+          actionButton.addListener("tap", function () {
+              me.repository.sendAction(me._entity, me._objectId, me.getOperationByLabel(firstLevelItems[i]), function (instance) {
+                   me._instance = instance;
+                   me.populateForm();
+              });
+          });
+          this.toolbar.add(actionButton);
+      }   
+      
       this.actionMenu.hide();
       this.actionMenu.setItems(new qx.data.Array(menuItems));
-      this.actionMenuButton.setEnabled(menuItems.length > 0);
+      if (menuItems.length > 0) {
+          actionMenuButton.addListener("tap", function(e) {
+              actionMenu.show();
+          }, this);
+          actionMenu.addListener("tap", function(e) {
+              me.repository.sendAction(me._entity, me._objectId, me._actions[actionMenu.getSelectedIndex() + firstLevelItems.length], function (instance) {
+                   me._instance = instance;
+                   me.populateForm();
+              });
+              console.log(e);
+          }, this);
+          this.toolbar.add(this.actionMenuButton);
+      }
     },
+    
+    getOperationByLabel : function (operationLabel) {
+        for (var i in this._entity.operations) {
+            var op = this._entity.operations[i];
+            if (op.label === operationLabel) {
+                return op;
+            }
+        }
+    },
+    
     buildForm : function () {
     
       var me = this;
@@ -87,46 +134,35 @@ qx.Class.define("kirra_qooxdoo.InstanceForm",
       }
     
       this.getContent().removeAll();
-      if (this.toolbar)
-          this.toolbar.destroy();
-    
-      var toolbar = this.toolbar = new qx.ui.mobile.toolbar.ToolBar();
-      this.add(toolbar);
+      
+      this.addToolbar();
 
       
-      console.log(this._entity.actions);
-      var actionMenuButton = this.actionMenuButton = new qx.ui.mobile.form.Button("Actions");
-      var actionMenu = this.actionMenu = new qx.ui.mobile.dialog.Menu(new qx.data.Array([]), actionMenuButton);
-      this.actionMenuButton.setEnabled(false);
-      actionMenu.setTitle("Actions");
-      actionMenuButton.addListener("tap", function(e) {
-          actionMenu.show();
-      }, this);
-      actionMenu.addListener("tap", function(e) {
-          me.repository.sendAction(me._entity, me._objectId, me._actions[actionMenu.getSelectedIndex()], function (instance) {
-               me._instance = instance;
-               me.populateForm();
-          });
-          console.log(e);
-      }, this);
-      
-      this.actionMenu = actionMenu; 
-      toolbar.add(actionMenuButton);
-
       var form = this.form = new qx.ui.mobile.form.Form();
       for (var i in this._entity.properties) {
           this.buildWidgetFor(form, this._entity.properties[i]); 
       }
       var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
       this.getContent().add(instanceFormRenderer);
-      
-      var button = new qx.ui.mobile.form.Button("Save");
-      button.addListener("tap", function () {
+
+      this.show(); 
+    },
+    
+    addToolbar : function () {
+      if (this.toolbar)
+          this.toolbar.destroy();
+      var toolbar = this.toolbar = new qx.ui.mobile.toolbar.ToolBar();
+      this.add(toolbar);
+      this.addSaveButton();
+    },
+    
+    addSaveButton : function () {
+      var me = this;
+      var saveButton = new qx.ui.mobile.form.Button("Save");
+      saveButton.addListener("tap", function () {
           me.saveInstance();
       });   
-      toolbar.add(button);
-    
-      this.show(); 
+      this.toolbar.add(saveButton);
     },
     
     saveInstance : function () {
