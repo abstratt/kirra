@@ -23,7 +23,7 @@
             "values": {
               "name": "Camille Jouel",
               "totalRecorded": 0,
-              "totalSubmitted": 35.75,
+              "totalSubmitted": 205.75,
               "totalApproved": 0,
               "totalRejected": 0
             },
@@ -34,7 +34,6 @@
         ]
       },
       "disabledActions": {
-        "reject": "",
         "submit": ""
       },
       "objectId": "2",
