@@ -8,14 +8,18 @@ qx.Class.define("kirra_qooxdoo.Repository",
     applicationUri = applicationUri.replace(/\/$/, "");
     this._parsedApplicationUri = qx.util.Uri.parseUri(applicationUri);
     this._applicationUri = applicationUri;
+    var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator("Please wait");
+    this._busyPopup = new qx.ui.mobile.dialog.Popup(busyIndicator)
   },
   
   members :
   {
+    _level : 0,
     _application : {},
     _entityList : [],
     _applicationUri : null, 
     _parsedApplicationUri : null,
+    _busyPopup : null,
     
     loadApplication : function(callback) {
         this.load(this._applicationUri, callback, "_application");    
@@ -113,9 +117,9 @@ qx.Class.define("kirra_qooxdoo.Repository",
     sendRequest : function (req, callback, slotName) {
         var me = this;
         
-        var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator("Please wait");
-        var busyPopup = new qx.ui.mobile.dialog.Popup(busyIndicator)
-        busyPopup.toggleVisibility(); 
+        if (me._level == 0)
+            me._busyPopup.toggleVisibility(); 
+        me._level = me._level + 1
  
         req.addListener("success", function(e) {
           var req = e.getTarget();
@@ -129,7 +133,9 @@ qx.Class.define("kirra_qooxdoo.Repository",
         }, this);    
     
         req.addListener("loadEnd", function(e) {
-            busyPopup.hide();
+            me._level = me._level - 1;
+            if (me._level === 0)
+                me._busyPopup.hide();
         }, this);    
     
         req.send();        

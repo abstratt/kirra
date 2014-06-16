@@ -60,7 +60,12 @@ public class InMemoryInstanceManagement implements InstanceManagement {
         Instance found = getInstance(operation.getOwner(), externalId);
         if (Objects.isNull(found))
             throw new KirraException("Not found", Kind.OBJECT_NOT_FOUND);
-        Entity entity = schemaManagement.getEntity(found.getTypeRef());
+        try {
+            // add some latency for more realistic behavior
+            this.wait(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         switch (operation.getOwner().getTypeName()) {
         case "Expense":
             switch (operation.getName()) {
