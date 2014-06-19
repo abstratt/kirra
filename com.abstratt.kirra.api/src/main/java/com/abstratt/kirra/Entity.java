@@ -65,7 +65,6 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return getNamespace();
     }
 
-    @Override
     public Operation getOperation(String name) {
         return operations.get(name);
     }
@@ -75,12 +74,10 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return operations == null ? null : new ArrayList<Operation>(operations.values());
     }
 
-    @Override
     public List<Property> getProperties() {
         return properties == null ? null : new ArrayList<Property>(properties.values());
     }
 
-    @Override
     public Property getProperty(String name) {
         return properties.get(name);
     }

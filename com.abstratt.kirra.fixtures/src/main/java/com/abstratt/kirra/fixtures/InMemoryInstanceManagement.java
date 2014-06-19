@@ -41,6 +41,8 @@ public class InMemoryInstanceManagement implements InstanceManagement {
         instance.setObjectId(generateId());
 
         Entity entity = schemaManagement.getEntity(instance.getTypeRef());
+        System.out.println(entity);
+        System.out.println(entity.getProperties());
         entity.getProperties().stream().filter(p -> p.isHasDefault()).forEach(p -> instance.setValue(p.getName(), p.getDefaultValue()));
 
         instances.add(instance);

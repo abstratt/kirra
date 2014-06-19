@@ -5,7 +5,7 @@ qx.Class.define("kirra_qooxdoo.Repository",
   construct : function(applicationUri)
   {
     this.base(arguments);
-    applicationUri = applicationUri.replace(/\/$/, "");
+    //applicationUri = applicationUri.replace(/\/$/, "");
     this._parsedApplicationUri = qx.util.Uri.parseUri(applicationUri);
     this._applicationUri = applicationUri;
     var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator("Please wait");
@@ -162,7 +162,7 @@ qx.Class.define("kirra_qooxdoo.Repository",
         if (!parsedUri.protocol) {
             uri = this._parsedApplicationUri.protocol + "://" + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (":"+this._parsedApplicationUri.port) : "") + this._parsedApplicationUri.directory + uri;
         }
-        return new qx.io.request.Xhr(uri, method);
+        return new qx.io.request.Xhr(uri, method || 'GET');
     
     }
   }

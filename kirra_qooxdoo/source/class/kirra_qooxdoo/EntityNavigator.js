@@ -44,7 +44,7 @@ qx.Class.define("kirra_qooxdoo.EntityNavigator",
       this.repository.loadEntities(function (entities) {
           var topLevel = [];
           for (var i in entities) {
-              if (entities[i].topLevel)
+              if (entities[i].topLevel && entities[i].concrete && entities[i].standalone)
                   topLevel.push(entities[i]);
           }
           me.entityList.setModel(new qx.data.Array(topLevel));

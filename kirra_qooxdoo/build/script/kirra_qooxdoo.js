@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.1e53e245c2e7.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.82c6bd040352.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",
@@ -15343,13 +15343,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "Missing entity or extentUri",b = "loadEnd",c = "(objectId)",d = "Missing instance or instance URI",f = "(actionName)",g = "application/json",h = "kirra_qooxdoo.Repository",j = "PUT",k = ":",l = "Running action",m = "success",n = "yyyy/MM/dd",o = "://",p = "Please wait",q = "Missing entityName: ",r = "",s = "Entity not found: ",t = "(objectId)/actions/(actionName)",u = "POST",v = "entity.",w = "_entityList",x = 'string',y = "Content-Type",z = " ",A = "_application",B = "Missing objectId";
+  var a = "Missing entity or extentUri",b = "loadEnd",c = "(objectId)",d = "Missing instance or instance URI",f = "(actionName)",g = "application/json",h = "kirra_qooxdoo.Repository",j = "PUT",k = ":",l = "Running action",m = "success",n = "yyyy/MM/dd",o = "://",p = "Please wait",q = "Missing entityName: ",r = "",s = "Entity not found: ",t = "(objectId)/actions/(actionName)",u = "POST",v = "entity.",w = "_entityList",x = 'GET',y = 'string',z = "Content-Type",A = " ",B = "_application",C = "Missing objectId";
   qx.Class.define(h, {
     extend : qx.core.Object,
     construct : function(applicationUri){
 
       qx.core.Object.call(this);
-      applicationUri = applicationUri.replace(/\/$/, r);
       this._parsedApplicationUri = qx.util.Uri.parseUri(applicationUri);
       this._applicationUri = applicationUri;
       var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator(p);
@@ -15365,7 +15364,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _busyPopup : null,
       loadApplication : function(callback){
 
-        this.load(this._applicationUri, callback, A);
+        this.load(this._applicationUri, callback, B);
       },
       loadEntities : function(callback, retry){
 
@@ -15425,7 +15424,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       loadInstance : function(entity, objectId, callback){
 
         if(!entity || !entity.extentUri)throw Error(a);
-        if(!objectId)throw Error(B);
+        if(!objectId)throw Error(C);
         var instanceUri = entity.instanceUriTemplate || (entity.extentUri + objectId);
         this.load(instanceUri.replace(c, objectId), callback);
       },
@@ -15455,7 +15454,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       post : function(uri, data, callback){
 
         var req = this.buildRequest(uri, u);
-        req.setRequestHeader(y, g);
+        req.setRequestHeader(z, g);
         req.setRequestData(qx.util.Serializer.toJson(data, (function(){
         }), new qx.util.format.DateFormat(n)));
         this.sendRequest(req, callback);
@@ -15463,7 +15462,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       put : function(uri, data, callback){
 
         var req = this.buildRequest(uri, j);
-        req.setRequestHeader(y, g);
+        req.setRequestHeader(z, g);
         req.setRequestData(qx.util.Serializer.toJson(data, (function(){
         }), new qx.util.format.DateFormat(n)));
         this.sendRequest(req, callback);
@@ -15478,8 +15477,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           var req = e.getTarget();
           var response = req.getResponse();
           if(slotName)me[slotName] = response;
-          if(typeof (response) === x)response = JSON.parse(response);
-          console.log(req.method + z + req.getUrl());
+          if(typeof (response) === y)response = JSON.parse(response);
+          console.log(req.method + A + req.getUrl());
           console.log(response);
           if(callback)callback(response);
         }, this);
@@ -15497,7 +15496,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           uri = this._parsedApplicationUri.protocol + o + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (k + this._parsedApplicationUri.port) : r) + this._parsedApplicationUri.directory + uri;
         };
-        return new qx.io.request.Xhr(uri, method);
+        return new qx.io.request.Xhr(uri, method || x);
       }
     }
   });
@@ -39325,7 +39324,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           var topLevel = [];
           for(var i in entities){
 
-            if(entities[i].topLevel)topLevel.push(entities[i]);
+            if(entities[i].topLevel && entities[i].concrete && entities[i].standalone)topLevel.push(entities[i]);
           };
           me.entityList.setModel(new qx.data.Array(topLevel));
         });
@@ -40556,7 +40555,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = 'create',b = 'function',c = "/instances/",d = "Action",f = "Save",g = "/entity/",h = " : ",j = "Back",k = "No factory found for: ",l = "Actions",m = "tap",n = '- None -',o = 'Widget',p = "kirra_qooxdoo.InstanceForm",q = "qx.event.type.Data";
+  var a = 'create',b = "...",c = 'function',d = "/instances/",f = "Action",g = "Save",h = "/entity/",j = " : ",k = "Back",l = "No factory found for: ",m = "tap",n = '- None -',o = 'Widget',p = "kirra_qooxdoo.InstanceForm",q = "qx.event.type.Data";
   qx.Class.define(p, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
@@ -40564,7 +40563,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
       this.setShowBackButton(true);
-      this.setBackButtonText(j);
+      this.setBackButtonText(k);
     },
     events : {
       "show" : q
@@ -40587,7 +40586,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _back : function(){
 
-        qx.core.Init.getApplication().getRouting().executeGet(g + this._entityName + c, {
+        qx.core.Init.getApplication().getRouting().executeGet(h + this._entityName + d, {
           reverse : true
         });
       },
@@ -40613,6 +40612,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       populateForm : function(){
 
+        var me = this;
         if(!this._instance || !this._entity){
 
           return;
@@ -40625,20 +40625,71 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             this._widgets[propertyName].setValue(value);
           };
         };
+        this.addToolbar();
+        var actionMenuButton = this.actionMenuButton = new qx.ui.mobile.form.Button(b);
+        var actionMenu = this.actionMenu = new qx.ui.mobile.dialog.Menu(new qx.data.Array([]), actionMenuButton);
+        this.actionMenu = actionMenu;
         var menuItems = [];
         this._actions = [];
+        var firstLevelItems = [];
         for(var actionName in this._entity.operations){
 
           var operation = this._entity.operations[actionName];
-          if(operation.instanceOperation && operation.kind === d && this._instance.disabledActions[actionName] === undefined){
+          if(operation.instanceOperation && operation.kind === f && this._instance.disabledActions[actionName] === undefined){
 
-            menuItems.push(operation.label);
             this._actions.push(operation);
+            if(firstLevelItems.length >= 2){
+
+              menuItems.push(operation.label);
+            } else {
+
+              firstLevelItems.push(operation.label);
+            };
           };
+        };
+        for(var i in firstLevelItems){
+
+          var actionButton = new qx.ui.mobile.form.Button(firstLevelItems[i]);
+          actionButton.addListener(m, function(){
+
+            me.repository.sendAction(me._entity, me._objectId, me.getOperationByLabel(firstLevelItems[i]), function(instance){
+
+              me._instance = instance;
+              me.populateForm();
+            });
+          });
+          this.toolbar.add(actionButton);
         };
         this.actionMenu.hide();
         this.actionMenu.setItems(new qx.data.Array(menuItems));
-        this.actionMenuButton.setEnabled(menuItems.length > 0);
+        if(menuItems.length > 0){
+
+          actionMenuButton.addListener(m, function(e){
+
+            actionMenu.show();
+          }, this);
+          actionMenu.addListener(m, function(e){
+
+            me.repository.sendAction(me._entity, me._objectId, me._actions[actionMenu.getSelectedIndex() + firstLevelItems.length], function(instance){
+
+              me._instance = instance;
+              me.populateForm();
+            });
+            console.log(e);
+          }, this);
+          this.toolbar.add(this.actionMenuButton);
+        };
+      },
+      getOperationByLabel : function(operationLabel){
+
+        for(var i in this._entity.operations){
+
+          var op = this._entity.operations[i];
+          if(op.label === operationLabel){
+
+            return op;
+          };
+        };
       },
       buildForm : function(){
 
@@ -40648,29 +40699,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           return;
         };
         this.getContent().removeAll();
-        if(this.toolbar)this.toolbar.destroy();
-        var toolbar = this.toolbar = new qx.ui.mobile.toolbar.ToolBar();
-        this.add(toolbar);
-        console.log(this._entity.actions);
-        var actionMenuButton = this.actionMenuButton = new qx.ui.mobile.form.Button(l);
-        var actionMenu = this.actionMenu = new qx.ui.mobile.dialog.Menu(new qx.data.Array([]), actionMenuButton);
-        this.actionMenuButton.setEnabled(false);
-        actionMenu.setTitle(l);
-        actionMenuButton.addListener(m, function(e){
-
-          actionMenu.show();
-        }, this);
-        actionMenu.addListener(m, function(e){
-
-          me.repository.sendAction(me._entity, me._objectId, me._actions[actionMenu.getSelectedIndex()], function(instance){
-
-            me._instance = instance;
-            me.populateForm();
-          });
-          console.log(e);
-        }, this);
-        this.actionMenu = actionMenu;
-        toolbar.add(actionMenuButton);
+        this.addToolbar();
         var form = this.form = new qx.ui.mobile.form.Form();
         for(var i in this._entity.properties){
 
@@ -40678,13 +40707,24 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
         this.getContent().add(instanceFormRenderer);
-        var button = new qx.ui.mobile.form.Button(f);
-        button.addListener(m, function(){
+        this.show();
+      },
+      addToolbar : function(){
+
+        if(this.toolbar)this.toolbar.destroy();
+        var toolbar = this.toolbar = new qx.ui.mobile.toolbar.ToolBar();
+        this.add(toolbar);
+        this.addSaveButton();
+      },
+      addSaveButton : function(){
+
+        var me = this;
+        var saveButton = new qx.ui.mobile.form.Button(g);
+        saveButton.addListener(m, function(){
 
           me.saveInstance();
         });
-        toolbar.add(button);
-        this.show();
+        this.toolbar.add(saveButton);
       },
       saveInstance : function(){
 
@@ -40718,9 +40758,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var kind = property.typeRef && property.typeRef.kind;
         var factoryMethodName = a + kind + o;
         var factory = this[factoryMethodName];
-        if(typeof (factory) !== b){
+        if(typeof (factory) !== c){
 
-          console.log(k + +property.name + h + kind);
+          console.log(l + +property.name + j + kind);
           return this.createStringWidget();
         };
         return factory.call(this, property);
@@ -40730,9 +40770,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var typeName = property.typeRef && property.typeRef.typeName;
         var factoryMethodName = a + typeName + o;
         var factory = this[factoryMethodName];
-        if(typeof (factory) !== b){
+        if(typeof (factory) !== c){
 
-          console.log(k + property.name + h + typeName);
+          console.log(l + property.name + j + typeName);
           return this.createStringWidget();
         };
         return factory.call(this, property);
@@ -40782,66 +40822,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         widget.setModel(new qx.data.Array(values));
         return widget;
-      }
-    }
-  });
-})();
-(function(){
-
-  var a = "middle",b = "qx.ui.mobile.toolbar.ToolBar",c = "touchstart",d = "toolbar";
-  qx.Class.define(b, {
-    extend : qx.ui.mobile.container.Composite,
-    construct : function(layout){
-
-      qx.ui.mobile.container.Composite.call(this, layout);
-      if(!layout){
-
-        this.setLayout(new qx.ui.mobile.layout.HBox().set({
-          alignY : a
-        }));
-      };
-      this.addListener(c, qx.bom.Event.preventDefault, this);
-    },
-    properties : {
-      defaultCssClass : {
-        refine : true,
-        init : d
-      }
-    },
-    members : {
-      __na : false,
-      add : function(child, layoutProperties){
-
-        if(!(child instanceof qx.ui.mobile.toolbar.Separator)){
-
-          layoutProperties = layoutProperties ? layoutProperties : {
-          };
-          qx.lang.Object.mergeWith(layoutProperties, {
-            flex : 1
-          }, false);
-        };
-        qx.ui.mobile.container.Composite.prototype.add.call(this, child, layoutProperties);
-      }
-    },
-    destruct : function(){
-
-      this.removeListener(c, qx.bom.Event.preventDefault, this);
-    }
-  });
-})();
-(function(){
-
-  var a = "qx.ui.mobile.toolbar.Separator",b = "toolbar-separator";
-  qx.Class.define(a, {
-    extend : qx.ui.mobile.core.Widget,
-    construct : function(){
-
-      qx.ui.mobile.core.Widget.call(this);
-    },
-    properties : {
-      defaultCssClass : {
-        refine : true,
-        init : b
       }
     }
   });
@@ -43216,6 +43196,66 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this.__nU.removeListener(a, this._changeEnabled, this);
         this.__nU = null;
       };
+    }
+  });
+})();
+(function(){
+
+  var a = "middle",b = "qx.ui.mobile.toolbar.ToolBar",c = "touchstart",d = "toolbar";
+  qx.Class.define(b, {
+    extend : qx.ui.mobile.container.Composite,
+    construct : function(layout){
+
+      qx.ui.mobile.container.Composite.call(this, layout);
+      if(!layout){
+
+        this.setLayout(new qx.ui.mobile.layout.HBox().set({
+          alignY : a
+        }));
+      };
+      this.addListener(c, qx.bom.Event.preventDefault, this);
+    },
+    properties : {
+      defaultCssClass : {
+        refine : true,
+        init : d
+      }
+    },
+    members : {
+      __na : false,
+      add : function(child, layoutProperties){
+
+        if(!(child instanceof qx.ui.mobile.toolbar.Separator)){
+
+          layoutProperties = layoutProperties ? layoutProperties : {
+          };
+          qx.lang.Object.mergeWith(layoutProperties, {
+            flex : 1
+          }, false);
+        };
+        qx.ui.mobile.container.Composite.prototype.add.call(this, child, layoutProperties);
+      }
+    },
+    destruct : function(){
+
+      this.removeListener(c, qx.bom.Event.preventDefault, this);
+    }
+  });
+})();
+(function(){
+
+  var a = "qx.ui.mobile.toolbar.Separator",b = "toolbar-separator";
+  qx.Class.define(a, {
+    extend : qx.ui.mobile.core.Widget,
+    construct : function(){
+
+      qx.ui.mobile.core.Widget.call(this);
+    },
+    properties : {
+      defaultCssClass : {
+        refine : true,
+        init : b
+      }
     }
   });
 })();

@@ -8,8 +8,6 @@
 		<artifactId>com.abstratt.kirra.parent</artifactId>
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
-	<groupId>com.abstratt</groupId>
-	<version>0.1.0-SNAPSHOT</version>
 	<artifactId>com.abstratt.kirra.fixtures</artifactId>
 	<packaging>eclipse-plugin</packaging>
 

@@ -37,13 +37,9 @@ public class TypeRef implements Serializable {
 
     public TypeRef(String typeName, TypeKind kind) {
         typeName = TypeRef.sanitize(typeName);
-        if (typeName.indexOf(TypeRef.SEPARATOR) > 0) {
-            this.typeName = typeName.substring(typeName.lastIndexOf(TypeRef.SEPARATOR) + 1);
-            this.entityNamespace = typeName.substring(0, typeName.lastIndexOf(TypeRef.SEPARATOR));
-        } else {
-            this.entityNamespace = "";
-            this.typeName = typeName;
-        }
+        String[] components = splitName(typeName);
+        this.entityNamespace = components[0];
+        this.typeName = components[1];
         this.kind = kind;
     }
 
@@ -116,17 +112,14 @@ public class TypeRef implements Serializable {
     public String toString() {
         return TypeRef.toString(entityNamespace, typeName);
     }
-
-    protected void parseName(String typeName) {
-        if (typeName.indexOf(TypeRef.SEPARATOR) > 0) {
-            parseNameWithDot(typeName);
-        } else
-            this.typeName = typeName;
-
-    }
-
-    protected void parseNameWithDot(String typeName) {
-        this.typeName = typeName.substring(typeName.lastIndexOf(TypeRef.SEPARATOR) + 1);
-        this.entityNamespace = typeName.substring(0, typeName.lastIndexOf(TypeRef.SEPARATOR));
+    
+    public static String[] splitName(String typeName) {
+        String[] result = {null, typeName};
+        int separatorIndex = typeName.lastIndexOf(TypeRef.SEPARATOR);
+        if (separatorIndex >= 0) {
+            result[0] = typeName.substring(0, separatorIndex);
+            result[1] = typeName.substring(separatorIndex + 1);
+        }
+        return result;
     }
 }
