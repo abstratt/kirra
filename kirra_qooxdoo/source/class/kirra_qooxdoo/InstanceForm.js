@@ -155,28 +155,65 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                 this.toolbar.destroy();
             var toolbar = this.toolbar = new qx.ui.mobile.toolbar.ToolBar();
             this.add(toolbar);
-            this.addSaveButton();
+            this.addBasicButtons();
         },
 
-        addSaveButton: function () {
+        addBasicButtons: function () {
             var me = this;
             var saveButton = new qx.ui.mobile.form.Button("Save");
             saveButton.addListener("tap", function () {
                 me.saveInstance();
             });
             this.toolbar.add(saveButton);
+
+            if (me._objectId !== "_template") {
+		    var deleteButton = new qx.ui.mobile.form.Button("Delete");
+		    var deleteConfirmationPopup = me.buildConfirmation(deleteButton, function () {
+			    me.repository.deleteInstance(me._instance, function () {
+			        me._back();    
+			    });
+		    });
+		    deleteButton.addListener("tap", function () {
+		        deleteConfirmationPopup.show();
+		    });
+
+		    this.toolbar.add(deleteButton);
+            }
+        },
+
+        buildConfirmation : function(anchorWidget, toDo) {
+	      var popupWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
+	      popupWidget.add(new qx.ui.mobile.basic.Label("Are you sure?"));
+
+	      var buttonsWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
+	      var okButton = new qx.ui.mobile.form.Button("Yes");
+	      var cancelButton = new qx.ui.mobile.form.Button("No");
+
+	      buttonsWidget.add(okButton, {
+		flex: 1
+	      });
+	      buttonsWidget.add(cancelButton, {
+		flex: 1
+	      });
+	      popupWidget.add(buttonsWidget);
+
+              var anchorPopup;
+	      okButton.addListener("tap", function() {
+		anchorPopup.hide();
+                toDo();
+	      }, this);
+	      cancelButton.addListener("tap", function() {
+		anchorPopup.hide();
+	      }, this);
+	      return anchorPopup = new qx.ui.mobile.dialog.Popup(popupWidget, anchorWidget);
         },
 
         saveInstance: function () {
             var me = this;
-            var updates = {
-                values: {},
-                uri: me._instance.uri
-            };
             for (var i in this._entity.properties) {
-                updates.values[i] = me._widgets[i].getValue();
+                me._instance.values[i] = me._widgets[i].getValue();
             }
-            me.repository.saveInstance(me._entity, updates, me.instanceLoader());
+            me.repository.saveInstance(me._entity, me._instance, function () { me._back(); });
         },
 
         buildWidgetFor: function (form, property) {

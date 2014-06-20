@@ -89,7 +89,17 @@ qx.Class.define("kirra_qooxdoo.Repository", {
         saveInstance: function (entity, instance, callback) {
             if (!instance || !instance.uri)
                 throw Error("Missing instance or instance URI");
-            this.put(instance.uri, instance, callback);
+            if (instance.objectId) {
+                this.put(instance.uri, instance, callback);
+            } else {
+                this.post(entity.extentUri, instance, callback);
+            }
+        },
+
+        deleteInstance: function (instance, callback) {
+            if (!instance || !instance.uri)
+                throw Error("Missing instance or instance URI");
+            this.remove(instance.uri, callback);
         },
 
         sendAction: function (entity, objectId, operation, callback) {
@@ -115,6 +125,11 @@ qx.Class.define("kirra_qooxdoo.Repository", {
             this.sendRequest(req, callback, slotName);
         },
 
+        remove: function (uri, callback) {
+            var req = this.buildRequest(uri, "DELETE");
+            this.sendRequest(req, callback);
+        },
+
         post: function (uri, data, callback) {
             var req = this.buildRequest(uri, "POST");
             req.setRequestHeader("Content-Type", "application/json");
@@ -138,11 +153,14 @@ qx.Class.define("kirra_qooxdoo.Repository", {
 
             req.addListener("success", function (e) {
                 var req = e.getTarget();
-                var response = req.getResponse();
-                if (slotName)
-                    me[slotName] = response;
-                if (typeof (response) === 'string')
-                    response = JSON.parse(response);
+                var response = undefined
+                if (req.getStatus() !== 204) {
+		        response = req.getResponse();
+		        if (slotName)
+		            me[slotName] = response;
+		        if (typeof (response) === 'string')
+		            response = JSON.parse(response);
+                }
                 console.log(req.method + " " + req.getUrl());
                 console.log(response);
                 if (callback)

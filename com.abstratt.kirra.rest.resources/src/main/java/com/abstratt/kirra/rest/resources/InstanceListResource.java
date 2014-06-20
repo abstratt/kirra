@@ -29,6 +29,9 @@ public class InstanceListResource {
     @POST
     public String createInstance(@PathParam("entityName") String entityName, String newInstanceRepresentation) {
         Instance toCreate = new Gson().fromJson(newInstanceRepresentation, Instance.class);
+        TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        toCreate.setEntityNamespace(entityRef.getNamespace()); 
+        toCreate.setEntityName(entityRef.getTypeName());
         Instance created = KirraContext.getInstanceManagement().createInstance(toCreate);
         return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES, created.getObjectId()))
                 .toJson(created);

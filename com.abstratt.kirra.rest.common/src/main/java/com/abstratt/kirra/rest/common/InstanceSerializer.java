@@ -2,6 +2,7 @@ package com.abstratt.kirra.rest.common;
 
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.Map;
 
 import com.abstratt.kirra.Instance;
 import com.google.gson.GsonBuilder;
@@ -19,16 +20,19 @@ public class InstanceSerializer implements JsonSerializer<Instance> {
     }
 
     @Override
-    public JsonElement serialize(Instance element, Type type, JsonSerializationContext context) {
+    public JsonElement serialize(Instance instance, Type type, JsonSerializationContext context) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mmZ");
-        JsonObject asJson = (JsonObject) gsonBuilder.create().toJsonTree(element);
+        JsonObject asJson = (JsonObject) gsonBuilder.create().toJsonTree(instance);
         if (instancesUri != null) {
-	        asJson.addProperty("uri", CommonHelper.resolve(instancesUri, element.getObjectId()).toString());
+	        asJson.addProperty("uri", CommonHelper.resolve(instancesUri, instance.getObjectId()).toString());
 	        asJson.addProperty("entityUri", CommonHelper.resolve(instancesUri, "..").toString());
         }
-        if (element.getShorthand() == null)
-            asJson.addProperty("shorthand", element.getValues().values().iterator().next().toString());
+        if (instance.getShorthand() == null) {
+            Map<String, Object> values = instance.getValues();
+            if (values != null && !values.isEmpty())
+                asJson.addProperty("shorthand", values.values().iterator().next().toString());
+        }
         return asJson;
     }
 

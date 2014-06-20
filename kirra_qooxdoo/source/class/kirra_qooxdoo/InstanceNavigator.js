@@ -36,7 +36,6 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
             this.getContent().add(list);
             list.addListener("changeSelection", function (evt) {
                 var instanceSelected = me._instanceList.getModel().getItem(evt.getData());
-                console.log(instanceSelected);
                 qx.core.Init.getApplication().getRouting().executeGet("/entity/" + me._entityName + "/instances/" + instanceSelected.objectId);
             }, this);
         },
@@ -69,6 +68,17 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
             var me = this;
             if (this._toolbar)
                 this._toolbar.destroy();
+            var toolbar = this._toolbar = new qx.ui.mobile.toolbar.ToolBar();
+            this.add(toolbar);
+
+            if (this._entity.instantiable) {
+                var actionButton = new qx.ui.mobile.form.Button("New");
+                actionButton.addListener("tap", function () {
+                    qx.core.Init.getApplication().getRouting().executeGet("/entity/" + me._entityName + "/instances/_template");
+                });
+                toolbar.add(actionButton);
+            } 
+
             var allOps = this._entity.operations;
             var staticActions = [];
             for (opName in allOps) {
@@ -79,8 +89,6 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
             }
             if (staticActions.length == 0)
                 return;
-            var toolbar = this._toolbar = new qx.ui.mobile.toolbar.ToolBar();
-            this.add(toolbar);
             for (var i in staticActions) {
                 var actionButton = new qx.ui.mobile.form.Button(staticActions[i].label);
                 actionButton.addListener("tap", function () {

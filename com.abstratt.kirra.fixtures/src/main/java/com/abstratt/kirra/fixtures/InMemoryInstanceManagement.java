@@ -51,10 +51,17 @@ public class InMemoryInstanceManagement implements InstanceManagement {
 
     @Override
     public synchronized void deleteInstance(Instance instance) {
+        deleteInstance(instance.getEntityNamespace(), instance.getEntityName(), instance.getObjectId());
     }
 
     @Override
     public synchronized void deleteInstance(String namespace, String name, String id) {
+        TypeRef typeRef = new TypeRef(namespace, name, TypeKind.Entity);
+        List<Instance> entityInstances = getInstances(typeRef);
+        Instance existing = getInstance(entityInstances, id);
+        if (existing == null)
+            throw new KirraException("Not found", Kind.OBJECT_NOT_FOUND);
+        entityInstances.remove(existing);
     }
 
     @Override
@@ -175,7 +182,8 @@ public class InMemoryInstanceManagement implements InstanceManagement {
 
     @Override
     public Instance newInstance(String namespace, String name) {
-        return new Instance(namespace, name);
+        Instance instance = new Instance(namespace, name);
+        return instance;
     }
 
     @Override
@@ -194,8 +202,7 @@ public class InMemoryInstanceManagement implements InstanceManagement {
         Instance existing = getInstance(entityInstances, newState.getObjectId());
         if (existing == null)
             throw new KirraException("Not found", Kind.OBJECT_NOT_FOUND);
-        entityInstances.remove(existing);
-        entityInstances.add(newState);
+        entityInstances.set(entityInstances.indexOf(existing), newState);
         return newState;
     }
 

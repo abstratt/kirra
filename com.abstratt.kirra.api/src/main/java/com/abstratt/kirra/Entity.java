@@ -11,6 +11,7 @@ import com.abstratt.kirra.TypeRef.TypeKind;
 public class Entity extends TopLevelElement implements BehaviorScope, DataScope {
     private static final long serialVersionUID = 1L;
     protected boolean concrete;
+    protected boolean instantiable;
     /**
      * A map of disabled action names -> reasons.
      */
@@ -196,5 +197,13 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
 
     public void setUser(boolean user) {
         this.user = user;
+    }
+
+    public void setInstantiable(boolean instantiable) {
+        this.instantiable = instantiable;
+    }
+    
+    public boolean isInstantiable() {
+        return instantiable;
     }
 }
