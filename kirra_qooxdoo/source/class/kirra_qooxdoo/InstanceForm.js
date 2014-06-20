@@ -65,8 +65,16 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                 return;
             }
             for (var propertyName in this._instance.values) {
+                var property = this._entity.properties[propertyName];
                 var value = this._instance.values[propertyName];
                 if (this._widgets[propertyName]) {
+                    if (property.typeRef && property.typeRef.typeName === 'Date') {
+                        var ymd_formatter = new qx.util.format.DateFormat("yyyy/MM/dd");                     
+                        var iso_formatter = new qx.util.format.DateFormat("yyyy-MM-dd'T'hh:mmZ");
+                        try {
+                            value = ymd_formatter.format(iso_formatter.parse(value));
+                        } catch (e) {}
+                    }
                     this._widgets[propertyName].setValue(value);
                 }
             }
