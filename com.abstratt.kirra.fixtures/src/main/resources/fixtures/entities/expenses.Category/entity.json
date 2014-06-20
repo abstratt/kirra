@@ -1,0 +1,68 @@
+  {
+    "properties": {
+      "name": {
+        "unique": false,
+        "derived": false,
+        "initializable": true,
+        "editable": true,
+        "typeRef": {
+          "entityNamespace": "mdd_types",
+          "typeName": "String",
+          "kind": "Primitive"
+        },
+        "required": true,
+        "defaultValue": false,
+        "multiple": false,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Category",
+          "kind": "Entity"
+        },
+        "name": "name",
+        "label": "Name",
+        "description": "",
+        "symbol": "name"
+      }
+    },
+    "relationships": {
+      "expensesInThisCategory": {
+        "style": "LINK",
+        "visible": true,
+        "primary": true,
+        "navigable": true,
+        "derived": true,
+        "initializable": false,
+        "editable": false,
+        "typeRef": {
+          "entityNamespace": "expenses",
+          "typeName": "Expense",
+          "kind": "Entity"
+        },
+        "required": false,
+        "defaultValue": true,
+        "multiple": true,
+        "owner": {
+          "entityNamespace": "expenses",
+          "typeName": "Category",
+          "kind": "Entity"
+        },
+        "name": "expensesInThisCategory",
+        "label": "Expenses In This Category",
+        "description": "",
+        "symbol": "expensesInThisCategory"
+      }
+    },
+    "standalone": true,
+    "topLevel": true,
+    "concrete": true,
+    "instantiable": true,
+    "user": false,
+    "namespace": "expenses",
+    "name": "Category",
+    "label": "Category",
+    "description": "The category for an expense.",
+    "symbol": "Category",
+    "uri": "entities/expenses.Category/entity.json",
+    "extentUri": "entities/expenses.Category/instances",
+    "instanceUriTemplate": "entities/expenses.Category/instances(objectId)"
+  }

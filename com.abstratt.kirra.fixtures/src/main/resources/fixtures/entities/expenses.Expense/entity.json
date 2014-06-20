@@ -649,6 +649,7 @@
   },
   "standalone": true,
   "topLevel": true,
+  "instantiable": false,  
   "concrete": true,
   "user": false,
   "namespace": "expenses",
