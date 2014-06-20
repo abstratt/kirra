@@ -84,14 +84,14 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             this._actions = [];
             var firstLevelItems = [];
 
-            for (actionName in this._entity.operations) {
+            for (var actionName in this._entity.operations) {
                 var operation = this._entity.operations[actionName];
                 if (operation.instanceOperation && operation.kind === "Action" && this._instance.disabledActions[actionName] === undefined)
                     this._actions.push(operation);
             }
 
             var overflowStartsAt = this._actions.length > 3 ? 2 : Infinity;
-            for (i in this._actions) {
+            for (var i in this._actions) {
                 var action = this._actions[i];
                 if (i >= overflowStartsAt) {
                     menuItems.push(action.label);
@@ -263,7 +263,55 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
         },
 
         createDateWidget: function (attribute) {
-            return new qx.ui.mobile.form.TextField();
+            var formatter = new qx.util.format.DateFormat("yyyy/MM/dd");
+            var dateField = new qx.ui.mobile.form.TextField();
+            dateField.setReadOnly(true);
+		var days = [];
+		for (var day = 1;day <= 31;day++) {
+		    days.push("" + day);
+		} 
+		var daySlot = new qx.data.Array(days);
+                var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		var monthSlot = new qx.data.Array(months);
+		var years = [];
+		for (var year = 1900 + new Date().getYear();year > 1900;year--) {
+		    years.push("" + year);
+		}
+		var yearSlot = new qx.data.Array(years);
+		var picker = new qx.ui.mobile.dialog.Picker();
+		picker.addSlot(daySlot);
+		picker.addSlot(monthSlot);
+		picker.addSlot(yearSlot);
+
+                dateField.addListener("tap", function () {
+                    var parsed;
+                    try {
+                        parsed = formatter.parse(dateField.getValue());
+                    } catch (e) {
+                        parsed = new Date();
+                    }
+                    console.log("Original: ");
+                    console.log(dateField.getValue());
+                    console.log("Parsed: ");
+                    console.log(parsed);
+                    var slot0 = parsed.getDate()-1;
+                    var slot1 = parsed.getMonth();
+                    var slot2 = parsed.getYear();
+                    console.log("slots");
+                    console.log(slot0);
+                    console.log(slot1);
+                    console.log(slot2);
+                    picker.setSelectedIndex(0, slot0);
+                    picker.setSelectedIndex(1, slot1);
+                    picker.setSelectedIndex(2, new Date().getYear() - slot2);
+                    picker.show();
+                });
+                picker.addListener("confirmSelection", function(e) {
+                    var data = e.getData();
+                    dateField.setValue(data[2].item+'/'+(months.indexOf(data[1].item)+1)+'/'+data[0].item);
+                });
+
+            return dateField;
         },
 
         createMemoWidget: function (attribute) {
@@ -273,26 +321,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
         createBooleanWidget: function (attribute) {
             return new qx.ui.mobile.form.ToggleButton();
         },
-        /*    
-    createDateWidget : function(attribute) { 
-        var days = [];
-        for (var day = 1;day <= 31;day++) {
-            days.push("" + day);
-        } 
-        var daySlot = new qx.data.Array(days);
-        var monthSlot = new qx.data.Array(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
-        var years = [];
-        for (var year = 1900 + new Date().getYear();year > 1900;year--) {
-            years.push("" + year);
-        }
-        var yearSlot = new qx.data.Array(years);
-        var picker = new qx.ui.mobile.dialog.Picker();
-        picker.addSlot(daySlot);
-        picker.addSlot(monthSlot);
-        picker.addSlot(yearSlot);
-        return picker;
-    },
-*/
+
         createStateMachineWidget: function (attribute) {
             return new qx.ui.mobile.form.TextField();
         },

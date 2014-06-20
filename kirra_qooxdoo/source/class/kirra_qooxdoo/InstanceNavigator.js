@@ -81,7 +81,7 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
 
             var allOps = this._entity.operations;
             var staticActions = [];
-            for (opName in allOps) {
+            for (var opName in allOps) {
                 var operation = allOps[opName];
                 if (!operation.instanceOperation && operation.kind === "Action") {
                     staticActions.push(operation);
@@ -92,11 +92,11 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
             for (var i in staticActions) {
                 var actionButton = new qx.ui.mobile.form.Button(staticActions[i].label);
                 actionButton.addListener("tap", function () {
-                    me.repository.sendStaticAction(me._entity, staticActions[i]);
+                    me.repository.sendStaticAction(me._entity, staticActions[i], function () { me.reloadInstances(); });
                 });
                 toolbar.add(actionButton);
             }
-        },
+        }
 
     }
 });
