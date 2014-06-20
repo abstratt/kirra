@@ -9,6 +9,7 @@ public interface Paths {
 
     String ENTITIES_PATH = Paths.ROOT_PATH + Paths.ENTITIES + "/";
     String ENTITY_PATH = Paths.ENTITIES_PATH + "{entityName}/";
+    String ENTITY_ACTION_PATH = ENTITY_PATH + Paths.ACTIONS + "/{actionName}";
     String EVENTS = "events";
     String FINDERS = "finders";
     String INSTANCE_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/{objectId}";

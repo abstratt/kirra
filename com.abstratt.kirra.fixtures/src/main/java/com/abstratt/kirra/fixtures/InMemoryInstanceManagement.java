@@ -59,7 +59,28 @@ public class InMemoryInstanceManagement implements InstanceManagement {
 
     @Override
     public synchronized List<?> executeOperation(Operation operation, String externalId, List<?> arguments) {
-        Instance found = getInstance(operation.getOwner(), externalId);
+        if (Objects.isNull(externalId) && operation.isInstanceOperation())
+            throw new KirraException("Missing object id", Kind.SCHEMA);
+        if (!Objects.isNull(externalId) && !operation.isInstanceOperation())
+            throw new KirraException("Spurious object id, this is an entity operation", Kind.SCHEMA);
+        
+        return operation.isInstanceOperation() ? executeInstanceOperation(operation, externalId) : executeEntityOperation(operation);
+    }
+
+	private List<?> executeEntityOperation(Operation operation) {
+        switch (operation.getOwner().getTypeName()) {
+        case "Expense":
+            switch (operation.getName()) {
+            case "newExpense":
+            	Instance created = createInstance(newInstance(operation.getOwner().getEntityNamespace(), operation.getOwner().getTypeName()));
+                return asList(created);
+            }
+        }
+        throw new KirraException("Not implemented: " + operation.getName(), Kind.ELEMENT_NOT_FOUND);
+	}
+
+	private List<?> executeInstanceOperation(Operation operation, String externalId) {
+		Instance found = getInstance(operation.getOwner(), externalId);
         if (Objects.isNull(found))
             throw new KirraException("Not found", Kind.OBJECT_NOT_FOUND);
         try {
@@ -91,7 +112,7 @@ public class InMemoryInstanceManagement implements InstanceManagement {
 
         }
         throw new KirraException("Not implemented: " + operation.getName(), Kind.ELEMENT_NOT_FOUND);
-    }
+	}
 
     private Map<String, String> buildDisabledActions(String... operationNames) {
         return asList(operationNames).stream().collect(toMap(o -> o, o -> ""));
@@ -154,7 +175,7 @@ public class InMemoryInstanceManagement implements InstanceManagement {
 
     @Override
     public Instance newInstance(String namespace, String name) {
-        return null;
+        return new Instance(namespace, name);
     }
 
     @Override

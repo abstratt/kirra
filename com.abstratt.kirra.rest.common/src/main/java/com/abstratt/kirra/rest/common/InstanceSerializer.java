@@ -23,8 +23,10 @@ public class InstanceSerializer implements JsonSerializer<Instance> {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mmZ");
         JsonObject asJson = (JsonObject) gsonBuilder.create().toJsonTree(element);
-        asJson.addProperty("uri", CommonHelper.resolve(instancesUri, element.getObjectId()).toString());
-        asJson.addProperty("entityUri", CommonHelper.resolve(instancesUri, "..").toString());
+        if (instancesUri != null) {
+	        asJson.addProperty("uri", CommonHelper.resolve(instancesUri, element.getObjectId()).toString());
+	        asJson.addProperty("entityUri", CommonHelper.resolve(instancesUri, "..").toString());
+        }
         if (element.getShorthand() == null)
             asJson.addProperty("shorthand", element.getValues().values().iterator().next().toString());
         return asJson;
