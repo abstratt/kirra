@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="com.abstratt.kirra.fixtures.app"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="com.abstratt.kirra.fixtures.FixtureServerApp">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="com.abstratt.kirra.fixtures.product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.abstratt.kirra.fixtures.app"
+            name="Kirra Fixture Server">
+         <property
+               name="appName"
+               value="Kirra Fixture Server">
+         </property>
+      </product>
+   </extension>
+</plugin>

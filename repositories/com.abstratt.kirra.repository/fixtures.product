@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Kirra Fixture Server" uid="com.abstratt.kirra.fixtures.product" id="com.abstratt.kirra.fixtures.product" application="com.abstratt.kirra.fixtures.app" useFeatures="false" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-console -consolelog
+      </programArgs>
+      <vmArgs>-Declipse.ignoreApp=false 
+-Dosgi.noShutdown=true
+-Dorg.eclipse.jetty.LEVEL=DEBUG 
+-DDEBUG_PATTERNS=main,org.mortbay.http 
+-DDEBUG_VERBOSE=1
+-Xmx400m
+-Dorg.eclipse.equinox.http.jetty.http.port=8081
+      </vmArgs>
+   </launcherArgs>
+
+   <launcher name="fixture-server">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+      <plugin id="com.abstratt.kirra.api"/>
+      <plugin id="com.abstratt.kirra.rest.resources"/>
+      <plugin id="com.abstratt.kirra.rest.common"/>
+      <plugin id="com.abstratt.kirra.fixtures"/>
+      <plugin id="com.google.gson" version="2.2.4"/>
+      <plugin id="com.ibm.icu"/>
+      <plugin id="javax.servlet"/>
+      <plugin id="javax.ws.rs.jsr311-api"/>
+      <plugin id="org.apache.ant"/>
+      <plugin id="org.apache.commons.lang"/>
+      <plugin id="org.apache.commons.lang3"/>
+      <plugin id="org.apache.felix.gogo.command"/>
+      <plugin id="org.apache.felix.gogo.runtime"/>
+      <plugin id="org.apache.felix.gogo.shell"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.filesystem"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.console"/>
+      <plugin id="org.eclipse.equinox.http.jetty"/>
+      <plugin id="org.eclipse.equinox.http.registry"/>
+      <plugin id="org.eclipse.equinox.http.servlet"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.jetty.continuation"/>
+      <plugin id="org.eclipse.jetty.http"/>
+      <plugin id="org.eclipse.jetty.io"/>
+      <plugin id="org.eclipse.jetty.security"/>
+      <plugin id="org.eclipse.jetty.server"/>
+      <plugin id="org.eclipse.jetty.servlet"/>
+      <plugin id="org.eclipse.jetty.util"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.restlet" version="2.2.0.v20140327-1540"/>
+      <plugin id="org.restlet.ext.crypto" version="2.2.0.v20140327-1540"/>
+      <plugin id="org.restlet.ext.jaxrs" version="2.2.0.v20140327-1540"/>
+      <plugin id="org.restlet.ext.servlet" version="2.2.0.v20140327-1540"/>
+      <plugin id="org.restlet.ext.xml" version="2.2.0.v20140327-1540"/>
+   </plugins>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="1" />
+   </configurations>
+
+</product>
