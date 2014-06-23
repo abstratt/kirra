@@ -202,8 +202,14 @@ public class InMemoryInstanceManagement implements InstanceManagement {
         Instance existing = getInstance(entityInstances, newState.getObjectId());
         if (existing == null)
             throw new KirraException("Not found", Kind.OBJECT_NOT_FOUND);
-        entityInstances.set(entityInstances.indexOf(existing), newState);
-        return newState;
+        existing.setValues(newState.getValues());
+        setShorthand(existing);
+        return existing;
+    }
+
+    private void setShorthand(Instance instance) {
+        if (!instance.getValues().isEmpty())
+            instance.setShorthand(instance.getValues().values().iterator().next().toString());
     }
 
     @Override
