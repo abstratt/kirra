@@ -40,7 +40,7 @@ public class FixtureServer {
     }
 
     public static final String TEST_CONTEXT_PATH = "/kirra";
-    public static final String TEST_APPLICATION_PATH = FixtureServer.TEST_CONTEXT_PATH + "/";
+    public static final String TEST_APPLICATION_PATH = FixtureServer.TEST_CONTEXT_PATH + "/app/";
     public static final int TEST_SERVER_PORT = Integer.parseInt(System.getProperty("kirra.fixtures.port", "38080"));
     public static final URI TEST_DEFAULT_SERVER_URI = URI.create("http://localhost:" + FixtureServer.TEST_SERVER_PORT
             + FixtureServer.TEST_APPLICATION_PATH);

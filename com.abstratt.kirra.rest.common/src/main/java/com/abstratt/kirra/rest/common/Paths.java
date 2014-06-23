@@ -24,7 +24,7 @@ public interface Paths {
     String RELATIONSHIPS = "relationships";
     String RETRIEVERS = "retrievers";
 
-    String ROOT_PATH = "/";
+    String ROOT_PATH = "{application}/";
     String SERVICE_PATH = Paths.SERVICES_PATH + "{serviceName}/";
     String SERVICES = "services";
     String SERVICES_PATH = Paths.ROOT_PATH + Paths.SERVICES + "/";
