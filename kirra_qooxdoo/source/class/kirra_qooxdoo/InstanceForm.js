@@ -83,6 +83,19 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                     }
                 }
             }
+            for (var relationshipName in this._instance.links) {
+                var relationship = this._entity.relationships[relationshipName];
+                var link = this._instance.links[relationshipName][0];
+                var widget = this._widgets[relationshipName];
+                if (widget) {
+                    if (!me.isNewInstance() || relationship.editable) {
+                        widget.setValue(link.shorthand);
+                        widget.setVisible && widget.setVisible(true);
+                    } else {
+                        widget.setVisible && widget.setVisible(false);
+                    }
+                }
+            }
 
             me.buildActions();
         },
@@ -172,6 +185,12 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                 if (!me.isNewInstance() || this._entity.properties[i].editable) { 
                     this.buildWidgetFor(form, this._entity.properties[i]);
                 }
+            }
+            for (var i in this._entity.relationships) {
+                if (!this._entity.relationships[i].multiple) { 
+                    this.buildWidgetFor(form, this._entity.relationships[i]);
+                }
+  
             }
             var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
             this.getContent().add(instanceFormRenderer);
