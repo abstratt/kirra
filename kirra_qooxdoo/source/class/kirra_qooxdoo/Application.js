@@ -76,6 +76,7 @@ qx.Class.define("kirra_qooxdoo.Application",
       this.mainPage = new kirra_qooxdoo.EntityNavigator(this.repository);
       this.instanceNavigator = new kirra_qooxdoo.InstanceNavigator(this.repository);
       this.instanceForm = new kirra_qooxdoo.InstanceForm(this.repository);
+      this.actionForm = new kirra_qooxdoo.ActionForm(this.repository);
       
       this.repository.loadApplication(function (application) {
           document.title = application.applicationName;
@@ -85,6 +86,7 @@ qx.Class.define("kirra_qooxdoo.Application",
       manager.addMaster(this.mainPage);
       manager.addDetail(this.instanceNavigator);
       manager.addDetail(this.instanceForm);
+      manager.addDetail(this.actionForm);
       var nm = new qx.application.Routing();
 
       nm.onGet("/", function(data) {
@@ -97,6 +99,14 @@ qx.Class.define("kirra_qooxdoo.Application",
       
       nm.onGet("/entity/{entity}/instances/{objectId}", function(data) {
         this.instanceForm.showFor(data.params.entity, data.params.objectId);
+      }, this);
+      
+      nm.onGet("/entity/{entity}/instances/{objectId}/actions/{actionName}", function(data) {
+        this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
+      }, this);
+      
+      nm.onGet("/entity/{entity}/actions/{actionName}", function(data) {
+        this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
       }, this);
       
       this.setRouting(nm);

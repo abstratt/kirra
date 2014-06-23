@@ -22,8 +22,6 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
         _entity: null,
         _widgets: {},
         _actions: [],
-        _ymdFormatter : new qx.util.format.DateFormat("yyyy/MM/dd"),
-        _isoFormatter : new qx.util.format.DateFormat("yyyy-MM-dd'T'hh:mmZ"),
         
         // overridden
         _initialize: function () {
@@ -72,10 +70,10 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                 var value = this._instance.values[propertyName];
                 var widget = this._widgets[propertyName];
                 if (widget) {
-                    if (property.editable) {
+                    if (!me.isNewInstance() || property.editable) {
                         if (property.typeRef && property.typeRef.typeName === 'Date') {
                             try {
-                                value = md._ymdFormatter.format(me._isoFormatter.parse(value));
+                                value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
                             } catch (e) {}
                         }
                         widget.setValue(value);
@@ -120,8 +118,9 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
 
             for (var i in firstLevelItems) {
                 var actionButton = new qx.ui.mobile.form.Button(firstLevelItems[i]);
-                actionButton.addListener("tap", function () {
-                    me.repository.sendAction(me._entity, me._objectId, me.getOperationByLabel(firstLevelItems[i]), me.instanceLoader());
+                actionButton.addListener("tap", function (e) {
+                    var selected = me.getOperationByLabel(e.getTarget().getLabel());
+                    me.invokeAction(selected);
                 });
                 this.toolbar.add(actionButton);
             }
@@ -133,9 +132,19 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                     actionMenu.show();
                 }, this);
                 actionMenu.addListener("tap", function (e) {
-                    me.repository.sendAction(me._entity, me._objectId, me._actions[actionMenu.getSelectedIndex() + firstLevelItems.length], me.instanceLoader());
+                    var selected = me._actions[actionMenu.getSelectedIndex() + firstLevelItems.length];
+                    me.invokeAction(selected);
                 }, this);
                 this.toolbar.add(this.actionMenuButton);
+            }
+        },
+        
+        invokeAction : function (action) {
+            var me = this;
+            if (action.parameters.length == 0) {
+                me.repository.sendAction(me._entity, me._objectId, action, {},  me.instanceLoader());
+            } else {
+                qx.core.Init.getApplication().getRouting().executeGet("/entity/" + me._entityName + "/instances/" + me._objectId + "/actions/" + action.name); 
             }
         },
 
@@ -213,21 +222,17 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
           var okButton = new qx.ui.mobile.form.Button("Yes");
           var cancelButton = new qx.ui.mobile.form.Button("No");
 
-          buttonsWidget.add(okButton, {
-        flex: 1
-          });
-          buttonsWidget.add(cancelButton, {
-        flex: 1
-          });
+          buttonsWidget.add(okButton, { flex: 1 });
+          buttonsWidget.add(cancelButton, { flex: 1 });
           popupWidget.add(buttonsWidget);
 
-              var anchorPopup;
+          var anchorPopup;
           okButton.addListener("tap", function() {
-        anchorPopup.hide();
-                toDo();
+              anchorPopup.hide();
+              toDo();
           }, this);
           cancelButton.addListener("tap", function() {
-        anchorPopup.hide();
+              anchorPopup.hide();
           }, this);
           return anchorPopup = new qx.ui.mobile.dialog.Popup(popupWidget, anchorWidget);
         },
@@ -249,7 +254,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
         },
 
         buildWidgetFor: function (form, property) {
-            var widget = this.createWidget(property);
+            var widget = kirra_qooxdoo.Widgets.createWidget(property);
             this._widgets[property.name] = widget;
             if (widget.setRequired)
                 widget.setRequired(property.required === true);
@@ -258,111 +263,6 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             if (widget.setEnabled)
                 widget.setEnabled(property.editable !== false);
             form.add(widget, property.label);
-        },
-
-        createWidget: function (property) {
-            var kind = property.typeRef && property.typeRef.kind
-            var factoryMethodName = 'create' + kind + 'Widget';
-            var factory = this[factoryMethodName];
-            if (typeof (factory) !== 'function') {
-                console.log("No factory found for: " + +property.name + " : " + kind);
-                return this.createStringWidget();
-            }
-            return factory.call(this, property);
-        },
-
-        createPrimitiveWidget: function (property) {
-            var typeName = property.typeRef && property.typeRef.typeName
-            var factoryMethodName = 'create' + typeName + 'Widget';
-            var factory = this[factoryMethodName];
-            if (typeof (factory) !== 'function') {
-                console.log("No factory found for: " + property.name + " : " + typeName);
-                return this.createStringWidget();
-            }
-            return factory.call(this, property);
-        },
-
-        createStringWidget: function (attribute) {
-            return new qx.ui.mobile.form.TextField();
-        },
-
-        createIntegerWidget: function (attribute) {
-            return new qx.ui.mobile.form.TextField();
-        },
-
-        createDoubleWidget: function (attribute) {
-            return new qx.ui.mobile.form.TextField();
-        },
-
-        createDateWidget: function (attribute) {
-            var me = this;
-            var dateField = new qx.ui.mobile.form.TextField();
-            dateField.setReadOnly(true);
-            var days = [];
-            for (var day = 1;day <= 31;day++) {
-                days.push("" + day);
-            } 
-            var daySlot = new qx.data.Array(days);
-                    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            var monthSlot = new qx.data.Array(months);
-            var years = [];
-            for (var year = 1900 + new Date().getYear();year > 1900;year--) {
-                years.push("" + year);
-            }
-            var yearSlot = new qx.data.Array(years);
-            var picker = new qx.ui.mobile.dialog.Picker();
-            picker.addSlot(daySlot);
-            picker.addSlot(monthSlot);
-            picker.addSlot(yearSlot);
-
-            dateField.addListener("tap", function () {
-                var parsed;
-                try {
-                    parsed = me._ymdFormatter.parse(dateField.getValue());
-                } catch (e) {
-                    parsed = new Date();
-                }
-                var slot0 = parsed.getDate()-1;
-                var slot1 = parsed.getMonth();
-                var slot2 = parsed.getYear();
-                picker.setSelectedIndex(0, slot0);
-                picker.setSelectedIndex(1, slot1);
-                picker.setSelectedIndex(2, new Date().getYear() - slot2);
-                picker.show();
-            });
-            picker.addListener("confirmSelection", function(e) {
-                var data = e.getData();
-                dateField.setValue(data[2].item+'/'+(months.indexOf(data[1].item)+1)+'/'+data[0].item);
-            });
-    
-            return dateField;
-        },
-    
-        createMemoWidget: function (attribute) {
-            return new qx.ui.mobile.form.TextArea();
-        },
-
-        createBooleanWidget: function (attribute) {
-            return new qx.ui.mobile.form.ToggleButton();
-        },
-
-        createStateMachineWidget: function (attribute) {
-            return new qx.ui.mobile.form.TextField();
-        },
-
-        createEnumerationWidget: function (property) {
-            var widget = new qx.ui.mobile.form.SelectBox();
-            var values = [];
-            if (property.enumerationLiterals) {
-                if (!property.required) {
-                    values.push('- None -');
-                }
-                for (var i in property.enumerationLiterals) {
-                    values.push(property.enumerationLiterals[i]);
-                }
-            }
-            widget.setModel(new qx.data.Array(values));
-            return widget;
         }
     }
 });

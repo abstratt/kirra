@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.c8a398231601.js","kirra_qooxdoo:kirra_qooxdoo/Repository.js","__out__:kirra_qooxdoo.b333087d83ab.js","kirra_qooxdoo:kirra_qooxdoo/Application.js","__out__:kirra_qooxdoo.ced983d5d85a.js","kirra_qooxdoo:kirra_qooxdoo/EntityNavigator.js","__out__:kirra_qooxdoo.7a6882f0a112.js","kirra_qooxdoo:kirra_qooxdoo/InstanceNavigator.js","__out__:kirra_qooxdoo.3fec9d4f1476.js","kirra_qooxdoo:kirra_qooxdoo/InstanceForm.js","__out__:kirra_qooxdoo.7ff028310f8a.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.c8a398231601.js","kirra_qooxdoo:kirra_qooxdoo/Repository.js","__out__:kirra_qooxdoo.b333087d83ab.js","kirra_qooxdoo:kirra_qooxdoo/Application.js","__out__:kirra_qooxdoo.ced983d5d85a.js","kirra_qooxdoo:kirra_qooxdoo/EntityNavigator.js","__out__:kirra_qooxdoo.7a6882f0a112.js","kirra_qooxdoo:kirra_qooxdoo/InstanceNavigator.js","__out__:kirra_qooxdoo.3fec9d4f1476.js","kirra_qooxdoo:kirra_qooxdoo/InstanceForm.js","kirra_qooxdoo:kirra_qooxdoo/DateFormats.js","__out__:kirra_qooxdoo.12f8a79f8f36.js","kirra_qooxdoo:kirra_qooxdoo/Widgets.js","__out__:kirra_qooxdoo.73747582b15b.js","kirra_qooxdoo:kirra_qooxdoo/ActionForm.js","__out__:kirra_qooxdoo.2d76b1fe83ad.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",

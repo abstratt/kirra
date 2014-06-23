@@ -102,21 +102,18 @@ qx.Class.define("kirra_qooxdoo.Repository", {
             this.remove(instance.uri, callback);
         },
 
-        sendAction: function (entity, objectId, operation, callback) {
+        sendAction: function (entity, objectId, operation, arguments, callback) {
             var me = this;
-            console.log("Running action");
-            console.log(objectId);
-            console.log(operation);
             var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + "(objectId)/actions/(actionName)");
-            this.post(instanceActionUri.replace("(objectId)", objectId).replace("(actionName)", operation.name), {}, function () {
+            this.post(instanceActionUri.replace("(objectId)", objectId).replace("(actionName)", operation.name), arguments || {}, function () {
                 me.loadInstance(entity, objectId, callback);
             });
         },
 
-        sendStaticAction: function (entity, operation, callback) {
+        sendStaticAction: function (entity, operation, arguments, callback) {
             var me = this;
             var entityActionUri = entity.entityActionUriTemplate || (entity.uri + "/actions/(actionName)");
-            this.post(entityActionUri.replace("(actionName)", operation.name), {}, callback);
+            this.post(entityActionUri.replace("(actionName)", operation.name), arguments || {}, callback);
         },
 
         /* Generic helper for performing Ajax invocations. */

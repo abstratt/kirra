@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
@@ -71,10 +73,10 @@ public class InMemoryInstanceManagement implements InstanceManagement {
         if (!Objects.isNull(externalId) && !operation.isInstanceOperation())
             throw new KirraException("Spurious object id, this is an entity operation", Kind.SCHEMA);
         
-        return operation.isInstanceOperation() ? executeInstanceOperation(operation, externalId) : executeEntityOperation(operation);
+        return operation.isInstanceOperation() ? executeInstanceOperation(operation, externalId, arguments) : executeEntityOperation(operation, arguments);
     }
 
-	private List<?> executeEntityOperation(Operation operation) {
+	private List<?> executeEntityOperation(Operation operation, List<?> arguments) {
         switch (operation.getOwner().getTypeName()) {
         case "Expense":
             switch (operation.getName()) {
@@ -86,7 +88,7 @@ public class InMemoryInstanceManagement implements InstanceManagement {
         throw new KirraException("Not implemented: " + operation.getName(), Kind.ELEMENT_NOT_FOUND);
 	}
 
-	private List<?> executeInstanceOperation(Operation operation, String externalId) {
+	private List<?> executeInstanceOperation(Operation operation, String externalId, List<?> arguments) {
 		Instance found = getInstance(operation.getOwner(), externalId);
         if (Objects.isNull(found))
             throw new KirraException("Not found", Kind.OBJECT_NOT_FOUND);
@@ -114,6 +116,8 @@ public class InMemoryInstanceManagement implements InstanceManagement {
             case "reject":
                 found.setValue("status", "Rejected");
                 found.setDisabledActions(buildDisabledActions("submit", "approve", "reject", "review"));
+                if (!arguments.isEmpty())
+                    found.setValue("rejectionReason", arguments.get(0) == null ? "" : arguments.get(0).toString());
                 return asList();
             }
 

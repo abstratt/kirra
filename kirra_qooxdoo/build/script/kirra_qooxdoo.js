@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.73ffbfe3b5f4.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.fbbf03501272.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",
@@ -11445,125 +11445,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "border-box",b = "qx.bom.element.BoxSizing",c = "css.boxsizing",d = "",e = "boxSizing",f = "content-box",g = ":",h = ";";
-  qx.Bootstrap.define(b, {
-    statics : {
-      __dp : {
-        tags : {
-          button : true,
-          select : true
-        },
-        types : {
-          search : true,
-          button : true,
-          submit : true,
-          reset : true,
-          checkbox : true,
-          radio : true
-        }
-      },
-      __dq : function(element){
-
-        var map = this.__dp;
-        return map.tags[element.tagName.toLowerCase()] || map.types[element.type];
-      },
-      compile : function(value){
-
-        if(qx.core.Environment.get(c)){
-
-          var prop = qx.bom.Style.getCssName(qx.core.Environment.get(c));
-          return prop + g + value + h;
-        } else {
-
-          {
-          };
-        };
-      },
-      get : function(element){
-
-        if(qx.core.Environment.get(c)){
-
-          return qx.bom.element.Style.get(element, e, null, false) || d;
-        };
-        if(qx.bom.Document.isStandardMode(qx.dom.Node.getWindow(element))){
-
-          if(!this.__dq(element)){
-
-            return f;
-          };
-        };
-        return a;
-      },
-      set : function(element, value){
-
-        if(qx.core.Environment.get(c)){
-
-          try{
-
-            element.style[qx.core.Environment.get(c)] = value;
-          } catch(ex) {
-
-            {
-            };
-          };
-        } else {
-
-          {
-          };
-        };
-      },
-      reset : function(element){
-
-        this.set(element, d);
-      }
-    }
-  });
-})();
-(function(){
-
-  var a = "cursor:",b = "engine.name",c = "ns-resize",d = "",e = "mshtml",f = "nw-resize",g = "n-resize",h = "engine.version",i = "nesw-resize",j = "opera",k = "browser.documentmode",l = ";",m = "nwse-resize",n = "ew-resize",o = "qx.bom.element.Cursor",p = "ne-resize",q = "e-resize",r = "browser.quirksmode",s = "cursor";
-  qx.Bootstrap.define(o, {
-    statics : {
-      __dr : {
-      },
-      compile : function(cursor){
-
-        return a + (this.__dr[cursor] || cursor) + l;
-      },
-      get : function(element, mode){
-
-        return qx.bom.element.Style.get(element, s, mode, false);
-      },
-      set : function(element, value){
-
-        element.style.cursor = this.__dr[value] || value;
-      },
-      reset : function(element){
-
-        element.style.cursor = d;
-      }
-    },
-    defer : function(statics){
-
-      if(qx.core.Environment.get(b) == e && ((parseFloat(qx.core.Environment.get(h)) < 9 || qx.core.Environment.get(k) < 9) && !qx.core.Environment.get(r))){
-
-        statics.__dr[i] = p;
-        statics.__dr[m] = f;
-        if(((parseFloat(qx.core.Environment.get(h)) < 8 || qx.core.Environment.get(k) < 8) && !qx.core.Environment.get(r))){
-
-          statics.__dr[n] = q;
-          statics.__dr[c] = g;
-        };
-      } else if(qx.core.Environment.get(b) == j && parseInt(qx.core.Environment.get(h)) < 12){
-
-        statics.__dr[i] = p;
-        statics.__dr[m] = f;
-      };
-    }
-  });
-})();
-(function(){
-
   var a = "engine.name",b = ");",c = "",d = ")",e = "zoom:1;filter:alpha(opacity=",f = "qx.bom.element.Opacity",g = "css.opacity",h = ";",i = "opacity:",j = "alpha(opacity=",k = "opacity",l = "filter";
   qx.Bootstrap.define(f, {
     statics : {
@@ -11684,6 +11565,125 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           return 1.0;
         }
       })
+    }
+  });
+})();
+(function(){
+
+  var a = "cursor:",b = "engine.name",c = "ns-resize",d = "",e = "mshtml",f = "nw-resize",g = "n-resize",h = "engine.version",i = "nesw-resize",j = "opera",k = "browser.documentmode",l = ";",m = "nwse-resize",n = "ew-resize",o = "qx.bom.element.Cursor",p = "ne-resize",q = "e-resize",r = "browser.quirksmode",s = "cursor";
+  qx.Bootstrap.define(o, {
+    statics : {
+      __dp : {
+      },
+      compile : function(cursor){
+
+        return a + (this.__dp[cursor] || cursor) + l;
+      },
+      get : function(element, mode){
+
+        return qx.bom.element.Style.get(element, s, mode, false);
+      },
+      set : function(element, value){
+
+        element.style.cursor = this.__dp[value] || value;
+      },
+      reset : function(element){
+
+        element.style.cursor = d;
+      }
+    },
+    defer : function(statics){
+
+      if(qx.core.Environment.get(b) == e && ((parseFloat(qx.core.Environment.get(h)) < 9 || qx.core.Environment.get(k) < 9) && !qx.core.Environment.get(r))){
+
+        statics.__dp[i] = p;
+        statics.__dp[m] = f;
+        if(((parseFloat(qx.core.Environment.get(h)) < 8 || qx.core.Environment.get(k) < 8) && !qx.core.Environment.get(r))){
+
+          statics.__dp[n] = q;
+          statics.__dp[c] = g;
+        };
+      } else if(qx.core.Environment.get(b) == j && parseInt(qx.core.Environment.get(h)) < 12){
+
+        statics.__dp[i] = p;
+        statics.__dp[m] = f;
+      };
+    }
+  });
+})();
+(function(){
+
+  var a = "border-box",b = "qx.bom.element.BoxSizing",c = "css.boxsizing",d = "",e = "boxSizing",f = "content-box",g = ":",h = ";";
+  qx.Bootstrap.define(b, {
+    statics : {
+      __dq : {
+        tags : {
+          button : true,
+          select : true
+        },
+        types : {
+          search : true,
+          button : true,
+          submit : true,
+          reset : true,
+          checkbox : true,
+          radio : true
+        }
+      },
+      __dr : function(element){
+
+        var map = this.__dq;
+        return map.tags[element.tagName.toLowerCase()] || map.types[element.type];
+      },
+      compile : function(value){
+
+        if(qx.core.Environment.get(c)){
+
+          var prop = qx.bom.Style.getCssName(qx.core.Environment.get(c));
+          return prop + g + value + h;
+        } else {
+
+          {
+          };
+        };
+      },
+      get : function(element){
+
+        if(qx.core.Environment.get(c)){
+
+          return qx.bom.element.Style.get(element, e, null, false) || d;
+        };
+        if(qx.bom.Document.isStandardMode(qx.dom.Node.getWindow(element))){
+
+          if(!this.__dr(element)){
+
+            return f;
+          };
+        };
+        return a;
+      },
+      set : function(element, value){
+
+        if(qx.core.Environment.get(c)){
+
+          try{
+
+            element.style[qx.core.Environment.get(c)] = value;
+          } catch(ex) {
+
+            {
+            };
+          };
+        } else {
+
+          {
+          };
+        };
+      },
+      reset : function(element){
+
+        this.set(element, d);
+      }
     }
   });
 })();
@@ -37761,8 +37761,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "[?&]?app-path\=(.*)\&?",b = "kirra_qooxdoo.Application",c = "/entity/{entity}/instances/{objectId}",d = "device.type",e = "tablet",f = "[?&]?app-uri\=(.*)\&?",g = "/entity/{entity}/instances/",h = "desktop",i = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.",j = "/";
-  qx.Class.define(b, {
+  var a = "/entity/{entity}/actions/{actionName}",b = "[?&]?app-path\=(.*)\&?",c = "kirra_qooxdoo.Application",d = "/entity/{entity}/instances/{objectId}/actions/{actionName}",e = "/entity/{entity}/instances/{objectId}",f = "device.type",g = "tablet",h = "[?&]?app-uri\=(.*)\&?",i = "/entity/{entity}/instances/",j = "desktop",k = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.",l = "/";
+  qx.Class.define(c, {
     extend : qx.application.Mobile,
     properties : {
       routing : {
@@ -37776,19 +37776,20 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         {
         };
         var me = this;
-        var uriMatches = window.location.search.match(f);
-        var pathMatches = window.location.search.match(a);
+        var uriMatches = window.location.search.match(h);
+        var pathMatches = window.location.search.match(b);
         if(!uriMatches && !pathMatches){
 
-          throw Error(i);
+          throw Error(k);
         };
         var apiBaseUri = uriMatches ? uriMatches[1] : (window.location.origin + pathMatches[1]);
-        var isTablet = (qx.core.Environment.get(d) == e);
-        var isDesktop = (qx.core.Environment.get(d) == h);
+        var isTablet = (qx.core.Environment.get(f) == g);
+        var isDesktop = (qx.core.Environment.get(f) == j);
         this.repository = new kirra_qooxdoo.Repository(apiBaseUri);
         this.mainPage = new kirra_qooxdoo.EntityNavigator(this.repository);
         this.instanceNavigator = new kirra_qooxdoo.InstanceNavigator(this.repository);
         this.instanceForm = new kirra_qooxdoo.InstanceForm(this.repository);
+        this.actionForm = new kirra_qooxdoo.ActionForm(this.repository);
         this.repository.loadApplication(function(application){
 
           document.title = application.applicationName;
@@ -37798,17 +37799,25 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         manager.addDetail(this.instanceNavigator);
         manager.addDetail(this.instanceForm);
         var nm = new qx.application.Routing();
-        nm.onGet(j, function(data){
+        nm.onGet(l, function(data){
 
           this.mainPage.show();
         }, this);
-        nm.onGet(g, function(data){
+        nm.onGet(i, function(data){
 
           this.instanceNavigator.showFor(data.params.entity);
         }, this);
-        nm.onGet(c, function(data){
+        nm.onGet(e, function(data){
 
           this.instanceForm.showFor(data.params.entity, data.params.objectId);
+        }, this);
+        nm.onGet(d, function(data){
+
+          this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
+        }, this);
+        nm.onGet(a, function(data){
+
+          this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
         }, this);
         this.setRouting(nm);
         nm.init();
@@ -40519,7 +40528,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "/instances/",b = "",c = "New",d = "/entity/",e = "kirra_qooxdoo.InstanceNavigator",f = "Instances",g = "Back",h = "changeSelection",j = "tap",k = "/instances/_template",l = "/",m = "Action",n = "qx.event.type.Data";
+  var a = "/instances/",b = "",c = "New",d = "/entity/",e = "kirra_qooxdoo.InstanceNavigator",f = "Instances",g = "Back",h = "changeSelection",j = "tap",k = "/instances/_template",l = "/",m = "Action",n = "/actions/",o = "qx.event.type.Data";
   qx.Class.define(e, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
@@ -40531,7 +40540,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       this.setBackButtonText(g);
     },
     events : {
-      "show" : n
+      "show" : o
     },
     members : {
       _entityName : null,
@@ -40620,10 +40629,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           var actionButton = new qx.ui.mobile.form.Button(staticActions[i].label);
           actionButton.addListener(j, function(){
 
-            me.repository.sendStaticAction(me._entity, staticActions[i], function(){
+            if(staticActions[i].parameters.length === 0){
 
-              me.reloadInstances();
-            });
+              me.repository.sendStaticAction(me._entity, staticActions[i], function(){
+
+                me.reloadInstances();
+              });
+            } else {
+
+              qx.core.Init.getApplication().getRouting().executeGet(d + me._entityName + n + staticActions[i].name);
+            };
           });
           toolbar.add(actionButton);
         };
@@ -40693,18 +40708,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "_template",b = "Original: ",c = "/instances/",d = "/entity/",f = "Apr",g = "Mar",h = "Aug",j = "Are you sure?",k = "slots",l = "Jul",m = "kirra_qooxdoo.InstanceForm",n = "qx.event.type.Data",o = "No",p = 'function',q = "May",r = "No factory found for: ",s = "Delete",t = "yyyy/MM/dd",u = "Sep",v = "Nov",w = 'create',x = "...",y = '- None -',z = "",A = "Parsed: ",B = "confirmSelection",C = "Back",D = "Oct",E = "Yes",F = "Dec",G = "Feb",H = "Jun",I = "Jan",J = "Action",K = "Save",L = '/',M = " : ",N = "tap",O = 'Widget';
-  qx.Class.define(m, {
+  var a = "...",b = "/instances/",c = "Action",d = "Save",f = 'Date',g = "/entity/",h = '_template',j = "Back",k = "No",l = "Are you sure?",m = "Yes",n = "tap",o = "/actions/",p = "Delete",q = "kirra_qooxdoo.InstanceForm",r = "qx.event.type.Data";
+  qx.Class.define(q, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
       this.setShowBackButton(true);
-      this.setBackButtonText(C);
+      this.setBackButtonText(j);
     },
     events : {
-      "show" : n
+      "show" : r
     },
     members : {
       _entityName : null,
@@ -40724,7 +40739,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _back : function(){
 
-        qx.core.Init.getApplication().getRouting().executeGet(d + this._entityName + c, {
+        qx.core.Init.getApplication().getRouting().executeGet(g + this._entityName + b, {
           reverse : true
         });
       },
@@ -40767,10 +40782,27 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         for(var propertyName in this._instance.values){
 
+          var property = this._entity.properties[propertyName];
           var value = this._instance.values[propertyName];
-          if(this._widgets[propertyName]){
+          var widget = this._widgets[propertyName];
+          if(widget){
 
-            this._widgets[propertyName].setValue(value);
+            if(!me.isNewInstance() || property.editable){
+
+              if(property.typeRef && property.typeRef.typeName === f){
+
+                try{
+
+                  value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
+                } catch(e) {
+                };
+              };
+              widget.setValue(value);
+              widget.setVisible && widget.setVisible(true);
+            } else {
+
+              widget.setVisible && widget.setVisible(false);
+            };
           };
         };
         me.buildActions();
@@ -40779,7 +40811,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var me = this;
         this.addToolbar();
-        var actionMenuButton = this.actionMenuButton = new qx.ui.mobile.form.Button(x);
+        if(me.isNewInstance()){
+
+          return;
+        };
+        var actionMenuButton = this.actionMenuButton = new qx.ui.mobile.form.Button(a);
         var actionMenu = this.actionMenu = new qx.ui.mobile.dialog.Menu(new qx.data.Array([]), actionMenuButton);
         var menuItems = [];
         this._actions = [];
@@ -40787,7 +40823,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var actionName in this._entity.operations){
 
           var operation = this._entity.operations[actionName];
-          if(operation.instanceOperation && operation.kind === J && this._instance.disabledActions[actionName] === undefined)this._actions.push(operation);
+          if(operation.instanceOperation && operation.kind === c && this._instance.disabledActions[actionName] === undefined)this._actions.push(operation);
         };
         var overflowStartsAt = this._actions.length > 3 ? 2 : Infinity;
         for(var i in this._actions){
@@ -40804,9 +40840,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var i in firstLevelItems){
 
           var actionButton = new qx.ui.mobile.form.Button(firstLevelItems[i]);
-          actionButton.addListener(N, function(){
+          actionButton.addListener(n, function(e){
 
-            me.repository.sendAction(me._entity, me._objectId, me.getOperationByLabel(firstLevelItems[i]), me.instanceLoader());
+            var selected = me.getOperationByLabel(e.getTarget().getLabel());
+            me.invokeAction(selected);
           });
           this.toolbar.add(actionButton);
         };
@@ -40814,15 +40851,27 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this.actionMenu.setItems(new qx.data.Array(menuItems));
         if(menuItems.length > 0){
 
-          actionMenuButton.addListener(N, function(e){
+          actionMenuButton.addListener(n, function(e){
 
             actionMenu.show();
           }, this);
-          actionMenu.addListener(N, function(e){
+          actionMenu.addListener(n, function(e){
 
-            me.repository.sendAction(me._entity, me._objectId, me._actions[actionMenu.getSelectedIndex() + firstLevelItems.length], me.instanceLoader());
+            var selected = me._actions[actionMenu.getSelectedIndex() + firstLevelItems.length];
+            me.invokeAction(selected);
           }, this);
           this.toolbar.add(this.actionMenuButton);
+        };
+      },
+      invokeAction : function(action){
+
+        var me = this;
+        if(action.parameters.length == 0){
+
+          me.repository.sendAction(me._entity, me._objectId, action, me.instanceLoader());
+        } else {
+
+          qx.core.Init.getApplication().getRouting().executeGet(g + me._entityName + b + me._objectId + o + action.name);
         };
       },
       getOperationByLabel : function(operationLabel){
@@ -40847,11 +40896,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var form = this.form = new qx.ui.mobile.form.Form();
         for(var i in this._entity.properties){
 
-          this.buildWidgetFor(form, this._entity.properties[i]);
+          if(!me.isNewInstance() || this._entity.properties[i].editable){
+
+            this.buildWidgetFor(form, this._entity.properties[i]);
+          };
         };
         var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
         this.getContent().add(instanceFormRenderer);
         this.show();
+      },
+      isNewInstance : function(){
+
+        return this._objectId === h;
       },
       addToolbar : function(){
 
@@ -40863,15 +40919,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       addBasicButtons : function(){
 
         var me = this;
-        var saveButton = new qx.ui.mobile.form.Button(K);
-        saveButton.addListener(N, function(){
+        var saveButton = new qx.ui.mobile.form.Button(d);
+        saveButton.addListener(n, function(){
 
           me.saveInstance();
         });
         this.toolbar.add(saveButton);
-        if(me._objectId !== a){
+        if(!me.isNewInstance()){
 
-          var deleteButton = new qx.ui.mobile.form.Button(s);
+          var deleteButton = new qx.ui.mobile.form.Button(p);
           var deleteConfirmationPopup = me.buildConfirmation(deleteButton, function(){
 
             me.repository.deleteInstance(me._instance, function(){
@@ -40879,7 +40935,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
               me._back();
             });
           });
-          deleteButton.addListener(N, function(){
+          deleteButton.addListener(n, function(){
 
             deleteConfirmationPopup.show();
           });
@@ -40889,10 +40945,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       buildConfirmation : function(anchorWidget, toDo){
 
         var popupWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
-        popupWidget.add(new qx.ui.mobile.basic.Label(j));
+        popupWidget.add(new qx.ui.mobile.basic.Label(l));
         var buttonsWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
-        var okButton = new qx.ui.mobile.form.Button(E);
-        var cancelButton = new qx.ui.mobile.form.Button(o);
+        var okButton = new qx.ui.mobile.form.Button(m);
+        var cancelButton = new qx.ui.mobile.form.Button(k);
         buttonsWidget.add(okButton, {
           flex : 1
         });
@@ -40901,12 +40957,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         });
         popupWidget.add(buttonsWidget);
         var anchorPopup;
-        okButton.addListener(N, function(){
+        okButton.addListener(n, function(){
 
           anchorPopup.hide();
           toDo();
         }, this);
-        cancelButton.addListener(N, function(){
+        cancelButton.addListener(n, function(){
 
           anchorPopup.hide();
         }, this);
@@ -40917,143 +40973,49 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var me = this;
         for(var i in this._entity.properties){
 
-          me._instance.values[i] = me._widgets[i].getValue();
-        };
-        me.repository.saveInstance(me._entity, me._instance, function(){
+          if(me._entity.properties[i].editable){
 
-          me._back();
+            me._instance.values[i] = me._widgets[i].getValue();
+          };
+        };
+        me.repository.saveInstance(me._entity, me._instance, function(created){
+
+          if(me.isNewInstance()){
+
+            qx.core.Init.getApplication().getRouting().executeGet(g + me._entityName + b + created.objectId);
+          } else {
+
+            me._back();
+          };
         });
       },
       buildWidgetFor : function(form, property){
 
-        var widget = this.createWidget(property);
+        var widget = kirra_qooxdoo.Widgets.createWidget(property);
         this._widgets[property.name] = widget;
         if(widget.setRequired)widget.setRequired(property.required === true);
         if(widget.setReadOnly)widget.setReadOnly(property.editable === false);
         if(widget.setEnabled)widget.setEnabled(property.editable !== false);
         form.add(widget, property.label);
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "kirra_qooxdoo.DateFormats",b = "yyyy/MM/dd",c = "yyyy-MM-dd'T'hh:mmZ";
+  qx.Class.define(a, {
+    extend : qx.core.Object,
+    statics : {
+      _ymdFormatter : new qx.util.format.DateFormat(b),
+      _isoFormatter : new qx.util.format.DateFormat(c),
+      getYMDFormatter : function(){
+
+        return this._ymdFormatter;
       },
-      createWidget : function(property){
+      getISOFormatter : function(){
 
-        var kind = property.typeRef && property.typeRef.kind;
-        var factoryMethodName = w + kind + O;
-        var factory = this[factoryMethodName];
-        if(typeof (factory) !== p){
-
-          console.log(r + +property.name + M + kind);
-          return this.createStringWidget();
-        };
-        return factory.call(this, property);
-      },
-      createPrimitiveWidget : function(property){
-
-        var typeName = property.typeRef && property.typeRef.typeName;
-        var factoryMethodName = w + typeName + O;
-        var factory = this[factoryMethodName];
-        if(typeof (factory) !== p){
-
-          console.log(r + property.name + M + typeName);
-          return this.createStringWidget();
-        };
-        return factory.call(this, property);
-      },
-      createStringWidget : function(attribute){
-
-        return new qx.ui.mobile.form.TextField();
-      },
-      createIntegerWidget : function(attribute){
-
-        return new qx.ui.mobile.form.TextField();
-      },
-      createDoubleWidget : function(attribute){
-
-        return new qx.ui.mobile.form.TextField();
-      },
-      createDateWidget : function(attribute){
-
-        var formatter = new qx.util.format.DateFormat(t);
-        var dateField = new qx.ui.mobile.form.TextField();
-        dateField.setReadOnly(true);
-        var days = [];
-        for(var day = 1;day <= 31;day++){
-
-          days.push(z + day);
-        };
-        var daySlot = new qx.data.Array(days);
-        var months = [I, G, g, f, q, H, l, h, u, D, v, F];
-        var monthSlot = new qx.data.Array(months);
-        var years = [];
-        for(var year = 1900 + new Date().getYear();year > 1900;year--){
-
-          years.push(z + year);
-        };
-        var yearSlot = new qx.data.Array(years);
-        var picker = new qx.ui.mobile.dialog.Picker();
-        picker.addSlot(daySlot);
-        picker.addSlot(monthSlot);
-        picker.addSlot(yearSlot);
-        dateField.addListener(N, function(){
-
-          var parsed;
-          try{
-
-            parsed = formatter.parse(dateField.getValue());
-          } catch(e) {
-
-            parsed = new Date();
-          };
-          console.log(b);
-          console.log(dateField.getValue());
-          console.log(A);
-          console.log(parsed);
-          var slot0 = parsed.getDate() - 1;
-          var slot1 = parsed.getMonth();
-          var slot2 = parsed.getYear();
-          console.log(k);
-          console.log(slot0);
-          console.log(slot1);
-          console.log(slot2);
-          picker.setSelectedIndex(0, slot0);
-          picker.setSelectedIndex(1, slot1);
-          picker.setSelectedIndex(2, new Date().getYear() - slot2);
-          picker.show();
-        });
-        picker.addListener(B, function(e){
-
-          var data = e.getData();
-          dateField.setValue(data[2].item + L + (months.indexOf(data[1].item) + 1) + L + data[0].item);
-        });
-        return dateField;
-      },
-      createMemoWidget : function(attribute){
-
-        return new qx.ui.mobile.form.TextArea();
-      },
-      createBooleanWidget : function(attribute){
-
-        return new qx.ui.mobile.form.ToggleButton();
-      },
-      createStateMachineWidget : function(attribute){
-
-        return new qx.ui.mobile.form.TextField();
-      },
-      createEnumerationWidget : function(property){
-
-        var widget = new qx.ui.mobile.form.SelectBox();
-        var values = [];
-        if(property.enumerationLiterals){
-
-          if(!property.required){
-
-            values.push(y);
-          };
-          for(var i in property.enumerationLiterals){
-
-            values.push(property.enumerationLiterals[i]);
-          };
-        };
-        widget.setModel(new qx.data.Array(values));
-        return widget;
+        return this._isoFormatter;
       }
     }
   });
@@ -43433,42 +43395,165 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "touchmove",b = "os.name",c = "height",d = "px",e = "__pg",f = "transitionDuration",g = "qx.event.type.Data",h = "__ph",k = "200ms",l = "__pj",m = "0s",n = "changeSelection",o = "ios",p = "picker-container",q = "Choose",r = "touchend",s = "picker-label",t = "qx.ui.mobile.dialog.Picker",u = "px,0px)",v = "confirmSelection",w = "tap",x = "picker-slot",y = "touchstart",z = "Cancel",A = "mshtml",B = "engine.name",C = "__pi",D = "__pk",E = "margin",F = "translate3d(0px,",G = "picker",H = "transform",I = "changeBubble";
-  qx.Class.define(t, {
+  var a = "Jun",b = "Mar",c = "Aug",d = "kirra_qooxdoo.Widgets",f = "Jul",g = 'function',h = "May",j = "No factory found for: ",k = "Sep",l = "Nov",m = 'create',n = '- None -',o = "",p = "confirmSelection",q = "Oct",r = "Dec",s = "Feb",t = "Apr",u = "Jan",v = '/',w = " : ",x = "tap",y = 'Widget';
+  qx.Class.define(d, {
+    extend : qx.core.Object,
+    statics : {
+      createWidget : function(property){
+
+        var kind = property.typeRef && property.typeRef.kind;
+        var factoryMethodName = m + kind + y;
+        var factory = this[factoryMethodName];
+        if(typeof (factory) !== g){
+
+          console.log(j + property.name + w + kind);
+          return this.createStringWidget();
+        };
+        return factory.call(this, property);
+      },
+      createPrimitiveWidget : function(property){
+
+        var typeName = property.typeRef && property.typeRef.typeName;
+        var factoryMethodName = m + typeName + y;
+        var factory = this[factoryMethodName];
+        if(typeof (factory) !== g){
+
+          console.log(j + property.name + w + typeName);
+          return this.createStringWidget();
+        };
+        return factory.call(this, property);
+      },
+      createStringWidget : function(attribute){
+
+        return new qx.ui.mobile.form.TextField();
+      },
+      createIntegerWidget : function(attribute){
+
+        return new qx.ui.mobile.form.TextField();
+      },
+      createDoubleWidget : function(attribute){
+
+        return new qx.ui.mobile.form.TextField();
+      },
+      createDateWidget : function(attribute){
+
+        var me = this;
+        var dateField = new qx.ui.mobile.form.TextField();
+        dateField.setReadOnly(true);
+        var days = [];
+        for(var day = 1;day <= 31;day++){
+
+          days.push(o + day);
+        };
+        var daySlot = new qx.data.Array(days);
+        var months = [u, s, b, t, h, a, f, c, k, q, l, r];
+        var monthSlot = new qx.data.Array(months);
+        var years = [];
+        for(var year = 1900 + new Date().getYear();year > 1900;year--){
+
+          years.push(o + year);
+        };
+        var yearSlot = new qx.data.Array(years);
+        var picker = new qx.ui.mobile.dialog.Picker();
+        picker.addSlot(daySlot);
+        picker.addSlot(monthSlot);
+        picker.addSlot(yearSlot);
+        dateField.addListener(x, function(){
+
+          var parsed;
+          try{
+
+            parsed = kirra_qooxdoo.DateFormats.getYMDFormatter().parse(dateField.getValue());
+          } catch(e) {
+
+            parsed = new Date();
+          };
+          var slot0 = parsed.getDate() - 1;
+          var slot1 = parsed.getMonth();
+          var slot2 = parsed.getYear();
+          picker.setSelectedIndex(0, slot0);
+          picker.setSelectedIndex(1, slot1);
+          picker.setSelectedIndex(2, new Date().getYear() - slot2);
+          picker.show();
+        });
+        picker.addListener(p, function(e){
+
+          var data = e.getData();
+          dateField.setValue(data[2].item + v + (months.indexOf(data[1].item) + 1) + v + data[0].item);
+        });
+        return dateField;
+      },
+      createMemoWidget : function(attribute){
+
+        return new qx.ui.mobile.form.TextArea();
+      },
+      createBooleanWidget : function(attribute){
+
+        return new qx.ui.mobile.form.ToggleButton();
+      },
+      createStateMachineWidget : function(attribute){
+
+        return new qx.ui.mobile.form.TextField();
+      },
+      createEnumerationWidget : function(property){
+
+        var widget = new qx.ui.mobile.form.SelectBox();
+        var values = [];
+        if(property.enumerationLiterals){
+
+          if(!property.required){
+
+            values.push(n);
+          };
+          for(var i in property.enumerationLiterals){
+
+            values.push(property.enumerationLiterals[i]);
+          };
+        };
+        widget.setModel(new qx.data.Array(values));
+        return widget;
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "touchmove",b = "os.name",c = "height",d = "px",e = "transitionDuration",f = "__of",g = "qx.event.type.Data",h = "200ms",k = "0s",l = "changeSelection",m = "ios",n = "__oh",o = "picker-container",p = "Choose",q = "touchend",r = "picker-label",s = "qx.ui.mobile.dialog.Picker",t = "px,0px)",u = "confirmSelection",v = "tap",w = "picker-slot",x = "touchstart",y = "Cancel",z = "__og",A = "mshtml",B = "engine.name",C = "margin",D = "__oe",E = "translate3d(0px,",F = "__od",G = "picker",H = "transform",I = "changeBubble";
+  qx.Class.define(s, {
     extend : qx.ui.mobile.dialog.Popup,
     construct : function(anchor){
 
-      this.__oY = {
+      this.__nV = {
       };
-      this.__pa = {
+      this.__nW = {
       };
-      this.__pb = {
+      this.__nX = {
       };
-      this.__pc = {
+      this.__nY = {
       };
-      this.__pd = [];
-      this.__pe = [];
-      this.__pf = new qx.data.Array();
-      this.__pg = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
+      this.__oa = [];
+      this.__ob = [];
+      this.__oc = new qx.data.Array();
+      this.__od = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
       if(qx.core.Environment.get(B) == A){
 
-        this.__pg.setAnonymous(true);
+        this.__od.setAnonymous(true);
       };
-      this.__pg.addCssClass(p);
-      this.__ph = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
-      this.__pi = new qx.ui.mobile.form.Button(q);
-      this.__pi.addListener(w, this.confirm, this);
-      this.__pj = new qx.ui.mobile.form.Button(z);
-      this.__pj.addListener(w, this.hide, this);
-      var buttonContainer = this.__pk = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
-      buttonContainer.add(this.__pi, {
+      this.__od.addCssClass(o);
+      this.__oe = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
+      this.__of = new qx.ui.mobile.form.Button(p);
+      this.__of.addListener(v, this.confirm, this);
+      this.__og = new qx.ui.mobile.form.Button(y);
+      this.__og.addListener(v, this.hide, this);
+      var buttonContainer = this.__oh = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
+      buttonContainer.add(this.__of, {
         flex : 1
       });
-      buttonContainer.add(this.__pj, {
+      buttonContainer.add(this.__og, {
         flex : 1
       });
-      this.__ph.add(this.__pg);
-      this.__ph.add(buttonContainer);
+      this.__oe.add(this.__od);
+      this.__oe.add(buttonContainer);
       if(anchor){
 
         this.setModal(false);
@@ -43476,7 +43561,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         this.setModal(true);
       };
-      qx.ui.mobile.dialog.Popup.call(this, this.__ph, anchor);
+      qx.ui.mobile.dialog.Popup.call(this, this.__oe, anchor);
     },
     events : {
       changeSelection : g,
@@ -43489,19 +43574,19 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __pf : null,
-      __pi : null,
-      __pj : null,
-      __pg : null,
-      __pk : null,
-      __ph : null,
-      __oY : null,
-      __pa : null,
-      __pb : null,
-      __pc : null,
-      __pd : null,
-      __pe : null,
-      __pl : null,
+      __oc : null,
+      __of : null,
+      __og : null,
+      __od : null,
+      __oh : null,
+      __oe : null,
+      __nV : null,
+      __nW : null,
+      __nX : null,
+      __nY : null,
+      __oa : null,
+      __ob : null,
+      __oi : null,
       show : function(){
 
         qx.ui.mobile.dialog.Popup.prototype.show.call(this);
@@ -43514,22 +43599,22 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       getSelectedIndex : function(slotIndex){
 
-        var slotElement = this.__pd[slotIndex];
+        var slotElement = this.__oa[slotIndex];
         if(slotElement){
 
-          return this.__pe[slotIndex];
+          return this.__ob[slotIndex];
         };
         return null;
       },
       setSelectedIndex : function(slotIndex, value, useTransition){
 
-        var slotElement = this.__pd[slotIndex];
+        var slotElement = this.__oa[slotIndex];
         if(slotElement){
 
           if(this._isSelectedIndexValid(slotElement, value)){
 
-            this.__pa[slotElement.id] = value;
-            this.__pe[slotIndex] = value;
+            this.__nW[slotElement.id] = value;
+            this.__ob[slotIndex] = value;
             if(this.isShown()){
 
               this._updateSlot(slotElement, useTransition);
@@ -43539,30 +43624,30 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       setConfirmButtonCaption : function(caption){
 
-        if(this.__pi){
+        if(this.__of){
 
-          this.__pi.setValue(caption);
+          this.__of.setValue(caption);
         };
       },
       setCancelButtonCaption : function(caption){
 
-        if(this.__pj){
+        if(this.__og){
 
-          this.__pj.setValue(caption);
+          this.__og.setValue(caption);
         };
       },
       getPickerButtonContainer : function(){
 
-        return this.__pk;
+        return this.__oh;
       },
       addSlot : function(slotData){
 
         if(slotData !== null && slotData instanceof qx.data.Array){
 
-          this.__pf.push(slotData);
+          this.__oc.push(slotData);
           slotData.addListener(I, this._onChangeBubble, {
             self : this,
-            index : this.__pf.length - 1
+            index : this.__oc.length - 1
           });
           this._render();
         };
@@ -43571,7 +43656,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var newSlotDataLength = evt.getData().value.length;
         var selectedIndex = this.self.getSelectedIndex(this.index);
-        var pickerSlot = this.self.__pg.getChildren()[this.index];
+        var pickerSlot = this.self.__od.getChildren()[this.index];
         this.self._renderPickerSlotContent(pickerSlot, this.index);
         if(selectedIndex >= newSlotDataLength){
 
@@ -43581,30 +43666,30 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       removeSlot : function(slotIndex){
 
-        if(this.__pf.getLength() > slotIndex && slotIndex > -1){
+        if(this.__oc.getLength() > slotIndex && slotIndex > -1){
 
-          var slotData = this.__pf.getItem(slotIndex);
+          var slotData = this.__oc.getItem(slotIndex);
           slotData.removeListener(I, this._onChangeBubble, this);
-          this.__pf.removeAt(slotIndex);
+          this.__oc.removeAt(slotIndex);
           this._render();
         };
       },
       _disposePickerModel : function(){
 
-        for(var i = 0;i < this.__pf.length;i++){
+        for(var i = 0;i < this.__oc.length;i++){
 
-          var slotData = this.__pf.getItem(i);
+          var slotData = this.__oc.getItem(i);
           slotData.removeListener(I, this._onChangeBubble, this);
         };
-        this.__pf.dispose();
+        this.__oc.dispose();
       },
       getSlotCount : function(){
 
-        return this.__pf.getLength();
+        return this.__oc.getLength();
       },
       _increaseSelectedIndex : function(contentElement){
 
-        var oldSelectedIndex = this.__pa[contentElement.id];
+        var oldSelectedIndex = this.__nW[contentElement.id];
         var newSelectedIndex = oldSelectedIndex + 1;
         var slotIndex = this._getSlotIndexByElement(contentElement);
         var model = this._getModelByElement(contentElement);
@@ -43612,27 +43697,27 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           newSelectedIndex = model.getLength() - 1;
         };
-        this.__pa[contentElement.id] = newSelectedIndex;
-        this.__pe[slotIndex] = newSelectedIndex;
+        this.__nW[contentElement.id] = newSelectedIndex;
+        this.__ob[slotIndex] = newSelectedIndex;
         this._updateSlot(contentElement);
       },
       _decreaseSelectedIndex : function(contentElement){
 
-        var oldSelectedIndex = this.__pa[contentElement.id];
+        var oldSelectedIndex = this.__nW[contentElement.id];
         var newSelectedIndex = oldSelectedIndex - 1;
         var slotIndex = this._getSlotIndexByElement(contentElement);
         if(newSelectedIndex < 0){
 
           newSelectedIndex = 0;
         };
-        this.__pa[contentElement.id] = newSelectedIndex;
-        this.__pe[slotIndex] = newSelectedIndex;
+        this.__nW[contentElement.id] = newSelectedIndex;
+        this.__ob[slotIndex] = newSelectedIndex;
         this._updateSlot(contentElement);
       },
       _getSlotIndexByElement : function(contentElement){
 
         var contentElementId = contentElement.id;
-        var slotIndex = this.__pc[contentElementId];
+        var slotIndex = this.__nY[contentElementId];
         return slotIndex;
       },
       _isSelectedIndexValid : function(contentElement, selectedIndex){
@@ -43643,16 +43728,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _getModelByElement : function(contentElement){
 
         var slotIndex = this._getSlotIndexByElement(contentElement);
-        return this.__pf.getItem(slotIndex);
+        return this.__oc.getItem(slotIndex);
       },
       _fireConfirmSelection : function(){
 
-        var model = this.__pf;
+        var model = this.__oc;
         var slotCounter = (model ? model.getLength() : 0);
         var selectionData = [];
         for(var slotIndex = 0;slotIndex < slotCounter;slotIndex++){
 
-          var selectedIndex = this.__pe[slotIndex];
+          var selectedIndex = this.__ob[slotIndex];
           var selectedValue = model.getItem(slotIndex).getItem(selectedIndex);
           var slotData = {
             index : selectedIndex,
@@ -43661,14 +43746,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
           selectionData.push(slotData);
         };
-        this.fireDataEvent(v, selectionData);
+        this.fireDataEvent(u, selectionData);
       },
       _fixPickerSlotHeight : function(target){
 
-        this.__pl = qx.bom.element.Style.get(target.children[0], c, 1);
-        this.__pl = parseFloat(this.__pl, 10);
+        this.__oi = qx.bom.element.Style.get(target.children[0], c, 1);
+        this.__oi = parseFloat(this.__oi, 10);
         var labelCount = this._getModelByElement(target).length;
-        var pickerSlotHeight = labelCount * this.__pl;
+        var pickerSlotHeight = labelCount * this.__oi;
         qx.bom.element.Style.set(target, c, pickerSlotHeight + d);
       },
       _onTouchStart : function(evt){
@@ -43676,9 +43761,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var target = evt.getCurrentTarget().getContainerElement();
         var touchX = evt.getViewportLeft();
         var touchY = evt.getViewportTop();
-        this.__pb[target.id] = this.__pa[target.id];
-        qx.bom.element.Style.set(target, f, m);
-        this.__oY[target.id] = {
+        this.__nX[target.id] = this.__nW[target.id];
+        qx.bom.element.Style.set(target, e, k);
+        this.__nV[target.id] = {
           x : touchX,
           y : touchY
         };
@@ -43690,22 +43775,22 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var target = evt.getCurrentTarget().getContainerElement();
         var model = this._getModelByElement(target);
         var slotIndex = this._getSlotIndexByElement(target);
-        var touchStartPoint = this.__oY[target.id];
+        var touchStartPoint = this.__nV[target.id];
         if(!touchStartPoint){
 
           return;
         };
         var deltaY = evt.getViewportTop() - touchStartPoint.y;
-        var isSwipe = Math.abs(deltaY) >= this.__pl / 2;
+        var isSwipe = Math.abs(deltaY) >= this.__oi / 2;
         if(isSwipe){
 
-          this.__pa[target.id] = this.__pb[target.id];
-          this.__pe[slotIndex] = this.__pb[target.id];
+          this.__nW[target.id] = this.__nX[target.id];
+          this.__ob[slotIndex] = this.__nX[target.id];
         } else {
 
           var viewportTop = evt.getViewportTop();
           var offsetParent = qx.bom.element.Location.getOffsetParent(target);
-          var targetTop = qx.bom.element.Location.getTop(offsetParent, E);
+          var targetTop = qx.bom.element.Location.getTop(offsetParent, C);
           var relativeTop = viewportTop - targetTop;
           var decreaseIncreaseLimit = offsetParent.offsetHeight / 2;
           if(relativeTop < decreaseIncreaseLimit){
@@ -43716,10 +43801,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             this._increaseSelectedIndex(target);
           };
         };
-        var selectedIndex = this.__pa[target.id];
+        var selectedIndex = this.__nW[target.id];
         var selectedValue = model.getItem(selectedIndex);
         this._updateSlot(target);
-        this.fireDataEvent(n, {
+        this.fireDataEvent(l, {
           index : selectedIndex,
           item : selectedValue,
           slot : slotIndex
@@ -43729,18 +43814,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var target = evt.getCurrentTarget();
         var targetElement = evt.getCurrentTarget().getContainerElement();
-        var touchStartPoint = this.__oY[targetElement.id];
+        var touchStartPoint = this.__nV[targetElement.id];
         if(!touchStartPoint){
 
           return;
         };
         var deltaY = evt.getViewportTop() - touchStartPoint.y;
-        var selectedIndex = this.__pa[targetElement.id];
-        var offsetTop = -selectedIndex * this.__pl;
+        var selectedIndex = this.__nW[targetElement.id];
+        var offsetTop = -selectedIndex * this.__oi;
         var targetOffset = deltaY + offsetTop;
         var slotHeight = targetElement.offsetHeight;
         var pickerHeight = parseInt(target.getLayoutParent().getContainerElement().offsetHeight, 10);
-        var upperBounce = this.__pl;
+        var upperBounce = this.__oi;
         var lowerBounce = (-slotHeight + pickerHeight * 2);
         if(targetOffset > upperBounce){
 
@@ -43751,12 +43836,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           targetOffset = lowerBounce;
         };
         target.setTranslateY(targetOffset);
-        var steps = Math.round(-deltaY / this.__pl);
+        var steps = Math.round(-deltaY / this.__oi);
         var newIndex = selectedIndex + steps;
         var modelLength = this._getModelByElement(targetElement).getLength();
         if(newIndex < modelLength && newIndex >= 0){
 
-          this.__pb[targetElement.id] = newIndex;
+          this.__nX[targetElement.id] = newIndex;
         };
         evt.preventDefault();
       },
@@ -43767,42 +43852,42 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           useTransition = true;
         };
-        if(qx.core.Environment.get(b) == o){
+        if(qx.core.Environment.get(b) == m){
 
-          var transitionDuration = k;
+          var transitionDuration = h;
           if(useTransition === false){
 
-            transitionDuration = m;
+            transitionDuration = k;
           };
-          qx.bom.element.Style.set(targetElement, f, transitionDuration);
+          qx.bom.element.Style.set(targetElement, e, transitionDuration);
         };
-        var selectedIndex = this.__pa[targetElement.id];
-        var offsetTop = -selectedIndex * this.__pl;
-        qx.bom.element.Style.set(targetElement, H, F + offsetTop + u);
+        var selectedIndex = this.__nW[targetElement.id];
+        var offsetTop = -selectedIndex * this.__oi;
+        qx.bom.element.Style.set(targetElement, H, E + offsetTop + t);
       },
       _updateAllSlots : function(){
 
-        for(var i = 0;i < this.__pd.length;i++){
+        for(var i = 0;i < this.__oa.length;i++){
 
-          this._updateSlot(this.__pd[i]);
+          this._updateSlot(this.__oa[i]);
         };
       },
       _render : function(){
 
         this._removePickerSlots();
-        this.__pe = [];
-        this.__pd = [];
-        this.__pc = {
+        this.__ob = [];
+        this.__oa = [];
+        this.__nY = {
         };
-        this.__pa = {
+        this.__nW = {
         };
-        var slotCounter = (this.__pf ? this.__pf.getLength() : 0);
+        var slotCounter = (this.__oc ? this.__oc.getLength() : 0);
         for(var slotIndex = 0;slotIndex < slotCounter;slotIndex++){
 
-          this.__pe.push(0);
+          this.__ob.push(0);
           var pickerSlot = this._createPickerSlot(slotIndex);
-          this.__pd.push(pickerSlot.getContentElement());
-          this.__pg.add(pickerSlot, {
+          this.__oa.push(pickerSlot.getContentElement());
+          this.__od.add(pickerSlot, {
             flex : 1
           });
           this._renderPickerSlotContent(pickerSlot, slotIndex);
@@ -43815,7 +43900,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           oldPickerSlotContent[i].dispose();
         };
-        var slotValues = this.__pf.getItem(slotIndex);
+        var slotValues = this.__oc.getItem(slotIndex);
         var slotLength = slotValues.getLength();
         for(var slotValueIndex = 0;slotValueIndex < slotLength;slotValueIndex++){
 
@@ -43829,24 +43914,24 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _createPickerSlot : function(slotIndex){
 
         var pickerSlot = new qx.ui.mobile.container.Composite();
-        pickerSlot.addCssClass(x);
+        pickerSlot.addCssClass(w);
         pickerSlot.setTransformUnit(d);
-        pickerSlot.addListener(y, this._onTouchStart, this);
+        pickerSlot.addListener(x, this._onTouchStart, this);
         pickerSlot.addListener(a, this._onTouchMove, this);
-        pickerSlot.addListener(r, this._onTouchEnd, this);
-        this.__pc[pickerSlot.getId()] = slotIndex;
-        this.__pa[pickerSlot.getId()] = 0;
+        pickerSlot.addListener(q, this._onTouchEnd, this);
+        this.__nY[pickerSlot.getId()] = slotIndex;
+        this.__nW[pickerSlot.getId()] = 0;
         return pickerSlot;
       },
       _removePickerSlots : function(){
 
-        var children = this.__pg.getChildren();
+        var children = this.__od.getChildren();
         for(var i = children.length - 1;i >= 0;i--){
 
           var pickerSlot = children[i];
-          pickerSlot.removeListener(y, this._onTouchStart, this);
+          pickerSlot.removeListener(x, this._onTouchStart, this);
           pickerSlot.removeListener(a, this._onTouchMove, this);
-          pickerSlot.removeListener(r, this._onTouchEnd, this);
+          pickerSlot.removeListener(q, this._onTouchEnd, this);
           var oldPickerSlotContent = pickerSlot.removeAll();
           for(var j = 0;j < oldPickerSlotContent.length;j++){
 
@@ -43858,7 +43943,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _createPickerValueLabel : function(textValue){
 
         var pickerLabel = new qx.ui.mobile.basic.Label(textValue);
-        pickerLabel.addCssClass(s);
+        pickerLabel.addCssClass(r);
         return pickerLabel;
       }
     },
@@ -43866,16 +43951,115 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
       this._disposePickerModel();
       this._removePickerSlots();
-      this.__pi.removeListener(w, this.confirm, this);
-      this.__pj.removeListener(w, this.hide, this);
-      this._disposeObjects(e, D, C, l, h);
+      this.__of.removeListener(v, this.confirm, this);
+      this.__og.removeListener(v, this.hide, this);
+      this._disposeObjects(F, n, f, z, D);
     }
   });
 })();
 (function(){
 
-  var a = "Boolean",b = "master-detail-detail",c = "device.type",d = "__nX",e = "paddingLeft",f = "__ob",g = "__of",h = "Hide",k = "orientationchange",l = "qx.ui.mobile.page.Manager",m = "String",n = "resize",o = "start",p = "master-detail-master",q = "tablet",r = "rem",s = "_applyMasterTitle",t = "_onLayoutChange",u = "update",v = "_applyHideMasterButtonCaption",w = "__nW",x = "desktop",y = "Master",z = "tap",A = "undefined";
-  qx.Class.define(l, {
+  var a = "Ok",b = "Back",c = "Executing action...",d = "kirra_qooxdoo.ActionForm",e = "Cancel",f = "tap",g = "qx.event.type.Data";
+  qx.Class.define(d, {
+    extend : qx.ui.mobile.page.NavigationPage,
+    construct : function(repository){
+
+      qx.ui.mobile.page.NavigationPage.call(this);
+      this.repository = repository;
+      this.setShowBackButton(true);
+      this.setBackButtonText(b);
+    },
+    events : {
+      "show" : g
+    },
+    members : {
+      _entityName : null,
+      _actionName : null,
+      _objectId : null,
+      _instance : null,
+      _entity : null,
+      _action : null,
+      _widgets : {
+      },
+      _initialize : function(){
+
+        qx.ui.mobile.page.NavigationPage.prototype._initialize.call(this);
+      },
+      _start : function(){
+
+        qx.ui.mobile.page.NavigationPage.prototype._start.call(this);
+      },
+      showFor : function(entityName, actionName, objectId){
+
+        var me = this;
+        me._widgets = {
+        } , me._entityName = entityName;
+        me._actionName = actionName;
+        me._objectId = objectId;
+        me._entity = null;
+        me._instance = null;
+        me._action = null;
+        me.repository.loadEntity(entityName, function(entity){
+
+          me._entity = entity;
+          me._action = entity.operations[me._actionName];
+          me.buildForm();
+        });
+        this.show();
+      },
+      buildForm : function(){
+
+        var me = this;
+        if(!this.getContent() || !this._entity){
+
+          return;
+        };
+        this.getContent().removeAll();
+        this.addToolbar();
+        this.show();
+      },
+      addToolbar : function(){
+
+        if(this.toolbar)this.toolbar.destroy();
+        var toolbar = this.toolbar = new qx.ui.mobile.toolbar.ToolBar();
+        this.add(toolbar);
+        this.addBasicButtons();
+      },
+      addBasicButtons : function(){
+
+        var me = this;
+        var okButton = new qx.ui.mobile.form.Button(a);
+        okButton.addListener(f, function(){
+
+          me.executeAction();
+        });
+        this.toolbar.add(okButton);
+        var cancelButton = new qx.ui.mobile.form.Button(e);
+        cancelButton.addListener(f, function(){
+
+          me._back();
+        });
+        this.toolbar.add(cancelButton);
+      },
+      executeAction : function(){
+
+        var me = this;
+        console.log(c);
+        console.log(me._action);
+      },
+      buildWidgetFor : function(form, property){
+
+        var widget = kirra_qooxdoo.Widgets.createWidget(property);
+        this._widgets[property.name] = widget;
+        form.add(widget, property.label);
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "Boolean",b = "master-detail-detail",c = "device.type",d = "paddingLeft",e = "__os",f = "Hide",g = "orientationchange",h = "qx.ui.mobile.page.Manager",k = "__ol",l = "String",m = "resize",n = "start",o = "__oo",p = "master-detail-master",q = "tablet",r = "rem",s = "_applyMasterTitle",t = "_onLayoutChange",u = "update",v = "_applyHideMasterButtonCaption",w = "__ok",x = "desktop",y = "Master",z = "tap",A = "undefined";
+  qx.Class.define(h, {
     extend : qx.core.Object,
     construct : function(isTablet, root){
 
@@ -43883,42 +44067,42 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       root = root || qx.core.Init.getApplication().getRoot();
       if(typeof isTablet !== A && isTablet !== null){
 
-        this.__nV = isTablet;
+        this.__oj = isTablet;
       } else {
 
-        this.__nV = qx.core.Environment.get(c) == x || qx.core.Environment.get(c) == q;
+        this.__oj = qx.core.Environment.get(c) == x || qx.core.Environment.get(c) == q;
       };
-      this.__nW = this._createDetailNavigation();
-      this.__nW.getNavigationBar().hide();
-      if(this.__nV){
+      this.__ok = this._createDetailNavigation();
+      this.__ok.getNavigationBar().hide();
+      if(this.__oj){
 
-        this.__nX = this._createMasterNavigation();
-        this.__nX.getNavigationBar().hide();
-        this.__nY = this._createMasterContainer();
-        this.__oa = this._createDetailContainer();
-        this.__ob = this._createMasterButton();
-        this.__ob.addListener(z, this._onMasterButtonTap, this);
-        this.__oc = this._createHideMasterButton();
-        this.__oc.addListener(z, this._onHideMasterButtonTap, this);
-        this.__nX.addListener(u, this._onMasterContainerUpdate, this);
-        this.__nW.addListener(u, this._onDetailContainerUpdate, this);
-        root.add(this.__oa, {
+        this.__ol = this._createMasterNavigation();
+        this.__ol.getNavigationBar().hide();
+        this.__om = this._createMasterContainer();
+        this.__on = this._createDetailContainer();
+        this.__oo = this._createMasterButton();
+        this.__oo.addListener(z, this._onMasterButtonTap, this);
+        this.__op = this._createHideMasterButton();
+        this.__op.addListener(z, this._onHideMasterButtonTap, this);
+        this.__ol.addListener(u, this._onMasterContainerUpdate, this);
+        this.__ok.addListener(u, this._onDetailContainerUpdate, this);
+        root.add(this.__on, {
           flex : 1
         });
-        this.__nY.add(this.__nX, {
+        this.__om.add(this.__ol, {
           flex : 1
         });
-        this.__oa.add(this.__nW, {
+        this.__on.add(this.__ok, {
           flex : 1
         });
-        qx.event.Registration.addListener(window, k, this._onLayoutChange, this);
-        this.__nY.addListener(n, this._onLayoutChange, this);
-        this.__nX.getLayout().setShowAnimation(false);
-        this.__nW.getLayout().setShowAnimation(false);
+        qx.event.Registration.addListener(window, g, this._onLayoutChange, this);
+        this.__om.addListener(m, this._onLayoutChange, this);
+        this.__ol.getLayout().setShowAnimation(false);
+        this.__ok.getLayout().setShowAnimation(false);
         this._onLayoutChange();
       } else {
 
-        root.add(this.__nW, {
+        root.add(this.__ok, {
           flex : 1
         });
       };
@@ -43926,7 +44110,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     properties : {
       masterTitle : {
         init : y,
-        check : m,
+        check : l,
         apply : s
       },
       masterContainerHidden : {
@@ -43935,14 +44119,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         apply : t
       },
       hideMasterButtonCaption : {
-        init : h,
-        check : m,
+        init : f,
+        check : l,
         apply : v
       },
       allowMasterHideOnLandscape : {
         init : true,
         check : a,
-        apply : g
+        apply : e
       },
       hideMasterOnDetailStart : {
         init : true,
@@ -43950,15 +44134,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __nV : null,
-      __nW : null,
-      __nX : null,
-      __ob : null,
-      __oc : null,
-      __od : null,
-      __oe : null,
-      __nY : null,
-      __oa : null,
+      __oj : null,
+      __ok : null,
+      __ol : null,
+      __oo : null,
+      __op : null,
+      __oq : null,
+      __or : null,
+      __om : null,
+      __on : null,
       _createMasterContainer : function(){
 
         var masterContainer = new qx.ui.mobile.container.Drawer(null, new qx.ui.mobile.layout.HBox());
@@ -43974,23 +44158,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       getMasterContainer : function(){
 
-        return this.__nY;
+        return this.__om;
       },
       getDetailContainer : function(){
 
-        return this.__oa;
+        return this.__on;
       },
       getMasterButton : function(){
 
-        return this.__ob;
+        return this.__oo;
       },
       getMasterNavigation : function(){
 
-        return this.__nX;
+        return this.__ol;
       },
       getDetailNavigation : function(){
 
-        return this.__nW;
+        return this.__ok;
       },
       _createMasterButton : function(){
 
@@ -43998,7 +44182,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _createHideMasterButton : function(){
 
-        return new qx.ui.mobile.navigationbar.Button(h);
+        return new qx.ui.mobile.navigationbar.Button(f);
       },
       _createMasterNavigation : function(){
 
@@ -44010,7 +44194,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       addMaster : function(pages){
 
-        if(this.__nV){
+        if(this.__oj){
 
           if(pages){
 
@@ -44021,16 +44205,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             for(var i = 0;i < pages.length;i++){
 
               var masterPage = pages[i];
-              qx.event.Registration.addListener(masterPage, o, this._onMasterPageStart, this);
+              qx.event.Registration.addListener(masterPage, n, this._onMasterPageStart, this);
             };
-            if(this.__od){
+            if(this.__oq){
 
-              this.__od.concat(pages);
+              this.__oq.concat(pages);
             } else {
 
-              this.__od = pages;
+              this.__oq = pages;
             };
-            this._add(pages, this.__nX);
+            this._add(pages, this.__ol);
           };
         } else {
 
@@ -44045,8 +44229,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       addDetail : function(pages){
 
-        this._add(pages, this.__nW);
-        if(pages && this.__nV){
+        this._add(pages, this.__ok);
+        if(pages && this.__oj){
 
           if(!qx.lang.Type.isArray(pages)){
 
@@ -44055,14 +44239,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           for(var i = 0;i < pages.length;i++){
 
             var detailPage = pages[i];
-            qx.event.Registration.addListener(detailPage, o, this._onDetailPageStart, this);
+            qx.event.Registration.addListener(detailPage, n, this._onDetailPageStart, this);
           };
-          if(this.__oe){
+          if(this.__or){
 
-            this.__oe.concat(pages);
+            this.__or.concat(pages);
           } else {
 
-            this.__oe = pages;
+            this.__or = pages;
           };
         };
       },
@@ -44070,7 +44254,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         if(qx.bom.Viewport.isPortrait() && this.isHideMasterOnDetailStart()){
 
-          this.__nY.hide();
+          this.__om.hide();
         };
       },
       _add : function(pages, target){
@@ -44084,133 +44268,133 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           var page = pages[i];
           {
           };
-          if(this.__nV && !page.getShowBackButtonOnTablet()){
+          if(this.__oj && !page.getShowBackButtonOnTablet()){
 
             page.setShowBackButton(false);
           };
-          page.setIsTablet(this.__nV);
+          page.setIsTablet(this.__oj);
           target.add(page);
         };
       },
       _onMasterContainerUpdate : function(evt){
 
         var widget = evt.getData();
-        widget.getRightContainer().remove(this.__oc);
-        widget.getRightContainer().add(this.__oc);
+        widget.getRightContainer().remove(this.__op);
+        widget.getRightContainer().add(this.__op);
       },
       _onDetailContainerUpdate : function(evt){
 
         var widget = evt.getData();
-        widget.getLeftContainer().remove(this.__ob);
-        widget.getLeftContainer().add(this.__ob);
+        widget.getLeftContainer().remove(this.__oo);
+        widget.getLeftContainer().add(this.__oo);
       },
       _onMasterButtonTap : function(){
 
-        this.__nY.show();
+        this.__om.show();
         if(qx.bom.Viewport.isLandscape()){
 
           this.setMasterContainerHidden(false);
           this._createDetailContainerGap();
-          this.__ob.exclude();
+          this.__oo.exclude();
         };
       },
       _onHideMasterButtonTap : function(){
 
-        this.__nY.hide();
+        this.__om.hide();
         if(qx.bom.Viewport.isLandscape()){
 
-          this.__ob.show();
+          this.__oo.show();
           this.setMasterContainerHidden(true);
           this._removeDetailContainerGap();
         };
       },
       _onLayoutChange : function(){
 
-        if(!this.__nV){
+        if(!this.__oj){
 
           return;
         };
         if(qx.bom.Viewport.isLandscape()){
 
-          this.__nY.setTransitionDuration(0);
+          this.__om.setTransitionDuration(0);
           if(this.isMasterContainerHidden() === false){
 
             this._createDetailContainerGap();
-            this.__nY.show();
+            this.__om.show();
           } else {
 
             this._removeDetailContainerGap();
-            this.__nY.hide();
+            this.__om.hide();
           };
-          this.__nY.setHideOnParentTouch(false);
+          this.__om.setHideOnParentTouch(false);
         } else {
 
-          this.__nY.setTransitionDuration(500);
-          this.__nY.setHideOnParentTouch(true);
-          this.__nY.hide();
+          this.__om.setTransitionDuration(500);
+          this.__om.setHideOnParentTouch(true);
+          this.__om.hide();
           this._removeDetailContainerGap();
         };
-        this.__of();
+        this.__os();
       },
       _createDetailContainerGap : function(){
 
-        qx.bom.element.Style.set(this.__oa.getContainerElement(), e, this.__nY.getSize() / 16 + r);
-        qx.event.Registration.fireEvent(window, n);
+        qx.bom.element.Style.set(this.__on.getContainerElement(), d, this.__om.getSize() / 16 + r);
+        qx.event.Registration.fireEvent(window, m);
       },
       _removeDetailContainerGap : function(){
 
-        qx.bom.element.Style.set(this.__oa.getContainerElement(), e, null);
-        qx.event.Registration.fireEvent(window, n);
+        qx.bom.element.Style.set(this.__on.getContainerElement(), d, null);
+        qx.event.Registration.fireEvent(window, m);
       },
-      __of : function(){
+      __os : function(){
 
-        if(!this.__nV){
+        if(!this.__oj){
 
           return;
         };
         if(qx.bom.Viewport.isPortrait()){
 
-          this.__ob.show();
-          this.__oc.show();
+          this.__oo.show();
+          this.__op.show();
         } else {
 
-          this.__ob.exclude();
-          this.__oc.exclude();
+          this.__oo.exclude();
+          this.__op.exclude();
           if(this.isAllowMasterHideOnLandscape()){
 
             if(this.isMasterContainerHidden()){
 
-              this.__ob.show();
+              this.__oo.show();
             } else {
 
-              this.__oc.show();
+              this.__op.show();
             };
           };
         };
       },
       _applyHideMasterButtonCaption : function(value, old){
 
-        if(this.__nV){
+        if(this.__oj){
 
-          this.__oc.setLabel(value);
+          this.__op.setLabel(value);
         };
       },
       _applyMasterTitle : function(value, old){
 
-        if(this.__nV){
+        if(this.__oj){
 
-          this.__ob.setLabel(value);
+          this.__oo.setLabel(value);
         };
       }
     },
     destruct : function(){
 
-      if(this.__od){
+      if(this.__oq){
 
-        for(var i = 0;i < this.__od.length;i++){
+        for(var i = 0;i < this.__oq.length;i++){
 
-          var masterPage = this.__od[i];
-          qx.event.Registration.removeListener(masterPage, o, this._onMasterPageStart, this);
+          var masterPage = this.__oq[i];
+          qx.event.Registration.removeListener(masterPage, n, this._onMasterPageStart, this);
         };
       };
       if(this.___detailPages){
@@ -44218,16 +44402,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var j = 0;j < this.___detailPages.length;j++){
 
           var detailPage = this.___detailPages[j];
-          qx.event.Registration.removeListener(detailPage, o, this._onDetailPageStart, this);
+          qx.event.Registration.removeListener(detailPage, n, this._onDetailPageStart, this);
         };
       };
-      if(this.__nV){
+      if(this.__oj){
 
-        this.__nY.removeListener(n, this._onLayoutChange, this);
-        qx.event.Registration.removeListener(window, k, this._onLayoutChange, this);
+        this.__om.removeListener(m, this._onLayoutChange, this);
+        qx.event.Registration.removeListener(window, g, this._onLayoutChange, this);
       };
-      this.__od = this.__oe = null;
-      this._disposeObjects(w, d, f);
+      this.__oq = this.__or = null;
+      this._disposeObjects(w, k, o);
     }
   });
 })();
@@ -44259,8 +44443,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       this.__jt.addListener(a, this._onParentSwipe, this);
       this.__jt.addListener(F, this._onParentTouchStart, this);
       this.__jt.addListener(h, this.forceHide, this);
-      this.__og = [0, 0];
-      this.__oh = false;
+      this.__ot = [0, 0];
+      this.__ou = false;
       this.forceHide();
     },
     events : {
@@ -44302,11 +44486,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __og : null,
+      __ot : null,
       __jt : null,
-      __oh : null,
-      __oi : null,
-      __oj : null,
+      __ou : null,
+      __ov : null,
+      __ow : null,
       _applyOrientation : function(value, old){
 
         this.removeCssClass(old);
@@ -44393,31 +44577,31 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           qx.bom.Element.removeListener(evt.getTarget(), p, this._onTransitionEnd, this);
         };
-        this.__oh = false;
+        this.__ou = false;
         this._disableTransition();
         if(this.isHidden()){
 
           this.exclude();
           this.__jt.removeCssClass(v);
         };
-        if(this.__oi != qx.bom.Viewport.isLandscape()){
+        if(this.__ov != qx.bom.Viewport.isLandscape()){
 
           this.show();
         };
       },
       _applyTransitionDuration : function(value, old){
 
-        this.__oj = value > 0;
+        this.__ow = value > 0;
       },
       show : function(){
 
-        if(this.__oh || !this.isHidden()){
+        if(this.__ou || !this.isHidden()){
 
           return;
         };
         qx.ui.mobile.container.Composite.prototype.show.call(this);
         this.__jt.addCssClass(v);
-        this.__oi = qx.bom.Viewport.isLandscape();
+        this.__ov = qx.bom.Viewport.isLandscape();
         if(this.getPositionZ() == l){
 
           if(this.__jt){
@@ -44448,7 +44632,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         if(this.getTransitionDuration() > 0){
 
           this._enableTransition();
-          this.__oh = true;
+          this.__ou = true;
           qx.bom.Element.addListener(this._getTransitionTarget().getContentElement(), p, this._onTransitionEnd, this);
           setTimeout(function(){
 
@@ -44462,11 +44646,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       hide : function(){
 
-        if(this.__oh || this.isHidden()){
+        if(this.__ou || this.isHidden()){
 
           return;
         };
-        this.__oi = qx.bom.Viewport.isLandscape();
+        this.__ov = qx.bom.Viewport.isLandscape();
         if(this.getPositionZ() == l){
 
           this.__jt.setTranslateX(0);
@@ -44474,7 +44658,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         if(this.getTransitionDuration() > 0){
 
-          this.__oh = true;
+          this.__ou = true;
           this._enableTransition();
           qx.bom.Element.addListener(this._getTransitionTarget().getContentElement(), p, this._onTransitionEnd, this);
           setTimeout(function(){
@@ -44537,12 +44721,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var clientX = evt.getAllTouches()[0].clientX;
         var clientY = evt.getAllTouches()[0].clientY;
-        this.__og = [clientX, clientY];
+        this.__ot = [clientX, clientY];
         var isShown = !this.hasCssClass(z);
         if(isShown && this.isHideOnParentTouch()){
 
           var location = qx.bom.element.Location.get(this.getContainerElement());
-          if(this.getOrientation() == A && this.__og[0] > location.right || this.getOrientation() == r && this.__og[1] > location.bottom || this.getOrientation() == d && this.__og[1] < location.top || this.getOrientation() == s && this.__og[0] < location.left){
+          if(this.getOrientation() == A && this.__ot[0] > location.right || this.getOrientation() == r && this.__ot[1] > location.bottom || this.getOrientation() == d && this.__ot[1] < location.top || this.getOrientation() == s && this.__ot[0] < location.left){
 
             evt.preventDefault();
             this.hide();
@@ -44556,7 +44740,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         if(isHidden){
 
           var location = qx.bom.element.Location.get(this.getContainerElement());
-          if((direction == s && this.getOrientation() == A && this.__og[0] < location.right + this.getTouchOffset() && this.__og[0] > location.right) || (direction == A && this.getOrientation() == s && this.__og[0] > location.left - this.getTouchOffset() && this.__og[0] < location.left) || (direction == t && this.getOrientation() == r && this.__og[1] < this.getTouchOffset() + location.bottom && this.__og[1] > location.bottom) || (direction == D && this.getOrientation() == d && this.__og[1] > location.top - this.getTouchOffset() && this.__og[1] < location.top)){
+          if((direction == s && this.getOrientation() == A && this.__ot[0] < location.right + this.getTouchOffset() && this.__ot[0] > location.right) || (direction == A && this.getOrientation() == s && this.__ot[0] > location.left - this.getTouchOffset() && this.__ot[0] < location.left) || (direction == t && this.getOrientation() == r && this.__ot[1] < this.getTouchOffset() + location.bottom && this.__ot[1] > location.bottom) || (direction == D && this.getOrientation() == d && this.__ot[1] > location.top - this.getTouchOffset() && this.__ot[1] < location.top)){
 
             this.show();
           };
@@ -44568,22 +44752,22 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       this.__jt.removeListener(a, this._onParentSwipe, this);
       this.__jt.removeListener(F, this._onParentTouchStart, this);
       this.__jt.removeListener(h, this.forceHide, this);
-      this.__og = this.__oh = this.__jt = this.__oj = null;
+      this.__ot = this.__ou = this.__jt = this.__ow = null;
     }
   });
 })();
 (function(){
 
-  var a = "navigation",b = "animationEnd",c = "update",d = "blocked",e = "qx.ui.mobile.container.Navigation",f = "__mo",g = "__ok",h = "visible",i = "hidden",j = "updateLayout",k = "animationStart",l = "__ol",m = "transitionDuration",n = "s",o = "qx.event.type.Data";
-  qx.Class.define(e, {
+  var a = "navigation",b = "__oy",c = "animationEnd",d = "update",e = "blocked",f = "qx.ui.mobile.container.Navigation",g = "__mo",h = "visible",i = "hidden",j = "__ox",k = "updateLayout",l = "animationStart",m = "transitionDuration",n = "s",o = "qx.event.type.Data";
+  qx.Class.define(f, {
     extend : qx.ui.mobile.container.Composite,
     construct : function(){
 
       qx.ui.mobile.container.Composite.call(this, new qx.ui.mobile.layout.VBox());
-      this.__ok = this._createNavigationBar();
-      if(this.__ok){
+      this.__ox = this._createNavigationBar();
+      if(this.__ox){
 
-        this._add(this.__ok);
+        this._add(this.__ox);
       };
       this.__mo = this._createContent();
       this._add(this.__mo, {
@@ -44600,9 +44784,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       "update" : o
     },
     members : {
-      __ok : null,
+      __ox : null,
       __mo : null,
-      __ol : null,
+      __oy : null,
       add : function(widget){
 
         {
@@ -44621,28 +44805,28 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       getLayout : function(){
 
-        return this.__ol;
+        return this.__oy;
       },
       getNavigationBar : function(){
 
-        return this.__ok;
+        return this.__ox;
       },
       _createContent : function(){
 
-        this.__ol = new qx.ui.mobile.layout.Card();
-        var content = new qx.ui.mobile.container.Composite(this.__ol);
-        this.__ol.addListener(j, this._onUpdateLayout, this);
-        this.getLayout().addListener(k, this._onAnimationStart, this);
-        this.getLayout().addListener(b, this._onAnimationEnd, this);
+        this.__oy = new qx.ui.mobile.layout.Card();
+        var content = new qx.ui.mobile.container.Composite(this.__oy);
+        this.__oy.addListener(k, this._onUpdateLayout, this);
+        this.getLayout().addListener(l, this._onAnimationStart, this);
+        this.getLayout().addListener(c, this._onAnimationEnd, this);
         return content;
       },
       _onAnimationStart : function(){
 
-        this.addCssClass(d);
+        this.addCssClass(e);
       },
       _onAnimationEnd : function(){
 
-        this.removeCssClass(d);
+        this.removeCssClass(e);
       },
       _onUpdateLayout : function(evt){
 
@@ -44684,7 +44868,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           navigationBar.add(rightContainer);
         };
-        this.fireDataEvent(c, widget);
+        this.fireDataEvent(d, widget);
       },
       _createNavigationBar : function(){
 
@@ -44693,10 +44877,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     },
     destruct : function(){
 
-      this.getLayout().removeListener(k, this._onAnimationStart, this);
-      this.getLayout().removeListener(b, this._onAnimationEnd, this);
-      this._disposeObjects(g, f, l);
-      this.__ok = this.__mo = this.__ol = null;
+      this.getLayout().removeListener(l, this._onAnimationStart, this);
+      this.getLayout().removeListener(c, this._onAnimationEnd, this);
+      this._disposeObjects(j, g, b);
+      this.__ox = this.__mo = this.__oy = null;
     }
   });
 })();
@@ -44708,7 +44892,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(){
 
       qx.ui.mobile.layout.Abstract.call(this);
-      this.__om = new qx.ui.mobile.layout.CardAnimation();
+      this.__oz = new qx.ui.mobile.layout.CardAnimation();
     },
     events : {
       animationStart : u,
@@ -44729,12 +44913,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __on : null,
-      __oo : null,
-      __oh : null,
-      __op : null,
-      __oq : null,
-      __om : null,
+      __oA : null,
+      __oB : null,
+      __ou : null,
+      __oC : null,
+      __oD : null,
+      __oz : null,
       _getCssClasses : function(){
 
         return [t, j];
@@ -44764,31 +44948,31 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       setCardAnimation : function(value){
 
-        this.__om = value;
+        this.__oz = value;
       },
       getCardAnimation : function(){
 
-        return this.__om;
+        return this.__oz;
       },
       _showWidget : function(widget, properties){
 
-        if(this.__on == widget){
+        if(this.__oA == widget){
 
           return;
         };
-        if(this.__oh){
+        if(this.__ou){
 
-          this.__os();
+          this.__oF();
         };
-        this.__on = widget;
-        if(this.__oo && this.getShowAnimation() && qx.core.Environment.get(d)){
+        this.__oA = widget;
+        if(this.__oB && this.getShowAnimation() && qx.core.Environment.get(d)){
 
           properties = properties || {
           };
-          this.__op = properties.animation || this.getDefaultAnimation();
+          this.__oC = properties.animation || this.getDefaultAnimation();
           properties.reverse = properties.reverse === null ? false : properties.reverse;
-          this.__oq = properties.fromHistory || properties.reverse;
-          this.__or(widget);
+          this.__oD = properties.fromHistory || properties.reverse;
+          this.__oE(widget);
         } else {
 
           this._swapWidget();
@@ -44796,11 +44980,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _swapWidget : function(){
 
-        if(this.__oo){
+        if(this.__oB){
 
-          this.__oo.exclude();
+          this.__oB.exclude();
         };
-        this.__oo = this.__on;
+        this.__oB = this.__oA;
       },
       _fixWidgetSize : function(widget){
 
@@ -44824,11 +45008,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
         };
       },
-      __or : function(widget){
+      __oE : function(widget){
 
-        this.__oh = true;
-        this.fireDataEvent(p, [this.__oo, widget]);
-        var fromElement = this.__oo.getContainerElement();
+        this.__ou = true;
+        this.fireDataEvent(p, [this.__oB, widget]);
+        var fromElement = this.__oB.getContainerElement();
         var toElement = widget.getContainerElement();
         var onAnimationEnd = qx.lang.Function.bind(this._onAnimationEnd, this);
         if(qx.core.Environment.get(f)){
@@ -44838,11 +45022,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         qx.event.Registration.addListener(fromElement, o, this._onAnimationEnd, this);
         qx.event.Registration.addListener(toElement, o, this._onAnimationEnd, this);
-        var fromCssClasses = this.__ot(l);
-        var toCssClasses = this.__ot(r);
+        var fromCssClasses = this.__oG(l);
+        var toCssClasses = this.__oG(r);
         this._widget.addCssClass(b);
-        var toElementAnimation = this.__om.getAnimation(this.__op, r, this.__oq);
-        var fromElementAnimation = this.__om.getAnimation(this.__op, l, this.__oq);
+        var toElementAnimation = this.__oz.getAnimation(this.__oC, r, this.__oD);
+        var fromElementAnimation = this.__oz.getAnimation(this.__oC, l, this.__oD);
         qx.bom.element.Class.addClasses(toElement, toCssClasses);
         qx.bom.element.Class.addClasses(fromElement, fromCssClasses);
         qx.bom.element.Animation.animate(toElement, toElementAnimation);
@@ -44850,28 +45034,28 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _onAnimationEnd : function(evt){
 
-        this.__os();
-        this.fireDataEvent(o, [this.__oo, this.__on]);
+        this.__oF();
+        this.fireDataEvent(o, [this.__oB, this.__oA]);
       },
-      __os : function(){
+      __oF : function(){
 
-        if(this.__oh){
+        if(this.__ou){
 
-          var fromElement = this.__oo.getContainerElement();
-          var toElement = this.__on.getContainerElement();
+          var fromElement = this.__oB.getContainerElement();
+          var toElement = this.__oA.getContainerElement();
           qx.event.Registration.removeListener(fromElement, o, this._onAnimationEnd, this);
           qx.event.Registration.removeListener(toElement, o, this._onAnimationEnd, this);
-          qx.bom.element.Class.removeClasses(fromElement, this.__ot(l));
-          qx.bom.element.Class.removeClasses(toElement, this.__ot(r));
+          qx.bom.element.Class.removeClasses(fromElement, this.__oG(l));
+          qx.bom.element.Class.removeClasses(toElement, this.__oG(r));
           this._swapWidget();
           this._widget.removeCssClass(b);
-          this.__oh = false;
+          this.__ou = false;
         };
       },
-      __ot : function(direction){
+      __oG : function(direction){
 
-        var classes = [a, this.__op, direction];
-        if(this.__oq){
+        var classes = [a, this.__oC, direction];
+        if(this.__oD){
 
           classes.push(h);
         };
@@ -44889,9 +45073,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(manager){
 
       qx.core.Object.call(this);
-      this.__ou = {
+      this.__oH = {
       };
-      this.__ov = qx.lang.Function.listener(this._onNative, this);
+      this.__oI = qx.lang.Function.listener(this._onNative, this);
     },
     statics : {
       PRIORITY : qx.event.Registration.PRIORITY_NORMAL,
@@ -44907,8 +45091,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       NATIVE_TO_TYPE : null
     },
     members : {
-      __ov : null,
-      __ou : null,
+      __oI : null,
+      __oH : null,
       canHandleEvent : function(target, type){
       },
       registerEvent : qx.core.Environment.select(a, {
@@ -44916,11 +45100,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           var hash = qx.core.ObjectRegistry.toHashCode(target) + type;
           var nativeType = qx.event.handler.Transition.TYPE_TO_NATIVE[type];
-          this.__ou[hash] = {
+          this.__oH[hash] = {
             target : target,
             type : nativeType
           };
-          qx.bom.Event.addNativeListener(target, nativeType, this.__ov);
+          qx.bom.Event.addNativeListener(target, nativeType, this.__oI);
         },
         "default" : function(){
         }
@@ -44928,7 +45112,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       unregisterEvent : qx.core.Environment.select(a, {
         "webkit|gecko|mshtml" : function(target, type, capture){
 
-          var events = this.__ou;
+          var events = this.__oH;
           if(!events){
 
             return;
@@ -44938,7 +45122,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             delete events[hash];
           };
-          qx.bom.Event.removeNativeListener(target, qx.event.handler.Transition.TYPE_TO_NATIVE[type], this.__ov);
+          qx.bom.Event.removeNativeListener(target, qx.event.handler.Transition.TYPE_TO_NATIVE[type], this.__oI);
         },
         "default" : function(){
         }
@@ -44951,16 +45135,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     destruct : function(){
 
       var event;
-      var events = this.__ou;
+      var events = this.__oH;
       for(var id in events){
 
         event = events[id];
         if(event.target){
 
-          qx.bom.Event.removeNativeListener(event.target, event.type, this.__ov);
+          qx.bom.Event.removeNativeListener(event.target, event.type, this.__oI);
         };
       };
-      this.__ou = this.__ov = null;
+      this.__oH = this.__oI = null;
     },
     defer : function(statics){
 
@@ -45615,19 +45799,19 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
   qx.Bootstrap.define(c, {
     construct : function(){
 
-      this.__ow = new qx.event.Messaging();
-      this.__ox = qx.bom.History.getInstance();
-      this.__ox.addListener(h, this.__oB, this);
+      this.__oJ = new qx.event.Messaging();
+      this.__oK = qx.bom.History.getInstance();
+      this.__oK.addListener(h, this.__oO, this);
     },
     statics : {
       DEFAULT_PATH : k,
-      __oy : [],
-      __oz : []
+      __oL : [],
+      __oM : []
     },
     members : {
-      __ox : null,
-      __ow : null,
-      __oA : null,
+      __oK : null,
+      __oJ : null,
+      __oN : null,
       init : function(defaultRoute){
 
         {
@@ -45638,7 +45822,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _getPathOrFallback : function(path, defaultPath){
 
-        if(path == b || path == null || !this.__ow.has(g, path)){
+        if(path == b || path == null || !this.__oJ.has(g, path)){
 
           path = defaultPath || qx.application.Routing.DEFAULT_PATH;
         };
@@ -45646,7 +45830,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       onGet : function(route, handler, scope){
 
-        return this.__ow.on(g, route, handler, scope);
+        return this.__oJ.on(g, route, handler, scope);
       },
       on : function(route, handler, scope){
 
@@ -45654,37 +45838,37 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       onPost : function(route, handler, scope){
 
-        return this.__ow.on(m, route, handler, scope);
+        return this.__oJ.on(m, route, handler, scope);
       },
       onPut : function(route, handler, scope){
 
-        return this.__ow.on(f, route, handler, scope);
+        return this.__oJ.on(f, route, handler, scope);
       },
       onDelete : function(route, handler, scope){
 
-        return this.__ow.on(l, route, handler, scope);
+        return this.__oJ.on(l, route, handler, scope);
       },
       onAny : function(route, handler, scope){
 
-        return this.__ow.onAny(route, handler, scope);
+        return this.__oJ.onAny(route, handler, scope);
       },
       remove : function(id){
 
-        this.__ow.remove(id);
+        this.__oJ.remove(id);
       },
-      __oB : function(evt){
+      __oO : function(evt){
 
         var path = evt.getData();
         path = this._getPathOrFallback(path);
-        if(path != this.__oA){
+        if(path != this.__oN){
 
           this._executeGet(path, null, true);
         };
       },
       _executeGet : function(path, customData, fromEvent){
 
-        this.__oA = path;
-        var history = this.__oE(path);
+        this.__oN = path;
+        var history = this.__oR(path);
         if(history){
 
           if(!customData){
@@ -45696,15 +45880,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             customData.fromEvent = fromEvent;
           } else {
 
-            this.__oD(path, customData);
+            this.__oQ(path, customData);
           };
         } else {
 
-          this.__oC(path, customData);
-          qx.application.Routing.__oz = [];
+          this.__oP(path, customData);
+          qx.application.Routing.__oM = [];
         };
-        this.__ox.setState(path);
-        this.__ow.emit(g, path, null, customData);
+        this.__oK.setState(path);
+        this.__oJ.emit(g, path, null, customData);
       },
       executeGet : function(path, customData){
 
@@ -45716,30 +45900,30 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       executePost : function(path, params, customData){
 
-        this.__ow.emit(m, path, params, customData);
+        this.__oJ.emit(m, path, params, customData);
       },
       executePut : function(path, params, customData){
 
-        this.__ow.emit(f, path, params, customData);
+        this.__oJ.emit(f, path, params, customData);
       },
       executeDelete : function(path, params, customData){
 
-        this.__ow.emit(l, path, params, customData);
+        this.__oJ.emit(l, path, params, customData);
       },
       getState : function(){
 
-        return this.__ox.getState();
+        return this.__oK.getState();
       },
-      __oC : function(path, customData){
+      __oP : function(path, customData){
 
-        qx.application.Routing.__oy.unshift({
+        qx.application.Routing.__oL.unshift({
           path : path,
           customData : customData
         });
       },
-      __oD : function(path, customData){
+      __oQ : function(path, customData){
 
-        var register = [qx.application.Routing.__oy, qx.application.Routing.__oz];
+        var register = [qx.application.Routing.__oL, qx.application.Routing.__oM];
         for(var i = 0;i < register.length;i++){
 
           for(var j = 0;j < register[i].length;j++){
@@ -45751,10 +45935,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
         };
       },
-      __oE : function(path){
+      __oR : function(path){
 
-        var back = qx.application.Routing.__oy;
-        var forward = qx.application.Routing.__oz;
+        var back = qx.application.Routing.__oL;
+        var forward = qx.application.Routing.__oM;
         var found = false;
         var entry = null;
         var length = back.length;
@@ -45804,7 +45988,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       dispose : function(){
 
-        this.__ox.removeListener(h, this.__oB, this);
+        this.__oK.removeListener(h, this.__oO, this);
       }
     }
   });
@@ -45816,14 +46000,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(){
 
       this._listener = {
-      } , this.__oF = 0;
-      this.__oG = {
+      } , this.__oS = 0;
+      this.__oT = {
       };
     },
     members : {
       _listener : null,
-      __oF : null,
-      __oG : null,
+      __oS : null,
+      __oT : null,
       on : function(channel, type, handler, scope){
 
         return this._addListener(channel, type, handler, scope);
@@ -45836,7 +46020,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var listeners = this._listener[channel] = this._listener[channel] || {
         };
-        var id = this.__oF++;
+        var id = this.__oS++;
         var params = [];
         var param = null;
         if(qx.lang.Type.isString(type)){
@@ -45854,15 +46038,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           handler : handler,
           scope : scope
         };
-        this.__oG[id] = channel;
+        this.__oT[id] = channel;
         return id;
       },
       remove : function(id){
 
-        var channel = this.__oG[id];
+        var channel = this.__oT[id];
         var listener = this._listener[channel];
         delete listener[id];
-        delete this.__oG[id];
+        delete this.__oT[id];
       },
       has : function(channel, path){
 
@@ -46113,12 +46297,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
       qx.bom.History.call(this);
       this._baseUrl = null;
-      this.__oK();
+      this.__oX();
     },
     members : {
-      __oH : null,
-      __oI : null,
-      __oJ : false,
+      __oU : null,
+      __oV : null,
+      __oW : false,
       addToHistory : function(state, newTitle){
 
         if(!qx.lang.Type.isString(state)){
@@ -46135,17 +46319,17 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           this._writeState(state);
         };
       },
-      __oK : function(){
+      __oX : function(){
 
-        this.__oI = this.__oL();
-        document.body.appendChild(this.__oI);
-        this.__oM(function(){
+        this.__oV = this.__oY();
+        document.body.appendChild(this.__oV);
+        this.__pa(function(){
 
-          this._baseUrl = this.__oI.contentWindow.document.location.href;
-          this.__oN();
+          this._baseUrl = this.__oV.contentWindow.document.location.href;
+          this.__pb();
         }, this);
       },
-      __oL : function(){
+      __oY : function(){
 
         var iframe = qx.bom.Iframe.create({
           src : qx.util.ResourceManager.getInstance().toUri(qx.core.Environment.get(a)) + e
@@ -46156,13 +46340,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         iframe.style.top = f;
         return iframe;
       },
-      __oM : function(callback, context, retry){
+      __pa : function(callback, context, retry){
 
         if(typeof retry === b){
 
           retry = 0;
         };
-        if(!this.__oI.contentWindow || !this.__oI.contentWindow.document){
+        if(!this.__oV.contentWindow || !this.__oV.contentWindow.document){
 
           if(retry > 20){
 
@@ -46170,22 +46354,22 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
           qx.event.Timer.once(function(){
 
-            this.__oM(callback, context, ++retry);
+            this.__pa(callback, context, ++retry);
           }, this, 10);
           return;
         };
-        this.__oJ = true;
+        this.__oW = true;
         callback.call(context || window);
       },
-      __oN : function(){
+      __pb : function(){
 
-        qx.event.Idle.getInstance().addListener(d, this.__oP, this);
+        qx.event.Idle.getInstance().addListener(d, this.__pd, this);
       },
-      __oO : function(){
+      __pc : function(){
 
-        qx.event.Idle.getInstance().removeListener(d, this.__oP, this);
+        qx.event.Idle.getInstance().removeListener(d, this.__pd, this);
       },
-      __oP : function(){
+      __pd : function(){
 
         var currentState = this._readState();
         if(qx.lang.Type.isString(currentState) && currentState != this.getState()){
@@ -46200,11 +46384,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _getHash : function(){
 
-        if(!this.__oJ){
+        if(!this.__oW){
 
           return null;
         };
-        return this.__oI.contentWindow.document.location.hash;
+        return this.__oV.contentWindow.document.location.hash;
       },
       _writeState : function(state){
 
@@ -46212,21 +46396,21 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _setHash : function(value){
 
-        if(!this.__oI || !this._baseUrl){
+        if(!this.__oV || !this._baseUrl){
 
           return;
         };
-        var hash = !this.__oI.contentWindow.document.location.hash ? c : this.__oI.contentWindow.document.location.hash.substr(1);
+        var hash = !this.__oV.contentWindow.document.location.hash ? c : this.__oV.contentWindow.document.location.hash.substr(1);
         if(value != hash){
 
-          this.__oI.contentWindow.document.location.hash = value;
+          this.__oV.contentWindow.document.location.hash = value;
         };
       }
     },
     destruct : function(){
 
-      this.__oO();
-      this.__oI = null;
+      this.__pc();
+      this.__oV = null;
     }
   });
 })();
@@ -46368,7 +46552,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             iframe.src = source;
           };
-          this.__oQ(iframe);
+          this.__pe(iframe);
         } catch(ex) {
 
           qx.log.Logger.warn(a);
@@ -46387,7 +46571,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         return d;
       },
-      __oQ : function(iframe){
+      __pe : function(iframe){
 
         var callback = function(){
 
@@ -46407,23 +46591,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(){
 
       qx.bom.History.call(this);
-      this.__oV();
+      this.__pj();
     },
     members : {
-      __oI : null,
-      __oJ : false,
-      __oR : null,
-      __oS : null,
-      __oT : null,
+      __oV : null,
+      __oW : false,
+      __pf : null,
+      __pg : null,
+      __ph : null,
       _setInitialState : function(){
 
         qx.bom.History.prototype._setInitialState.call(this);
-        this.__oT = this._getHash();
+        this.__ph = this._getHash();
       },
       _setHash : function(value){
 
         qx.bom.History.prototype._setHash.call(this, value);
-        this.__oT = this._encode(value);
+        this.__ph = this._encode(value);
       },
       addToHistory : function(state, newTitle){
 
@@ -46453,13 +46637,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _setState : function(state){
 
-        this.__oS = true;
+        this.__pg = true;
         this.setState(state);
-        this.__oS = false;
+        this.__pg = false;
       },
       _applyState : function(value, old){
 
-        if(this.__oS){
+        if(this.__pg){
 
           return;
         };
@@ -46467,58 +46651,58 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _readState : function(){
 
-        if(!this.__oJ){
+        if(!this.__oW){
 
           return this._decode(this._getHash());
         };
-        var doc = this.__oI.contentWindow.document;
+        var doc = this.__oV.contentWindow.document;
         var elem = doc.getElementById(i);
         return elem ? this._decode(elem.innerText) : f;
       },
       _writeState : function(state){
 
-        if(!this.__oJ){
+        if(!this.__oW){
 
-          this.__oU();
-          this.__oR = qx.event.Timer.once(function(){
+          this.__pi();
+          this.__pf = qx.event.Timer.once(function(){
 
             this._writeState(state);
           }, this, 50);
           return;
         };
-        this.__oU();
+        this.__pi();
         var state = this._encode(state);
         if(qx.core.Environment.get(c) == g && qx.core.Environment.get(l) != 8){
 
           this._setHash(state);
         };
-        var doc = this.__oI.contentWindow.document;
+        var doc = this.__oV.contentWindow.document;
         doc.open();
         doc.write(j + state + p);
         doc.close();
       },
-      __oU : function(){
+      __pi : function(){
 
-        if(this.__oR){
+        if(this.__pf){
 
-          this.__oR.stop();
-          this.__oR.dispose();
+          this.__pf.stop();
+          this.__pf.dispose();
         };
       },
-      __oV : function(){
+      __pj : function(){
 
-        this.__oK(function(){
+        this.__oX(function(){
 
-          qx.event.Idle.getInstance().addListener(h, this.__oP, this);
+          qx.event.Idle.getInstance().addListener(h, this.__pd, this);
         });
       },
-      __oP : function(e){
+      __pd : function(e){
 
         var currentState = null;
         var locationState = this._getHash();
-        if(!this.__oX(locationState)){
+        if(!this.__pl(locationState)){
 
-          currentState = this.__oW(locationState);
+          currentState = this.__pk(locationState);
         } else {
 
           currentState = this._readState();
@@ -46528,21 +46712,21 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           this._onHistoryLoad(currentState);
         };
       },
-      __oW : function(locationState){
+      __pk : function(locationState){
 
         locationState = this._decode(locationState);
         this._writeState(locationState);
         return locationState;
       },
-      __oX : function(locationState){
+      __pl : function(locationState){
 
-        return qx.lang.Type.isString(locationState) && locationState == this.__oT;
+        return qx.lang.Type.isString(locationState) && locationState == this.__ph;
       },
-      __oK : function(handler){
+      __oX : function(handler){
 
-        this.__oI = this.__oL();
-        document.body.appendChild(this.__oI);
-        this.__oM(function(){
+        this.__oV = this.__oY();
+        document.body.appendChild(this.__oV);
+        this.__pa(function(){
 
           this._writeState(this.getState());
           if(handler){
@@ -46551,7 +46735,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
         }, this);
       },
-      __oL : function(){
+      __oY : function(){
 
         var iframe = qx.bom.Iframe.create({
           src : qx.util.ResourceManager.getInstance().toUri(qx.core.Environment.get(n))
@@ -46562,13 +46746,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         iframe.style.top = k;
         return iframe;
       },
-      __oM : function(callback, context, retry){
+      __pa : function(callback, context, retry){
 
         if(typeof retry === o){
 
           retry = 0;
         };
-        if(!this.__oI.contentWindow || !this.__oI.contentWindow.document){
+        if(!this.__oV.contentWindow || !this.__oV.contentWindow.document){
 
           if(retry > 20){
 
@@ -46576,23 +46760,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
           qx.event.Timer.once(function(){
 
-            this.__oM(callback, context, ++retry);
+            this.__pa(callback, context, ++retry);
           }, this, 10);
           return;
         };
-        this.__oJ = true;
+        this.__oW = true;
         callback.call(context || window);
       }
     },
     destruct : function(){
 
-      this.__oI = null;
-      if(this.__oR){
+      this.__oV = null;
+      if(this.__pf){
 
-        this.__oR.dispose();
-        this.__oR = null;
+        this.__pf.dispose();
+        this.__pf = null;
       };
-      qx.event.Idle.getInstance().removeListener(h, this.__oP, this);
+      qx.event.Idle.getInstance().removeListener(h, this.__pd, this);
     }
   });
 })();
@@ -46604,33 +46788,33 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(){
 
       qx.bom.History.call(this);
-      this.__oN();
+      this.__pb();
     },
     members : {
-      __oH : null,
-      __oN : function(){
+      __oU : null,
+      __pb : function(){
 
         if(qx.bom.History.SUPPORTS_HASH_CHANGE_EVENT){
 
-          var boundFunc = qx.lang.Function.bind(this.__oP, this);
-          this.__oH = qx.event.GlobalError.observeMethod(boundFunc);
-          qx.bom.Event.addNativeListener(window, b, this.__oH);
+          var boundFunc = qx.lang.Function.bind(this.__pd, this);
+          this.__oU = qx.event.GlobalError.observeMethod(boundFunc);
+          qx.bom.Event.addNativeListener(window, b, this.__oU);
         } else {
 
-          qx.event.Idle.getInstance().addListener(d, this.__oP, this);
+          qx.event.Idle.getInstance().addListener(d, this.__pd, this);
         };
       },
-      __oO : function(){
+      __pc : function(){
 
         if(qx.bom.History.SUPPORTS_HASH_CHANGE_EVENT){
 
-          qx.bom.Event.removeNativeListener(window, b, this.__oH);
+          qx.bom.Event.removeNativeListener(window, b, this.__oU);
         } else {
 
-          qx.event.Idle.getInstance().removeListener(d, this.__oP, this);
+          qx.event.Idle.getInstance().removeListener(d, this.__pd, this);
         };
       },
-      __oP : function(){
+      __pd : function(){
 
         var currentState = this._readState();
         if(qx.lang.Type.isString(currentState) && currentState != this.getState()){
@@ -46658,7 +46842,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     },
     destruct : function(){
 
-      this.__oO();
+      this.__pc();
     }
   });
 })();

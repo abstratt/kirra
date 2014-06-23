@@ -92,7 +92,11 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
             for (var i in staticActions) {
                 var actionButton = new qx.ui.mobile.form.Button(staticActions[i].label);
                 actionButton.addListener("tap", function () {
-                    me.repository.sendStaticAction(me._entity, staticActions[i], function () { me.reloadInstances(); });
+                    if (staticActions[i].parameters.length === 0) {
+                        me.repository.sendStaticAction(me._entity, staticActions[i], {}, function () { me.reloadInstances(); });
+                    } else {
+                        qx.core.Init.getApplication().getRouting().executeGet("/entity/" + me._entityName + "/actions/" + staticActions[i].name); 
+                    }
                 });
                 toolbar.add(actionButton);
             }
