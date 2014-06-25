@@ -22,7 +22,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
         _entity: null,
         _widgets: {},
         _actions: [],
-        
+        _relationshipDomains: null,        
         // overridden
         _initialize: function () {
             this.base(arguments);
@@ -42,6 +42,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             me._objectId = id;
             me._entity = null;
             me._instance = null;
+            me._relationshipDomains = {};
             me.repository.loadEntity(entityName, function (entity) {
                 me._entity = entity;
                 me.buildForm();
@@ -263,17 +264,20 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                     me._instance.values[i] = me._widgets[i].getValue();
                 }    
             }
+            for (var i in this._entity.relationships) {
+                if (me._entity.relationships[i].editable && !me._entity.relationships[i].multiple && me._relationshipDomains[i]) {
+                    var referenceIndex = me._widgets[i]._getAttribute("index");
+                    var related = me._relationshipDomains[i][referenceIndex];
+                    me._instance.links[i] = [ related ];
+                }    
+            }
             me.repository.saveInstance(me._entity, me._instance, function (created) { 
-                if (me.isNewInstance()) {
-                    qx.core.Init.getApplication().getRouting().executeGet("/entity/" + me._entityName + "/instances/" + created.objectId)
-                } else {
-                    me._back();
-                } 
+                qx.core.Init.getApplication().getRouting().executeGet("/entity/" + me._entityName + "/instances/" + created.objectId)
             });
         },
 
         buildWidgetFor: function (form, property) {
-            var widget = kirra_qooxdoo.Widgets.createWidget(property);
+            var widget = kirra_qooxdoo.Widgets.createWidget(property, this.instanceEnumerator(property));
             this._widgets[property.name] = widget;
             if (widget.setRequired)
                 widget.setRequired(property.required === true);
@@ -282,6 +286,28 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             if (widget.setEnabled)
                 widget.setEnabled(property.editable !== false);
             form.add(widget, property.label);
+        },
+        
+        instanceEnumerator: function (property) {
+            var me = this;
+            var kind = property.typeRef && property.typeRef.kind;
+            if (kind !== 'Entity') {
+                return me.noOpValueEnumerator;
+            }
+            return function(property, callback) {
+                me.repository.listRelationshipDomain(me._entity, me._objectId, property, function (objects) {
+                    me._relationshipDomains[property.name] = objects.contents;
+                    var shorthands = [];
+                    for (var i in objects.contents) {
+                        shorthands.push(objects.contents[i].shorthand);
+                    }
+                    callback(shorthands);
+                });
+            };
+        },
+        
+        noOpValueEnumerator : function (target, callback) {
+            callback([]);
         }
     }
 });

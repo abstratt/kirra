@@ -65,7 +65,9 @@ qx.Class.define("kirra_qooxdoo.Application",
       var uriMatches = window.location.search.match("[?&]?app-uri\=(.*)\&?");
       var pathMatches = window.location.search.match("[?&]?app-path\=(.*)\&?");
       if (!uriMatches && !pathMatches) {
-          throw Error("You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.");
+          var abortMessage = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.";
+          alert(abortMessage);
+          throw Error(abortMessage);
       }
       var apiBaseUri = uriMatches ? uriMatches[1] : (window.location.origin + pathMatches[1]);
       

@@ -12,7 +12,6 @@ import javax.ws.rs.Produces;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.CommonHelper;
-import com.abstratt.kirra.rest.common.Page;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.Gson;
 
@@ -20,12 +19,6 @@ import com.google.gson.Gson;
 @Produces("application/json")
 @Consumes("application/json")
 public class InstanceListResource {
-    private class InstanceList extends Page<Instance> {
-        public InstanceList(List<Instance> contents) {
-            super(contents);
-        }
-    }
-
     @POST
     public String createInstance(@PathParam("entityName") String entityName, String newInstanceRepresentation) {
         Instance toCreate = new Gson().fromJson(newInstanceRepresentation, Instance.class);

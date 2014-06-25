@@ -10,6 +10,7 @@ public class KirraJaxRsApplication extends javax.ws.rs.core.Application {
 		Class<?>[] resourceClasses = new Class[] { IndexResource.class,
 				EntityResource.class, EntityListResource.class,
 				ServiceResource.class, ServiceListResource.class,
+				ParameterDomainResource.class, RelationshipDomainResource.class,				
 				InstanceResource.class, InstanceListResource.class,
 				InstanceActionResource.class, EntityActionResource.class };
 		return new HashSet<Class<?>>(Arrays.asList(resourceClasses));

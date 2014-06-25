@@ -21,6 +21,16 @@ qx.Class.define("kirra_qooxdoo.Repository", {
         loadApplication: function (callback) {
             this.load(this._applicationUri, callback, "_application");
         },
+        
+        listRelationshipDomain : function (entity, objectId, relationship, callback) {
+            var domainUri = entity.relationshipDomainUriTemplate || (entity.extentUri + "/" + objectId + '/relationships/'+ relationship.name + '/domain/');
+            this.tryToLoad(this.resolve(domainUri, { objectId: objectId, relationshipName: relationship.name }), callback);
+        },
+        
+        listParameterDomain : function (entity, objectId, action, parameter, callback) {
+            var domainUri = entity.instanceActionParameterDomainUriTemplate || (entity.extentUri + "/" + objectId + '/actions/'+ action.name + '/parameters/'+ parameter.name + '/domain/');
+            this.tryToLoad(this.resolve(domainUri, { objectId: objectId, actionName: action.name, parameterName: parameter.name }), callback);
+        },
 
         loadEntities: function (callback, retry) {
             var me = this;
@@ -54,6 +64,14 @@ qx.Class.define("kirra_qooxdoo.Repository", {
                 me.loadEntity(entityName, callback, false);
             });
         },
+        
+        resolve: function(template, values) {
+            var resolved = template;
+            for (var p in values) {
+                resolved = resolved.replace("("+ p + ")", values[p]);
+            }
+            return resolved;
+        },
 
         loadInstances: function (entityName, callback, retry) {
             if (!entityName)
@@ -83,7 +101,7 @@ qx.Class.define("kirra_qooxdoo.Repository", {
             if (!objectId)
                 throw Error("Missing objectId");
             var instanceUri = entity.instanceUriTemplate || (entity.extentUri + objectId);
-            this.load(instanceUri.replace("(objectId)", objectId), callback);
+            this.load(this.resolve(instanceUri, { objectId: objectId }), callback);
         },
 
         saveInstance: function (entity, instance, callback) {
@@ -105,7 +123,7 @@ qx.Class.define("kirra_qooxdoo.Repository", {
         sendAction: function (entity, objectId, operation, arguments, callback) {
             var me = this;
             var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + "(objectId)/actions/(actionName)");
-            this.post(instanceActionUri.replace("(objectId)", objectId).replace("(actionName)", operation.name), arguments || {}, function () {
+            this.post(this.resolve(instanceActionUri, { objectId: objectId, actionName: operation.name }), arguments || {}, function () {
                 me.loadInstance(entity, objectId, callback);
             });
         },
@@ -115,6 +133,15 @@ qx.Class.define("kirra_qooxdoo.Repository", {
             var entityActionUri = entity.entityActionUriTemplate || (entity.uri + "/actions/(actionName)");
             this.post(entityActionUri.replace("(actionName)", operation.name), arguments || {}, callback);
         },
+
+        tryToLoad: function (uri, callback, slotName) {
+            if (uri === null || uri === undefined) {
+                callback([]);
+                return;
+            }
+            return this.load(uri, callback, slotName);
+        },
+
 
         /* Generic helper for performing Ajax invocations. */
         load: function (uri, callback, slotName) {

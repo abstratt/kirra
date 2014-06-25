@@ -20,6 +20,7 @@ qx.Class.define("kirra_qooxdoo.ActionForm", {
         _instance: null,
         _entity: null,
         _action: null,
+        _parameterDomains: null,
         _widgets: {},
         
         _back: function () {
@@ -48,6 +49,7 @@ qx.Class.define("kirra_qooxdoo.ActionForm", {
             me._entity = null;
             me._instance = null;
             me._action = null;
+            me._parameterDomains = {};
             me.repository.loadEntity(entityName, function (entity) {
                 me._entity = entity;
                 me._action = entity.operations[me._actionName];
@@ -114,8 +116,13 @@ qx.Class.define("kirra_qooxdoo.ActionForm", {
             var me = this;
             var arguments = {};
             for (var i in this._action.parameters) {
-                var parameterName = this._action.parameters[i].name
-                arguments[parameterName] = me._widgets[parameterName].getValue();
+                var parameterName = this._action.parameters[i].name;
+                if (this._action.parameters[i].typeRef.kind == 'Entity') {
+                    var referenceIndex = me._widgets[parameterName]._getAttribute("index");
+                    arguments[parameterName] = me._parameterDomains[parameterName][referenceIndex];
+                } else {
+                    arguments[parameterName] = me._widgets[parameterName].getValue();
+                }
             }
             if (me._action.instanceOperation) {
                 me.repository.sendAction(me._entity, me._objectId, me._action, arguments, me.resultHandler());
@@ -124,11 +131,32 @@ qx.Class.define("kirra_qooxdoo.ActionForm", {
             }
         },
 
-        buildWidgetFor: function (form, property) {
-            var widget = kirra_qooxdoo.Widgets.createWidget(property);
-            this._widgets[property.name] = widget;
-            form.add(widget, property.label);
+        buildWidgetFor: function (form, parameter) {
+            var widget = kirra_qooxdoo.Widgets.createWidget(parameter, this.instanceEnumerator(parameter));
+            this._widgets[parameter.name] = widget;
+            form.add(widget, parameter.label);
+        },
+        
+        instanceEnumerator: function (parameter) {
+            var me = this;
+            var kind = parameter.typeRef && parameter.typeRef.kind;
+            if (kind !== 'Entity') {
+                return me.noOpValueEnumerator;
+            }
+            return function(parameter, callback) {
+                me.repository.listParameterDomain(me._entity, me._objectId, me._action, parameter, function (objects) {
+                    me._parameterDomains[parameter.name] = objects.contents;
+                    var shorthands = [];
+                    for (var i in objects.contents) {
+                        shorthands.push(objects.contents[i].shorthand);
+                    }
+                    callback(shorthands);
+                });
+            };
+        },
+        
+        noOpValueEnumerator : function (target, callback) {
+            callback([]);
         }
-
     }
 });

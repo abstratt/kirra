@@ -17,16 +17,17 @@ import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Operation.OperationKind;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.TypeRef;
+import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 @Path(Paths.INSTANCE_ACTION_PATH)
-@Produces("application/json")
-@Consumes("application/json")
 public class InstanceActionResource {
     @POST
+    @Produces("application/json")
+    @Consumes("application/json")
     public String execute(@PathParam("entityName") String entityName, @PathParam("objectId") String objectId,
             @PathParam("actionName") String actionName, String argumentMapRepresentation) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
@@ -43,8 +44,13 @@ public class InstanceActionResource {
         Map<String, Object> argumentMap = new Gson().fromJson(argumentMapRepresentation, new TypeToken<Map<String, Object>>() {
         }.getType());
         List<Object> argumentList = new ArrayList<Object>();
-        for (Parameter parameter : action.getParameters())
-            argumentList.add(argumentMap.get(parameter.getName()));
+        for (Parameter parameter : action.getParameters()) {
+            ResourceHelper.ensure(argumentMap.containsKey(parameter.getName()) || !parameter.isRequired(), "Parameter is required: " + parameter.getName(), Status.BAD_REQUEST);
+            Object argumentValue = argumentMap.get(parameter.getName());
+            if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity)
+                argumentValue = new Instance(parameter.getTypeRef(), ((Map<String,Object>) argumentValue).get("objectId").toString());
+            argumentList.add(argumentValue);
+        }
         List<?> result = KirraContext.getInstanceManagement().executeOperation(action, objectId, argumentList);
         return CommonHelper.buildGson(null).toJson(result);
     }

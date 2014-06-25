@@ -3,15 +3,42 @@ qx.Class.define("kirra_qooxdoo.Widgets", {
 
       statics : {
 
-        createWidget: function (property) {
-            var kind = property.typeRef && property.typeRef.kind
+        createWidget: function (property, valueEnumerator) {
+            valueEnumerator = valueEnumerator || function (property, callback) { callback([]) }; 
+            var kind = property.typeRef && property.typeRef.kind;
             var factoryMethodName = 'create' + kind + 'Widget';
             var factory = this[factoryMethodName];
             if (typeof (factory) !== 'function') {
                 console.log("No factory found for: " + property.name + " : " + kind);
-                return this.createStringWidget();
+                return this.createStringWidget(property, valueEnumerator);
             }
-            return factory.call(this, property);
+            return factory.call(this, property, valueEnumerator);
+        },
+        
+        createEntityWidget: function (property, valueEnumerator) {
+            var me = this;
+            var objectField = new qx.ui.mobile.form.TextField();
+            objectField.setReadOnly(true);
+            var picker = new qx.ui.mobile.dialog.Picker();
+            objectField.addListener("tap", function () {
+                valueEnumerator(property, function(values) {
+                    console.log(values);
+                    if (!values || values.length === 0) {
+                        return;
+                    }
+                    var objectSlot = new qx.data.Array(values);
+                    picker.removeSlot(0);
+                    picker.addSlot(objectSlot);
+                    picker.show();
+                });
+            });
+            picker.addListener("confirmSelection", function(e) {
+                var data = e.getData();
+                //objectField.setValue({ index: data[0].index, value: data[0].item, toString: function () { return this.value } });
+                objectField.setValue(data[0].item);
+                objectField._setAttribute("index", data[0].index);
+            });
+            return objectField;
         },
 
         createPrimitiveWidget: function (property) {
@@ -20,7 +47,7 @@ qx.Class.define("kirra_qooxdoo.Widgets", {
             var factory = this[factoryMethodName];
             if (typeof (factory) !== 'function') {
                 console.log("No factory found for: " + property.name + " : " + typeName);
-                return this.createStringWidget();
+                return this.createStringWidget(property);
             }
             return factory.call(this, property);
         },
@@ -46,7 +73,7 @@ qx.Class.define("kirra_qooxdoo.Widgets", {
                 days.push("" + day);
             } 
             var daySlot = new qx.data.Array(days);
-                    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             var monthSlot = new qx.data.Array(months);
             var years = [];
             for (var year = 1900 + new Date().getYear();year > 1900;year--) {
@@ -86,7 +113,7 @@ qx.Class.define("kirra_qooxdoo.Widgets", {
         },
 
         createBooleanWidget: function (attribute) {
-            return new qx.ui.mobile.form.ToggleButton();
+            return new qx.ui.mobile.form.CheckBox();
         },
 
         createStateMachineWidget: function (attribute) {

@@ -6,23 +6,26 @@ public interface Paths {
     String DATA = "data";
     String DOMAIN = "domain";
     String ENTITIES = "entities";
+    String EVENTS = "events";
+    String PARAMETERS = "parameters";
+    String FINDERS = "finders";
+    String RETRIEVERS = "retrievers";
+    String RELATIONSHIPS = "relationships";
+    String INSTANCES = "instances";
 
     String ENTITIES_PATH = Paths.ROOT_PATH + Paths.ENTITIES + "/";
     String ENTITY_PATH = Paths.ENTITIES_PATH + "{entityName}/";
     String ENTITY_ACTION_PATH = ENTITY_PATH + Paths.ACTIONS + "/{actionName}";
-    String EVENTS = "events";
-    String FINDERS = "finders";
-    String INSTANCE_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/{objectId}";
-    String INSTANCE_ACTION_PATH = INSTANCE_PATH + "/" + Paths.ACTIONS + "/{actionName}";
-    String INSTANCES = "instances";
     String INSTANCES_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/";
+    String INSTANCE_PATH = Paths.INSTANCES_PATH + "{objectId}";
+    String INSTANCE_ACTION_PATH = INSTANCE_PATH + "/" + Paths.ACTIONS + "/{actionName}";
+    String RELATIONSHIP_PATH = INSTANCE_PATH + "/" + Paths.RELATIONSHIPS + "/{relationshipName}/";
+    String RELATIONSHIP_DOMAIN_PATH = RELATIONSHIP_PATH + DOMAIN;
+    String INSTANCE_ACTION_PARAMETER_DOMAIN_PATH = INSTANCE_ACTION_PATH + "/" + Paths.PARAMETERS + "/{parameterName}/" + DOMAIN;
     String LOGIN = "login";
     String LOGOUT = "logout";
-    String PARAMETERS = "parameters";
     String PASSWORD_RESET = "passwordReset";
     String PROFILE = "profile";
-    String RELATIONSHIPS = "relationships";
-    String RETRIEVERS = "retrievers";
 
     String ROOT_PATH = "{application}/";
     String SERVICE_PATH = Paths.SERVICES_PATH + "{serviceName}/";
