@@ -30,7 +30,6 @@ public class ParameterDomainResource {
         
         Operation action = entity.getOperation(actionName);
         ResourceHelper.ensure(action != null, null, Status.NOT_FOUND);
-        ResourceHelper.ensure(action.isInstanceOperation(), null, Status.NOT_FOUND);
         ResourceHelper.ensure(action.getKind() == OperationKind.Action, null, Status.NOT_FOUND);
         
         Parameter parameter = action.getParameter(parameterName);

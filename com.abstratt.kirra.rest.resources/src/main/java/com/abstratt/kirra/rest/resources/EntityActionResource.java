@@ -12,8 +12,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response.Status;
 
 import com.abstratt.kirra.Entity;
+import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Operation.OperationKind;
+import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.CommonHelper;
@@ -39,8 +41,12 @@ public class EntityActionResource {
         Map<String, Object> argumentMap = new Gson().fromJson(argumentMapRepresentation, new TypeToken<Map<String, Object>>() {
         }.getType());
         List<Object> argumentList = new ArrayList<Object>();
-        for (Parameter parameter : action.getParameters())
-            argumentList.add(argumentMap.get(parameter.getName()));
+        for (Parameter parameter : action.getParameters()) {
+            Object argumentValue = argumentMap.get(parameter.getName());
+            if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity)
+                argumentValue = new Instance(parameter.getTypeRef(), ((Map<String,Object>) argumentValue).get("objectId").toString());
+            argumentList.add(argumentValue);
+        }
         List<?> result = KirraContext.getInstanceManagement().executeOperation(action, null, argumentList);
         return CommonHelper.buildGson(null).toJson(result);
     }
