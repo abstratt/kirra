@@ -31,6 +31,25 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
                     item.setSubtitle("");
                     item.setShowArrow(true);
                     item.data = data;
+                    
+                      var details = [], value, detail;
+                      for (name in me._detailProperties) {
+                          value = data.values[name];
+                          if (me._entity.properties[name].typeRef && me._entity.properties[name].typeRef.typeName === 'Date') {
+                              try {
+                                  value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
+                              } catch (e) {}
+                          }
+                          
+                          if (value && value != null) {
+                              detail = me._detailProperties[name].label;
+                              if (value !== true)
+                                  detail += ": " + value
+                              details.push(detail);
+                          }
+                      }
+                      item.setSubtitle(details.join(", "));
+                      item.setShowArrow(true);
                 }
             });
             this.getContent().add(list);
@@ -54,6 +73,7 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
             me.reloadInstances();
             this.repository.loadEntity(this._entityName, function (entity) { 
                 me._entity = entity;
+                me.buildDetailProperties();
                 me.buildActions();
             });
         },
@@ -63,6 +83,21 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
                 me._instanceList.setModel(new qx.data.Array(instances.contents));
                 me.setTitle(me._entityName);
             });
+        },
+        buildDetailProperties : function () {
+            var me = this;
+            var detailProperties = {};
+            // we ignore the first property as it shows as title
+            var skippedMnemonic = false;
+            for (var p in me._entity.properties) {
+                if (me._entity.properties[p].userVisible) {
+                    if (skippedMnemonic) {
+                        detailProperties[p] = { label: me._entity.properties[p].label };
+                    }
+                    skippedMnemonic = true;
+                }
+            }
+            me._detailProperties = detailProperties;
         },
         buildActions : function () {
             var me = this;

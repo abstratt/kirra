@@ -8,6 +8,7 @@ public class Property extends DataElement {
     private static final long serialVersionUID = 1;
 
     protected boolean unique;
+    protected boolean userVisible;
     protected Object defaultValue;
 
     public Property() {
@@ -37,5 +38,12 @@ public class Property extends DataElement {
     
     public void setDefaultValue(Object value) {
         this.defaultValue = value;
+    }
+    
+    public boolean isUserVisible() {
+        return userVisible;
+    }
+    public void setUserVisible(boolean userVisible) {
+        this.userVisible = userVisible;
     }
 }
