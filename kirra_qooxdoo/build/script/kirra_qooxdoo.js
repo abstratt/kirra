@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.4190227d0064.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.ba2a2e9c5496.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",
@@ -11445,6 +11445,125 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
+  var a = "border-box",b = "qx.bom.element.BoxSizing",c = "css.boxsizing",d = "",e = "boxSizing",f = "content-box",g = ":",h = ";";
+  qx.Bootstrap.define(b, {
+    statics : {
+      __dp : {
+        tags : {
+          button : true,
+          select : true
+        },
+        types : {
+          search : true,
+          button : true,
+          submit : true,
+          reset : true,
+          checkbox : true,
+          radio : true
+        }
+      },
+      __dq : function(element){
+
+        var map = this.__dp;
+        return map.tags[element.tagName.toLowerCase()] || map.types[element.type];
+      },
+      compile : function(value){
+
+        if(qx.core.Environment.get(c)){
+
+          var prop = qx.bom.Style.getCssName(qx.core.Environment.get(c));
+          return prop + g + value + h;
+        } else {
+
+          {
+          };
+        };
+      },
+      get : function(element){
+
+        if(qx.core.Environment.get(c)){
+
+          return qx.bom.element.Style.get(element, e, null, false) || d;
+        };
+        if(qx.bom.Document.isStandardMode(qx.dom.Node.getWindow(element))){
+
+          if(!this.__dq(element)){
+
+            return f;
+          };
+        };
+        return a;
+      },
+      set : function(element, value){
+
+        if(qx.core.Environment.get(c)){
+
+          try{
+
+            element.style[qx.core.Environment.get(c)] = value;
+          } catch(ex) {
+
+            {
+            };
+          };
+        } else {
+
+          {
+          };
+        };
+      },
+      reset : function(element){
+
+        this.set(element, d);
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "cursor:",b = "engine.name",c = "ns-resize",d = "",e = "mshtml",f = "nw-resize",g = "n-resize",h = "engine.version",i = "nesw-resize",j = "opera",k = "browser.documentmode",l = ";",m = "nwse-resize",n = "ew-resize",o = "qx.bom.element.Cursor",p = "ne-resize",q = "e-resize",r = "browser.quirksmode",s = "cursor";
+  qx.Bootstrap.define(o, {
+    statics : {
+      __dr : {
+      },
+      compile : function(cursor){
+
+        return a + (this.__dr[cursor] || cursor) + l;
+      },
+      get : function(element, mode){
+
+        return qx.bom.element.Style.get(element, s, mode, false);
+      },
+      set : function(element, value){
+
+        element.style.cursor = this.__dr[value] || value;
+      },
+      reset : function(element){
+
+        element.style.cursor = d;
+      }
+    },
+    defer : function(statics){
+
+      if(qx.core.Environment.get(b) == e && ((parseFloat(qx.core.Environment.get(h)) < 9 || qx.core.Environment.get(k) < 9) && !qx.core.Environment.get(r))){
+
+        statics.__dr[i] = p;
+        statics.__dr[m] = f;
+        if(((parseFloat(qx.core.Environment.get(h)) < 8 || qx.core.Environment.get(k) < 8) && !qx.core.Environment.get(r))){
+
+          statics.__dr[n] = q;
+          statics.__dr[c] = g;
+        };
+      } else if(qx.core.Environment.get(b) == j && parseInt(qx.core.Environment.get(h)) < 12){
+
+        statics.__dr[i] = p;
+        statics.__dr[m] = f;
+      };
+    }
+  });
+})();
+(function(){
+
   var a = "engine.name",b = ");",c = "",d = ")",e = "zoom:1;filter:alpha(opacity=",f = "qx.bom.element.Opacity",g = "css.opacity",h = ";",i = "opacity:",j = "alpha(opacity=",k = "opacity",l = "filter";
   qx.Bootstrap.define(f, {
     statics : {
@@ -11565,125 +11684,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           return 1.0;
         }
       })
-    }
-  });
-})();
-(function(){
-
-  var a = "cursor:",b = "engine.name",c = "ns-resize",d = "",e = "mshtml",f = "nw-resize",g = "n-resize",h = "engine.version",i = "nesw-resize",j = "opera",k = "browser.documentmode",l = ";",m = "nwse-resize",n = "ew-resize",o = "qx.bom.element.Cursor",p = "ne-resize",q = "e-resize",r = "browser.quirksmode",s = "cursor";
-  qx.Bootstrap.define(o, {
-    statics : {
-      __dp : {
-      },
-      compile : function(cursor){
-
-        return a + (this.__dp[cursor] || cursor) + l;
-      },
-      get : function(element, mode){
-
-        return qx.bom.element.Style.get(element, s, mode, false);
-      },
-      set : function(element, value){
-
-        element.style.cursor = this.__dp[value] || value;
-      },
-      reset : function(element){
-
-        element.style.cursor = d;
-      }
-    },
-    defer : function(statics){
-
-      if(qx.core.Environment.get(b) == e && ((parseFloat(qx.core.Environment.get(h)) < 9 || qx.core.Environment.get(k) < 9) && !qx.core.Environment.get(r))){
-
-        statics.__dp[i] = p;
-        statics.__dp[m] = f;
-        if(((parseFloat(qx.core.Environment.get(h)) < 8 || qx.core.Environment.get(k) < 8) && !qx.core.Environment.get(r))){
-
-          statics.__dp[n] = q;
-          statics.__dp[c] = g;
-        };
-      } else if(qx.core.Environment.get(b) == j && parseInt(qx.core.Environment.get(h)) < 12){
-
-        statics.__dp[i] = p;
-        statics.__dp[m] = f;
-      };
-    }
-  });
-})();
-(function(){
-
-  var a = "border-box",b = "qx.bom.element.BoxSizing",c = "css.boxsizing",d = "",e = "boxSizing",f = "content-box",g = ":",h = ";";
-  qx.Bootstrap.define(b, {
-    statics : {
-      __dq : {
-        tags : {
-          button : true,
-          select : true
-        },
-        types : {
-          search : true,
-          button : true,
-          submit : true,
-          reset : true,
-          checkbox : true,
-          radio : true
-        }
-      },
-      __dr : function(element){
-
-        var map = this.__dq;
-        return map.tags[element.tagName.toLowerCase()] || map.types[element.type];
-      },
-      compile : function(value){
-
-        if(qx.core.Environment.get(c)){
-
-          var prop = qx.bom.Style.getCssName(qx.core.Environment.get(c));
-          return prop + g + value + h;
-        } else {
-
-          {
-          };
-        };
-      },
-      get : function(element){
-
-        if(qx.core.Environment.get(c)){
-
-          return qx.bom.element.Style.get(element, e, null, false) || d;
-        };
-        if(qx.bom.Document.isStandardMode(qx.dom.Node.getWindow(element))){
-
-          if(!this.__dr(element)){
-
-            return f;
-          };
-        };
-        return a;
-      },
-      set : function(element, value){
-
-        if(qx.core.Environment.get(c)){
-
-          try{
-
-            element.style[qx.core.Environment.get(c)] = value;
-          } catch(ex) {
-
-            {
-            };
-          };
-        } else {
-
-          {
-          };
-        };
-      },
-      reset : function(element){
-
-        this.set(element, d);
-      }
     }
   });
 })();
@@ -15343,15 +15343,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "Missing entity or extentUri",b = "loadEnd",c = "(objectId)",d = "Missing instance or instance URI",f = "/actions/(actionName)",g = "(actionName)",h = "application/json",j = "kirra_qooxdoo.Repository",k = "PUT",l = ":",m = "(objectId)/actions/(actionName)",n = "entity.",o = "yyyy/MM/dd",p = "://",q = "Please wait",r = "Missing entityName: ",s = "",t = "Entity not found: ",u = "DELETE",v = "POST",w = "success",x = "_entityList",y = 'GET',z = 'string',A = "Content-Type",B = " ",C = "_application",D = "Missing objectId";
-  qx.Class.define(j, {
+  var a = "Missing entity or extentUri",b = "loadEnd",c = ")",d = "success",f = "Missing instance or instance URI",g = "/actions/(actionName)",h = '/relationships/',j = "(actionName)",k = "application/json",l = "kirra_qooxdoo.Repository",m = '/actions/',n = "PUT",o = ":",q = "(objectId)/actions/(actionName)",r = "entity.",s = "yyyy/MM/dd",t = "://",u = "Please wait",v = "Missing entityName: ",w = "",x = "Entity not found: ",y = "(",z = '/parameters/',A = "DELETE",B = "POST",C = "/",D = "_entityList",E = 'GET',F = 'string',G = "Content-Type",H = " ",I = "_application",J = "Missing objectId",K = '/domain/';
+  qx.Class.define(l, {
     extend : qx.core.Object,
     construct : function(applicationUri){
 
       qx.core.Object.call(this);
       this._parsedApplicationUri = qx.util.Uri.parseUri(applicationUri);
       this._applicationUri = applicationUri;
-      var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator(q);
+      var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator(u);
       this._busyPopup = new qx.ui.mobile.dialog.Popup(busyIndicator);
     },
     members : {
@@ -15364,7 +15364,24 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _busyPopup : null,
       loadApplication : function(callback){
 
-        this.load(this._applicationUri, callback, C);
+        this.load(this._applicationUri, callback, I);
+      },
+      listRelationshipDomain : function(entity, objectId, relationship, callback){
+
+        var domainUri = entity.relationshipDomainUriTemplate || (entity.extentUri + C + objectId + h + relationship.name + K);
+        this.tryToLoad(this.resolve(domainUri, {
+          objectId : objectId,
+          relationshipName : relationship.name
+        }), callback);
+      },
+      listParameterDomain : function(entity, objectId, action, parameter, callback){
+
+        var domainUri = entity.instanceActionParameterDomainUriTemplate || (entity.extentUri + C + objectId + m + action.name + z + parameter.name + K);
+        this.tryToLoad(this.resolve(domainUri, {
+          objectId : objectId,
+          actionName : action.name,
+          parameterName : parameter.name
+        }), callback);
       },
       loadEntities : function(callback, retry){
 
@@ -15378,30 +15395,39 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           });
           return;
         };
-        this.load(me._application.entities, callback, x);
+        this.load(me._application.entities, callback, D);
       },
       loadEntity : function(entityName, callback, retry){
 
-        if(!entityName)throw Error(r + entityName);
+        if(!entityName)throw Error(v + entityName);
         for(var i in this._entityList){
 
           if(this._entityList[i].name == entityName){
 
             var entityUri = this._entityList[i].uri;
-            this.load(entityUri, callback, n + entityName);
+            this.load(entityUri, callback, r + entityName);
             return;
           };
         };
-        if(retry === false)throw Error(t + entityName);
+        if(retry === false)throw Error(x + entityName);
         var me = this;
         this.loadEntities(function(){
 
           me.loadEntity(entityName, callback, false);
         });
       },
+      resolve : function(template, values){
+
+        var resolved = template;
+        for(var p in values){
+
+          resolved = resolved.replace(y + p + c, values[p]);
+        };
+        return resolved;
+      },
       loadInstances : function(entityName, callback, retry){
 
-        if(!entityName)throw Error(r + entityName);
+        if(!entityName)throw Error(v + entityName);
         for(var i in this._entityList){
 
           if(this._entityList[i].name == entityName){
@@ -15414,7 +15440,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             return;
           };
         };
-        if(retry === false)throw Error(t + entityName);
+        if(retry === false)throw Error(x + entityName);
         var me = this;
         this.loadEntities(function(){
 
@@ -15424,13 +15450,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       loadInstance : function(entity, objectId, callback){
 
         if(!entity || !entity.extentUri)throw Error(a);
-        if(!objectId)throw Error(D);
+        if(!objectId)throw Error(J);
         var instanceUri = entity.instanceUriTemplate || (entity.extentUri + objectId);
-        this.load(instanceUri.replace(c, objectId), callback);
+        this.load(this.resolve(instanceUri, {
+          objectId : objectId
+        }), callback);
       },
       saveInstance : function(entity, instance, callback){
 
-        if(!instance || !instance.uri)throw Error(d);
+        if(!instance || !instance.uri)throw Error(f);
         if(instance.objectId){
 
           this.put(instance.uri, instance, callback);
@@ -15441,14 +15469,17 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       deleteInstance : function(instance, callback){
 
-        if(!instance || !instance.uri)throw Error(d);
+        if(!instance || !instance.uri)throw Error(f);
         this.remove(instance.uri, callback);
       },
       sendAction : function(entity, objectId, operation, arguments, callback){
 
         var me = this;
-        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + m);
-        this.post(instanceActionUri.replace(c, objectId).replace(g, operation.name), arguments || {
+        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + q);
+        this.post(this.resolve(instanceActionUri, {
+          objectId : objectId,
+          actionName : operation.name
+        }), arguments || {
         }, function(){
 
           me.loadInstance(entity, objectId, callback);
@@ -15457,9 +15488,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       sendStaticAction : function(entity, operation, arguments, callback){
 
         var me = this;
-        var entityActionUri = entity.entityActionUriTemplate || (entity.uri + f);
-        this.post(entityActionUri.replace(g, operation.name), arguments || {
+        var entityActionUri = entity.entityActionUriTemplate || (entity.uri + g);
+        this.post(entityActionUri.replace(j, operation.name), arguments || {
         }, callback);
+      },
+      tryToLoad : function(uri, callback, slotName){
+
+        if(uri === null || uri === undefined){
+
+          callback([]);
+          return;
+        };
+        return this.load(uri, callback, slotName);
       },
       load : function(uri, callback, slotName){
 
@@ -15468,23 +15508,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       remove : function(uri, callback){
 
-        var req = this.buildRequest(uri, u);
+        var req = this.buildRequest(uri, A);
         this.sendRequest(req, callback);
       },
       post : function(uri, data, callback){
 
-        var req = this.buildRequest(uri, v);
-        req.setRequestHeader(A, h);
+        var req = this.buildRequest(uri, B);
+        req.setRequestHeader(G, k);
         req.setRequestData(qx.util.Serializer.toJson(data, (function(){
-        }), new qx.util.format.DateFormat(o)));
+        }), new qx.util.format.DateFormat(s)));
         this.sendRequest(req, callback);
       },
       put : function(uri, data, callback){
 
-        var req = this.buildRequest(uri, k);
-        req.setRequestHeader(A, h);
+        var req = this.buildRequest(uri, n);
+        req.setRequestHeader(G, k);
         req.setRequestData(qx.util.Serializer.toJson(data, (function(){
-        }), new qx.util.format.DateFormat(o)));
+        }), new qx.util.format.DateFormat(s)));
         this.sendRequest(req, callback);
       },
       sendRequest : function(req, callback, slotName){
@@ -15492,7 +15532,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var me = this;
         if(me._level == 0)me._busyPopup.toggleVisibility();
         me._level = me._level + 1;
-        req.addListener(w, function(e){
+        req.addListener(d, function(e){
 
           var req = e.getTarget();
           var response = undefined;
@@ -15500,9 +15540,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             response = req.getResponse();
             if(slotName)me[slotName] = response;
-            if(typeof (response) === z)response = JSON.parse(response);
+            if(typeof (response) === F)response = JSON.parse(response);
           };
-          console.log(req.method + B + req.getUrl());
+          console.log(req.method + H + req.getUrl());
           console.log(response);
           if(callback)callback(response);
         }, this);
@@ -15518,9 +15558,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var parsedUri = qx.util.Uri.parseUri(uri);
         if(!parsedUri.protocol){
 
-          uri = this._parsedApplicationUri.protocol + p + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (l + this._parsedApplicationUri.port) : s) + this._parsedApplicationUri.directory + uri;
+          uri = this._parsedApplicationUri.protocol + t + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (o + this._parsedApplicationUri.port) : w) + this._parsedApplicationUri.directory + uri;
         };
-        return new qx.io.request.Xhr(uri, method || y);
+        return new qx.io.request.Xhr(uri, method || E);
       }
     }
   });
@@ -37777,7 +37817,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var pathMatches = window.location.search.match(b);
         if(!uriMatches && !pathMatches){
 
-          throw Error(k);
+          var abortMessage = k;
+          alert(abortMessage);
+          throw Error(abortMessage);
         };
         var apiBaseUri = uriMatches ? uriMatches[1] : (window.location.origin + pathMatches[1]);
         var isTablet = (qx.core.Environment.get(f) == g);
@@ -39358,7 +39400,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           var topLevel = [];
           for(var i in entities){
 
-            if(entities[i].topLevel && entities[i].concrete && entities[i].standalone)topLevel.push(entities[i]);
+            if(entities[i].topLevel && (entities[i].concrete === undefined || entities[i].concrete) && (entities[i].standalone === undefined || entities[i].standalone))topLevel.push(entities[i]);
           };
           me.entityList.setModel(new qx.data.Array(topLevel));
         });
@@ -40526,19 +40568,19 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "/instances/",b = "",c = "New",d = "/entity/",e = "kirra_qooxdoo.InstanceNavigator",f = "Instances",g = "Back",h = "changeSelection",j = "tap",k = "/instances/_template",l = "/",m = "Action",n = "/actions/",o = "qx.event.type.Data";
-  qx.Class.define(e, {
+  var a = "/instances/",b = "",c = "New",d = 'Date',f = "/entity/",g = "kirra_qooxdoo.InstanceNavigator",h = "Action",j = "Instances",k = "Back",l = "changeSelection",m = "tap",n = "/instances/_template",o = ": ",q = ", ",r = "/",s = "/actions/",t = "qx.event.type.Data";
+  qx.Class.define(g, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
-      this.setTitle(f);
+      this.setTitle(j);
       this.setShowBackButton(true);
-      this.setBackButtonText(g);
+      this.setBackButtonText(k);
     },
     events : {
-      "show" : o
+      "show" : t
     },
     members : {
       _entityName : null,
@@ -40556,13 +40598,34 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             item.setSubtitle(b);
             item.setShowArrow(true);
             item.data = data;
+            var details = [],value,detail;
+            for(name in me._detailProperties){
+
+              value = data.values[name];
+              if(me._entity.properties[name].typeRef && me._entity.properties[name].typeRef.typeName === d){
+
+                try{
+
+                  value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
+                } catch(e) {
+                };
+              };
+              if(value && value != null){
+
+                detail = me._detailProperties[name].label;
+                if(value !== true)detail += o + value;
+                details.push(detail);
+              };
+            };
+            item.setSubtitle(details.join(q));
+            item.setShowArrow(true);
           }
         });
         this.getContent().add(list);
-        list.addListener(h, function(evt){
+        list.addListener(l, function(evt){
 
           var instanceSelected = me._instanceList.getModel().getItem(evt.getData());
-          qx.core.Init.getApplication().getRouting().executeGet(d + me._entityName + a + instanceSelected.objectId);
+          qx.core.Init.getApplication().getRouting().executeGet(f + me._entityName + a + instanceSelected.objectId);
         }, this);
       },
       _start : function(){
@@ -40571,7 +40634,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _back : function(){
 
-        qx.core.Init.getApplication().getRouting().executeGet(l, {
+        qx.core.Init.getApplication().getRouting().executeGet(r, {
           reverse : true
         });
       },
@@ -40584,6 +40647,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this.repository.loadEntity(this._entityName, function(entity){
 
           me._entity = entity;
+          me.buildDetailProperties();
           me.buildActions();
         });
       },
@@ -40596,6 +40660,27 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           me.setTitle(me._entityName);
         });
       },
+      buildDetailProperties : function(){
+
+        var me = this;
+        var detailProperties = {
+        };
+        var skippedMnemonic = false;
+        for(var p in me._entity.properties){
+
+          if(me._entity.properties[p].userVisible){
+
+            if(skippedMnemonic){
+
+              detailProperties[p] = {
+                label : me._entity.properties[p].label
+              };
+            };
+            skippedMnemonic = true;
+          };
+        };
+        me._detailProperties = detailProperties;
+      },
       buildActions : function(){
 
         var me = this;
@@ -40605,9 +40690,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         if(this._entity.instantiable){
 
           var actionButton = new qx.ui.mobile.form.Button(c);
-          actionButton.addListener(j, function(){
+          actionButton.addListener(m, function(){
 
-            qx.core.Init.getApplication().getRouting().executeGet(d + me._entityName + k);
+            qx.core.Init.getApplication().getRouting().executeGet(f + me._entityName + n);
           });
           toolbar.add(actionButton);
         };
@@ -40616,7 +40701,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var opName in allOps){
 
           var operation = allOps[opName];
-          if(!operation.instanceOperation && operation.kind === m){
+          if(!operation.instanceOperation && operation.kind === h){
 
             staticActions.push(operation);
           };
@@ -40625,7 +40710,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var i in staticActions){
 
           var actionButton = new qx.ui.mobile.form.Button(staticActions[i].label);
-          actionButton.addListener(j, function(){
+          actionButton.addListener(m, function(){
 
             if(staticActions[i].parameters.length === 0){
 
@@ -40636,11 +40721,30 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
               });
             } else {
 
-              qx.core.Init.getApplication().getRouting().executeGet(d + me._entityName + n + staticActions[i].name);
+              qx.core.Init.getApplication().getRouting().executeGet(f + me._entityName + s + staticActions[i].name);
             };
           });
           toolbar.add(actionButton);
         };
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "kirra_qooxdoo.DateFormats",b = "yyyy/MM/dd",c = "yyyy-MM-dd'T'hh:mmZ";
+  qx.Class.define(a, {
+    extend : qx.core.Object,
+    statics : {
+      _ymdFormatter : new qx.util.format.DateFormat(b),
+      _isoFormatter : new qx.util.format.DateFormat(c),
+      getYMDFormatter : function(){
+
+        return this._ymdFormatter;
+      },
+      getISOFormatter : function(){
+
+        return this._isoFormatter;
       }
     }
   });
@@ -40707,18 +40811,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "...",b = "/instances/",c = "Action",d = "Save",f = 'Date',g = "/entity/",h = '_template',j = "Back",k = "No",l = "Are you sure?",m = "Yes",n = "tap",o = "/actions/",p = "Delete",q = "kirra_qooxdoo.InstanceForm",r = "qx.event.type.Data";
-  qx.Class.define(q, {
+  var a = "...",b = 'Entity',c = "/instances/",d = "Action",f = "Save",g = 'Date',h = "/entity/",j = "index",k = '_template',l = "Back",m = "No",n = "Are you sure?",o = "Yes",p = "tap",q = "/actions/",r = "Delete",s = "kirra_qooxdoo.InstanceForm",t = "qx.event.type.Data";
+  qx.Class.define(s, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
       this.setShowBackButton(true);
-      this.setBackButtonText(j);
+      this.setBackButtonText(l);
     },
     events : {
-      "show" : r
+      "show" : t
     },
     members : {
       _entityName : null,
@@ -40728,6 +40832,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _widgets : {
       },
       _actions : [],
+      _relationshipDomains : null,
       _initialize : function(){
 
         qx.ui.mobile.page.NavigationPage.prototype._initialize.call(this);
@@ -40738,7 +40843,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _back : function(){
 
-        qx.core.Init.getApplication().getRouting().executeGet(g + this._entityName + b, {
+        qx.core.Init.getApplication().getRouting().executeGet(h + this._entityName + c, {
           reverse : true
         });
       },
@@ -40750,6 +40855,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         me._objectId = id;
         me._entity = null;
         me._instance = null;
+        me._relationshipDomains = {
+        };
         me.repository.loadEntity(entityName, function(entity){
 
           me._entity = entity;
@@ -40788,7 +40895,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             if(!me.isNewInstance() || property.editable){
 
-              if(property.typeRef && property.typeRef.typeName === f){
+              if(property.typeRef && property.typeRef.typeName === g){
 
                 try{
 
@@ -40797,6 +40904,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
                 };
               };
               widget.setValue(value);
+              widget.setVisible && widget.setVisible(true);
+            } else {
+
+              widget.setVisible && widget.setVisible(false);
+            };
+          };
+        };
+        for(var relationshipName in this._instance.links){
+
+          var relationship = this._entity.relationships[relationshipName];
+          var link = this._instance.links[relationshipName][0];
+          var widget = this._widgets[relationshipName];
+          if(widget){
+
+            if(!me.isNewInstance() || relationship.editable){
+
+              widget.setValue(link.shorthand);
               widget.setVisible && widget.setVisible(true);
             } else {
 
@@ -40822,9 +40946,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var actionName in this._entity.operations){
 
           var operation = this._entity.operations[actionName];
-          if(operation.instanceOperation && operation.kind === c && this._instance.disabledActions[actionName] === undefined)this._actions.push(operation);
+          if(operation.instanceOperation && operation.kind === d && this._instance.disabledActions[actionName] === undefined)this._actions.push(operation);
         };
-        var overflowStartsAt = this._actions.length > 3 ? 2 : Infinity;
+        var overflowStartsAt = this._actions.length > 2 ? 1 : Infinity;
         for(var i in this._actions){
 
           var action = this._actions[i];
@@ -40839,7 +40963,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var i in firstLevelItems){
 
           var actionButton = new qx.ui.mobile.form.Button(firstLevelItems[i]);
-          actionButton.addListener(n, function(e){
+          actionButton.addListener(p, function(e){
 
             var selected = me.getOperationByLabel(e.getTarget().getLabel());
             me.invokeAction(selected);
@@ -40850,11 +40974,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this.actionMenu.setItems(new qx.data.Array(menuItems));
         if(menuItems.length > 0){
 
-          actionMenuButton.addListener(n, function(e){
+          actionMenuButton.addListener(p, function(e){
 
             actionMenu.show();
           }, this);
-          actionMenu.addListener(n, function(e){
+          actionMenu.addListener(p, function(e){
 
             var selected = me._actions[actionMenu.getSelectedIndex() + firstLevelItems.length];
             me.invokeAction(selected);
@@ -40871,7 +40995,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           }, me.instanceLoader());
         } else {
 
-          qx.core.Init.getApplication().getRouting().executeGet(g + me._entityName + b + me._objectId + o + action.name);
+          qx.core.Init.getApplication().getRouting().executeGet(h + me._entityName + c + me._objectId + q + action.name);
         };
       },
       getOperationByLabel : function(operationLabel){
@@ -40901,13 +41025,20 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             this.buildWidgetFor(form, this._entity.properties[i]);
           };
         };
+        for(var i in this._entity.relationships){
+
+          if(!this._entity.relationships[i].multiple){
+
+            this.buildWidgetFor(form, this._entity.relationships[i]);
+          };
+        };
         var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
         this.getContent().add(instanceFormRenderer);
         this.show();
       },
       isNewInstance : function(){
 
-        return this._objectId === h;
+        return this._objectId === k;
       },
       addToolbar : function(){
 
@@ -40919,15 +41050,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       addBasicButtons : function(){
 
         var me = this;
-        var saveButton = new qx.ui.mobile.form.Button(d);
-        saveButton.addListener(n, function(){
+        var saveButton = new qx.ui.mobile.form.Button(f);
+        saveButton.addListener(p, function(){
 
           me.saveInstance();
         });
         this.toolbar.add(saveButton);
         if(!me.isNewInstance()){
 
-          var deleteButton = new qx.ui.mobile.form.Button(p);
+          var deleteButton = new qx.ui.mobile.form.Button(r);
           var deleteConfirmationPopup = me.buildConfirmation(deleteButton, function(){
 
             me.repository.deleteInstance(me._instance, function(){
@@ -40935,7 +41066,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
               me._back();
             });
           });
-          deleteButton.addListener(n, function(){
+          deleteButton.addListener(p, function(){
 
             deleteConfirmationPopup.show();
           });
@@ -40945,10 +41076,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       buildConfirmation : function(anchorWidget, toDo){
 
         var popupWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
-        popupWidget.add(new qx.ui.mobile.basic.Label(l));
+        popupWidget.add(new qx.ui.mobile.basic.Label(n));
         var buttonsWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
-        var okButton = new qx.ui.mobile.form.Button(m);
-        var cancelButton = new qx.ui.mobile.form.Button(k);
+        var okButton = new qx.ui.mobile.form.Button(o);
+        var cancelButton = new qx.ui.mobile.form.Button(m);
         buttonsWidget.add(okButton, {
           flex : 1
         });
@@ -40957,12 +41088,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         });
         popupWidget.add(buttonsWidget);
         var anchorPopup;
-        okButton.addListener(n, function(){
+        okButton.addListener(p, function(){
 
           anchorPopup.hide();
           toDo();
         }, this);
-        cancelButton.addListener(n, function(){
+        cancelButton.addListener(p, function(){
 
           anchorPopup.hide();
         }, this);
@@ -40978,44 +41109,54 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             me._instance.values[i] = me._widgets[i].getValue();
           };
         };
+        for(var i in this._entity.relationships){
+
+          if(me._entity.relationships[i].editable && !me._entity.relationships[i].multiple && me._relationshipDomains[i]){
+
+            var referenceIndex = me._widgets[i]._getAttribute(j);
+            var related = me._relationshipDomains[i][referenceIndex];
+            me._instance.links[i] = [related];
+          };
+        };
         me.repository.saveInstance(me._entity, me._instance, function(created){
 
-          if(me.isNewInstance()){
-
-            qx.core.Init.getApplication().getRouting().executeGet(g + me._entityName + b + created.objectId);
-          } else {
-
-            me._back();
-          };
+          qx.core.Init.getApplication().getRouting().executeGet(h + me._entityName + c + created.objectId);
         });
       },
       buildWidgetFor : function(form, property){
 
-        var widget = kirra_qooxdoo.Widgets.createWidget(property);
+        var widget = kirra_qooxdoo.Widgets.createWidget(property, this.instanceEnumerator(property));
         this._widgets[property.name] = widget;
         if(widget.setRequired)widget.setRequired(property.required === true);
         if(widget.setReadOnly)widget.setReadOnly(property.editable === false);
         if(widget.setEnabled)widget.setEnabled(property.editable !== false);
         form.add(widget, property.label);
-      }
-    }
-  });
-})();
-(function(){
-
-  var a = "kirra_qooxdoo.DateFormats",b = "yyyy/MM/dd",c = "yyyy-MM-dd'T'hh:mmZ";
-  qx.Class.define(a, {
-    extend : qx.core.Object,
-    statics : {
-      _ymdFormatter : new qx.util.format.DateFormat(b),
-      _isoFormatter : new qx.util.format.DateFormat(c),
-      getYMDFormatter : function(){
-
-        return this._ymdFormatter;
       },
-      getISOFormatter : function(){
+      instanceEnumerator : function(property){
 
-        return this._isoFormatter;
+        var me = this;
+        var kind = property.typeRef && property.typeRef.kind;
+        if(kind !== b){
+
+          return me.noOpValueEnumerator;
+        };
+        return function(property, callback){
+
+          me.repository.listRelationshipDomain(me._entity, me._objectId, property, function(objects){
+
+            me._relationshipDomains[property.name] = objects.contents;
+            var shorthands = [];
+            for(var i in objects.contents){
+
+              shorthands.push(objects.contents[i].shorthand);
+            };
+            callback(shorthands);
+          });
+        };
+      },
+      noOpValueEnumerator : function(target, callback){
+
+        callback([]);
       }
     }
   });
@@ -43395,21 +43536,54 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "Jun",b = "Mar",c = "Aug",d = "kirra_qooxdoo.Widgets",f = "Jul",g = 'function',h = "May",j = "No factory found for: ",k = "Sep",l = "Nov",m = 'create',n = '- None -',o = "",p = "confirmSelection",q = "Oct",r = "Dec",s = "Feb",t = "Apr",u = "Jan",v = '/',w = " : ",x = "tap",y = 'Widget';
+  var a = "Apr",b = "Mar",c = "Aug",d = "kirra_qooxdoo.Widgets",f = "Jul",g = 'function',h = "May",j = "No factory found for: ",k = "Sep",l = "Nov",m = 'create',n = '- None -',o = "",p = "confirmSelection",q = "Oct",r = "Dec",s = "Feb",t = "Jun",u = "Jan",v = '/',w = " : ",x = "tap",y = 'Widget',z = "index";
   qx.Class.define(d, {
     extend : qx.core.Object,
     statics : {
-      createWidget : function(property){
+      createWidget : function(property, valueEnumerator){
 
+        valueEnumerator = valueEnumerator || function(property, callback){
+
+          callback([]);
+        };
         var kind = property.typeRef && property.typeRef.kind;
         var factoryMethodName = m + kind + y;
         var factory = this[factoryMethodName];
         if(typeof (factory) !== g){
 
           console.log(j + property.name + w + kind);
-          return this.createStringWidget();
+          return this.createStringWidget(property, valueEnumerator);
         };
-        return factory.call(this, property);
+        return factory.call(this, property, valueEnumerator);
+      },
+      createEntityWidget : function(property, valueEnumerator){
+
+        var me = this;
+        var objectField = new qx.ui.mobile.form.TextField();
+        objectField.setReadOnly(true);
+        var picker = new qx.ui.mobile.dialog.Picker();
+        objectField.addListener(x, function(){
+
+          valueEnumerator(property, function(values){
+
+            console.log(values);
+            if(!values || values.length === 0){
+
+              return;
+            };
+            var objectSlot = new qx.data.Array(values);
+            picker.removeSlot(0);
+            picker.addSlot(objectSlot);
+            picker.show();
+          });
+        });
+        picker.addListener(p, function(e){
+
+          var data = e.getData();
+          objectField.setValue(data[0].item);
+          objectField._setAttribute(z, data[0].index);
+        });
+        return objectField;
       },
       createPrimitiveWidget : function(property){
 
@@ -43419,7 +43593,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         if(typeof (factory) !== g){
 
           console.log(j + property.name + w + typeName);
-          return this.createStringWidget();
+          return this.createStringWidget(property);
         };
         return factory.call(this, property);
       },
@@ -43446,7 +43620,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           days.push(o + day);
         };
         var daySlot = new qx.data.Array(days);
-        var months = [u, s, b, t, h, a, f, c, k, q, l, r];
+        var months = [u, s, b, a, h, t, f, c, k, q, l, r];
         var monthSlot = new qx.data.Array(months);
         var years = [];
         for(var year = 1900 + new Date().getYear();year > 1900;year--){
@@ -43489,7 +43663,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       createBooleanWidget : function(attribute){
 
-        return new qx.ui.mobile.form.ToggleButton();
+        return new qx.ui.mobile.form.CheckBox();
       },
       createStateMachineWidget : function(attribute){
 
@@ -43959,8 +44133,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "/instances/",b = "/entity/",c = "kirra_qooxdoo.ActionForm",d = "Cancel",e = "tap",f = "qx.event.type.Data";
-  qx.Class.define(c, {
+  var a = 'Entity',b = "/instances/",c = "/entity/",d = "kirra_qooxdoo.ActionForm",e = "Cancel",f = "tap",g = "index",h = "qx.event.type.Data";
+  qx.Class.define(d, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
@@ -43968,7 +44142,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       this.repository = repository;
     },
     events : {
-      "show" : f
+      "show" : h
     },
     members : {
       _entityName : null,
@@ -43977,11 +44151,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _instance : null,
       _entity : null,
       _action : null,
+      _parameterDomains : null,
       _widgets : {
       },
       _back : function(){
 
-        var sourcePath = b + this._entityName + a;
+        var sourcePath = c + this._entityName + b;
         if(this._objectId){
 
           sourcePath += this._objectId;
@@ -44008,6 +44183,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         me._entity = null;
         me._instance = null;
         me._action = null;
+        me._parameterDomains = {
+        };
         me.repository.loadEntity(entityName, function(entity){
 
           me._entity = entity;
@@ -44046,13 +44223,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var me = this;
         var okButton = new qx.ui.mobile.form.Button(this._action.label);
-        okButton.addListener(e, function(){
+        okButton.addListener(f, function(){
 
           me.executeAction();
         });
         this.toolbar.add(okButton);
-        var cancelButton = new qx.ui.mobile.form.Button(d);
-        cancelButton.addListener(e, function(){
+        var cancelButton = new qx.ui.mobile.form.Button(e);
+        cancelButton.addListener(f, function(){
 
           me._back();
         });
@@ -44074,7 +44251,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var i in this._action.parameters){
 
           var parameterName = this._action.parameters[i].name;
-          arguments[parameterName] = me._widgets[parameterName].getValue();
+          if(this._action.parameters[i].typeRef.kind == a){
+
+            var referenceIndex = me._widgets[parameterName]._getAttribute(g);
+            arguments[parameterName] = me._parameterDomains[parameterName][referenceIndex];
+          } else {
+
+            arguments[parameterName] = me._widgets[parameterName].getValue();
+          };
         };
         if(me._action.instanceOperation){
 
@@ -44084,11 +44268,37 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           me.repository.sendStaticAction(me._entity, me._action, arguments, me.resultHandler());
         };
       },
-      buildWidgetFor : function(form, property){
+      buildWidgetFor : function(form, parameter){
 
-        var widget = kirra_qooxdoo.Widgets.createWidget(property);
-        this._widgets[property.name] = widget;
-        form.add(widget, property.label);
+        var widget = kirra_qooxdoo.Widgets.createWidget(parameter, this.instanceEnumerator(parameter));
+        this._widgets[parameter.name] = widget;
+        form.add(widget, parameter.label);
+      },
+      instanceEnumerator : function(parameter){
+
+        var me = this;
+        var kind = parameter.typeRef && parameter.typeRef.kind;
+        if(kind !== a){
+
+          return me.noOpValueEnumerator;
+        };
+        return function(parameter, callback){
+
+          me.repository.listParameterDomain(me._entity, me._objectId, me._action, parameter, function(objects){
+
+            me._parameterDomains[parameter.name] = objects.contents;
+            var shorthands = [];
+            for(var i in objects.contents){
+
+              shorthands.push(objects.contents[i].shorthand);
+            };
+            callback(shorthands);
+          });
+        };
+      },
+      noOpValueEnumerator : function(target, callback){
+
+        callback([]);
       }
     }
   });

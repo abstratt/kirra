@@ -120,7 +120,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                     this._actions.push(operation);
             }
 
-            var overflowStartsAt = this._actions.length > 3 ? 2 : Infinity;
+            var overflowStartsAt = this._actions.length > 2 ? 1 : Infinity;
             for (var i in this._actions) {
                 var action = this._actions[i];
                 if (i >= overflowStartsAt) {
