@@ -38,7 +38,7 @@ qx.Class.define("kirra_qooxdoo.EntityNavigator",
       this.getContent().add(list);
       list.addListener("changeSelection", function(evt) {
         var selectedEntity = list.getModel().getItem(evt.getData());
-        qx.core.Init.getApplication().getRouting().executeGet("/entity/" + selectedEntity.name + "/instances/");
+        qx.core.Init.getApplication().getRouting().executeGet("/entities/" + selectedEntity.fullName + "/instances/");
       }, this);
       
       this.repository.loadEntities(function (entities) {

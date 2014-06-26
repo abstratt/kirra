@@ -24,7 +24,7 @@ qx.Class.define("kirra_qooxdoo.ActionForm", {
         _widgets: {},
         
         _back: function () {
-            var sourcePath = "/entity/" + this._entityName + "/instances/"
+            var sourcePath = "/entities/" + this._entityName + "/instances/"
             if (this._objectId) {
                 sourcePath += this._objectId;
             }

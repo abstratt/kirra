@@ -19,6 +19,8 @@ public interface Paths {
     String INSTANCES_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/";
     String INSTANCE_PATH = Paths.INSTANCES_PATH + "{objectId}";
     String INSTANCE_ACTION_PATH = INSTANCE_PATH + "/" + Paths.ACTIONS + "/{actionName}";
+    String RELATED_INSTANCES_PATH = INSTANCE_PATH + "/" + Paths.RELATIONSHIPS + "/{relationshipName}";
+    String RELATED_INSTANCE_PATH = RELATED_INSTANCES_PATH + "/{relatedObjectId}";
     String RELATIONSHIP_PATH = INSTANCE_PATH + "/" + Paths.RELATIONSHIPS + "/{relationshipName}/";
     String RELATIONSHIP_DOMAIN_PATH = RELATIONSHIP_PATH + DOMAIN;
     String INSTANCE_ACTION_PARAMETER_DOMAIN_PATH = INSTANCE_ACTION_PATH + "/" + Paths.PARAMETERS + "/{parameterName}/" + DOMAIN;

@@ -23,12 +23,17 @@ qx.Class.define("kirra_qooxdoo.Repository", {
         },
         
         listRelationshipDomain : function (entity, objectId, relationship, callback) {
-            var domainUri = entity.relationshipDomainUriTemplate || (entity.extentUri + "/" + objectId + '/relationships/'+ relationship.name + '/domain/');
+            var domainUri = entity.relationshipDomainUriTemplate || (entity.extentUri + "/(objectId)/relationships/(relationshipName)/domain/");
             this.tryToLoad(this.resolve(domainUri, { objectId: objectId, relationshipName: relationship.name }), callback);
         },
         
+        listRelatedInstances : function (entity, objectId, relationship, callback) {
+            var relatedInstancesUri = entity.relatedInstancesUriTemplate || (entity.extentUri + "/(objectId)/relationships/(relationshipName)/");
+            this.load(this.resolve(relatedInstancesUri, { objectId: objectId, relationshipName: relationship.name }), callback);
+        },
+        
         listParameterDomain : function (entity, objectId, action, parameter, callback) {
-            var domainUri = entity.instanceActionParameterDomainUriTemplate || (entity.extentUri + "/" + objectId + '/actions/'+ action.name + '/parameters/'+ parameter.name + '/domain/');
+            var domainUri = entity.instanceActionParameterDomainUriTemplate || (entity.extentUri + "/(objectId)/actions/(actionName)/parameters/(parameterName)/domain/");
             this.tryToLoad(this.resolve(domainUri, { objectId: objectId, actionName: action.name, parameterName: parameter.name }), callback);
         },
 
@@ -45,23 +50,23 @@ qx.Class.define("kirra_qooxdoo.Repository", {
             this.load(me._application.entities, callback, "_entityList");
         },
 
-        loadEntity: function (entityName, callback, retry) {
-            if (!entityName)
-                throw Error("Missing entityName: " + entityName);
+        loadEntity: function (entityFullName, callback, retry) {
+            if (!entityFullName)
+                throw Error("Missing entityFullName: " + entityFullName);
             for (var i in this._entityList) {
-                if (this._entityList[i].name == entityName) {
+                if (this._entityList[i].fullName == entityFullName) {
                     var entityUri = this._entityList[i].uri;
-                    this.load(entityUri, callback, "entity." + entityName);
+                    this.load(entityUri, callback, "entity." + entityFullName);
                     return;
                 }
             }
             if (retry === false)
-                throw Error("Entity not found: " + entityName);
+                throw Error("Entity not found: " + entityFullName);
             // entity not found - reload entities before giving up
             var me = this;
             this.loadEntities(function () {
                 // turn retry off
-                me.loadEntity(entityName, callback, false);
+                me.loadEntity(entityFullName, callback, false);
             });
         },
         
@@ -73,11 +78,11 @@ qx.Class.define("kirra_qooxdoo.Repository", {
             return resolved;
         },
 
-        loadInstances: function (entityName, callback, retry) {
-            if (!entityName)
-                throw Error("Missing entityName: " + entityName);
+        loadInstances: function (entityFullName, callback, retry) {
+            if (!entityFullName)
+                throw Error("Missing entityFullName: " + entityFullName);
             for (var i in this._entityList) {
-                if (this._entityList[i].name == entityName) {
+                if (this._entityList[i].fullName == entityFullName) {
                     var extentUri = this._entityList[i].extentUri;
                     this.load(extentUri, function (instances) {
                         callback(instances);
@@ -86,12 +91,12 @@ qx.Class.define("kirra_qooxdoo.Repository", {
                 }
             }
             if (retry === false)
-                throw Error("Entity not found: " + entityName);
+                throw Error("Entity not found: " + entityFullName);
             // entity not found - reload entities before giving up
             var me = this;
             this.loadEntities(function () {
                 // turn retry off
-                me.loadInstances(entityName, callback, false);
+                me.loadInstances(entityFullName, callback, false);
             });
         },
 

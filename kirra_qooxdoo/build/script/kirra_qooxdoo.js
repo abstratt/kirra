@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.ba2a2e9c5496.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.00ef55182b11.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",
@@ -40811,8 +40811,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "...",b = 'Entity',c = "/instances/",d = "Action",f = "Save",g = 'Date',h = "/entity/",j = "index",k = '_template',l = "Back",m = "No",n = "Are you sure?",o = "Yes",p = "tap",q = "/actions/",r = "Delete",s = "kirra_qooxdoo.InstanceForm",t = "qx.event.type.Data";
-  qx.Class.define(s, {
+  var a = "...",b = 'Entity',c = "/instances/",d = "Action",f = "Save",g = 'Date',h = "/entity/",j = "index",k = '_template',l = "Back",m = "No",n = "Are you sure?",o = "Yes",p = "Details",q = "tap",r = "/actions/",s = "Delete",t = "kirra_qooxdoo.InstanceForm",u = "qx.event.type.Data";
+  qx.Class.define(t, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
@@ -40822,7 +40822,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       this.setBackButtonText(l);
     },
     events : {
-      "show" : t
+      "show" : u
     },
     members : {
       _entityName : null,
@@ -40963,7 +40963,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var i in firstLevelItems){
 
           var actionButton = new qx.ui.mobile.form.Button(firstLevelItems[i]);
-          actionButton.addListener(p, function(e){
+          actionButton.addListener(q, function(e){
 
             var selected = me.getOperationByLabel(e.getTarget().getLabel());
             me.invokeAction(selected);
@@ -40974,11 +40974,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this.actionMenu.setItems(new qx.data.Array(menuItems));
         if(menuItems.length > 0){
 
-          actionMenuButton.addListener(p, function(e){
+          actionMenuButton.addListener(q, function(e){
 
             actionMenu.show();
           }, this);
-          actionMenu.addListener(p, function(e){
+          actionMenu.addListener(q, function(e){
 
             var selected = me._actions[actionMenu.getSelectedIndex() + firstLevelItems.length];
             me.invokeAction(selected);
@@ -40995,7 +40995,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           }, me.instanceLoader());
         } else {
 
-          qx.core.Init.getApplication().getRouting().executeGet(h + me._entityName + c + me._objectId + q + action.name);
+          qx.core.Init.getApplication().getRouting().executeGet(h + me._entityName + c + me._objectId + r + action.name);
         };
       },
       getOperationByLabel : function(operationLabel){
@@ -41025,16 +41025,40 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             this.buildWidgetFor(form, this._entity.properties[i]);
           };
         };
+        var hasMultiRelationship = false;
         for(var i in this._entity.relationships){
 
-          if(!this._entity.relationships[i].multiple){
+          var relationship = this._entity.relationships[i];
+          hasMultiRelationship = hasMultiRelationship || (relationship.multiple && relationship.navigable);
+          if(!relationship.multiple){
 
-            this.buildWidgetFor(form, this._entity.relationships[i]);
+            this.buildWidgetFor(form, relationship);
+          };
+        };
+        if(hasMultiRelationship){
+
+          var tabBar = new qx.ui.mobile.tabbar.TabBar();
+          this.getContent().add(tabBar);
+          var instanceDetailsTabButton = new qx.ui.mobile.tabbar.TabButton(p);
+          tabBar.add(instanceDetailsTabButton);
+          instanceDetailsTabButton.setView(instanceFormRenderer);
+          for(var i in this._entity.relationships){
+
+            var relationship = this._entity.relationships[i];
+            if(relationship.multiple && relationship.navigable){
+
+              this.buildRelationshipTabFor(tabBar, relationship);
+            };
           };
         };
         var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
         this.getContent().add(instanceFormRenderer);
         this.show();
+      },
+      buildRelationshipTabFor : function(tabBar, relationship){
+
+        var tabButton = new qx.ui.mobile.tabbar.TabButton(relationship.label);
+        tabBar.add(tabButton);
       },
       isNewInstance : function(){
 
@@ -41051,14 +41075,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var me = this;
         var saveButton = new qx.ui.mobile.form.Button(f);
-        saveButton.addListener(p, function(){
+        saveButton.addListener(q, function(){
 
           me.saveInstance();
         });
         this.toolbar.add(saveButton);
         if(!me.isNewInstance()){
 
-          var deleteButton = new qx.ui.mobile.form.Button(r);
+          var deleteButton = new qx.ui.mobile.form.Button(s);
           var deleteConfirmationPopup = me.buildConfirmation(deleteButton, function(){
 
             me.repository.deleteInstance(me._instance, function(){
@@ -41066,7 +41090,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
               me._back();
             });
           });
-          deleteButton.addListener(p, function(){
+          deleteButton.addListener(q, function(){
 
             deleteConfirmationPopup.show();
           });
@@ -41088,12 +41112,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         });
         popupWidget.add(buttonsWidget);
         var anchorPopup;
-        okButton.addListener(p, function(){
+        okButton.addListener(q, function(){
 
           anchorPopup.hide();
           toDo();
         }, this);
-        cancelButton.addListener(p, function(){
+        cancelButton.addListener(q, function(){
 
           anchorPopup.hide();
         }, this);
@@ -42624,6 +42648,120 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var clazz = formItem.constructor;
         return (qx.ui.form.Resetter.prototype._supportsValue.call(this, formItem) || qx.Class.hasMixin(clazz, qx.ui.mobile.form.MValue));
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "selected",b = "changeView",c = "changeSelection",d = "_applySelection",e = "tabBar",f = "qx.ui.mobile.tabbar.TabButton",g = "touchstart",h = "middle",i = "tap",j = "qx.ui.mobile.tabbar.TabBar";
+  qx.Class.define(j, {
+    extend : qx.ui.mobile.core.Widget,
+    construct : function(){
+
+      qx.ui.mobile.core.Widget.call(this);
+      this._setLayout(new qx.ui.mobile.layout.HBox(null, h));
+      this.addListener(i, this._onTap, this);
+      this.addListener(g, qx.bom.Event.preventDefault, this);
+    },
+    properties : {
+      defaultCssClass : {
+        refine : true,
+        init : e
+      },
+      selection : {
+        check : f,
+        nullable : true,
+        init : null,
+        apply : d,
+        event : c
+      }
+    },
+    members : {
+      _onTap : function(evt){
+
+        var target = evt.getTarget();
+        if(target instanceof qx.ui.mobile.tabbar.TabButton){
+
+          this.setSelection(target);
+        };
+      },
+      _applySelection : function(value, old){
+
+        if(old){
+
+          old.removeCssClass(a);
+          if(old.getView()){
+
+            old.getView().exclude();
+          };
+        };
+        if(value){
+
+          value.addCssClass(a);
+          if(value.getView()){
+
+            value.getView().show();
+          };
+        };
+      },
+      add : function(button){
+
+        this._add(button, {
+          flex : 1
+        });
+        if(!this.getSelection()){
+
+          this.setSelection(button);
+        };
+        button.addListener(b, this._onChangeView, this);
+      },
+      _onChangeView : function(evt){
+
+        if(this.getSelection() == evt.getTarget()){
+
+          evt.getData().show();
+        };
+      },
+      remove : function(button){
+
+        this._remove(button);
+        if(this.getSelection() == button){
+
+          this.setSelection(null);
+        };
+        button.removeListener(b, this._onChangeView, this);
+      }
+    },
+    destruct : function(){
+
+      this.removeListener(i, this._onTap, this);
+      this.removeListener(g, qx.bom.Event.preventDefault, this);
+    }
+  });
+})();
+(function(){
+
+  var a = "tabButton",b = "qx.ui.mobile.tabbar.TabButton",c = "_applyView",d = "qx.ui.mobile.core.Widget",e = "changeView";
+  qx.Class.define(b, {
+    extend : qx.ui.mobile.form.Button,
+    properties : {
+      defaultCssClass : {
+        refine : true,
+        init : a
+      },
+      view : {
+        check : d,
+        nullable : false,
+        init : null,
+        apply : c,
+        event : e
+      }
+    },
+    members : {
+      _applyView : function(value, old){
+
+        value.exclude();
       }
     }
   });

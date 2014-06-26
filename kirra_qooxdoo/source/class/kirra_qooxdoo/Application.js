@@ -78,6 +78,7 @@ qx.Class.define("kirra_qooxdoo.Application",
       this.mainPage = new kirra_qooxdoo.EntityNavigator(this.repository);
       this.instanceNavigator = new kirra_qooxdoo.InstanceNavigator(this.repository);
       this.instanceForm = new kirra_qooxdoo.InstanceForm(this.repository);
+      this.relatedInstanceNavigator = new kirra_qooxdoo.RelatedInstanceNavigator(this.repository);
       this.actionForm = new kirra_qooxdoo.ActionForm(this.repository);
       
       this.repository.loadApplication(function (application) {
@@ -89,25 +90,35 @@ qx.Class.define("kirra_qooxdoo.Application",
       manager.addDetail(this.instanceNavigator);
       manager.addDetail(this.instanceForm);
       manager.addDetail(this.actionForm);
+      manager.addDetail(this.relatedInstanceNavigator);
       var nm = new qx.application.Routing();
 
       nm.onGet("/", function(data) {
         this.mainPage.show();
       },this);
       
-      nm.onGet("/entity/{entity}/instances/", function(data) {
+      nm.onGet("/entities/{entity}/instances/", function(data) {
         this.instanceNavigator.showFor(data.params.entity);
       }, this);
       
-      nm.onGet("/entity/{entity}/instances/{objectId}", function(data) {
+      nm.onGet("/entities/{entity}/instances/{objectId}", function(data) {
         this.instanceForm.showFor(data.params.entity, data.params.objectId);
       }, this);
       
-      nm.onGet("/entity/{entity}/instances/{objectId}/actions/{actionName}", function(data) {
+      nm.onGet("/entities/{entity}/instances/{objectId}/relationships/{relationshipName}", function(data) {
+        this.relatedInstanceNavigator.showFor(data.params.entity, data.params.relationshipName, data.params.objectId);
+      }, this);
+      
+      nm.onGet("/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}", function(data) {
+          alert("Not implemented yet");
+      }, this);
+      
+      
+      nm.onGet("/entities/{entity}/instances/{objectId}/actions/{actionName}", function(data) {
         this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
       }, this);
       
-      nm.onGet("/entity/{entity}/actions/{actionName}", function(data) {
+      nm.onGet("/entities/{entity}/actions/{actionName}", function(data) {
         this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
       }, this);
       

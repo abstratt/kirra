@@ -1,4 +1,4 @@
-qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
+qx.Class.define("kirra_qooxdoo.RelatedInstanceNavigator", {
     extend: qx.ui.mobile.page.NavigationPage,
 
     construct: function (repository) {
@@ -54,33 +54,43 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
             this.getContent().add(list);
             list.addListener("changeSelection", function (evt) {
                 var instanceSelected = me._instanceList.getModel().getItem(evt.getData());
-                qx.core.Init.getApplication().getRouting().executeGet("/entities/" + me._entityName + "/instances/" + instanceSelected.objectId);
+                qx.core.Init.getApplication().getRouting().executeGet("/entities/" + me._entityName + "/instances/" + me._objectId + "/relationships/" + me._relationshipName + "/" + instanceSelected.objectId);
             }, this);
         },
         _start: function () {
             this.base(arguments);
         },
         _back: function () {
-            qx.core.Init.getApplication().getRouting().executeGet("/", {
+            var me = this;
+            qx.core.Init.getApplication().getRouting().executeGet("/entities/" + me._entityName + "/instances/" + me._objectId, {
                 reverse: true
             });
         },
-        showFor: function (entityName) {
+        showFor: function (entityName, relationshipName, objectId) {
             var me = this;
+            console.log("showFor: "+ entityName);
             this._entityName = entityName;
+            this._relationshipName = relationshipName;
+            this._objectId = objectId;
             me.show();
-            me.reloadInstances();
             this.repository.loadEntity(this._entityName, function (entity) { 
                 me._entity = entity;
-                me.setTitle(me._entity.label);
+                me._relationship = entity.relationships[me._relationshipName];
                 me.buildDetailProperties();
-                me.buildActions();
+                me.reloadInstances();
             });
         },
         reloadInstances : function () {
             var me = this;
-            this.repository.loadInstances(this._entityName, function (instances) {
-                me._instanceList.setModel(new qx.data.Array(instances.contents));
+            this.repository.listRelatedInstances(this._entity, this._objectId, this._relationship, function (instances) {
+                me.getContent().removeAll();
+                if (instances.contents.length === 0) {
+                    var nothingToSeeHere = new qx.ui.mobile.form.Label("No records found");
+                    me.getContent().add(nothingToSeeHere);
+                } else {
+                    me._instanceList.setModel(new qx.data.Array(instances.contents));
+                    me.getContent().add(me._instanceList);
+                }
             });
         },
         buildDetailProperties : function () {
@@ -97,44 +107,6 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
                 }
             }
             me._detailProperties = detailProperties;
-        },
-        buildActions : function () {
-            var me = this;
-            if (this._toolbar)
-                this._toolbar.destroy();
-            var toolbar = this._toolbar = new qx.ui.mobile.toolbar.ToolBar();
-            this.add(toolbar);
-
-            if (this._entity.instantiable) {
-                var actionButton = new qx.ui.mobile.form.Button("New");
-                actionButton.addListener("tap", function () {
-                    qx.core.Init.getApplication().getRouting().executeGet("/entities/" + me._entityName + "/instances/_template");
-                });
-                toolbar.add(actionButton);
-            } 
-
-            var allOps = this._entity.operations;
-            var staticActions = [];
-            for (var opName in allOps) {
-                var operation = allOps[opName];
-                if (!operation.instanceOperation && operation.kind === "Action") {
-                    staticActions.push(operation);
-                }
-            }
-            if (staticActions.length == 0)
-                return;
-            for (var i in staticActions) {
-                var actionButton = new qx.ui.mobile.form.Button(staticActions[i].label);
-                actionButton.addListener("tap", function () {
-                    if (staticActions[i].parameters.length === 0) {
-                        me.repository.sendStaticAction(me._entity, staticActions[i], {}, function () { me.reloadInstances(); });
-                    } else {
-                        qx.core.Init.getApplication().getRouting().executeGet("/entities/" + me._entityName + "/actions/" + staticActions[i].name); 
-                    }
-                });
-                toolbar.add(actionButton);
-            }
         }
-
     }
 });

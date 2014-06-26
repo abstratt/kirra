@@ -21,6 +21,8 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
         _instance: null,
         _entity: null,
         _widgets: {},
+        _relationshipTabs : {}, 
+        _relationshipMenuButton : null,
         _actions: [],
         _relationshipDomains: null,        
         // overridden
@@ -31,18 +33,19 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             this.base(arguments);
         },
         _back: function () {
-            qx.core.Init.getApplication().getRouting().executeGet("/entity/" + this._entityName + "/instances/", {
+            qx.core.Init.getApplication().getRouting().executeGet("/entities/" + this._entityName + "/instances/", {
                 reverse: true
             });
         },
         showFor: function (entityName, id) {
             var me = this;
             me._widgets = {},
-                me._entityName = entityName;
+            me._entityName = entityName;
             me._objectId = id;
             me._entity = null;
             me._instance = null;
             me._relationshipDomains = {};
+            me._relationshipTabs = {},
             me.repository.loadEntity(entityName, function (entity) {
                 me._entity = entity;
                 me.buildForm();
@@ -158,7 +161,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             if (action.parameters.length == 0) {
                 me.repository.sendAction(me._entity, me._objectId, action, {},  me.instanceLoader());
             } else {
-                qx.core.Init.getApplication().getRouting().executeGet("/entity/" + me._entityName + "/instances/" + me._objectId + "/actions/" + action.name); 
+                qx.core.Init.getApplication().getRouting().executeGet("/entities/" + me._entityName + "/instances/" + me._objectId + "/actions/" + action.name); 
             }
         },
 
@@ -180,6 +183,9 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             }
 
             this.getContent().removeAll();
+            if (me._relationshipMenuButton) {
+                me._relationshipMenuButton.destroy();
+            }
 
             var form = this.form = new qx.ui.mobile.form.Form();
             for (var i in this._entity.properties) {
@@ -187,16 +193,47 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                     this.buildWidgetFor(form, this._entity.properties[i]);
                 }
             }
+            var multiRelationships = this._multiRelationships = [];
             for (var i in this._entity.relationships) {
-                if (!this._entity.relationships[i].multiple) { 
-                    this.buildWidgetFor(form, this._entity.relationships[i]);
+                var relationship = this._entity.relationships[i];
+                if (relationship.multiple) {
+                    if (relationship.navigable) {
+                        multiRelationships.push(relationship);
+                    }
+                } else {
+                    this.buildWidgetFor(form, relationship);
                 }
-  
             }
             var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
+            this.buildMultiRelationshipViews(instanceFormRenderer);
             this.getContent().add(instanceFormRenderer);
-
             this.show();
+        },
+
+        buildMultiRelationshipViews : function (instanceFormRenderer) {
+            var me = this;
+            
+            var multiRelationships = this._multiRelationships;
+            if (multiRelationships.length === 0) {
+                return;
+            }
+        
+            var relationshipMenuButton = me._relationshipMenuButton = new qx.ui.mobile.navigationbar.Button("See also");
+            var relationshipMenuItems = [];
+            for (var i in multiRelationships) {
+                var relationship = multiRelationships[i];
+                relationshipMenuItems.push(relationship.label);
+            }
+            var relationshipMenu = new qx.ui.mobile.dialog.Menu(new qx.data.Array(relationshipMenuItems), relationshipMenuButton);
+            relationshipMenuButton.addListener("tap", function() {
+                relationshipMenu.show();
+            }, this);
+            relationshipMenu.addListener("tap", function() {
+                var selected = me._multiRelationships[relationshipMenu.getSelectedIndex()];
+                qx.core.Init.getApplication().getRouting().executeGet("/entities/" + me._entityName + "/instances/" + me._objectId + "/relationships/" + selected.name);
+            }, this);
+            
+            this.getRightContainer().add(relationshipMenuButton);
         },
         
         isNewInstance : function () {
@@ -272,7 +309,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                 }    
             }
             me.repository.saveInstance(me._entity, me._instance, function (created) { 
-                qx.core.Init.getApplication().getRouting().executeGet("/entity/" + me._entityName + "/instances/" + created.objectId)
+                qx.core.Init.getApplication().getRouting().executeGet("/entities/" + me._entityName + "/instances/" + created.objectId)
             });
         },
 
