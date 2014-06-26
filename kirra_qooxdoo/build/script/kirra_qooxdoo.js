@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.00ef55182b11.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.9064630c06d5.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",
@@ -15343,7 +15343,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "Missing entity or extentUri",b = "loadEnd",c = ")",d = "success",f = "Missing instance or instance URI",g = "/actions/(actionName)",h = '/relationships/',j = "(actionName)",k = "application/json",l = "kirra_qooxdoo.Repository",m = '/actions/',n = "PUT",o = ":",q = "(objectId)/actions/(actionName)",r = "entity.",s = "yyyy/MM/dd",t = "://",u = "Please wait",v = "Missing entityName: ",w = "",x = "Entity not found: ",y = "(",z = '/parameters/',A = "DELETE",B = "POST",C = "/",D = "_entityList",E = 'GET',F = 'string',G = "Content-Type",H = " ",I = "_application",J = "Missing objectId",K = '/domain/';
+  var a = "/(objectId)/actions/(actionName)/parameters/(parameterName)/domain/",b = "Missing entity or extentUri",c = "loadEnd",d = ")",f = "success",g = "Missing instance or instance URI",h = "/actions/(actionName)",j = "(actionName)",k = "application/json",l = "kirra_qooxdoo.Repository",m = "PUT",n = ":",o = "(objectId)/actions/(actionName)",q = "entity.",r = "yyyy/MM/dd",s = "://",t = "Please wait",u = "Missing entityFullName: ",v = "",w = "Entity not found: ",x = "(",y = "/(objectId)/relationships/(relationshipName)/domain/",z = "DELETE",A = "POST",B = "/(objectId)/relationships/(relationshipName)/",C = "_entityList",D = 'GET',E = 'string',F = "Content-Type",G = " ",H = "_application",I = "Missing objectId";
   qx.Class.define(l, {
     extend : qx.core.Object,
     construct : function(applicationUri){
@@ -15351,7 +15351,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       qx.core.Object.call(this);
       this._parsedApplicationUri = qx.util.Uri.parseUri(applicationUri);
       this._applicationUri = applicationUri;
-      var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator(u);
+      var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator(t);
       this._busyPopup = new qx.ui.mobile.dialog.Popup(busyIndicator);
     },
     members : {
@@ -15364,19 +15364,27 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _busyPopup : null,
       loadApplication : function(callback){
 
-        this.load(this._applicationUri, callback, I);
+        this.load(this._applicationUri, callback, H);
       },
       listRelationshipDomain : function(entity, objectId, relationship, callback){
 
-        var domainUri = entity.relationshipDomainUriTemplate || (entity.extentUri + C + objectId + h + relationship.name + K);
+        var domainUri = entity.relationshipDomainUriTemplate || (entity.extentUri + y);
         this.tryToLoad(this.resolve(domainUri, {
+          objectId : objectId,
+          relationshipName : relationship.name
+        }), callback);
+      },
+      listRelatedInstances : function(entity, objectId, relationship, callback){
+
+        var relatedInstancesUri = entity.relatedInstancesUriTemplate || (entity.extentUri + B);
+        this.load(this.resolve(relatedInstancesUri, {
           objectId : objectId,
           relationshipName : relationship.name
         }), callback);
       },
       listParameterDomain : function(entity, objectId, action, parameter, callback){
 
-        var domainUri = entity.instanceActionParameterDomainUriTemplate || (entity.extentUri + C + objectId + m + action.name + z + parameter.name + K);
+        var domainUri = entity.instanceActionParameterDomainUriTemplate || (entity.extentUri + a);
         this.tryToLoad(this.resolve(domainUri, {
           objectId : objectId,
           actionName : action.name,
@@ -15395,25 +15403,25 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           });
           return;
         };
-        this.load(me._application.entities, callback, D);
+        this.load(me._application.entities, callback, C);
       },
-      loadEntity : function(entityName, callback, retry){
+      loadEntity : function(entityFullName, callback, retry){
 
-        if(!entityName)throw Error(v + entityName);
+        if(!entityFullName)throw Error(u + entityFullName);
         for(var i in this._entityList){
 
-          if(this._entityList[i].name == entityName){
+          if(this._entityList[i].fullName == entityFullName){
 
             var entityUri = this._entityList[i].uri;
-            this.load(entityUri, callback, r + entityName);
+            this.load(entityUri, callback, q + entityFullName);
             return;
           };
         };
-        if(retry === false)throw Error(x + entityName);
+        if(retry === false)throw Error(w + entityFullName);
         var me = this;
         this.loadEntities(function(){
 
-          me.loadEntity(entityName, callback, false);
+          me.loadEntity(entityFullName, callback, false);
         });
       },
       resolve : function(template, values){
@@ -15421,16 +15429,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var resolved = template;
         for(var p in values){
 
-          resolved = resolved.replace(y + p + c, values[p]);
+          resolved = resolved.replace(x + p + d, values[p]);
         };
         return resolved;
       },
-      loadInstances : function(entityName, callback, retry){
+      loadInstances : function(entityFullName, callback, retry){
 
-        if(!entityName)throw Error(v + entityName);
+        if(!entityFullName)throw Error(u + entityFullName);
         for(var i in this._entityList){
 
-          if(this._entityList[i].name == entityName){
+          if(this._entityList[i].fullName == entityFullName){
 
             var extentUri = this._entityList[i].extentUri;
             this.load(extentUri, function(instances){
@@ -15440,17 +15448,17 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             return;
           };
         };
-        if(retry === false)throw Error(x + entityName);
+        if(retry === false)throw Error(w + entityFullName);
         var me = this;
         this.loadEntities(function(){
 
-          me.loadInstances(entityName, callback, false);
+          me.loadInstances(entityFullName, callback, false);
         });
       },
       loadInstance : function(entity, objectId, callback){
 
-        if(!entity || !entity.extentUri)throw Error(a);
-        if(!objectId)throw Error(J);
+        if(!entity || !entity.extentUri)throw Error(b);
+        if(!objectId)throw Error(I);
         var instanceUri = entity.instanceUriTemplate || (entity.extentUri + objectId);
         this.load(this.resolve(instanceUri, {
           objectId : objectId
@@ -15458,7 +15466,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       saveInstance : function(entity, instance, callback){
 
-        if(!instance || !instance.uri)throw Error(f);
+        if(!instance || !instance.uri)throw Error(g);
         if(instance.objectId){
 
           this.put(instance.uri, instance, callback);
@@ -15469,13 +15477,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       deleteInstance : function(instance, callback){
 
-        if(!instance || !instance.uri)throw Error(f);
+        if(!instance || !instance.uri)throw Error(g);
         this.remove(instance.uri, callback);
       },
       sendAction : function(entity, objectId, operation, arguments, callback){
 
         var me = this;
-        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + q);
+        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + o);
         this.post(this.resolve(instanceActionUri, {
           objectId : objectId,
           actionName : operation.name
@@ -15488,7 +15496,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       sendStaticAction : function(entity, operation, arguments, callback){
 
         var me = this;
-        var entityActionUri = entity.entityActionUriTemplate || (entity.uri + g);
+        var entityActionUri = entity.entityActionUriTemplate || (entity.uri + h);
         this.post(entityActionUri.replace(j, operation.name), arguments || {
         }, callback);
       },
@@ -15508,23 +15516,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       remove : function(uri, callback){
 
-        var req = this.buildRequest(uri, A);
+        var req = this.buildRequest(uri, z);
         this.sendRequest(req, callback);
       },
       post : function(uri, data, callback){
 
-        var req = this.buildRequest(uri, B);
-        req.setRequestHeader(G, k);
+        var req = this.buildRequest(uri, A);
+        req.setRequestHeader(F, k);
         req.setRequestData(qx.util.Serializer.toJson(data, (function(){
-        }), new qx.util.format.DateFormat(s)));
+        }), new qx.util.format.DateFormat(r)));
         this.sendRequest(req, callback);
       },
       put : function(uri, data, callback){
 
-        var req = this.buildRequest(uri, n);
-        req.setRequestHeader(G, k);
+        var req = this.buildRequest(uri, m);
+        req.setRequestHeader(F, k);
         req.setRequestData(qx.util.Serializer.toJson(data, (function(){
-        }), new qx.util.format.DateFormat(s)));
+        }), new qx.util.format.DateFormat(r)));
         this.sendRequest(req, callback);
       },
       sendRequest : function(req, callback, slotName){
@@ -15532,7 +15540,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var me = this;
         if(me._level == 0)me._busyPopup.toggleVisibility();
         me._level = me._level + 1;
-        req.addListener(d, function(e){
+        req.addListener(f, function(e){
 
           var req = e.getTarget();
           var response = undefined;
@@ -15540,13 +15548,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             response = req.getResponse();
             if(slotName)me[slotName] = response;
-            if(typeof (response) === F)response = JSON.parse(response);
+            if(typeof (response) === E)response = JSON.parse(response);
           };
-          console.log(req.method + H + req.getUrl());
+          console.log(req.method + G + req.getUrl());
           console.log(response);
           if(callback)callback(response);
         }, this);
-        req.addListener(b, function(e){
+        req.addListener(c, function(e){
 
           me._level = me._level - 1;
           if(me._level === 0)me._busyPopup.hide();
@@ -15558,9 +15566,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var parsedUri = qx.util.Uri.parseUri(uri);
         if(!parsedUri.protocol){
 
-          uri = this._parsedApplicationUri.protocol + t + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (o + this._parsedApplicationUri.port) : w) + this._parsedApplicationUri.directory + uri;
+          uri = this._parsedApplicationUri.protocol + s + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (n + this._parsedApplicationUri.port) : v) + this._parsedApplicationUri.directory + uri;
         };
-        return new qx.io.request.Xhr(uri, method || E);
+        return new qx.io.request.Xhr(uri, method || D);
       }
     }
   });
@@ -37798,8 +37806,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "/entity/{entity}/actions/{actionName}",b = "[?&]?app-path\=(.*)\&?",c = "kirra_qooxdoo.Application",d = "/entity/{entity}/instances/{objectId}/actions/{actionName}",e = "/entity/{entity}/instances/{objectId}",f = "device.type",g = "tablet",h = "[?&]?app-uri\=(.*)\&?",i = "/entity/{entity}/instances/",j = "desktop",k = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.",l = "/";
-  qx.Class.define(c, {
+  var a = "[?&]?app-path\=(.*)\&?",b = "/entities/{entity}/instances/",c = "/entities/{entity}/actions/{actionName}",d = "kirra_qooxdoo.Application",e = "/entities/{entity}/instances/{objectId}",f = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}",g = "device.type",h = "tablet",i = "[?&]?app-uri\=(.*)\&?",j = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}",k = "desktop",l = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.",m = "/",n = "/entities/{entity}/instances/{objectId}/actions/{actionName}",o = "Not implemented yet";
+  qx.Class.define(d, {
     extend : qx.application.Mobile,
     properties : {
       routing : {
@@ -37813,21 +37821,22 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         {
         };
         var me = this;
-        var uriMatches = window.location.search.match(h);
-        var pathMatches = window.location.search.match(b);
+        var uriMatches = window.location.search.match(i);
+        var pathMatches = window.location.search.match(a);
         if(!uriMatches && !pathMatches){
 
-          var abortMessage = k;
+          var abortMessage = l;
           alert(abortMessage);
           throw Error(abortMessage);
         };
         var apiBaseUri = uriMatches ? uriMatches[1] : (window.location.origin + pathMatches[1]);
-        var isTablet = (qx.core.Environment.get(f) == g);
-        var isDesktop = (qx.core.Environment.get(f) == j);
+        var isTablet = (qx.core.Environment.get(g) == h);
+        var isDesktop = (qx.core.Environment.get(g) == k);
         this.repository = new kirra_qooxdoo.Repository(apiBaseUri);
         this.mainPage = new kirra_qooxdoo.EntityNavigator(this.repository);
         this.instanceNavigator = new kirra_qooxdoo.InstanceNavigator(this.repository);
         this.instanceForm = new kirra_qooxdoo.InstanceForm(this.repository);
+        this.relatedInstanceNavigator = new kirra_qooxdoo.RelatedInstanceNavigator(this.repository);
         this.actionForm = new kirra_qooxdoo.ActionForm(this.repository);
         this.repository.loadApplication(function(application){
 
@@ -37838,12 +37847,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         manager.addDetail(this.instanceNavigator);
         manager.addDetail(this.instanceForm);
         manager.addDetail(this.actionForm);
+        manager.addDetail(this.relatedInstanceNavigator);
         var nm = new qx.application.Routing();
-        nm.onGet(l, function(data){
+        nm.onGet(m, function(data){
 
           this.mainPage.show();
         }, this);
-        nm.onGet(i, function(data){
+        nm.onGet(b, function(data){
 
           this.instanceNavigator.showFor(data.params.entity);
         }, this);
@@ -37851,11 +37861,19 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           this.instanceForm.showFor(data.params.entity, data.params.objectId);
         }, this);
-        nm.onGet(d, function(data){
+        nm.onGet(j, function(data){
+
+          this.relatedInstanceNavigator.showFor(data.params.entity, data.params.relationshipName, data.params.objectId);
+        }, this);
+        nm.onGet(f, function(data){
+
+          alert(o);
+        }, this);
+        nm.onGet(n, function(data){
 
           this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
         }, this);
-        nm.onGet(a, function(data){
+        nm.onGet(c, function(data){
 
           this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
         }, this);
@@ -39361,14 +39379,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "Log in",b = "Log out",c = "/instances/",d = "/entity/",e = "Overview",f = "changeSelection",g = "kirra_qooxdoo.EntityNavigator",h = "qx.event.type.Data";
+  var a = "Log in",b = "Log out",c = "/instances/",d = "Overview",e = "/entities/",f = "changeSelection",g = "kirra_qooxdoo.EntityNavigator",h = "qx.event.type.Data";
   qx.Class.define(g, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
-      this.setTitle(e);
+      this.setTitle(d);
       this.setShowBackButton(true);
       this.setBackButtonText(b);
     },
@@ -39393,7 +39411,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         list.addListener(f, function(evt){
 
           var selectedEntity = list.getModel().getItem(evt.getData());
-          qx.core.Init.getApplication().getRouting().executeGet(d + selectedEntity.name + c);
+          qx.core.Init.getApplication().getRouting().executeGet(e + selectedEntity.fullName + c);
         }, this);
         this.repository.loadEntities(function(entities){
 
@@ -40568,19 +40586,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "/instances/",b = "",c = "New",d = 'Date',f = "/entity/",g = "kirra_qooxdoo.InstanceNavigator",h = "Action",j = "Instances",k = "Back",l = "changeSelection",m = "tap",n = "/instances/_template",o = ": ",q = ", ",r = "/",s = "/actions/",t = "qx.event.type.Data";
+  var a = "/entities/",b = "/instances/",c = "",d = "New",f = 'Date',g = "kirra_qooxdoo.InstanceNavigator",h = "Action",j = "Back",k = "changeSelection",l = "tap",m = "/instances/_template",n = ": ",o = ", ",q = "/",r = "/actions/",s = "qx.event.type.Data";
   qx.Class.define(g, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
-      this.setTitle(j);
       this.setShowBackButton(true);
-      this.setBackButtonText(k);
+      this.setBackButtonText(j);
     },
     events : {
-      "show" : t
+      "show" : s
     },
     members : {
       _entityName : null,
@@ -40595,14 +40612,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           configureItem : function(item, data, row){
 
             item.setTitle(data.shorthand);
-            item.setSubtitle(b);
+            item.setSubtitle(c);
             item.setShowArrow(true);
             item.data = data;
             var details = [],value,detail;
             for(name in me._detailProperties){
 
               value = data.values[name];
-              if(me._entity.properties[name].typeRef && me._entity.properties[name].typeRef.typeName === d){
+              if(me._entity.properties[name].typeRef && me._entity.properties[name].typeRef.typeName === f){
 
                 try{
 
@@ -40613,19 +40630,19 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
               if(value && value != null){
 
                 detail = me._detailProperties[name].label;
-                if(value !== true)detail += o + value;
+                if(value !== true)detail += n + value;
                 details.push(detail);
               };
             };
-            item.setSubtitle(details.join(q));
+            item.setSubtitle(details.join(o));
             item.setShowArrow(true);
           }
         });
         this.getContent().add(list);
-        list.addListener(l, function(evt){
+        list.addListener(k, function(evt){
 
           var instanceSelected = me._instanceList.getModel().getItem(evt.getData());
-          qx.core.Init.getApplication().getRouting().executeGet(f + me._entityName + a + instanceSelected.objectId);
+          qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + b + instanceSelected.objectId);
         }, this);
       },
       _start : function(){
@@ -40634,7 +40651,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _back : function(){
 
-        qx.core.Init.getApplication().getRouting().executeGet(r, {
+        qx.core.Init.getApplication().getRouting().executeGet(q, {
           reverse : true
         });
       },
@@ -40647,6 +40664,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this.repository.loadEntity(this._entityName, function(entity){
 
           me._entity = entity;
+          me.setTitle(me._entity.label);
           me.buildDetailProperties();
           me.buildActions();
         });
@@ -40657,7 +40675,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this.repository.loadInstances(this._entityName, function(instances){
 
           me._instanceList.setModel(new qx.data.Array(instances.contents));
-          me.setTitle(me._entityName);
         });
       },
       buildDetailProperties : function(){
@@ -40689,10 +40706,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this.add(toolbar);
         if(this._entity.instantiable){
 
-          var actionButton = new qx.ui.mobile.form.Button(c);
-          actionButton.addListener(m, function(){
+          var actionButton = new qx.ui.mobile.form.Button(d);
+          actionButton.addListener(l, function(){
 
-            qx.core.Init.getApplication().getRouting().executeGet(f + me._entityName + n);
+            qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + m);
           });
           toolbar.add(actionButton);
         };
@@ -40710,7 +40727,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var i in staticActions){
 
           var actionButton = new qx.ui.mobile.form.Button(staticActions[i].label);
-          actionButton.addListener(m, function(){
+          actionButton.addListener(l, function(){
 
             if(staticActions[i].parameters.length === 0){
 
@@ -40721,7 +40738,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
               });
             } else {
 
-              qx.core.Init.getApplication().getRouting().executeGet(f + me._entityName + s + staticActions[i].name);
+              qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + r + staticActions[i].name);
             };
           });
           toolbar.add(actionButton);
@@ -40811,18 +40828,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "...",b = 'Entity',c = "/instances/",d = "Action",f = "Save",g = 'Date',h = "/entity/",j = "index",k = '_template',l = "Back",m = "No",n = "Are you sure?",o = "Yes",p = "Details",q = "tap",r = "/actions/",s = "Delete",t = "kirra_qooxdoo.InstanceForm",u = "qx.event.type.Data";
-  qx.Class.define(t, {
+  var a = "/relationships/",b = "/entities/",c = 'Entity',d = "/instances/",f = "Action",g = "Save",h = 'Date',j = "index",k = '_template',l = "See also",m = "Back",n = "...",o = "Are you sure?",p = "Yes",q = "tap",r = "/actions/",s = "Delete",t = "No",u = "kirra_qooxdoo.InstanceForm",v = "qx.event.type.Data";
+  qx.Class.define(u, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
       this.setShowBackButton(true);
-      this.setBackButtonText(l);
+      this.setBackButtonText(m);
     },
     events : {
-      "show" : u
+      "show" : v
     },
     members : {
       _entityName : null,
@@ -40831,6 +40848,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _entity : null,
       _widgets : {
       },
+      _relationshipTabs : {
+      },
+      _relationshipMenuButton : null,
       _actions : [],
       _relationshipDomains : null,
       _initialize : function(){
@@ -40843,7 +40863,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _back : function(){
 
-        qx.core.Init.getApplication().getRouting().executeGet(h + this._entityName + c, {
+        qx.core.Init.getApplication().getRouting().executeGet(b + this._entityName + d, {
           reverse : true
         });
       },
@@ -40857,7 +40877,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         me._instance = null;
         me._relationshipDomains = {
         };
-        me.repository.loadEntity(entityName, function(entity){
+        me._relationshipTabs = {
+        } , me.repository.loadEntity(entityName, function(entity){
 
           me._entity = entity;
           me.buildForm();
@@ -40895,7 +40916,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             if(!me.isNewInstance() || property.editable){
 
-              if(property.typeRef && property.typeRef.typeName === g){
+              if(property.typeRef && property.typeRef.typeName === h){
 
                 try{
 
@@ -40938,7 +40959,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           return;
         };
-        var actionMenuButton = this.actionMenuButton = new qx.ui.mobile.form.Button(a);
+        var actionMenuButton = this.actionMenuButton = new qx.ui.mobile.form.Button(n);
         var actionMenu = this.actionMenu = new qx.ui.mobile.dialog.Menu(new qx.data.Array([]), actionMenuButton);
         var menuItems = [];
         this._actions = [];
@@ -40946,7 +40967,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var actionName in this._entity.operations){
 
           var operation = this._entity.operations[actionName];
-          if(operation.instanceOperation && operation.kind === d && this._instance.disabledActions[actionName] === undefined)this._actions.push(operation);
+          if(operation.instanceOperation && operation.kind === f && this._instance.disabledActions[actionName] === undefined)this._actions.push(operation);
         };
         var overflowStartsAt = this._actions.length > 2 ? 1 : Infinity;
         for(var i in this._actions){
@@ -40995,7 +41016,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           }, me.instanceLoader());
         } else {
 
-          qx.core.Init.getApplication().getRouting().executeGet(h + me._entityName + c + me._objectId + r + action.name);
+          qx.core.Init.getApplication().getRouting().executeGet(b + me._entityName + d + me._objectId + r + action.name);
         };
       },
       getOperationByLabel : function(operationLabel){
@@ -41017,6 +41038,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           return;
         };
         this.getContent().removeAll();
+        if(me._relationshipMenuButton){
+
+          me._relationshipMenuButton.destroy();
+        };
         var form = this.form = new qx.ui.mobile.form.Form();
         for(var i in this._entity.properties){
 
@@ -41025,40 +41050,52 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             this.buildWidgetFor(form, this._entity.properties[i]);
           };
         };
-        var hasMultiRelationship = false;
+        var multiRelationships = this._multiRelationships = [];
         for(var i in this._entity.relationships){
 
           var relationship = this._entity.relationships[i];
-          hasMultiRelationship = hasMultiRelationship || (relationship.multiple && relationship.navigable);
-          if(!relationship.multiple){
+          if(relationship.multiple){
+
+            if(relationship.navigable){
+
+              multiRelationships.push(relationship);
+            };
+          } else {
 
             this.buildWidgetFor(form, relationship);
           };
         };
-        if(hasMultiRelationship){
-
-          var tabBar = new qx.ui.mobile.tabbar.TabBar();
-          this.getContent().add(tabBar);
-          var instanceDetailsTabButton = new qx.ui.mobile.tabbar.TabButton(p);
-          tabBar.add(instanceDetailsTabButton);
-          instanceDetailsTabButton.setView(instanceFormRenderer);
-          for(var i in this._entity.relationships){
-
-            var relationship = this._entity.relationships[i];
-            if(relationship.multiple && relationship.navigable){
-
-              this.buildRelationshipTabFor(tabBar, relationship);
-            };
-          };
-        };
         var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
+        this.buildMultiRelationshipViews(instanceFormRenderer);
         this.getContent().add(instanceFormRenderer);
         this.show();
       },
-      buildRelationshipTabFor : function(tabBar, relationship){
+      buildMultiRelationshipViews : function(instanceFormRenderer){
 
-        var tabButton = new qx.ui.mobile.tabbar.TabButton(relationship.label);
-        tabBar.add(tabButton);
+        var me = this;
+        var multiRelationships = this._multiRelationships;
+        if(multiRelationships.length === 0){
+
+          return;
+        };
+        var relationshipMenuButton = me._relationshipMenuButton = new qx.ui.mobile.navigationbar.Button(l);
+        var relationshipMenuItems = [];
+        for(var i in multiRelationships){
+
+          var relationship = multiRelationships[i];
+          relationshipMenuItems.push(relationship.label);
+        };
+        var relationshipMenu = new qx.ui.mobile.dialog.Menu(new qx.data.Array(relationshipMenuItems), relationshipMenuButton);
+        relationshipMenuButton.addListener(q, function(){
+
+          relationshipMenu.show();
+        }, this);
+        relationshipMenu.addListener(q, function(){
+
+          var selected = me._multiRelationships[relationshipMenu.getSelectedIndex()];
+          qx.core.Init.getApplication().getRouting().executeGet(b + me._entityName + d + me._objectId + a + selected.name);
+        }, this);
+        this.getRightContainer().add(relationshipMenuButton);
       },
       isNewInstance : function(){
 
@@ -41074,7 +41111,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       addBasicButtons : function(){
 
         var me = this;
-        var saveButton = new qx.ui.mobile.form.Button(f);
+        var saveButton = new qx.ui.mobile.form.Button(g);
         saveButton.addListener(q, function(){
 
           me.saveInstance();
@@ -41100,10 +41137,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       buildConfirmation : function(anchorWidget, toDo){
 
         var popupWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
-        popupWidget.add(new qx.ui.mobile.basic.Label(n));
+        popupWidget.add(new qx.ui.mobile.basic.Label(o));
         var buttonsWidget = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
-        var okButton = new qx.ui.mobile.form.Button(o);
-        var cancelButton = new qx.ui.mobile.form.Button(m);
+        var okButton = new qx.ui.mobile.form.Button(p);
+        var cancelButton = new qx.ui.mobile.form.Button(t);
         buttonsWidget.add(okButton, {
           flex : 1
         });
@@ -41144,7 +41181,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         me.repository.saveInstance(me._entity, me._instance, function(created){
 
-          qx.core.Init.getApplication().getRouting().executeGet(h + me._entityName + c + created.objectId);
+          qx.core.Init.getApplication().getRouting().executeGet(b + me._entityName + d + created.objectId);
         });
       },
       buildWidgetFor : function(form, property){
@@ -41160,7 +41197,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var me = this;
         var kind = property.typeRef && property.typeRef.kind;
-        if(kind !== b){
+        if(kind !== c){
 
           return me.noOpValueEnumerator;
         };
@@ -42648,120 +42685,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var clazz = formItem.constructor;
         return (qx.ui.form.Resetter.prototype._supportsValue.call(this, formItem) || qx.Class.hasMixin(clazz, qx.ui.mobile.form.MValue));
-      }
-    }
-  });
-})();
-(function(){
-
-  var a = "selected",b = "changeView",c = "changeSelection",d = "_applySelection",e = "tabBar",f = "qx.ui.mobile.tabbar.TabButton",g = "touchstart",h = "middle",i = "tap",j = "qx.ui.mobile.tabbar.TabBar";
-  qx.Class.define(j, {
-    extend : qx.ui.mobile.core.Widget,
-    construct : function(){
-
-      qx.ui.mobile.core.Widget.call(this);
-      this._setLayout(new qx.ui.mobile.layout.HBox(null, h));
-      this.addListener(i, this._onTap, this);
-      this.addListener(g, qx.bom.Event.preventDefault, this);
-    },
-    properties : {
-      defaultCssClass : {
-        refine : true,
-        init : e
-      },
-      selection : {
-        check : f,
-        nullable : true,
-        init : null,
-        apply : d,
-        event : c
-      }
-    },
-    members : {
-      _onTap : function(evt){
-
-        var target = evt.getTarget();
-        if(target instanceof qx.ui.mobile.tabbar.TabButton){
-
-          this.setSelection(target);
-        };
-      },
-      _applySelection : function(value, old){
-
-        if(old){
-
-          old.removeCssClass(a);
-          if(old.getView()){
-
-            old.getView().exclude();
-          };
-        };
-        if(value){
-
-          value.addCssClass(a);
-          if(value.getView()){
-
-            value.getView().show();
-          };
-        };
-      },
-      add : function(button){
-
-        this._add(button, {
-          flex : 1
-        });
-        if(!this.getSelection()){
-
-          this.setSelection(button);
-        };
-        button.addListener(b, this._onChangeView, this);
-      },
-      _onChangeView : function(evt){
-
-        if(this.getSelection() == evt.getTarget()){
-
-          evt.getData().show();
-        };
-      },
-      remove : function(button){
-
-        this._remove(button);
-        if(this.getSelection() == button){
-
-          this.setSelection(null);
-        };
-        button.removeListener(b, this._onChangeView, this);
-      }
-    },
-    destruct : function(){
-
-      this.removeListener(i, this._onTap, this);
-      this.removeListener(g, qx.bom.Event.preventDefault, this);
-    }
-  });
-})();
-(function(){
-
-  var a = "tabButton",b = "qx.ui.mobile.tabbar.TabButton",c = "_applyView",d = "qx.ui.mobile.core.Widget",e = "changeView";
-  qx.Class.define(b, {
-    extend : qx.ui.mobile.form.Button,
-    properties : {
-      defaultCssClass : {
-        refine : true,
-        init : a
-      },
-      view : {
-        check : d,
-        nullable : false,
-        init : null,
-        apply : c,
-        event : e
-      }
-    },
-    members : {
-      _applyView : function(value, old){
-
-        value.exclude();
       }
     }
   });
@@ -44271,7 +44194,136 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = 'Entity',b = "/instances/",c = "/entity/",d = "kirra_qooxdoo.ActionForm",e = "Cancel",f = "tap",g = "index",h = "qx.event.type.Data";
+  var a = "/entities/",b = "/instances/",c = "",d = 'Date',f = "No records found",g = "showFor: ",h = "/relationships/",i = "Back",j = "changeSelection",k = "/",l = "kirra_qooxdoo.RelatedInstanceNavigator",m = ", ",n = ": ",o = "qx.event.type.Data";
+  qx.Class.define(l, {
+    extend : qx.ui.mobile.page.NavigationPage,
+    construct : function(repository){
+
+      qx.ui.mobile.page.NavigationPage.call(this);
+      this.repository = repository;
+      this.setShowBackButton(true);
+      this.setBackButtonText(i);
+    },
+    events : {
+      "show" : o
+    },
+    members : {
+      _entityName : null,
+      _entity : null,
+      _toolbar : null,
+      _instanceList : null,
+      _initialize : function(){
+
+        qx.ui.mobile.page.NavigationPage.prototype._initialize.call(this);
+        var me = this;
+        var list = this._instanceList = new qx.ui.mobile.list.List({
+          configureItem : function(item, data, row){
+
+            item.setTitle(data.shorthand);
+            item.setSubtitle(c);
+            item.setShowArrow(true);
+            item.data = data;
+            var details = [],value,detail;
+            for(name in me._detailProperties){
+
+              value = data.values[name];
+              if(me._entity.properties[name].typeRef && me._entity.properties[name].typeRef.typeName === d){
+
+                try{
+
+                  value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
+                } catch(e) {
+                };
+              };
+              if(value && value != null){
+
+                detail = me._detailProperties[name].label;
+                if(value !== true)detail += n + value;
+                details.push(detail);
+              };
+            };
+            item.setSubtitle(details.join(m));
+            item.setShowArrow(true);
+          }
+        });
+        this.getContent().add(list);
+        list.addListener(j, function(evt){
+
+          var instanceSelected = me._instanceList.getModel().getItem(evt.getData());
+          qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + b + me._objectId + h + me._relationshipName + k + instanceSelected.objectId);
+        }, this);
+      },
+      _start : function(){
+
+        qx.ui.mobile.page.NavigationPage.prototype._start.call(this);
+      },
+      _back : function(){
+
+        var me = this;
+        qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + b + me._objectId, {
+          reverse : true
+        });
+      },
+      showFor : function(entityName, relationshipName, objectId){
+
+        var me = this;
+        console.log(g + entityName);
+        this._entityName = entityName;
+        this._relationshipName = relationshipName;
+        this._objectId = objectId;
+        me.show();
+        this.repository.loadEntity(this._entityName, function(entity){
+
+          me._entity = entity;
+          me._relationship = entity.relationships[me._relationshipName];
+          me.buildDetailProperties();
+          me.reloadInstances();
+        });
+      },
+      reloadInstances : function(){
+
+        var me = this;
+        this.repository.listRelatedInstances(this._entity, this._objectId, this._relationship, function(instances){
+
+          me.getContent().removeAll();
+          if(instances.contents.length === 0){
+
+            var nothingToSeeHere = new qx.ui.mobile.form.Label(f);
+            me.getContent().add(nothingToSeeHere);
+          } else {
+
+            me._instanceList.setModel(new qx.data.Array(instances.contents));
+            me.getContent().add(me._instanceList);
+          };
+        });
+      },
+      buildDetailProperties : function(){
+
+        var me = this;
+        var detailProperties = {
+        };
+        var skippedMnemonic = false;
+        for(var p in me._entity.properties){
+
+          if(me._entity.properties[p].userVisible){
+
+            if(skippedMnemonic){
+
+              detailProperties[p] = {
+                label : me._entity.properties[p].label
+              };
+            };
+            skippedMnemonic = true;
+          };
+        };
+        me._detailProperties = detailProperties;
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "/entities/",b = 'Entity',c = "/instances/",d = "kirra_qooxdoo.ActionForm",e = "Cancel",f = "tap",g = "index",h = "qx.event.type.Data";
   qx.Class.define(d, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
@@ -44294,7 +44346,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _back : function(){
 
-        var sourcePath = c + this._entityName + b;
+        var sourcePath = a + this._entityName + c;
         if(this._objectId){
 
           sourcePath += this._objectId;
@@ -44389,7 +44441,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var i in this._action.parameters){
 
           var parameterName = this._action.parameters[i].name;
-          if(this._action.parameters[i].typeRef.kind == a){
+          if(this._action.parameters[i].typeRef.kind == b){
 
             var referenceIndex = me._widgets[parameterName]._getAttribute(g);
             arguments[parameterName] = me._parameterDomains[parameterName][referenceIndex];
@@ -44416,7 +44468,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var me = this;
         var kind = parameter.typeRef && parameter.typeRef.kind;
-        if(kind !== a){
+        if(kind !== b){
 
           return me.noOpValueEnumerator;
         };
