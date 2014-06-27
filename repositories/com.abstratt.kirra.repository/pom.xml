@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.kirra</groupId>
 	<artifactId>com.abstratt.kirra.repository</artifactId>
-	<version>1.120.1</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>eclipse-repository</packaging>
 	<parent>
 		<artifactId>com.abstratt.kirra.parent</artifactId>
