@@ -5,7 +5,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.kirra</groupId>
 	<artifactId>com.abstratt.kirra.repository</artifactId>
-	<version>0.1.1-SNAPSHOT</version>
+	<!--  do not use SNAPSHOT or else we can't have a stable repository URI -->
+	<version>0.1.1</version>
 	<packaging>eclipse-repository</packaging>
 	<parent>
 		<artifactId>com.abstratt.kirra.parent</artifactId>
