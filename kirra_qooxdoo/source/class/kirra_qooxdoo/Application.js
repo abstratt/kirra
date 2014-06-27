@@ -71,9 +71,6 @@ qx.Class.define("kirra_qooxdoo.Application",
       }
       var apiBaseUri = uriMatches ? uriMatches[1] : (window.location.origin + pathMatches[1]);
       
-      var isTablet = (qx.core.Environment.get("device.type") == "tablet");
-      var isDesktop = (qx.core.Environment.get("device.type") == "desktop");
-
       this.repository = new kirra_qooxdoo.Repository(apiBaseUri);
       this.mainPage = new kirra_qooxdoo.EntityNavigator(this.repository);
       this.instanceNavigator = new kirra_qooxdoo.InstanceNavigator(this.repository);
@@ -85,12 +82,9 @@ qx.Class.define("kirra_qooxdoo.Application",
           document.title = application.applicationName;
       });
       
-      var manager = new qx.ui.mobile.page.Manager(isTablet);
+      var manager = new qx.ui.mobile.page.Manager(false);
       manager.addMaster(this.mainPage);
-      manager.addDetail(this.instanceNavigator);
-      manager.addDetail(this.instanceForm);
-      manager.addDetail(this.actionForm);
-      manager.addDetail(this.relatedInstanceNavigator);
+      manager.addDetail([this.instanceNavigator, this.instanceForm, this.actionForm, this.relatedInstanceNavigator]);
       var nm = new qx.application.Routing();
 
       nm.onGet("/", function(data) {

@@ -92,17 +92,17 @@ qx.Class.define("kirra_qooxdoo.ActionForm", {
 
         addBasicButtons: function () {
             var me = this;
-            var okButton = new qx.ui.mobile.form.Button(this._action.label);
-            okButton.addListener("tap", function () {
-                me.executeAction();
-            });
-            this.toolbar.add(okButton);
-
             var cancelButton = new qx.ui.mobile.form.Button("Cancel");
             cancelButton.addListener("tap", function () {
                 me._back();
             });
             this.toolbar.add(cancelButton);
+            var okButton = new qx.ui.mobile.form.Button(this._action.label);
+            okButton.addListener("tap", function () {
+                me.executeAction();
+            });
+            this.toolbar.add(okButton);
+            
         },
         
         resultHandler : function () {

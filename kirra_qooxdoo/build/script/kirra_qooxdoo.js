@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.9064630c06d5.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.494b2da296a4.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",
@@ -37806,7 +37806,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "[?&]?app-path\=(.*)\&?",b = "/entities/{entity}/instances/",c = "/entities/{entity}/actions/{actionName}",d = "kirra_qooxdoo.Application",e = "/entities/{entity}/instances/{objectId}",f = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}",g = "device.type",h = "tablet",i = "[?&]?app-uri\=(.*)\&?",j = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}",k = "desktop",l = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.",m = "/",n = "/entities/{entity}/instances/{objectId}/actions/{actionName}",o = "Not implemented yet";
+  var a = "[?&]?app-path\=(.*)\&?",b = "/entities/{entity}/instances/",c = "/entities/{entity}/actions/{actionName}",d = "kirra_qooxdoo.Application",e = "/entities/{entity}/instances/{objectId}",f = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}",g = "/entities/{entity}/instances/{objectId}/actions/{actionName}",h = "[?&]?app-uri\=(.*)\&?",i = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}",j = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.",k = "/",l = "Not implemented yet";
   qx.Class.define(d, {
     extend : qx.application.Mobile,
     properties : {
@@ -37821,17 +37821,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         {
         };
         var me = this;
-        var uriMatches = window.location.search.match(i);
+        var uriMatches = window.location.search.match(h);
         var pathMatches = window.location.search.match(a);
         if(!uriMatches && !pathMatches){
 
-          var abortMessage = l;
+          var abortMessage = j;
           alert(abortMessage);
           throw Error(abortMessage);
         };
         var apiBaseUri = uriMatches ? uriMatches[1] : (window.location.origin + pathMatches[1]);
-        var isTablet = (qx.core.Environment.get(g) == h);
-        var isDesktop = (qx.core.Environment.get(g) == k);
         this.repository = new kirra_qooxdoo.Repository(apiBaseUri);
         this.mainPage = new kirra_qooxdoo.EntityNavigator(this.repository);
         this.instanceNavigator = new kirra_qooxdoo.InstanceNavigator(this.repository);
@@ -37842,14 +37840,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           document.title = application.applicationName;
         });
-        var manager = new qx.ui.mobile.page.Manager(isTablet);
+        var manager = new qx.ui.mobile.page.Manager(false);
         manager.addMaster(this.mainPage);
-        manager.addDetail(this.instanceNavigator);
-        manager.addDetail(this.instanceForm);
-        manager.addDetail(this.actionForm);
-        manager.addDetail(this.relatedInstanceNavigator);
+        manager.addDetail([this.instanceNavigator, this.instanceForm, this.actionForm, this.relatedInstanceNavigator]);
         var nm = new qx.application.Routing();
-        nm.onGet(m, function(data){
+        nm.onGet(k, function(data){
 
           this.mainPage.show();
         }, this);
@@ -37861,15 +37856,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           this.instanceForm.showFor(data.params.entity, data.params.objectId);
         }, this);
-        nm.onGet(j, function(data){
+        nm.onGet(i, function(data){
 
           this.relatedInstanceNavigator.showFor(data.params.entity, data.params.relationshipName, data.params.objectId);
         }, this);
         nm.onGet(f, function(data){
 
-          alert(o);
+          alert(l);
         }, this);
-        nm.onGet(n, function(data){
+        nm.onGet(g, function(data){
 
           this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
         }, this);
@@ -44412,18 +44407,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       addBasicButtons : function(){
 
         var me = this;
-        var okButton = new qx.ui.mobile.form.Button(this._action.label);
-        okButton.addListener(f, function(){
-
-          me.executeAction();
-        });
-        this.toolbar.add(okButton);
         var cancelButton = new qx.ui.mobile.form.Button(e);
         cancelButton.addListener(f, function(){
 
           me._back();
         });
         this.toolbar.add(cancelButton);
+        var okButton = new qx.ui.mobile.form.Button(this._action.label);
+        okButton.addListener(f, function(){
+
+          me.executeAction();
+        });
+        this.toolbar.add(okButton);
       },
       resultHandler : function(){
 
