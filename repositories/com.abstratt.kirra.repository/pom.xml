@@ -10,7 +10,7 @@
 	<parent>
 		<artifactId>com.abstratt.kirra.parent</artifactId>
 		<groupId>com.abstratt.kirra</groupId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>0.1.1-SNAPSHOT</version>
 		<relativePath>../..</relativePath>
 	</parent>
 <build>

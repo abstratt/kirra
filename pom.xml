@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.kirra</groupId>
 	<artifactId>com.abstratt.kirra.parent</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
 		<tycho-version>0.21.0-SNAPSHOT</tycho-version>
@@ -69,7 +69,7 @@
 						<artifact>
 							<groupId>com.abstratt.kirra</groupId>
 							<artifactId>kirra-api-dependencies</artifactId>
-							<version>0.1.0-SNAPSHOT</version>
+							<version>0.1.1-SNAPSHOT</version>
 							<classifier>kirra-api-dependencies</classifier>
 						</artifact>
 					</target>
