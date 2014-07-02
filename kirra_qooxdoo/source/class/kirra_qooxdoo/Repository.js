@@ -190,8 +190,8 @@ qx.Class.define("kirra_qooxdoo.Repository", {
 		        if (typeof (response) === 'string')
 		            response = JSON.parse(response);
                 }
-                console.log(req.method + " " + req.getUrl());
-                console.log(response);
+                //console.log(req.method + " " + req.getUrl());
+                //console.log(response);
                 if (callback)
                     callback(response);
             }, this);

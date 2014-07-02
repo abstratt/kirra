@@ -24,7 +24,9 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
         _relationshipTabs : {}, 
         _relationshipMenuButton : null,
         _actions: [],
-        _relationshipDomains: null,        
+        _relationshipDomains: null,
+        _backPath: null,
+        _showRelationships : false,
         // overridden
         _initialize: function () {
             this.base(arguments);
@@ -33,9 +35,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             this.base(arguments);
         },
         _back: function () {
-            qx.core.Init.getApplication().getRouting().executeGet("/entities/" + this._entityName + "/instances/", {
-                reverse: true
-            });
+            qx.core.Init.getApplication().goBack(this._backPath);
         },
         showFor: function (entityName, id) {
             var me = this;
@@ -46,10 +46,35 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             me._instance = null;
             me._relationshipDomains = {};
             me._relationshipTabs = {},
+            me._showRelationships = true;
+            me._backPath = "/entities/" + entityName + "/instances/";
             me.repository.loadEntity(entityName, function (entity) {
                 me._entity = entity;
                 me.buildForm();
                 me.repository.loadInstance(entity, me._objectId, me.instanceLoader());
+            });
+            this.show();
+        },
+        showForRelated: function (parentEntityName, parentObjectId, relationshipName, childObjectId) {
+            var me = this;
+            me._widgets = {},
+            me._entityName = null;
+            me._objectId = null;
+            me._entity = null;
+            me._instance = null;
+            me._relationshipDomains = {};
+            me._relationshipTabs = {},
+            me._showRelationships = true;
+            me._backPath = "/entities/" + parentEntityName + "/instances/" + parentObjectId + "/relationships/" + relationshipName;
+            me.repository.loadEntity(parentEntityName, function (parentEntity) {
+                var relationship = parentEntity.relationships[relationshipName];
+                me._entityName = relationship.typeRef.fullName;
+                me._objectId = childObjectId;
+                me.repository.loadEntity(relationship.typeRef.fullName, function (childEntity) {
+                    me._entity = childEntity;
+                    me.buildForm();
+                    me.repository.loadInstance(childEntity, me._objectId, me.instanceLoader());
+                });
             });
             this.show();
         },
@@ -205,7 +230,9 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                 }
             }
             var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
-            this.buildMultiRelationshipViews(instanceFormRenderer);
+            if (this._showRelationships) {
+                this.buildMultiRelationshipViews(instanceFormRenderer);
+            }
             this.getContent().add(instanceFormRenderer);
             this.show();
         },
@@ -218,7 +245,7 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                 return;
             }
         
-            var relationshipMenuButton = me._relationshipMenuButton = new qx.ui.mobile.navigationbar.Button("See also");
+            var relationshipMenuButton = me._relationshipMenuButton = new qx.ui.mobile.navigationbar.Button("Related");
             var relationshipMenuItems = [];
             for (var i in multiRelationships) {
                 var relationship = multiRelationships[i];

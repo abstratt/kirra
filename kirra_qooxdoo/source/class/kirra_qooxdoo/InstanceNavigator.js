@@ -1,5 +1,5 @@
 qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
-    extend: qx.ui.mobile.page.NavigationPage,
+    extend: kirra_qooxdoo.AbstractInstanceNavigator,
 
     construct: function (repository) {
         this.base(arguments);
@@ -24,79 +24,33 @@ qx.Class.define("kirra_qooxdoo.InstanceNavigator", {
         _initialize: function () {
             this.base(arguments);
             var me = this;
-            var list = this._instanceList = new qx.ui.mobile.list.List({
-                configureItem: function (item, data, row) {
-                    item.setTitle(data.shorthand);
-                    item.setSubtitle("");
-                    item.setShowArrow(true);
-                    item.data = data;
-                    
-                      var details = [], value, detail;
-                      for (name in me._detailProperties) {
-                          value = data.values[name];
-                          if (me._entity.properties[name].typeRef && me._entity.properties[name].typeRef.typeName === 'Date') {
-                              try {
-                                  value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
-                              } catch (e) {}
-                          }
-                          
-                          if (value && value != null) {
-                              detail = me._detailProperties[name].label;
-                              if (value !== true)
-                                  detail += ": " + value
-                              details.push(detail);
-                          }
-                      }
-                      item.setSubtitle(details.join(", "));
-                      item.setShowArrow(true);
-                }
-            });
-            this.getContent().add(list);
+            var list = this._buildInstanceList();
             list.addListener("changeSelection", function (evt) {
                 var instanceSelected = me._instanceList.getModel().getItem(evt.getData());
                 qx.core.Init.getApplication().getRouting().executeGet("/entities/" + me._entityName + "/instances/" + instanceSelected.objectId);
             }, this);
         },
-        _start: function () {
-            this.base(arguments);
-        },
         _back: function () {
-            qx.core.Init.getApplication().getRouting().executeGet("/", {
-                reverse: true
-            });
+            qx.core.Init.getApplication().goBack("/");
         },
+        
         showFor: function (entityName) {
             var me = this;
             this._entityName = entityName;
             me.show();
-            me.reloadInstances();
             this.repository.loadEntity(this._entityName, function (entity) { 
                 me._entity = entity;
                 me.setTitle(me._entity.label);
-                me.buildDetailProperties();
+                me.buildDetailProperties(me._entity);
                 me.buildActions();
+                me.reloadInstances();
             });
         },
-        reloadInstances : function () {
-            var me = this;
-            this.repository.loadInstances(this._entityName, function (instances) {
-                me._instanceList.setModel(new qx.data.Array(instances.contents));
-            });
+        _loadInstances : function (callback) {
+            this.repository.loadInstances(this._entityName, callback);
         },
-        buildDetailProperties : function () {
-            var me = this;
-            var detailProperties = {};
-            // we ignore the first property as it shows as title
-            var skippedMnemonic = false;
-            for (var p in me._entity.properties) {
-                if (me._entity.properties[p].userVisible) {
-                    if (skippedMnemonic) {
-                        detailProperties[p] = { label: me._entity.properties[p].label };
-                    }
-                    skippedMnemonic = true;
-                }
-            }
-            me._detailProperties = detailProperties;
+        _getInstanceListEntity : function () {
+            return this._entity;
         },
         buildActions : function () {
             var me = this;

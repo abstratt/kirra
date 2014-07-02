@@ -28,9 +28,7 @@ qx.Class.define("kirra_qooxdoo.ActionForm", {
             if (this._objectId) {
                 sourcePath += this._objectId;
             }
-            qx.core.Init.getApplication().getRouting().executeGet(sourcePath, {
-                reverse: true
-            });
+            qx.core.Init.getApplication().goBack(sourcePath);
         },
         
         // overridden

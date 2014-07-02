@@ -32,9 +32,34 @@ qx.Class.define("kirra_qooxdoo.Application",
      MEMBERS
   *****************************************************************************
   */
+  
+  statics : {
+    getInstance : function () { return this.$$instance }
+  },
 
   members :
   {
+  
+    repository : null,
+    
+    inAppHistory : [],
+    
+    goBack : function (fallback) {
+        // discard current
+        this.inAppHistory.pop();
+        if (this.inAppHistory.length <= 1) {
+            console.log("No inAppHistory");
+            console.log("Falling back to " + fallback);
+            qx.bom.History.getInstance().setState(fallback);
+            return;
+        }
+        var goTo = this.inAppHistory.pop();
+        console.log("Found inAppHistory");
+        console.log(this.inAppHistory);
+        qx.bom.History.getInstance().setState(goTo);
+        console.log("current: " + qx.bom.History.getInstance().getState());
+    }, 
+    
     /**
      * This method contains the initial application code and gets called 
      * during startup of the application
@@ -61,7 +86,8 @@ qx.Class.define("kirra_qooxdoo.Application",
       -------------------------------------------------------------------------
       */
       var me = this;
-
+      this.$$instance = this;
+      
       var uriMatches = window.location.search.match("[?&]?app-uri\=(.*)\&?");
       var pathMatches = window.location.search.match("[?&]?app-path\=(.*)\&?");
       if (!uriMatches && !pathMatches) {
@@ -103,18 +129,35 @@ qx.Class.define("kirra_qooxdoo.Application",
         this.relatedInstanceNavigator.showFor(data.params.entity, data.params.relationshipName, data.params.objectId);
       }, this);
       
-      nm.onGet("/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}", function(data) {
-          alert("Not implemented yet");
-      }, this);
-      
-      
       nm.onGet("/entities/{entity}/instances/{objectId}/actions/{actionName}", function(data) {
         this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
       }, this);
       
+      nm.onGet("/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}", function(data) {
+          this.instanceForm.showForRelated(data.params.entity, data.params.objectId, data.params.relationshipName, data.params.relatedObjectId);
+      }, this);
+      
+/*      
+      nm.onGet("/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}/actions/{actionName}", function(data) {
+        this.actionForm.showForRelated(data.params.entity, data.params.actionName, data.params.objectId);
+      }, this);
+*/     
       nm.onGet("/entities/{entity}/actions/{actionName}", function(data) {
         this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
       }, this);
+      
+      nm.onAny(".*", function (data) {
+          console.log("data.customData:");
+          console.log(data.customData);
+          if (me.inAppHistory.indexOf(data.path) >= 0) {
+              me.inAppHistory = me.inAppHistory.slice(0, me.inAppHistory.indexOf(data.path) + 1);
+          } else {
+              if (!data.customData || (!data.customData.fromHistory && !data.customData.reverse)) {  
+                  me.inAppHistory.push(data.path);
+              }
+          }
+          console.log(me.inAppHistory);
+      });
       
       this.setRouting(nm);
       

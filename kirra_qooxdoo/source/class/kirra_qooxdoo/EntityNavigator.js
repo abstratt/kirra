@@ -7,8 +7,6 @@ qx.Class.define("kirra_qooxdoo.EntityNavigator",
     this.base(arguments);
     this.repository = repository;
     this.setTitle("Overview");
-    this.setShowBackButton(true);
-    this.setBackButtonText("Log out");
   },
 
 
@@ -52,14 +50,6 @@ qx.Class.define("kirra_qooxdoo.EntityNavigator",
     },
     _start : function() {
         this.base(arguments);
-    },
-    _back : function()
-    {
-        if (this.getBackButtonText() == "Log out") {
-            this.setBackButtonText("Log in");
-        } else if (this.getBackButtonText() == "Log in") {
-            this.setBackButtonText("Log out");
-        }
     }
   }
 });

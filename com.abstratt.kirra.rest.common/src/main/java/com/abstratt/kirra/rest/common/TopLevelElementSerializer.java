@@ -20,7 +20,7 @@ public class TopLevelElementSerializer<T extends TopLevelElement> implements Jso
 
     @Override
     public JsonElement serialize(T element, Type type, JsonSerializationContext context) {
-        JsonObject asJson = (JsonObject) new Gson().toJsonTree(element);
+        JsonObject asJson = (JsonObject) CommonHelper.buildBasicGson().toJsonTree(element);
         asJson.addProperty("uri", getTopLevelURI(element).toString());
         return asJson;
     }

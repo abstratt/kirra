@@ -5,7 +5,7 @@ import java.net.URI;
 import java.util.Map;
 
 import com.abstratt.kirra.Instance;
-import com.google.gson.GsonBuilder;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
@@ -21,13 +21,13 @@ public class InstanceSerializer implements JsonSerializer<Instance> {
 
     @Override
     public JsonElement serialize(Instance instance, Type type, JsonSerializationContext context) {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mmZ");
-        JsonObject asJson = (JsonObject) gsonBuilder.create().toJsonTree(instance);
+        Gson gson = CommonHelper.buildBasicGson();
+        JsonObject asJson = (JsonObject) gson.toJsonTree(instance);
         if (instancesUri != null) {
 	        asJson.addProperty("uri", CommonHelper.resolve(instancesUri, instance.getObjectId()).toString());
 	        asJson.addProperty("entityUri", CommonHelper.resolve(instancesUri, "..").toString());
         }
+        asJson.add("typeRef", gson.toJsonTree(instance.getTypeRef()));
         if (instance.getShorthand() == null) {
             Map<String, Object> values = instance.getValues();
             if (values != null && !values.isEmpty())

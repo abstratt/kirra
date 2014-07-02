@@ -2,6 +2,9 @@ package com.abstratt.kirra.rest.common;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.lang.model.element.Modifier;
 
@@ -10,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.Service;
+import com.abstratt.kirra.TypeRef;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -21,13 +25,25 @@ public class CommonHelper {
     }
 
     public static Gson buildGson(URI baseURI) {
+        Map<Class<?>, Object> map = new LinkedHashMap<Class<?>, Object>();
+        map .put(Entity.class, new EntitySerializer(baseURI));
+        map.put(Service.class, new TopLevelElementSerializer<Service>(baseURI));
+        map.put(Instance.class, new InstanceSerializer(baseURI));
+        map.put(TypeRef.class, TypeRefSerializer.INSTANCE);
+        return buildGson(baseURI, map);
+    }
+    
+    public static Gson buildBasicGson() {
+        return CommonHelper.buildGson(null, Collections.<Class<?>, Object>singletonMap(TypeRef.class, (Object) TypeRefSerializer.INSTANCE));
+    }
+    
+    public static Gson buildGson(URI baseURI, Map<Class<?>, ?> adapters) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
         gsonBuilder.setPrettyPrinting();
         gsonBuilder.excludeFieldsWithModifiers(Modifier.PRIVATE.ordinal());
-        gsonBuilder.registerTypeAdapter(Entity.class, new EntitySerializer(baseURI));
-        gsonBuilder.registerTypeAdapter(Service.class, new TopLevelElementSerializer<Service>(baseURI));
-        gsonBuilder.registerTypeAdapter(Instance.class, new InstanceSerializer(baseURI));
+        for (Map.Entry<Class<?>, ?> entry : adapters.entrySet()) 
+            gsonBuilder.registerTypeAdapter(entry.getKey(), entry.getValue());
         return gsonBuilder.create();
     }
 
