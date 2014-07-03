@@ -12,19 +12,18 @@ qx.Class.define("kirra_qooxdoo.DateFormats", {
                 },
                 parse : function (dateString) {
                     var parsed = me._ymdFormatter.parse(dateString);
-                    console.log(dateString + " --> " + parsed);
                     return parsed;
                 }
             };
         },
         getISOFormatter : function () {
+            var me = this;
             return { 
                 format : function (date) {
                     return me._isoFormatter.format(date);
                 },
                 parse : function (dateString) {
                     var parsed = new Date(Date.parse(dateString));
-                    console.log(dateString + " --> " + parsed);
                     return parsed;
                 }
             };

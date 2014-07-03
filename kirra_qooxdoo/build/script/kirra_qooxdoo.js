@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.494b2da296a4.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.d04c726b26e5.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",
@@ -11445,125 +11445,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "border-box",b = "qx.bom.element.BoxSizing",c = "css.boxsizing",d = "",e = "boxSizing",f = "content-box",g = ":",h = ";";
-  qx.Bootstrap.define(b, {
-    statics : {
-      __dp : {
-        tags : {
-          button : true,
-          select : true
-        },
-        types : {
-          search : true,
-          button : true,
-          submit : true,
-          reset : true,
-          checkbox : true,
-          radio : true
-        }
-      },
-      __dq : function(element){
-
-        var map = this.__dp;
-        return map.tags[element.tagName.toLowerCase()] || map.types[element.type];
-      },
-      compile : function(value){
-
-        if(qx.core.Environment.get(c)){
-
-          var prop = qx.bom.Style.getCssName(qx.core.Environment.get(c));
-          return prop + g + value + h;
-        } else {
-
-          {
-          };
-        };
-      },
-      get : function(element){
-
-        if(qx.core.Environment.get(c)){
-
-          return qx.bom.element.Style.get(element, e, null, false) || d;
-        };
-        if(qx.bom.Document.isStandardMode(qx.dom.Node.getWindow(element))){
-
-          if(!this.__dq(element)){
-
-            return f;
-          };
-        };
-        return a;
-      },
-      set : function(element, value){
-
-        if(qx.core.Environment.get(c)){
-
-          try{
-
-            element.style[qx.core.Environment.get(c)] = value;
-          } catch(ex) {
-
-            {
-            };
-          };
-        } else {
-
-          {
-          };
-        };
-      },
-      reset : function(element){
-
-        this.set(element, d);
-      }
-    }
-  });
-})();
-(function(){
-
-  var a = "cursor:",b = "engine.name",c = "ns-resize",d = "",e = "mshtml",f = "nw-resize",g = "n-resize",h = "engine.version",i = "nesw-resize",j = "opera",k = "browser.documentmode",l = ";",m = "nwse-resize",n = "ew-resize",o = "qx.bom.element.Cursor",p = "ne-resize",q = "e-resize",r = "browser.quirksmode",s = "cursor";
-  qx.Bootstrap.define(o, {
-    statics : {
-      __dr : {
-      },
-      compile : function(cursor){
-
-        return a + (this.__dr[cursor] || cursor) + l;
-      },
-      get : function(element, mode){
-
-        return qx.bom.element.Style.get(element, s, mode, false);
-      },
-      set : function(element, value){
-
-        element.style.cursor = this.__dr[value] || value;
-      },
-      reset : function(element){
-
-        element.style.cursor = d;
-      }
-    },
-    defer : function(statics){
-
-      if(qx.core.Environment.get(b) == e && ((parseFloat(qx.core.Environment.get(h)) < 9 || qx.core.Environment.get(k) < 9) && !qx.core.Environment.get(r))){
-
-        statics.__dr[i] = p;
-        statics.__dr[m] = f;
-        if(((parseFloat(qx.core.Environment.get(h)) < 8 || qx.core.Environment.get(k) < 8) && !qx.core.Environment.get(r))){
-
-          statics.__dr[n] = q;
-          statics.__dr[c] = g;
-        };
-      } else if(qx.core.Environment.get(b) == j && parseInt(qx.core.Environment.get(h)) < 12){
-
-        statics.__dr[i] = p;
-        statics.__dr[m] = f;
-      };
-    }
-  });
-})();
-(function(){
-
   var a = "engine.name",b = ");",c = "",d = ")",e = "zoom:1;filter:alpha(opacity=",f = "qx.bom.element.Opacity",g = "css.opacity",h = ";",i = "opacity:",j = "alpha(opacity=",k = "opacity",l = "filter";
   qx.Bootstrap.define(f, {
     statics : {
@@ -11684,6 +11565,125 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           return 1.0;
         }
       })
+    }
+  });
+})();
+(function(){
+
+  var a = "cursor:",b = "engine.name",c = "ns-resize",d = "",e = "mshtml",f = "nw-resize",g = "n-resize",h = "engine.version",i = "nesw-resize",j = "opera",k = "browser.documentmode",l = ";",m = "nwse-resize",n = "ew-resize",o = "qx.bom.element.Cursor",p = "ne-resize",q = "e-resize",r = "browser.quirksmode",s = "cursor";
+  qx.Bootstrap.define(o, {
+    statics : {
+      __dp : {
+      },
+      compile : function(cursor){
+
+        return a + (this.__dp[cursor] || cursor) + l;
+      },
+      get : function(element, mode){
+
+        return qx.bom.element.Style.get(element, s, mode, false);
+      },
+      set : function(element, value){
+
+        element.style.cursor = this.__dp[value] || value;
+      },
+      reset : function(element){
+
+        element.style.cursor = d;
+      }
+    },
+    defer : function(statics){
+
+      if(qx.core.Environment.get(b) == e && ((parseFloat(qx.core.Environment.get(h)) < 9 || qx.core.Environment.get(k) < 9) && !qx.core.Environment.get(r))){
+
+        statics.__dp[i] = p;
+        statics.__dp[m] = f;
+        if(((parseFloat(qx.core.Environment.get(h)) < 8 || qx.core.Environment.get(k) < 8) && !qx.core.Environment.get(r))){
+
+          statics.__dp[n] = q;
+          statics.__dp[c] = g;
+        };
+      } else if(qx.core.Environment.get(b) == j && parseInt(qx.core.Environment.get(h)) < 12){
+
+        statics.__dp[i] = p;
+        statics.__dp[m] = f;
+      };
+    }
+  });
+})();
+(function(){
+
+  var a = "border-box",b = "qx.bom.element.BoxSizing",c = "css.boxsizing",d = "",e = "boxSizing",f = "content-box",g = ":",h = ";";
+  qx.Bootstrap.define(b, {
+    statics : {
+      __dq : {
+        tags : {
+          button : true,
+          select : true
+        },
+        types : {
+          search : true,
+          button : true,
+          submit : true,
+          reset : true,
+          checkbox : true,
+          radio : true
+        }
+      },
+      __dr : function(element){
+
+        var map = this.__dq;
+        return map.tags[element.tagName.toLowerCase()] || map.types[element.type];
+      },
+      compile : function(value){
+
+        if(qx.core.Environment.get(c)){
+
+          var prop = qx.bom.Style.getCssName(qx.core.Environment.get(c));
+          return prop + g + value + h;
+        } else {
+
+          {
+          };
+        };
+      },
+      get : function(element){
+
+        if(qx.core.Environment.get(c)){
+
+          return qx.bom.element.Style.get(element, e, null, false) || d;
+        };
+        if(qx.bom.Document.isStandardMode(qx.dom.Node.getWindow(element))){
+
+          if(!this.__dr(element)){
+
+            return f;
+          };
+        };
+        return a;
+      },
+      set : function(element, value){
+
+        if(qx.core.Environment.get(c)){
+
+          try{
+
+            element.style[qx.core.Environment.get(c)] = value;
+          } catch(ex) {
+
+            {
+            };
+          };
+        } else {
+
+          {
+          };
+        };
+      },
+      reset : function(element){
+
+        this.set(element, d);
+      }
     }
   });
 })();
@@ -15343,7 +15343,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "/(objectId)/actions/(actionName)/parameters/(parameterName)/domain/",b = "Missing entity or extentUri",c = "loadEnd",d = ")",f = "success",g = "Missing instance or instance URI",h = "/actions/(actionName)",j = "(actionName)",k = "application/json",l = "kirra_qooxdoo.Repository",m = "PUT",n = ":",o = "(objectId)/actions/(actionName)",q = "entity.",r = "yyyy/MM/dd",s = "://",t = "Please wait",u = "Missing entityFullName: ",v = "",w = "Entity not found: ",x = "(",y = "/(objectId)/relationships/(relationshipName)/domain/",z = "DELETE",A = "POST",B = "/(objectId)/relationships/(relationshipName)/",C = "_entityList",D = 'GET',E = 'string',F = "Content-Type",G = " ",H = "_application",I = "Missing objectId";
+  var a = "/(objectId)/actions/(actionName)/parameters/(parameterName)/domain/",b = "Missing entity or extentUri",c = "loadEnd",d = ")",f = "success",g = "Missing instance or instance URI",h = "/actions/(actionName)",j = "(actionName)",k = "application/json",l = "kirra_qooxdoo.Repository",m = "PUT",n = ":",o = "(objectId)/actions/(actionName)",q = "entity.",r = "yyyy/MM/dd",s = "://",t = "Please wait",u = "Missing entityFullName: ",v = "",w = "Entity not found: ",x = "(",y = "/(objectId)/relationships/(relationshipName)/domain/",z = "DELETE",A = "POST",B = "/(objectId)/relationships/(relationshipName)/",C = "_entityList",D = 'GET',E = 'string',F = "Content-Type",G = "_application",H = "Missing objectId";
   qx.Class.define(l, {
     extend : qx.core.Object,
     construct : function(applicationUri){
@@ -15364,7 +15364,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _busyPopup : null,
       loadApplication : function(callback){
 
-        this.load(this._applicationUri, callback, H);
+        this.load(this._applicationUri, callback, G);
       },
       listRelationshipDomain : function(entity, objectId, relationship, callback){
 
@@ -15458,7 +15458,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       loadInstance : function(entity, objectId, callback){
 
         if(!entity || !entity.extentUri)throw Error(b);
-        if(!objectId)throw Error(I);
+        if(!objectId)throw Error(H);
         var instanceUri = entity.instanceUriTemplate || (entity.extentUri + objectId);
         this.load(this.resolve(instanceUri, {
           objectId : objectId
@@ -15550,8 +15550,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             if(slotName)me[slotName] = response;
             if(typeof (response) === E)response = JSON.parse(response);
           };
-          console.log(req.method + G + req.getUrl());
-          console.log(response);
           if(callback)callback(response);
         }, this);
         req.addListener(c, function(e){
@@ -37806,26 +37804,51 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "[?&]?app-path\=(.*)\&?",b = "/entities/{entity}/instances/",c = "/entities/{entity}/actions/{actionName}",d = "kirra_qooxdoo.Application",e = "/entities/{entity}/instances/{objectId}",f = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}",g = "/entities/{entity}/instances/{objectId}/actions/{actionName}",h = "[?&]?app-uri\=(.*)\&?",i = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}",j = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.",k = "/",l = "Not implemented yet";
-  qx.Class.define(d, {
+  var a = "data.customData:",b = "current: ",c = "/entities/{entity}/instances/",d = "Found inAppHistory",e = "/entities/{entity}/actions/{actionName}",f = "kirra_qooxdoo.Application",g = "/entities/{entity}/instances/{objectId}",h = "/entities/{entity}/instances/{objectId}/actions/{actionName}",i = ".*",j = "[?&]?app-uri\=(.*)\&?",k = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}",l = "Falling back to ",m = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}",n = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.",o = "[?&]?app-path\=(.*)\&?",p = "No inAppHistory",q = "/";
+  qx.Class.define(f, {
     extend : qx.application.Mobile,
     properties : {
       routing : {
         init : null
       }
     },
+    statics : {
+      getInstance : function(){
+
+        return this.$$instance;
+      }
+    },
     members : {
+      repository : null,
+      inAppHistory : [],
+      goBack : function(fallback){
+
+        this.inAppHistory.pop();
+        if(this.inAppHistory.length <= 1){
+
+          console.log(p);
+          console.log(l + fallback);
+          qx.bom.History.getInstance().setState(fallback);
+          return;
+        };
+        var goTo = this.inAppHistory.pop();
+        console.log(d);
+        console.log(this.inAppHistory);
+        qx.bom.History.getInstance().setState(goTo);
+        console.log(b + qx.bom.History.getInstance().getState());
+      },
       main : function(){
 
         qx.application.Mobile.prototype.main.call(this);
         {
         };
         var me = this;
-        var uriMatches = window.location.search.match(h);
-        var pathMatches = window.location.search.match(a);
+        this.$$instance = this;
+        var uriMatches = window.location.search.match(j);
+        var pathMatches = window.location.search.match(o);
         if(!uriMatches && !pathMatches){
 
-          var abortMessage = j;
+          var abortMessage = n;
           alert(abortMessage);
           throw Error(abortMessage);
         };
@@ -37844,37 +37867,770 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         manager.addMaster(this.mainPage);
         manager.addDetail([this.instanceNavigator, this.instanceForm, this.actionForm, this.relatedInstanceNavigator]);
         var nm = new qx.application.Routing();
-        nm.onGet(k, function(data){
+        nm.onGet(q, function(data){
 
           this.mainPage.show();
         }, this);
-        nm.onGet(b, function(data){
+        nm.onGet(c, function(data){
 
           this.instanceNavigator.showFor(data.params.entity);
         }, this);
-        nm.onGet(e, function(data){
+        nm.onGet(g, function(data){
 
           this.instanceForm.showFor(data.params.entity, data.params.objectId);
         }, this);
-        nm.onGet(i, function(data){
+        nm.onGet(m, function(data){
 
           this.relatedInstanceNavigator.showFor(data.params.entity, data.params.relationshipName, data.params.objectId);
         }, this);
-        nm.onGet(f, function(data){
-
-          alert(l);
-        }, this);
-        nm.onGet(g, function(data){
+        nm.onGet(h, function(data){
 
           this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
         }, this);
-        nm.onGet(c, function(data){
+        nm.onGet(k, function(data){
+
+          this.instanceForm.showForRelated(data.params.entity, data.params.objectId, data.params.relationshipName, data.params.relatedObjectId);
+        }, this);
+        nm.onGet(e, function(data){
 
           this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
         }, this);
+        nm.onAny(i, function(data){
+
+          console.log(a);
+          console.log(data.customData);
+          if(me.inAppHistory.indexOf(data.path) >= 0){
+
+            me.inAppHistory = me.inAppHistory.slice(0, me.inAppHistory.indexOf(data.path) + 1);
+          } else {
+
+            if(!data.customData || (!data.customData.fromHistory && !data.customData.reverse)){
+
+              me.inAppHistory.push(data.path);
+            };
+          };
+          console.log(me.inAppHistory);
+        });
         this.setRouting(nm);
         nm.init();
       }
+    }
+  });
+})();
+(function(){
+
+  var a = "request",b = "mshtml",c = "engine.name",d = "changeTitle",e = "abstract",f = "",g = '#',h = "_applyState",i = "Abstract method call",j = "event.hashchange",k = "_applyTitle",l = "changeState",m = "qx.bom.History",n = "String",o = "browser.documentmode",p = "qx.event.type.Data";
+  qx.Class.define(m, {
+    extend : qx.core.Object,
+    type : e,
+    construct : function(){
+
+      qx.core.Object.call(this);
+      this._baseUrl = window.location.href.split(g)[0] + g;
+      this._titles = {
+      };
+      this._setInitialState();
+    },
+    events : {
+      "request" : p
+    },
+    statics : {
+      SUPPORTS_HASH_CHANGE_EVENT : qx.core.Environment.get(j),
+      getInstance : function(){
+
+        var runsInIframe = !(window == window.top);
+        if(!this.$$instance){
+
+          if(runsInIframe && qx.core.Environment.get(o) == 9){
+
+            this.$$instance = new qx.bom.HashHistory();
+          } else if(runsInIframe && qx.core.Environment.get(c) == b && qx.core.Environment.get(o) < 9){
+
+            this.$$instance = new qx.bom.IframeHistory();
+          } else if(this.SUPPORTS_HASH_CHANGE_EVENT){
+
+            this.$$instance = new qx.bom.NativeHistory();
+          } else if((qx.core.Environment.get(c) == b)){
+
+            this.$$instance = new qx.bom.IframeHistory();
+          } else {
+
+            this.$$instance = new qx.bom.NativeHistory();
+          };;;
+        };
+        return this.$$instance;
+      }
+    },
+    properties : {
+      title : {
+        check : n,
+        event : d,
+        nullable : true,
+        apply : k
+      },
+      state : {
+        check : n,
+        event : l,
+        nullable : true,
+        apply : h
+      }
+    },
+    members : {
+      _titles : null,
+      _applyState : function(value, old){
+
+        this._writeState(value);
+      },
+      _setInitialState : function(){
+
+        this.setState(this._readState());
+      },
+      _encode : function(value){
+
+        if(qx.lang.Type.isString(value)){
+
+          return encodeURIComponent(value);
+        };
+        return f;
+      },
+      _decode : function(value){
+
+        if(qx.lang.Type.isString(value)){
+
+          return decodeURIComponent(value);
+        };
+        return f;
+      },
+      _applyTitle : function(title){
+
+        if(title != null){
+
+          document.title = title || f;
+        };
+      },
+      addToHistory : function(state, newTitle){
+
+        if(!qx.lang.Type.isString(state)){
+
+          state = state + f;
+        };
+        if(qx.lang.Type.isString(newTitle)){
+
+          this.setTitle(newTitle);
+          this._titles[state] = newTitle;
+        };
+        if(this.getState() !== state){
+
+          this._writeState(state);
+        };
+      },
+      navigateBack : function(){
+
+        qx.event.Timer.once(function(){
+
+          history.back();
+        }, this, 100);
+      },
+      navigateForward : function(){
+
+        qx.event.Timer.once(function(){
+
+          history.forward();
+        }, this, 100);
+      },
+      _onHistoryLoad : function(state){
+
+        this.setState(state);
+        this.fireDataEvent(a, state);
+        if(this._titles[state] != null){
+
+          this.setTitle(this._titles[state]);
+        };
+      },
+      _readState : function(){
+
+        throw new Error(i);
+      },
+      _writeState : function(){
+
+        throw new Error(i);
+      },
+      _setHash : function(value){
+
+        var url = this._baseUrl + (value || f);
+        var loc = window.location;
+        if(url != loc.href){
+
+          loc.href = url;
+        };
+      },
+      _getHash : function(){
+
+        var hash = /#(.*)$/.exec(window.location.href);
+        return hash && hash[1] ? hash[1] : f;
+      }
+    },
+    destruct : function(){
+
+      this._titles = null;
+    }
+  });
+})();
+(function(){
+
+  var a = "qx.blankpage",b = "undefined",c = "",d = "interval",e = "#",f = "-1000px",g = "hidden",h = "can't initialize iframe",i = "qx.bom.HashHistory",j = "absolute";
+  qx.Class.define(i, {
+    extend : qx.bom.History,
+    construct : function(){
+
+      qx.bom.History.call(this);
+      this._baseUrl = null;
+      this.__mn();
+    },
+    members : {
+      __mk : null,
+      __ml : null,
+      __mm : false,
+      addToHistory : function(state, newTitle){
+
+        if(!qx.lang.Type.isString(state)){
+
+          state = state + c;
+        };
+        if(qx.lang.Type.isString(newTitle)){
+
+          this.setTitle(newTitle);
+          this._titles[state] = newTitle;
+        };
+        if(this.getState() !== state){
+
+          this._writeState(state);
+        };
+      },
+      __mn : function(){
+
+        this.__ml = this.__mo();
+        document.body.appendChild(this.__ml);
+        this.__mp(function(){
+
+          this._baseUrl = this.__ml.contentWindow.document.location.href;
+          this.__mq();
+        }, this);
+      },
+      __mo : function(){
+
+        var iframe = qx.bom.Iframe.create({
+          src : qx.util.ResourceManager.getInstance().toUri(qx.core.Environment.get(a)) + e
+        });
+        iframe.style.visibility = g;
+        iframe.style.position = j;
+        iframe.style.left = f;
+        iframe.style.top = f;
+        return iframe;
+      },
+      __mp : function(callback, context, retry){
+
+        if(typeof retry === b){
+
+          retry = 0;
+        };
+        if(!this.__ml.contentWindow || !this.__ml.contentWindow.document){
+
+          if(retry > 20){
+
+            throw new Error(h);
+          };
+          qx.event.Timer.once(function(){
+
+            this.__mp(callback, context, ++retry);
+          }, this, 10);
+          return;
+        };
+        this.__mm = true;
+        callback.call(context || window);
+      },
+      __mq : function(){
+
+        qx.event.Idle.getInstance().addListener(d, this.__ms, this);
+      },
+      __mr : function(){
+
+        qx.event.Idle.getInstance().removeListener(d, this.__ms, this);
+      },
+      __ms : function(){
+
+        var currentState = this._readState();
+        if(qx.lang.Type.isString(currentState) && currentState != this.getState()){
+
+          this._onHistoryLoad(currentState);
+        };
+      },
+      _readState : function(){
+
+        var hash = !this._getHash() ? c : this._getHash().substr(1);
+        return this._decode(hash);
+      },
+      _getHash : function(){
+
+        if(!this.__mm){
+
+          return null;
+        };
+        return this.__ml.contentWindow.document.location.hash;
+      },
+      _writeState : function(state){
+
+        this._setHash(this._encode(state));
+      },
+      _setHash : function(value){
+
+        if(!this.__ml || !this._baseUrl){
+
+          return;
+        };
+        var hash = !this.__ml.contentWindow.document.location.hash ? c : this.__ml.contentWindow.document.location.hash.substr(1);
+        if(value != hash){
+
+          this.__ml.contentWindow.document.location.hash = value;
+        };
+      }
+    },
+    destruct : function(){
+
+      this.__mr();
+      this.__ml = null;
+    }
+  });
+})();
+(function(){
+
+  var a = "qx.event.handler.Iframe",b = "load",c = "iframe",d = "navigate";
+  qx.Class.define(a, {
+    extend : qx.core.Object,
+    implement : qx.event.IEventHandler,
+    statics : {
+      PRIORITY : qx.event.Registration.PRIORITY_NORMAL,
+      SUPPORTED_TYPES : {
+        load : 1,
+        navigate : 1
+      },
+      TARGET_CHECK : qx.event.IEventHandler.TARGET_DOMNODE,
+      IGNORE_CAN_HANDLE : false,
+      onevent : qx.event.GlobalError.observeMethod(function(target){
+
+        var currentUrl = qx.bom.Iframe.queryCurrentUrl(target);
+        if(currentUrl !== target.$$url){
+
+          qx.event.Registration.fireEvent(target, d, qx.event.type.Data, [currentUrl]);
+          target.$$url = currentUrl;
+        };
+        qx.event.Registration.fireEvent(target, b);
+      })
+    },
+    members : {
+      canHandleEvent : function(target, type){
+
+        return target.tagName.toLowerCase() === c;
+      },
+      registerEvent : function(target, type, capture){
+      },
+      unregisterEvent : function(target, type, capture){
+      }
+    },
+    defer : function(statics){
+
+      qx.event.Registration.addHandler(statics);
+    }
+  });
+})();
+(function(){
+
+  var a = "Iframe source could not be set!",b = "contentDocument",c = "engine.name",d = "",e = "qx.bom.Iframe",f = "osx",g = "qx.event.handler.Iframe.onevent(this)",h = "os.name",i = "webkit",j = "load",k = "iframe",l = "body";
+  qx.Class.define(e, {
+    statics : {
+      DEFAULT_ATTRIBUTES : {
+        onload : g,
+        frameBorder : 0,
+        frameSpacing : 0,
+        marginWidth : 0,
+        marginHeight : 0,
+        hspace : 0,
+        vspace : 0,
+        border : 0,
+        allowTransparency : true
+      },
+      create : function(attributes, win){
+
+        var attributes = attributes ? qx.lang.Object.clone(attributes) : {
+        };
+        var initValues = qx.bom.Iframe.DEFAULT_ATTRIBUTES;
+        for(var key in initValues){
+
+          if(attributes[key] == null){
+
+            attributes[key] = initValues[key];
+          };
+        };
+        return qx.dom.Element.create(k, attributes, win);
+      },
+      getWindow : function(iframe){
+
+        try{
+
+          return iframe.contentWindow;
+        } catch(ex) {
+
+          return null;
+        };
+      },
+      getDocument : function(iframe){
+
+        if(b in iframe){
+
+          try{
+
+            return iframe.contentDocument;
+          } catch(ex) {
+
+            return null;
+          };
+        };
+        try{
+
+          var win = this.getWindow(iframe);
+          return win ? win.document : null;
+        } catch(ex) {
+
+          return null;
+        };
+      },
+      getBody : function(iframe){
+
+        try{
+
+          var doc = this.getDocument(iframe);
+          return doc ? doc.getElementsByTagName(l)[0] : null;
+        } catch(ex) {
+
+          return null;
+        };
+      },
+      setSource : function(iframe, source){
+
+        try{
+
+          if(this.getWindow(iframe) && qx.dom.Hierarchy.isRendered(iframe)){
+
+            try{
+
+              if((qx.core.Environment.get(c) == i) && qx.core.Environment.get(h) == f){
+
+                var contentWindow = this.getWindow(iframe);
+                if(contentWindow){
+
+                  contentWindow.stop();
+                };
+              };
+              this.getWindow(iframe).location.replace(source);
+            } catch(ex) {
+
+              iframe.src = source;
+            };
+          } else {
+
+            iframe.src = source;
+          };
+          this.__mt(iframe);
+        } catch(ex) {
+
+          qx.log.Logger.warn(a);
+        };
+      },
+      queryCurrentUrl : function(iframe){
+
+        var doc = this.getDocument(iframe);
+        try{
+
+          if(doc && doc.location){
+
+            return doc.location.href;
+          };
+        } catch(ex) {
+        };
+        return d;
+      },
+      __mt : function(iframe){
+
+        var callback = function(){
+
+          qx.bom.Event.removeNativeListener(iframe, j, callback);
+          iframe.$$url = qx.bom.Iframe.queryCurrentUrl(iframe);
+        };
+        qx.bom.Event.addNativeListener(iframe, j, callback);
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "request",b = "qx.bom.IframeHistory",c = "engine.name",d = "can't initialize iframe",f = "",g = "mshtml",h = "interval",i = "state",j = '<html><body><div id="state">',k = "-1000px",l = "browser.version",m = "hidden",n = "qx.blankpage",o = "undefined",p = '</div></body></html>',q = "absolute";
+  qx.Class.define(b, {
+    extend : qx.bom.History,
+    construct : function(){
+
+      qx.bom.History.call(this);
+      this.__my();
+    },
+    members : {
+      __ml : null,
+      __mm : false,
+      __mu : null,
+      __mv : null,
+      __mw : null,
+      _setInitialState : function(){
+
+        qx.bom.History.prototype._setInitialState.call(this);
+        this.__mw = this._getHash();
+      },
+      _setHash : function(value){
+
+        qx.bom.History.prototype._setHash.call(this, value);
+        this.__mw = this._encode(value);
+      },
+      addToHistory : function(state, newTitle){
+
+        if(!qx.lang.Type.isString(state)){
+
+          state = state + f;
+        };
+        if(qx.lang.Type.isString(newTitle)){
+
+          this.setTitle(newTitle);
+          this._titles[state] = newTitle;
+        };
+        if(this.getState() !== state){
+
+          this.setState(state);
+        };
+        this.fireDataEvent(a, state);
+      },
+      _onHistoryLoad : function(state){
+
+        this._setState(state);
+        this.fireDataEvent(a, state);
+        if(this._titles[state] != null){
+
+          this.setTitle(this._titles[state]);
+        };
+      },
+      _setState : function(state){
+
+        this.__mv = true;
+        this.setState(state);
+        this.__mv = false;
+      },
+      _applyState : function(value, old){
+
+        if(this.__mv){
+
+          return;
+        };
+        this._writeState(value);
+      },
+      _readState : function(){
+
+        if(!this.__mm){
+
+          return this._decode(this._getHash());
+        };
+        var doc = this.__ml.contentWindow.document;
+        var elem = doc.getElementById(i);
+        return elem ? this._decode(elem.innerText) : f;
+      },
+      _writeState : function(state){
+
+        if(!this.__mm){
+
+          this.__mx();
+          this.__mu = qx.event.Timer.once(function(){
+
+            this._writeState(state);
+          }, this, 50);
+          return;
+        };
+        this.__mx();
+        var state = this._encode(state);
+        if(qx.core.Environment.get(c) == g && qx.core.Environment.get(l) != 8){
+
+          this._setHash(state);
+        };
+        var doc = this.__ml.contentWindow.document;
+        doc.open();
+        doc.write(j + state + p);
+        doc.close();
+      },
+      __mx : function(){
+
+        if(this.__mu){
+
+          this.__mu.stop();
+          this.__mu.dispose();
+        };
+      },
+      __my : function(){
+
+        this.__mn(function(){
+
+          qx.event.Idle.getInstance().addListener(h, this.__ms, this);
+        });
+      },
+      __ms : function(e){
+
+        var currentState = null;
+        var locationState = this._getHash();
+        if(!this.__mA(locationState)){
+
+          currentState = this.__mz(locationState);
+        } else {
+
+          currentState = this._readState();
+        };
+        if(qx.lang.Type.isString(currentState) && currentState != this.getState()){
+
+          this._onHistoryLoad(currentState);
+        };
+      },
+      __mz : function(locationState){
+
+        locationState = this._decode(locationState);
+        this._writeState(locationState);
+        return locationState;
+      },
+      __mA : function(locationState){
+
+        return qx.lang.Type.isString(locationState) && locationState == this.__mw;
+      },
+      __mn : function(handler){
+
+        this.__ml = this.__mo();
+        document.body.appendChild(this.__ml);
+        this.__mp(function(){
+
+          this._writeState(this.getState());
+          if(handler){
+
+            handler.call(this);
+          };
+        }, this);
+      },
+      __mo : function(){
+
+        var iframe = qx.bom.Iframe.create({
+          src : qx.util.ResourceManager.getInstance().toUri(qx.core.Environment.get(n))
+        });
+        iframe.style.visibility = m;
+        iframe.style.position = q;
+        iframe.style.left = k;
+        iframe.style.top = k;
+        return iframe;
+      },
+      __mp : function(callback, context, retry){
+
+        if(typeof retry === o){
+
+          retry = 0;
+        };
+        if(!this.__ml.contentWindow || !this.__ml.contentWindow.document){
+
+          if(retry > 20){
+
+            throw new Error(d);
+          };
+          qx.event.Timer.once(function(){
+
+            this.__mp(callback, context, ++retry);
+          }, this, 10);
+          return;
+        };
+        this.__mm = true;
+        callback.call(context || window);
+      }
+    },
+    destruct : function(){
+
+      this.__ml = null;
+      if(this.__mu){
+
+        this.__mu.dispose();
+        this.__mu = null;
+      };
+      qx.event.Idle.getInstance().removeListener(h, this.__ms, this);
+    }
+  });
+})();
+(function(){
+
+  var a = "qx.bom.NativeHistory",b = "hashchange",c = "engine.name",d = "interval";
+  qx.Class.define(a, {
+    extend : qx.bom.History,
+    construct : function(){
+
+      qx.bom.History.call(this);
+      this.__mq();
+    },
+    members : {
+      __mk : null,
+      __mq : function(){
+
+        if(qx.bom.History.SUPPORTS_HASH_CHANGE_EVENT){
+
+          var boundFunc = qx.lang.Function.bind(this.__ms, this);
+          this.__mk = qx.event.GlobalError.observeMethod(boundFunc);
+          qx.bom.Event.addNativeListener(window, b, this.__mk);
+        } else {
+
+          qx.event.Idle.getInstance().addListener(d, this.__ms, this);
+        };
+      },
+      __mr : function(){
+
+        if(qx.bom.History.SUPPORTS_HASH_CHANGE_EVENT){
+
+          qx.bom.Event.removeNativeListener(window, b, this.__mk);
+        } else {
+
+          qx.event.Idle.getInstance().removeListener(d, this.__ms, this);
+        };
+      },
+      __ms : function(){
+
+        var currentState = this._readState();
+        if(qx.lang.Type.isString(currentState) && currentState != this.getState()){
+
+          this._onHistoryLoad(currentState);
+        };
+      },
+      _readState : function(){
+
+        return this._decode(this._getHash());
+      },
+      _writeState : qx.core.Environment.select(c, {
+        "opera" : function(state){
+
+          qx.event.Timer.once(function(){
+
+            this._setHash(this._encode(state));
+          }, this, 0);
+        },
+        "default" : function(state){
+
+          this._setHash(this._encode(state));
+        }
+      })
+    },
+    destruct : function(){
+
+      this.__mr();
     }
   });
 })();
@@ -37910,8 +38666,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __mk : null,
-      __ml : null,
+      __mB : null,
+      __mC : null,
       releaseFixedSize : function(){
 
         var parent = this.getLayoutParent();
@@ -37937,12 +38693,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             this._setHeight(height);
             this._setWidth(width);
-          } else if(this.__mk != height && this.__ml != width){
+          } else if(this.__mB != height && this.__mC != width){
 
             this._setHeight(height);
             this._setWidth(width);
-            this.__ml = width;
-            this.__mk = height;
+            this.__mC = width;
+            this.__mB = height;
             this._domUpdated();
           };
         };
@@ -38133,8 +38889,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "__mq",b = "__ms",c = "Boolean",d = "content",e = "__mn",f = "right-container",g = "_applyContentCssClass",h = "action",i = "_applyActionButtonText",j = "qx.event.type.Event",k = "_applyShowBackButton",l = "group",m = "String",n = "",o = "__mr",p = "changeTitle",q = "__mm",r = "_applyShowButton",s = "left-container",t = "Number",u = "_applyActionButtonIcon",v = "_applyBackButtonText",w = "tap",z = "qx.ui.mobile.page.NavigationPage",A = "_applyTitle";
-  qx.Class.define(z, {
+  var a = "Boolean",b = "content",c = "right-container",d = "_applyContentCssClass",e = "action",f = "__mE",g = "__mI",h = "qx.event.type.Event",i = "_applyShowBackButton",j = "group",k = "String",l = "",m = "changeTitle",n = "_applyShowButton",o = "__mD",p = "left-container",q = "Number",r = "_applyActionButtonIcon",s = "_applyBackButtonText",t = "__mJ",u = "__mH",v = "tap",w = "qx.ui.mobile.page.NavigationPage",z = "_applyActionButtonText",A = "_applyTitle";
+  qx.Class.define(w, {
     extend : qx.ui.mobile.page.Page,
     implement : qx.ui.mobile.container.INavigation,
     construct : function(wrapContentByGroup, layout){
@@ -38146,77 +38902,77 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       };
     },
     events : {
-      action : j
+      action : h
     },
     properties : {
       title : {
-        check : m,
-        init : n,
-        event : p,
+        check : k,
+        init : l,
+        event : m,
         apply : A
       },
       backButtonText : {
-        check : m,
-        init : n,
-        apply : v
+        check : k,
+        init : l,
+        apply : s
       },
       buttonText : {
-        check : m,
-        init : n,
-        apply : i
+        check : k,
+        init : l,
+        apply : z
       },
       buttonIcon : {
-        check : m,
+        check : k,
         init : null,
         nullable : true,
-        apply : u
+        apply : r
       },
       showBackButton : {
-        check : c,
+        check : a,
         init : false,
-        apply : k
+        apply : i
       },
       showBackButtonOnTablet : {
-        check : c,
+        check : a,
         init : false
       },
       showButton : {
-        check : c,
+        check : a,
         init : false,
-        apply : r
+        apply : n
       },
       navigationBarHidden : {
-        check : c,
+        check : a,
         init : false
       },
       navigationBarToggleDuration : {
-        check : t,
+        check : q,
         init : 0.8
       },
       contentCssClass : {
-        check : m,
-        init : d,
+        check : k,
+        init : b,
         nullable : true,
-        apply : g
+        apply : d
       }
     },
     members : {
       _isTablet : false,
       _wrapContentByGroup : true,
-      __mm : null,
-      __mn : null,
-      __mo : null,
-      __mp : null,
-      __mq : null,
-      __mr : null,
-      __ms : null,
+      __mD : null,
+      __mE : null,
+      __mF : null,
+      __mG : null,
+      __mH : null,
+      __mI : null,
+      __mJ : null,
       getTitleWidget : function(){
 
-        if(!this.__mq){
+        if(!this.__mH){
 
-          this.__mq = this._createTitleWidget();
+          this.__mH = this._createTitleWidget();
         };
-        return this.__mq;
+        return this.__mH;
       },
       _createTitleWidget : function(){
 
@@ -38224,47 +38980,47 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _applyTitle : function(value, old){
 
-        if(this.__mq){
+        if(this.__mH){
 
-          this.__mq.setValue(value);
+          this.__mH.setValue(value);
         };
       },
       getLeftContainer : function(){
 
-        if(!this.__mr){
+        if(!this.__mI){
 
-          this.__mr = this._createLeftContainer();
+          this.__mI = this._createLeftContainer();
         };
-        return this.__mr;
+        return this.__mI;
       },
       getRightContainer : function(){
 
-        if(!this.__ms){
+        if(!this.__mJ){
 
-          this.__ms = this._createRightContainer();
+          this.__mJ = this._createRightContainer();
         };
-        return this.__ms;
+        return this.__mJ;
       },
       _createLeftContainer : function(){
 
         var layout = new qx.ui.mobile.layout.HBox();
         var container = new qx.ui.mobile.container.Composite(layout);
-        container.addCssClass(s);
-        this.__mm = this._createBackButton();
-        this.__mm.addListener(w, this._onBackButtonTap, this);
+        container.addCssClass(p);
+        this.__mD = this._createBackButton();
+        this.__mD.addListener(v, this._onBackButtonTap, this);
         this._showBackButton();
-        container.add(this.__mm);
+        container.add(this.__mD);
         return container;
       },
       _createRightContainer : function(){
 
         var layout = new qx.ui.mobile.layout.HBox();
         var container = new qx.ui.mobile.container.Composite(layout);
-        container.addCssClass(f);
-        this.__mn = this._createButton();
-        this.__mn.addListener(w, this._onButtonTap, this);
+        container.addCssClass(c);
+        this.__mE = this._createButton();
+        this.__mE.addListener(v, this._onButtonTap, this);
         this._showButton();
-        container.add(this.__mn);
+        container.add(this.__mE);
         return container;
       },
       _createBackButton : function(){
@@ -38277,26 +39033,26 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       scrollTo : function(x, y, time){
 
-        this.__mp.scrollTo(x, y, time);
+        this.__mG.scrollTo(x, y, time);
       },
       scrollToWidget : function(widget, time){
 
         if(widget){
 
-          this.__mp.scrollToElement(widget.getId(), time);
+          this.__mG.scrollToElement(widget.getId(), time);
         };
       },
       getContent : function(){
 
-        return this.__mo;
+        return this.__mF;
       },
       _getBackButton : function(){
 
-        return this.__mm;
+        return this.__mD;
       },
       _getButton : function(){
 
-        return this.__mn;
+        return this.__mE;
       },
       setIsTablet : function(isTablet){
 
@@ -38308,34 +39064,34 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _getScrollContainer : function(){
 
-        return this.__mp;
+        return this.__mG;
       },
       addAfterNavigationBar : function(widget){
 
-        if(widget && this.__mp){
+        if(widget && this.__mG){
 
-          this.addBefore(widget, this.__mp);
+          this.addBefore(widget, this.__mG);
         };
       },
       _applyBackButtonText : function(value, old){
 
-        if(this.__mm){
+        if(this.__mD){
 
-          this.__mm.setValue(value);
+          this.__mD.setValue(value);
         };
       },
       _applyActionButtonText : function(value, old){
 
-        if(this.__mn){
+        if(this.__mE){
 
-          this.__mn.setValue(value);
+          this.__mE.setValue(value);
         };
       },
       _applyActionButtonIcon : function(value, old){
 
-        if(this.__mn){
+        if(this.__mE){
 
-          this.__mn.setIcon(value);
+          this.__mE.setIcon(value);
         };
       },
       _applyShowBackButton : function(value, old){
@@ -38348,51 +39104,51 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _applyContentCssClass : function(value, old){
 
-        if(this.__mo){
+        if(this.__mF){
 
-          this.__mo.setDefaultCssClass(value);
+          this.__mF.setDefaultCssClass(value);
         };
       },
       _showBackButton : function(){
 
-        if(this.__mm){
+        if(this.__mD){
 
           if(this.getShowBackButton()){
 
-            this.__mm.show();
+            this.__mD.show();
           } else {
 
-            this.__mm.exclude();
+            this.__mD.exclude();
           };
         };
       },
       _showButton : function(){
 
-        if(this.__mn){
+        if(this.__mE){
 
           if(this.getShowButton()){
 
-            this.__mn.show();
+            this.__mE.show();
           } else {
 
-            this.__mn.exclude();
+            this.__mE.exclude();
           };
         };
       },
       _initialize : function(){
 
         qx.ui.mobile.page.Page.prototype._initialize.call(this);
-        this.__mp = this._createScrollContainer();
-        this.__mo = this._createContent();
-        if(this.__mo){
+        this.__mG = this._createScrollContainer();
+        this.__mF = this._createContent();
+        if(this.__mF){
 
-          this.__mp.add(this.__mo, {
+          this.__mG.add(this.__mF, {
             flex : 1
           });
         };
-        if(this.__mp){
+        if(this.__mG){
 
-          this.add(this.__mp, {
+          this.add(this.__mG, {
             flex : 1
           });
         };
@@ -38407,7 +39163,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         content.setDefaultCssClass(this.getContentCssClass());
         if(this._wrapContentByGroup == true){
 
-          content.addCssClass(l);
+          content.addCssClass(j);
         };
         return content;
       },
@@ -38417,14 +39173,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _onButtonTap : function(evt){
 
-        this.fireEvent(h);
+        this.fireEvent(e);
       }
     },
     destruct : function(){
 
-      this._disposeObjects(o, b, q, e, a);
-      this.__mr = this.__ms = this.__mm = this.__mn = null;
-      this.__mq = this.__mo = this.__mp = null;
+      this._disposeObjects(g, t, o, f, u);
+      this.__mI = this.__mJ = this.__mD = this.__mE = null;
+      this.__mH = this.__mF = this.__mG = null;
       this._isTablet = null;
     }
   });
@@ -38511,11 +39267,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
   qx.Mixin.define(r, {
     construct : function(){
 
-      this.__mu();
-      this.__mw();
+      this.__mL();
+      this.__mN();
     },
     members : {
-      __mt : null,
+      __mK : null,
       _createScrollElement : function(){
 
         var scroll = qx.dom.Element.create(q);
@@ -38528,9 +39284,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _scrollTo : function(x, y, time){
 
-        if(this.__mt){
+        if(this.__mK){
 
-          this.__mt.scrollTo(x, y, time);
+          this.__mK.scrollTo(x, y, time);
         };
       },
       _scrollToElement : function(elementId, time){
@@ -38539,12 +39295,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           time = 0;
         };
-        if(this.__mt){
+        if(this.__mK){
 
-          this.__mt.scrollToElement(k + elementId, time);
+          this.__mK.scrollToElement(k + elementId, time);
         };
       },
-      __mu : function(){
+      __mL : function(){
 
         if(!window.iScroll){
 
@@ -38556,15 +39312,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           {
           };
           var loader = new qx.bom.request.Script();
-          loader.on(n, this.__my, this);
+          loader.on(n, this.__mP, this);
           loader.open(p, path);
           loader.send();
         } else {
 
-          this._setScroll(this.__mv());
+          this._setScroll(this.__mM());
         };
       },
-      __mv : function(){
+      __mM : function(){
 
         var defaultScrollProperties = this._getDefaultScrollProperties();
         var customScrollProperties = {
@@ -38633,23 +39389,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           }
         };
       },
-      __mw : function(){
+      __mN : function(){
 
         qx.event.Registration.addListener(window, b, this._refresh, this);
         qx.event.Registration.addListener(window, h, this._refresh, this);
         this.addListener(o, this._refresh, this);
       },
-      __mx : function(){
+      __mO : function(){
 
         qx.event.Registration.removeListener(window, b, this._refresh, this);
         qx.event.Registration.removeListener(window, h, this._refresh, this);
         this.removeListener(o, this._refresh, this);
       },
-      __my : function(request){
+      __mP : function(request){
 
         if(request.status < 400){
 
-          this._setScroll(this.__mv());
+          this._setScroll(this.__mM());
         } else {
 
           {
@@ -38658,38 +39414,38 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _setScroll : function(scroll){
 
-        this.__mt = scroll;
+        this.__mK = scroll;
       },
       disable : function(){
 
-        if(this.__mt){
+        if(this.__mK){
 
-          this.__mt.disable();
+          this.__mK.disable();
         };
       },
       enable : function(){
 
-        if(this.__mt){
+        if(this.__mK){
 
-          this.__mt.enable();
+          this.__mK.enable();
         };
       },
       _refresh : function(){
 
-        if(this.__mt){
+        if(this.__mK){
 
-          this.__mt.refresh();
+          this.__mK.refresh();
         };
       }
     },
     destruct : function(){
 
-      this.__mx();
-      if(this.__mt){
+      this.__mO();
+      if(this.__mK){
 
-        this.__mt.destroy();
+        this.__mK.destroy();
       };
-      this.__mt;
+      this.__mK;
     }
   });
 })();
@@ -38699,13 +39455,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
   qx.Bootstrap.define(c, {
     construct : function(){
 
-      this.__mE();
-      this.__mz = qx.Bootstrap.bind(this._onNativeLoad, this);
-      this.__mA = qx.Bootstrap.bind(this._onNativeError, this);
+      this.__mV();
+      this.__mQ = qx.Bootstrap.bind(this._onNativeLoad, this);
+      this.__mR = qx.Bootstrap.bind(this._onNativeError, this);
       this.__lD = qx.Bootstrap.bind(this._onTimeout, this);
-      this.__mB = document.head || document.getElementsByTagName(e)[0] || document.documentElement;
+      this.__mS = document.head || document.getElementsByTagName(e)[0] || document.documentElement;
       this._emitter = new qx.event.Emitter();
-      this.timeout = this.__mG() ? 0 : 15000;
+      this.timeout = this.__mX() ? 0 : 15000;
     },
     events : {
       "readystatechange" : c,
@@ -38720,7 +39476,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       status : null,
       statusText : null,
       timeout : null,
-      __mC : null,
+      __mT : null,
       on : function(name, listener, ctx){
 
         this._emitter.on(name, listener, ctx);
@@ -38732,10 +39488,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           return;
         };
-        this.__mE();
+        this.__mV();
         this.__lG = null;
         this.__lQ = url;
-        if(this.__mJ(b)){
+        if(this.__nb(b)){
 
           qx.Bootstrap.debug(qx.bom.request.Script, u + a + url);
         };
@@ -38763,12 +39519,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           return null;
         };
-        var script = this.__mH(),head = this.__mB,that = this;
+        var script = this.__mY(),head = this.__mS,that = this;
         if(this.timeout > 0){
 
           this.__iU = window.setTimeout(this.__lD, this.timeout);
         };
-        if(this.__mJ(b)){
+        if(this.__nb(b)){
 
           qx.Bootstrap.debug(qx.bom.request.Script, z);
         };
@@ -38787,7 +39543,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           return null;
         };
         this.__lG = true;
-        this.__mI();
+        this.__na();
         this._emit(m);
         return this;
       },
@@ -38814,7 +39570,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           return null;
         };
-        if(this.__mJ(h)){
+        if(this.__nb(h)){
 
           qx.Bootstrap.debug(q + r);
         };
@@ -38826,7 +39582,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           return null;
         };
-        if(this.__mJ(h)){
+        if(this.__nb(h)){
 
           qx.Bootstrap.debug(v + r);
         };
@@ -38834,17 +39590,17 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       setDetermineSuccess : function(check){
 
-        this.__mC = check;
+        this.__mT = check;
       },
       dispose : function(){
 
-        var script = this.__mD;
+        var script = this.__mU;
         if(!this.__lV){
 
           if(script){
 
             script.onload = script.onreadystatechange = null;
-            this.__mI();
+            this.__na();
           };
           if(this.__iU){
 
@@ -38863,42 +39619,42 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _getScriptElement : function(){
 
-        return this.__mD;
+        return this.__mU;
       },
       _onTimeout : function(){
 
-        this.__mF();
-        if(!this.__mG()){
+        this.__mW();
+        if(!this.__mX()){
 
           this._emit(f);
         };
         this._emit(B);
-        if(!this.__mG()){
+        if(!this.__mX()){
 
           this._emit(g);
         };
       },
       _onNativeLoad : function(){
 
-        var script = this.__mD,determineSuccess = this.__mC,that = this;
+        var script = this.__mU,determineSuccess = this.__mT,that = this;
         if(this.__lG){
 
           return;
         };
-        if(this.__mJ(x) === w && this.__mJ(l) < 9){
+        if(this.__nb(x) === w && this.__nb(l) < 9){
 
           if(!(/loaded|complete/).test(script.readyState)){
 
             return;
           } else {
 
-            if(this.__mJ(b)){
+            if(this.__nb(b)){
 
               qx.Bootstrap.debug(qx.bom.request.Script, o);
             };
           };
         };
-        if(this.__mJ(b)){
+        if(this.__nb(b)){
 
           qx.Bootstrap.debug(qx.bom.request.Script, D);
         };
@@ -38911,7 +39667,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         if(this.status === 500){
 
-          if(this.__mJ(b)){
+          if(this.__nb(b)){
 
             qx.Bootstrap.debug(qx.bom.request.Script, y);
           };
@@ -38930,20 +39686,20 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _onNativeError : function(){
 
-        this.__mF();
+        this.__mW();
         this._emit(f);
         this._emit(g);
       },
-      __mD : null,
-      __mB : null,
+      __mU : null,
+      __mS : null,
       __lQ : n,
-      __mz : null,
-      __mA : null,
+      __mQ : null,
+      __mR : null,
       __lD : null,
       __iU : null,
       __lG : null,
       __lV : null,
-      __mE : function(){
+      __mV : function(){
 
         this.readyState = 0;
         this.status = 0;
@@ -38956,7 +39712,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _success : function(){
 
-        this.__mI();
+        this.__na();
         this.readyState = 4;
         if(!this.status){
 
@@ -38964,40 +39720,40 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         this.statusText = n + this.status;
       },
-      __mF : function(){
+      __mW : function(){
 
-        this.__mI();
+        this.__na();
         this.readyState = 4;
         this.status = 0;
         this.statusText = null;
       },
-      __mG : function(){
+      __mX : function(){
 
-        var isLegacyIe = this.__mJ(x) === w && this.__mJ(l) < 9;
-        var isOpera = this.__mJ(x) === s;
+        var isLegacyIe = this.__nb(x) === w && this.__nb(l) < 9;
+        var isOpera = this.__nb(x) === s;
         return !(isLegacyIe || isOpera);
       },
-      __mH : function(){
+      __mY : function(){
 
-        var script = this.__mD = document.createElement(i);
+        var script = this.__mU = document.createElement(i);
         script.src = this.__lQ;
-        script.onerror = this.__mA;
-        script.onload = this.__mz;
-        if(this.__mJ(x) === w && this.__mJ(l) < 9){
+        script.onerror = this.__mR;
+        script.onload = this.__mQ;
+        if(this.__nb(x) === w && this.__nb(l) < 9){
 
-          script.onreadystatechange = this.__mz;
+          script.onreadystatechange = this.__mQ;
         };
         return script;
       },
-      __mI : function(){
+      __na : function(){
 
-        var script = this.__mD;
+        var script = this.__mU;
         if(script && script.parentNode){
 
-          this.__mB.removeChild(script);
+          this.__mS.removeChild(script);
         };
       },
-      __mJ : function(key){
+      __nb : function(key){
 
         if(qx && qx.core && qx.core.Environment){
 
@@ -39094,14 +39850,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     },
     construct : function(){
 
-      this.__mK = {
+      this.__nc = {
       };
     },
     members : {
-      __mK : null,
+      __nc : null,
       getSubscriptions : function(){
 
-        return this.__mK;
+        return this.__nc;
       },
       subscribe : function(message, subscriber, context){
 
@@ -39201,14 +39957,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             if(pos === 0 || key.substr(0, pos) === msgName.substr(0, pos)){
 
-              this.__mL(sub[key], msg);
+              this.__nd(sub[key], msg);
               dispatched = true;
             };
           } else {
 
             if(key === msgName){
 
-              this.__mL(sub[msgName], msg);
+              this.__nd(sub[msgName], msg);
               dispatched = true;
             };
           };
@@ -39220,7 +39976,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var message = new qx.event.message.Message(name, data);
         return this.dispatch(message);
       },
-      __mL : function(subscribers, msg){
+      __nd : function(subscribers, msg){
 
         for(var i = 0;i < subscribers.length;i++){
 
@@ -39374,19 +40130,17 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "Log in",b = "Log out",c = "/instances/",d = "Overview",e = "/entities/",f = "changeSelection",g = "kirra_qooxdoo.EntityNavigator",h = "qx.event.type.Data";
-  qx.Class.define(g, {
+  var a = "/entities/",b = "/instances/",c = "Overview",d = "changeSelection",e = "kirra_qooxdoo.EntityNavigator",f = "qx.event.type.Data";
+  qx.Class.define(e, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
-      this.setTitle(d);
-      this.setShowBackButton(true);
-      this.setBackButtonText(b);
+      this.setTitle(c);
     },
     events : {
-      "show" : h
+      "show" : f
     },
     members : {
       _initialize : function(){
@@ -39403,10 +40157,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           }
         });
         this.getContent().add(list);
-        list.addListener(f, function(evt){
+        list.addListener(d, function(evt){
 
           var selectedEntity = list.getModel().getItem(evt.getData());
-          qx.core.Init.getApplication().getRouting().executeGet(e + selectedEntity.fullName + c);
+          qx.core.Init.getApplication().getRouting().executeGet(a + selectedEntity.fullName + b);
         }, this);
         this.repository.loadEntities(function(entities){
 
@@ -39421,35 +40175,25 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _start : function(){
 
         qx.ui.mobile.page.NavigationPage.prototype._start.call(this);
-      },
-      _back : function(){
-
-        if(this.getBackButtonText() == b){
-
-          this.setBackButtonText(a);
-        } else if(this.getBackButtonText() == a){
-
-          this.setBackButtonText(b);
-        };
       }
     }
   });
 })();
 (function(){
 
-  var a = "changeModel",b = "-",c = "height",d = "qx.data.Array",f = "ul",g = "changeLength",h = "Integer",j = "_applyModel",k = "qx.event.type.Data",l = "",m = "changeLocale",n = "data-selectable",o = "order",p = "qx.ui.mobile.list.List",q = "changeSelection",r = "__mM",s = "_applyDelegate",t = "LI",u = "list",v = "changeDelegate",w = "]",x = "tap",y = "qx.dynlocale",z = "[",A = "false",B = "UL",C = "change",D = "changeBubble",E = ".";
+  var a = "changeModel",b = "-",c = "height",d = "qx.data.Array",f = "ul",g = "changeLength",h = "Integer",j = "_applyModel",k = "qx.event.type.Data",l = "",m = "changeLocale",n = "data-selectable",o = "order",p = "qx.ui.mobile.list.List",q = "changeSelection",r = "_applyDelegate",s = "LI",t = "list",u = "changeDelegate",v = "]",w = "tap",x = "qx.dynlocale",y = "[",z = "false",A = "UL",B = "change",C = "changeBubble",D = ".",E = "__ne";
   qx.Class.define(p, {
     extend : qx.ui.mobile.core.Widget,
     construct : function(delegate){
 
       qx.ui.mobile.core.Widget.call(this);
-      this.addListener(x, this._onTap, this);
-      this.__mM = new qx.ui.mobile.list.provider.Provider(this);
+      this.addListener(w, this._onTap, this);
+      this.__ne = new qx.ui.mobile.list.provider.Provider(this);
       if(delegate){
 
         this.setDelegate(delegate);
       };
-      if(qx.core.Environment.get(y)){
+      if(qx.core.Environment.get(x)){
 
         qx.locale.Manager.getInstance().addListener(m, this._onChangeLocale, this);
       };
@@ -39461,11 +40205,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     properties : {
       defaultCssClass : {
         refine : true,
-        init : u
+        init : t
       },
       delegate : {
-        apply : s,
-        event : v,
+        apply : r,
+        event : u,
         init : null,
         nullable : true
       },
@@ -39482,7 +40226,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __mM : null,
+      __ne : null,
       _getTagName : function(){
 
         return f;
@@ -39491,15 +40235,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var element = evt.getOriginalTarget();
         var index = -1;
-        if(element.tagName == B){
+        if(element.tagName == A){
 
           return;
         };
-        while(element.tagName != t){
+        while(element.tagName != s){
 
           element = element.parentNode;
         };
-        if(qx.bom.element.Attribute.get(element, n) != A && qx.dom.Element.hasChild(this.getContainerElement(), element)){
+        if(qx.bom.element.Attribute.get(element, n) != z && qx.dom.Element.hasChild(this.getContainerElement(), element)){
 
           index = qx.dom.Hierarchy.getElementIndex(element);
         };
@@ -39512,53 +40256,53 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         if(old != null){
 
-          old.removeListener(D, this.__mP, this);
+          old.removeListener(C, this.__nh, this);
         };
         if(value != null){
 
-          value.addListener(D, this.__mP, this);
+          value.addListener(C, this.__nh, this);
         };
         if(old != null){
 
-          old.removeListener(C, this.__mO, this);
+          old.removeListener(B, this.__ng, this);
         };
         if(value != null){
 
-          value.addListener(C, this.__mO, this);
+          value.addListener(B, this.__ng, this);
         };
         if(old != null){
 
-          old.removeListener(g, this.__mN, this);
+          old.removeListener(g, this.__nf, this);
         };
         if(value != null){
 
-          value.addListener(g, this.__mN, this);
+          value.addListener(g, this.__nf, this);
         };
-        this.__mR();
+        this.__nj();
       },
       _applyDelegate : function(value, old){
 
-        this.__mM.setDelegate(value);
+        this.__ne.setDelegate(value);
       },
-      __mN : function(evt){
+      __nf : function(evt){
 
-        this.__mR();
+        this.__nj();
       },
-      _onChangeLocale : qx.core.Environment.select(y, {
+      _onChangeLocale : qx.core.Environment.select(x, {
         "true" : function(e){
 
-          this.__mR();
+          this.__nj();
         },
         "false" : null
       }),
-      __mO : function(evt){
+      __ng : function(evt){
 
         if(evt && evt.getData() && evt.getData().type == o){
 
-          this.__mR();
+          this.__nj();
         };
       },
-      __mP : function(evt){
+      __nh : function(evt){
 
         if(evt){
 
@@ -39569,7 +40313,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             var rows = this._extractRowsToRender(data.name);
             for(var i = 0;i < rows.length;i++){
 
-              this.__mQ(rows[i]);
+              this.__ni(rows[i]);
             };
           };
         };
@@ -39581,12 +40325,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           return rows;
         };
-        var containsPoint = (name.indexOf(E) != -1);
+        var containsPoint = (name.indexOf(D) != -1);
         if(containsPoint){
 
-          var candidate = name.split(E)[0];
-          candidate = candidate.replace(z, l);
-          candidate = candidate.replace(w, l);
+          var candidate = name.split(D)[0];
+          candidate = candidate.replace(y, l);
+          candidate = candidate.replace(v, l);
           var isRange = (candidate.indexOf(b) != -1);
           if(isRange){
 
@@ -39611,11 +40355,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         return rows;
       },
-      __mQ : function(index){
+      __ni : function(index){
 
         var model = this.getModel();
         var element = this.getContentElement();
-        var itemElement = this.__mM.getItemElement(model.getItem(index), index);
+        var itemElement = this.__ne.getItemElement(model.getItem(index), index);
         var oldNode = element.childNodes[index];
         element.replaceChild(itemElement, oldNode);
         this._domUpdated();
@@ -39630,7 +40374,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         return listItemHeight;
       },
-      __mR : function(){
+      __nj : function(){
 
         this._setHtml(l);
         var model = this.getModel();
@@ -39639,7 +40383,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var element = this.getContentElement();
         for(var index = 0;index < itemCount;index++){
 
-          var itemElement = this.__mM.getItemElement(model.getItem(index), index);
+          var itemElement = this.__ne.getItemElement(model.getItem(index), index);
           element.appendChild(itemElement);
         };
         this._domUpdated();
@@ -39647,8 +40391,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     },
     destruct : function(){
 
-      this._disposeObjects(r);
-      if(qx.core.Environment.get(y)){
+      this._disposeObjects(E);
+      if(qx.core.Environment.get(x)){
 
         qx.locale.Manager.getInstance().removeListener(m, this._onChangeLocale, this);
       };
@@ -39657,8 +40401,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "_applyDelegate",b = "__mS",c = "qx.ui.mobile.list.provider.Provider",d = "createItemRenderer",e = "changeDelegate";
-  qx.Class.define(c, {
+  var a = "_applyDelegate",b = "qx.ui.mobile.list.provider.Provider",c = "__nk",d = "createItemRenderer",e = "changeDelegate";
+  qx.Class.define(b, {
     extend : qx.core.Object,
     properties : {
       delegate : {
@@ -39669,27 +40413,27 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __mS : null,
+      __nk : null,
       _setItemRenderer : function(renderer){
 
-        this.__mS = renderer;
+        this.__nk = renderer;
       },
       _getItemRenderer : function(){
 
-        return this.__mS;
+        return this.__nk;
       },
       getItemElement : function(data, row){
 
-        this.__mS.reset();
+        this.__nk.reset();
         this._configureItem(data, row);
-        return qx.bom.Element.clone(this.__mS.getContainerElement(), true);
+        return qx.bom.Element.clone(this.__nk.getContainerElement(), true);
       },
       _configureItem : function(data, row){
 
         var delegate = this.getDelegate();
         if(delegate != null && delegate.configureItem != null){
 
-          delegate.configureItem(this.__mS, data, row);
+          delegate.configureItem(this.__nk, data, row);
         };
       },
       _createItemRenderer : function(){
@@ -39712,7 +40456,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     },
     destruct : function(){
 
-      this._disposeObjects(b);
+      this._disposeObjects(c);
     }
   });
 })();
@@ -39825,69 +40569,69 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "__mq",b = "__ms",c = "list-itemlabel",d = "",e = "__mT",f = "qx.ui.mobile.list.renderer.Default",g = "list-itemimage",h = "__mU",i = "middle",j = "subtitle";
-  qx.Class.define(f, {
+  var a = "list-itemlabel",b = "",c = "qx.ui.mobile.list.renderer.Default",d = "__nl",e = "__mJ",f = "list-itemimage",g = "__mH",h = "middle",i = "subtitle",j = "__nm";
+  qx.Class.define(c, {
     extend : qx.ui.mobile.list.renderer.Abstract,
     construct : function(layout){
 
       qx.ui.mobile.list.renderer.Abstract.call(this, layout || new qx.ui.mobile.layout.HBox().set({
-        alignY : i
+        alignY : h
       }));
       this._init();
     },
     members : {
-      __mT : null,
-      __mq : null,
-      __mU : null,
-      __ms : null,
+      __nl : null,
+      __mH : null,
+      __nm : null,
+      __mJ : null,
       getImageWidget : function(){
 
-        return this.__mT;
+        return this.__nl;
       },
       getTitleWidget : function(){
 
-        return this.__mq;
+        return this.__mH;
       },
       getSubtitleWidget : function(){
 
-        return this.__mU;
+        return this.__nm;
       },
       setImage : function(source){
 
-        this.__mT.setSource(source);
+        this.__nl.setSource(source);
       },
       setTitle : function(title){
 
         if(title && title.translate){
 
-          this.__mq.setValue(title.translate());
+          this.__mH.setValue(title.translate());
         } else {
 
-          this.__mq.setValue(title);
+          this.__mH.setValue(title);
         };
       },
       setSubtitle : function(subtitle){
 
         if(subtitle && subtitle.translate){
 
-          this.__mU.setValue(subtitle.translate());
+          this.__nm.setValue(subtitle.translate());
         } else {
 
-          this.__mU.setValue(subtitle);
+          this.__nm.setValue(subtitle);
         };
       },
       _init : function(){
 
-        this.__mT = this._createImage();
-        this.add(this.__mT);
-        this.__ms = this._createRightContainer();
-        this.add(this.__ms, {
+        this.__nl = this._createImage();
+        this.add(this.__nl);
+        this.__mJ = this._createRightContainer();
+        this.add(this.__mJ, {
           flex : 1
         });
-        this.__mq = this._createTitle();
-        this.__ms.add(this.__mq);
-        this.__mU = this._createSubtitle();
-        this.__ms.add(this.__mU);
+        this.__mH = this._createTitle();
+        this.__mJ.add(this.__mH);
+        this.__nm = this._createSubtitle();
+        this.__mJ.add(this.__nm);
       },
       _createRightContainer : function(){
 
@@ -39897,33 +40641,33 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var image = new qx.ui.mobile.basic.Image();
         image.setAnonymous(true);
-        image.addCssClass(g);
+        image.addCssClass(f);
         return image;
       },
       _createTitle : function(){
 
         var title = new qx.ui.mobile.basic.Label();
         title.setWrap(false);
-        title.addCssClass(c);
+        title.addCssClass(a);
         return title;
       },
       _createSubtitle : function(){
 
         var subtitle = new qx.ui.mobile.basic.Label();
         subtitle.setWrap(false);
-        subtitle.addCssClass(j);
+        subtitle.addCssClass(i);
         return subtitle;
       },
       reset : function(){
 
-        this.__mT.setSource(null);
-        this.__mq.setValue(d);
-        this.__mU.setValue(d);
+        this.__nl.setSource(null);
+        this.__mH.setValue(b);
+        this.__nm.setValue(b);
       }
     },
     destruct : function(){
 
-      this._disposeObjects(e, a, h, b);
+      this._disposeObjects(d, g, j, e);
     }
   });
 })();
@@ -39958,7 +40702,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         if((value instanceof qx.core.Object) && qx.Class.hasMixin(value.constructor, qx.data.marshal.MEventBubbling)){
 
-          var listener = qx.lang.Function.bind(this.__mV, this, name);
+          var listener = qx.lang.Function.bind(this.__nn, this, name);
           var id = value.addListener(g, listener, this);
           var listeners = value.getUserData(d + this.$$hash);
           if(listeners == null){
@@ -39969,7 +40713,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           listeners.push(id);
         };
       },
-      __mV : function(name, e){
+      __nn : function(name, e){
 
         var data = e.getData();
         var value = data.value;
@@ -40035,31 +40779,31 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       qx.core.Object.call(this);
       if(param == undefined){
 
-        this.__mW = [];
+        this.__no = [];
       } else if(arguments.length > 1){
 
-        this.__mW = [];
+        this.__no = [];
         for(var i = 0;i < arguments.length;i++){
 
-          this.__mW.push(arguments[i]);
+          this.__no.push(arguments[i]);
         };
       } else if(typeof param == n){
 
-        this.__mW = new Array(param);
+        this.__no = new Array(param);
       } else if(param instanceof Array){
 
-        this.__mW = qx.lang.Array.clone(param);
+        this.__no = qx.lang.Array.clone(param);
       } else {
 
-        this.__mW = [];
+        this.__no = [];
         this.dispose();
         throw new Error(j);
       };;;
-      for(var i = 0;i < this.__mW.length;i++){
+      for(var i = 0;i < this.__no.length;i++){
 
-        this._applyEventPropagation(this.__mW[i], null, i);
+        this._applyEventPropagation(this.__no[i], null, i);
       };
-      this.__mX();
+      this.__np();
       {
       };
     },
@@ -40074,26 +40818,26 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       "changeLength" : q
     },
     members : {
-      __mW : null,
+      __no : null,
       concat : function(array){
 
         if(array){
 
-          var newArray = this.__mW.concat(array);
+          var newArray = this.__no.concat(array);
         } else {
 
-          var newArray = this.__mW.concat();
+          var newArray = this.__no.concat();
         };
         return new qx.data.Array(newArray);
       },
       join : function(connector){
 
-        return this.__mW.join(connector);
+        return this.__no.join(connector);
       },
       pop : function(){
 
-        var item = this.__mW.pop();
-        this.__mX();
+        var item = this.__no.pop();
+        this.__np();
         this._registerEventChaining(null, item, this.length - 1);
         this.fireDataEvent(o, {
           value : [],
@@ -40114,8 +40858,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         for(var i = 0;i < arguments.length;i++){
 
-          this.__mW.push(arguments[i]);
-          this.__mX();
+          this.__no.push(arguments[i]);
+          this.__np();
           this._registerEventChaining(arguments[i], null, this.length - 1);
           this.fireDataEvent(o, {
             value : [arguments[i]],
@@ -40139,9 +40883,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           return;
         };
-        var oldArray = this.__mW.concat();
-        this.__mW.reverse();
-        this.__mY(0, this.length);
+        var oldArray = this.__no.concat();
+        this.__no.reverse();
+        this.__nq(0, this.length);
         this.fireDataEvent(g, {
           start : 0,
           end : this.length - 1,
@@ -40150,8 +40894,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           removed : []
         }, null);
         this.fireDataEvent(o, {
-          value : this.__mW,
-          name : k + (this.__mW.length - 1),
+          value : this.__no,
+          name : k + (this.__no.length - 1),
           old : oldArray,
           item : this
         });
@@ -40162,10 +40906,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           return;
         };
-        var item = this.__mW.shift();
-        this.__mX();
+        var item = this.__no.shift();
+        this.__np();
         this._registerEventChaining(null, item, this.length - 1);
-        this.__mY(0, this.length);
+        this.__nq(0, this.length);
         this.fireDataEvent(o, {
           value : [],
           name : m,
@@ -40183,15 +40927,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       slice : function(from, to){
 
-        return new qx.data.Array(this.__mW.slice(from, to));
+        return new qx.data.Array(this.__no.slice(from, to));
       },
       splice : function(startIndex, amount, varargs){
 
-        var oldLength = this.__mW.length;
-        var returnArray = this.__mW.splice.apply(this.__mW, arguments);
-        if(this.__mW.length != oldLength){
+        var oldLength = this.__no.length;
+        var returnArray = this.__no.splice.apply(this.__no, arguments);
+        if(this.__no.length != oldLength){
 
-          this.__mX();
+          this.__np();
         } else if(amount == arguments.length - 2){
 
           var addedItems = qx.lang.Array.fromArguments(arguments, 2);
@@ -40241,7 +40985,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           this._registerEventChaining(arguments[i], null, startIndex + (i - 2));
         };
-        this.__mY(startIndex + (arguments.length - 2) - amount, this.length);
+        this.__nq(startIndex + (arguments.length - 2) - amount, this.length);
         var value = [];
         for(var i = 2;i < arguments.length;i++){
 
@@ -40263,13 +41007,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           return;
         };
-        var oldArray = this.__mW.concat();
-        this.__mW.sort.apply(this.__mW, arguments);
-        if(qx.lang.Array.equals(this.__mW, oldArray) === true){
+        var oldArray = this.__no.concat();
+        this.__no.sort.apply(this.__no, arguments);
+        if(qx.lang.Array.equals(this.__no, oldArray) === true){
 
           return;
         };
-        this.__mY(0, this.length);
+        this.__nq(0, this.length);
         this.fireDataEvent(g, {
           start : 0,
           end : this.length - 1,
@@ -40278,7 +41022,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           removed : []
         }, null);
         this.fireDataEvent(o, {
-          value : this.__mW,
+          value : this.__no,
           name : k + (this.length - 1),
           old : oldArray,
           item : this
@@ -40288,13 +41032,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         for(var i = arguments.length - 1;i >= 0;i--){
 
-          this.__mW.unshift(arguments[i]);
-          this.__mX();
-          this.__mY(0, this.length);
+          this.__no.unshift(arguments[i]);
+          this.__np();
+          this.__nq(0, this.length);
           this.fireDataEvent(o, {
-            value : [this.__mW[0]],
+            value : [this.__no[0]],
             name : m,
-            old : [this.__mW[1]],
+            old : [this.__no[1]],
             item : this
           });
           this.fireDataEvent(g, {
@@ -40309,24 +41053,24 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       toArray : function(){
 
-        return this.__mW;
+        return this.__no;
       },
       getItem : function(index){
 
-        return this.__mW[index];
+        return this.__no[index];
       },
       setItem : function(index, item){
 
-        var oldItem = this.__mW[index];
+        var oldItem = this.__no[index];
         if(oldItem === item){
 
           return;
         };
-        this.__mW[index] = item;
+        this.__no[index] = item;
         this._registerEventChaining(item, oldItem, index);
-        if(this.length != this.__mW.length){
+        if(this.length != this.__no.length){
 
-          this.__mX();
+          this.__np();
         };
         this.fireDataEvent(o, {
           value : [item],
@@ -40348,23 +41092,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       indexOf : function(item){
 
-        return this.__mW.indexOf(item);
+        return this.__no.indexOf(item);
       },
       lastIndexOf : function(item){
 
-        return this.__mW.lastIndexOf(item);
+        return this.__no.lastIndexOf(item);
       },
       toString : function(){
 
-        if(this.__mW != null){
+        if(this.__no != null){
 
-          return this.__mW.toString();
+          return this.__no.toString();
         };
         return f;
       },
       contains : function(item){
 
-        return this.__mW.indexOf(item) !== -1;
+        return this.__no.indexOf(item) !== -1;
       },
       copy : function(){
 
@@ -40405,18 +41149,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       removeAll : function(){
 
-        for(var i = 0;i < this.__mW.length;i++){
+        for(var i = 0;i < this.__no.length;i++){
 
-          this._registerEventChaining(null, this.__mW[i], i);
+          this._registerEventChaining(null, this.__no[i], i);
         };
         if(this.getLength() == 0){
 
           return [];
         };
         var oldLength = this.getLength();
-        var items = this.__mW.concat();
-        this.__mW.length = 0;
-        this.__mX();
+        var items = this.__no.concat();
+        this.__no.length = 0;
+        this.__np();
         this.fireDataEvent(o, {
           value : [],
           name : k + (oldLength - 1),
@@ -40440,13 +41184,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         {
         };
-        Array.prototype.push.apply(this.__mW, array);
+        Array.prototype.push.apply(this.__no, array);
         for(var i = 0;i < array.length;i++){
 
-          this._registerEventChaining(array[i], null, this.__mW.length + i);
+          this._registerEventChaining(array[i], null, this.__no.length + i);
         };
         var oldLength = this.length;
-        this.__mX();
+        this.__np();
         var name = oldLength == (this.length - 1) ? oldLength : oldLength + a + (this.length - 1);
         this.fireDataEvent(o, {
           value : array,
@@ -40521,100 +41265,104 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       forEach : function(callback, context){
 
-        for(var i = 0;i < this.__mW.length;i++){
+        for(var i = 0;i < this.__no.length;i++){
 
-          callback.call(context, this.__mW[i], i, this);
+          callback.call(context, this.__no[i], i, this);
         };
       },
       filter : function(callback, self){
 
-        return new qx.data.Array(this.__mW.filter(callback, self));
+        return new qx.data.Array(this.__no.filter(callback, self));
       },
       map : function(callback, self){
 
-        return new qx.data.Array(this.__mW.map(callback, self));
+        return new qx.data.Array(this.__no.map(callback, self));
       },
       some : function(callback, self){
 
-        return this.__mW.some(callback, self);
+        return this.__no.some(callback, self);
       },
       every : function(callback, self){
 
-        return this.__mW.every(callback, self);
+        return this.__no.every(callback, self);
       },
       reduce : function(callback, initValue){
 
-        return this.__mW.reduce(callback, initValue);
+        return this.__no.reduce(callback, initValue);
       },
       reduceRight : function(callback, initValue){
 
-        return this.__mW.reduceRight(callback, initValue);
+        return this.__no.reduceRight(callback, initValue);
       },
-      __mX : function(){
+      __np : function(){
 
         var oldLength = this.length;
-        this.length = this.__mW.length;
+        this.length = this.__no.length;
         this.fireDataEvent(p, this.length, oldLength);
       },
-      __mY : function(from, to){
+      __nq : function(from, to){
 
         for(var i = from;i < to;i++){
 
-          this._registerEventChaining(this.__mW[i], this.__mW[i], i);
+          this._registerEventChaining(this.__no[i], this.__no[i], i);
         };
       }
     },
     destruct : function(){
 
-      for(var i = 0;i < this.__mW.length;i++){
+      for(var i = 0;i < this.__no.length;i++){
 
-        var item = this.__mW[i];
+        var item = this.__no[i];
         this._applyEventPropagation(null, item, i);
         if(this.isAutoDisposeItems() && item && item instanceof qx.core.Object){
 
           item.dispose();
         };
       };
-      this.__mW = null;
+      this.__no = null;
     }
   });
 })();
 (function(){
 
-  var a = "/entities/",b = "/instances/",c = "",d = "New",f = 'Date',g = "kirra_qooxdoo.InstanceNavigator",h = "Action",j = "Back",k = "changeSelection",l = "tap",m = "/instances/_template",n = ": ",o = ", ",q = "/",r = "/actions/",s = "qx.event.type.Data";
-  qx.Class.define(g, {
+  var a = "kirra_qooxdoo.AbstractInstanceNavigator",b = "",c = 'Date',d = "Implement this",f = "Back",g = "implement this",h = "No records found",i = ": ",j = ", ",k = "qx.event.type.Data";
+  qx.Class.define(a, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
       this.setShowBackButton(true);
-      this.setBackButtonText(j);
+      this.setBackButtonText(f);
     },
     events : {
-      "show" : s
+      "show" : k
     },
     members : {
-      _entityName : null,
-      _entity : null,
-      _toolbar : null,
-      _instanceList : null,
-      _initialize : function(){
+      _getInstanceListEntity : function(){
 
-        qx.ui.mobile.page.NavigationPage.prototype._initialize.call(this);
+        throw Error(g);
+      },
+      _loadInstances : function(callback){
+
+        throw Error(g);
+      },
+      _buildInstanceList : function(){
+
         var me = this;
-        var list = this._instanceList = new qx.ui.mobile.list.List({
+        this._instanceList = new qx.ui.mobile.list.List({
           configureItem : function(item, data, row){
 
             item.setTitle(data.shorthand);
-            item.setSubtitle(c);
+            item.setSubtitle(b);
             item.setShowArrow(true);
             item.data = data;
             var details = [],value,detail;
             for(name in me._detailProperties){
 
               value = data.values[name];
-              if(me._entity.properties[name].typeRef && me._entity.properties[name].typeRef.typeName === f){
+              var entity = me._getInstanceListEntity();
+              if(entity.properties[name].typeRef && entity.properties[name].typeRef.typeName === c){
 
                 try{
 
@@ -40625,20 +41373,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
               if(value && value != null){
 
                 detail = me._detailProperties[name].label;
-                if(value !== true)detail += n + value;
+                if(value !== true)detail += i + value;
                 details.push(detail);
               };
             };
-            item.setSubtitle(details.join(o));
+            item.setSubtitle(details.join(j));
             item.setShowArrow(true);
           }
         });
-        this.getContent().add(list);
-        list.addListener(k, function(evt){
-
-          var instanceSelected = me._instanceList.getModel().getItem(evt.getData());
-          qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + b + instanceSelected.objectId);
-        }, this);
+        this.getContent().add(me._instanceList);
+        return me._instanceList;
       },
       _start : function(){
 
@@ -40646,52 +41390,236 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _back : function(){
 
-        qx.core.Init.getApplication().getRouting().executeGet(q, {
-          reverse : true
-        });
-      },
-      showFor : function(entityName){
-
-        var me = this;
-        this._entityName = entityName;
-        me.show();
-        me.reloadInstances();
-        this.repository.loadEntity(this._entityName, function(entity){
-
-          me._entity = entity;
-          me.setTitle(me._entity.label);
-          me.buildDetailProperties();
-          me.buildActions();
-        });
+        throw Error(d);
       },
       reloadInstances : function(){
 
         var me = this;
-        this.repository.loadInstances(this._entityName, function(instances){
+        this._loadInstances(function(instances){
 
-          me._instanceList.setModel(new qx.data.Array(instances.contents));
+          me.getContent().removeAll();
+          if(instances.contents.length === 0){
+
+            var nothingToSeeHere = new qx.ui.mobile.form.Label(h);
+            me.getContent().add(nothingToSeeHere);
+          } else {
+
+            me._instanceList.setModel(new qx.data.Array(instances.contents));
+            me.getContent().add(me._instanceList);
+          };
         });
       },
-      buildDetailProperties : function(){
+      buildDetailProperties : function(entity){
 
         var me = this;
         var detailProperties = {
         };
         var skippedMnemonic = false;
-        for(var p in me._entity.properties){
+        for(var p in entity.properties){
 
-          if(me._entity.properties[p].userVisible){
+          if(entity.properties[p].userVisible){
 
             if(skippedMnemonic){
 
               detailProperties[p] = {
-                label : me._entity.properties[p].label
+                label : entity.properties[p].label
               };
             };
             skippedMnemonic = true;
           };
         };
         me._detailProperties = detailProperties;
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "kirra_qooxdoo.DateFormats",b = "yyyy/MM/dd";
+  qx.Class.define(a, {
+    extend : qx.core.Object,
+    statics : {
+      _ymdFormatter : new qx.util.format.DateFormat(b),
+      _isoFormatter : new qx.util.format.DateFormat(qx.util.format.DateFormat.ISO_MASKS.isoUtcDateTime),
+      getYMDFormatter : function(){
+
+        var me = this;
+        me._ymdFormatter.__lf = true;
+        return {
+          format : function(date){
+
+            return me._ymdFormatter.format(date);
+          },
+          parse : function(dateString){
+
+            var parsed = me._ymdFormatter.parse(dateString);
+            return parsed;
+          }
+        };
+      },
+      getISOFormatter : function(){
+
+        var me = this;
+        return {
+          format : function(date){
+
+            return me._isoFormatter.format(date);
+          },
+          parse : function(dateString){
+
+            var parsed = new Date(Date.parse(dateString));
+            return parsed;
+          }
+        };
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "changeEnabled",b = "_applyWrap",c = "Boolean",d = "qx.ui.mobile.form.Label",e = "no-wrap",f = "label",g = "_applyValue",h = "boxAlignCenter",i = "changeValue",j = "for";
+  qx.Class.define(d, {
+    extend : qx.ui.mobile.core.Widget,
+    construct : function(value){
+
+      qx.ui.mobile.core.Widget.call(this);
+      if(value){
+
+        this.setValue(value);
+      };
+      this.addCssClass(h);
+      this._setLayout(new qx.ui.mobile.layout.HBox());
+      this.initWrap();
+    },
+    properties : {
+      defaultCssClass : {
+        refine : true,
+        init : f
+      },
+      value : {
+        nullable : true,
+        init : null,
+        apply : g,
+        event : i
+      },
+      anonymous : {
+        refine : true,
+        init : false
+      },
+      wrap : {
+        check : c,
+        init : true,
+        apply : b
+      }
+    },
+    members : {
+      __nr : null,
+      _getTagName : function(){
+
+        return f;
+      },
+      _applyValue : function(value, old){
+
+        this._setHtml(value);
+      },
+      _applyWrap : function(value, old){
+
+        if(value){
+
+          this.removeCssClass(e);
+        } else {
+
+          this.addCssClass(e);
+        };
+      },
+      _changeEnabled : function(evt){
+
+        if(evt){
+
+          this.setEnabled(evt.getData());
+        };
+      },
+      setLabelFor : function(elementId){
+
+        if(this.__nr){
+
+          this.__nr.removeListener(a, this._changeEnabled, this);
+        };
+        this.__nr = qx.ui.mobile.core.Widget.getWidgetById(elementId);
+        if(this.__nr){
+
+          this.__nr.addListener(a, this._changeEnabled, this);
+          this.setEnabled(this.__nr.getEnabled());
+        };
+        this._setAttribute(j, elementId);
+      }
+    },
+    destruct : function(){
+
+      if(this.__nr){
+
+        this.__nr.removeListener(a, this._changeEnabled, this);
+        this.__nr = null;
+      };
+    }
+  });
+})();
+(function(){
+
+  var a = "/entities/",b = "/instances/",c = "Action",d = "New",e = "kirra_qooxdoo.InstanceNavigator",f = "Back",g = "changeSelection",h = "tap",j = "/instances/_template",k = "/",l = "/actions/",m = "qx.event.type.Data";
+  qx.Class.define(e, {
+    extend : kirra_qooxdoo.AbstractInstanceNavigator,
+    construct : function(repository){
+
+      kirra_qooxdoo.AbstractInstanceNavigator.call(this);
+      this.repository = repository;
+      this.setShowBackButton(true);
+      this.setBackButtonText(f);
+    },
+    events : {
+      "show" : m
+    },
+    members : {
+      _entityName : null,
+      _entity : null,
+      _toolbar : null,
+      _instanceList : null,
+      _initialize : function(){
+
+        kirra_qooxdoo.AbstractInstanceNavigator.prototype._initialize.call(this);
+        var me = this;
+        var list = this._buildInstanceList();
+        list.addListener(g, function(evt){
+
+          var instanceSelected = me._instanceList.getModel().getItem(evt.getData());
+          qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + b + instanceSelected.objectId);
+        }, this);
+      },
+      _back : function(){
+
+        qx.core.Init.getApplication().goBack(k);
+      },
+      showFor : function(entityName){
+
+        var me = this;
+        this._entityName = entityName;
+        me.show();
+        this.repository.loadEntity(this._entityName, function(entity){
+
+          me._entity = entity;
+          me.setTitle(me._entity.label);
+          me.buildDetailProperties(me._entity);
+          me.buildActions();
+          me.reloadInstances();
+        });
+      },
+      _loadInstances : function(callback){
+
+        this.repository.loadInstances(this._entityName, callback);
+      },
+      _getInstanceListEntity : function(){
+
+        return this._entity;
       },
       buildActions : function(){
 
@@ -40702,9 +41630,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         if(this._entity.instantiable){
 
           var actionButton = new qx.ui.mobile.form.Button(d);
-          actionButton.addListener(l, function(){
+          actionButton.addListener(h, function(){
 
-            qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + m);
+            qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + j);
           });
           toolbar.add(actionButton);
         };
@@ -40713,7 +41641,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var opName in allOps){
 
           var operation = allOps[opName];
-          if(!operation.instanceOperation && operation.kind === h){
+          if(!operation.instanceOperation && operation.kind === c){
 
             staticActions.push(operation);
           };
@@ -40722,7 +41650,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var i in staticActions){
 
           var actionButton = new qx.ui.mobile.form.Button(staticActions[i].label);
-          actionButton.addListener(l, function(){
+          actionButton.addListener(h, function(){
 
             if(staticActions[i].parameters.length === 0){
 
@@ -40733,30 +41661,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
               });
             } else {
 
-              qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + r + staticActions[i].name);
+              qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + l + staticActions[i].name);
             };
           });
           toolbar.add(actionButton);
         };
-      }
-    }
-  });
-})();
-(function(){
-
-  var a = "kirra_qooxdoo.DateFormats",b = "yyyy/MM/dd",c = "yyyy-MM-dd'T'hh:mmZ";
-  qx.Class.define(a, {
-    extend : qx.core.Object,
-    statics : {
-      _ymdFormatter : new qx.util.format.DateFormat(b),
-      _isoFormatter : new qx.util.format.DateFormat(c),
-      getYMDFormatter : function(){
-
-        return this._ymdFormatter;
-      },
-      getISOFormatter : function(){
-
-        return this._isoFormatter;
       }
     }
   });
@@ -40784,7 +41693,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __na : false,
+      __ns : false,
       add : function(child, layoutProperties){
 
         if(!(child instanceof qx.ui.mobile.toolbar.Separator)){
@@ -40823,7 +41732,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "/relationships/",b = "/entities/",c = 'Entity',d = "/instances/",f = "Action",g = "Save",h = 'Date',j = "index",k = '_template',l = "See also",m = "Back",n = "...",o = "Are you sure?",p = "Yes",q = "tap",r = "/actions/",s = "Delete",t = "No",u = "kirra_qooxdoo.InstanceForm",v = "qx.event.type.Data";
+  var a = "/entities/",b = 'Entity',c = "/instances/",d = "Action",f = "Save",g = 'Date',h = "index",j = '_template',k = "/relationships/",l = "Back",m = "Related",n = "...",o = "Are you sure?",p = "Yes",q = "tap",r = "/actions/",s = "Delete",t = "No",u = "kirra_qooxdoo.InstanceForm",v = "qx.event.type.Data";
   qx.Class.define(u, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
@@ -40831,7 +41740,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
       this.setShowBackButton(true);
-      this.setBackButtonText(m);
+      this.setBackButtonText(l);
     },
     events : {
       "show" : v
@@ -40848,6 +41757,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _relationshipMenuButton : null,
       _actions : [],
       _relationshipDomains : null,
+      _backPath : null,
+      _showRelationships : false,
       _initialize : function(){
 
         qx.ui.mobile.page.NavigationPage.prototype._initialize.call(this);
@@ -40858,9 +41769,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _back : function(){
 
-        qx.core.Init.getApplication().getRouting().executeGet(b + this._entityName + d, {
-          reverse : true
-        });
+        qx.core.Init.getApplication().goBack(this._backPath);
       },
       showFor : function(entityName, id){
 
@@ -40873,11 +41782,40 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         me._relationshipDomains = {
         };
         me._relationshipTabs = {
-        } , me.repository.loadEntity(entityName, function(entity){
+        } , me._showRelationships = true;
+        me._backPath = a + entityName + c;
+        me.repository.loadEntity(entityName, function(entity){
 
           me._entity = entity;
           me.buildForm();
           me.repository.loadInstance(entity, me._objectId, me.instanceLoader());
+        });
+        this.show();
+      },
+      showForRelated : function(parentEntityName, parentObjectId, relationshipName, childObjectId){
+
+        var me = this;
+        me._widgets = {
+        } , me._entityName = null;
+        me._objectId = null;
+        me._entity = null;
+        me._instance = null;
+        me._relationshipDomains = {
+        };
+        me._relationshipTabs = {
+        } , me._showRelationships = true;
+        me._backPath = a + parentEntityName + c + parentObjectId + k + relationshipName;
+        me.repository.loadEntity(parentEntityName, function(parentEntity){
+
+          var relationship = parentEntity.relationships[relationshipName];
+          me._entityName = relationship.typeRef.fullName;
+          me._objectId = childObjectId;
+          me.repository.loadEntity(relationship.typeRef.fullName, function(childEntity){
+
+            me._entity = childEntity;
+            me.buildForm();
+            me.repository.loadInstance(childEntity, me._objectId, me.instanceLoader());
+          });
         });
         this.show();
       },
@@ -40911,12 +41849,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             if(!me.isNewInstance() || property.editable){
 
-              if(property.typeRef && property.typeRef.typeName === h){
+              if(property.typeRef && property.typeRef.typeName === g){
 
                 try{
 
                   value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
                 } catch(e) {
+
+                  console.log(e);
                 };
               };
               widget.setValue(value);
@@ -40962,7 +41902,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var actionName in this._entity.operations){
 
           var operation = this._entity.operations[actionName];
-          if(operation.instanceOperation && operation.kind === f && this._instance.disabledActions[actionName] === undefined)this._actions.push(operation);
+          if(operation.instanceOperation && operation.kind === d && this._instance.disabledActions[actionName] === undefined)this._actions.push(operation);
         };
         var overflowStartsAt = this._actions.length > 2 ? 1 : Infinity;
         for(var i in this._actions){
@@ -41011,7 +41951,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           }, me.instanceLoader());
         } else {
 
-          qx.core.Init.getApplication().getRouting().executeGet(b + me._entityName + d + me._objectId + r + action.name);
+          qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + c + me._objectId + r + action.name);
         };
       },
       getOperationByLabel : function(operationLabel){
@@ -41061,7 +42001,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
         };
         var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
-        this.buildMultiRelationshipViews(instanceFormRenderer);
+        if(this._showRelationships){
+
+          this.buildMultiRelationshipViews(instanceFormRenderer);
+        };
         this.getContent().add(instanceFormRenderer);
         this.show();
       },
@@ -41073,7 +42016,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           return;
         };
-        var relationshipMenuButton = me._relationshipMenuButton = new qx.ui.mobile.navigationbar.Button(l);
+        var relationshipMenuButton = me._relationshipMenuButton = new qx.ui.mobile.navigationbar.Button(m);
         var relationshipMenuItems = [];
         for(var i in multiRelationships){
 
@@ -41088,13 +42031,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         relationshipMenu.addListener(q, function(){
 
           var selected = me._multiRelationships[relationshipMenu.getSelectedIndex()];
-          qx.core.Init.getApplication().getRouting().executeGet(b + me._entityName + d + me._objectId + a + selected.name);
+          qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + c + me._objectId + k + selected.name);
         }, this);
         this.getRightContainer().add(relationshipMenuButton);
       },
       isNewInstance : function(){
 
-        return this._objectId === k;
+        return this._objectId === j;
       },
       addToolbar : function(){
 
@@ -41106,7 +42049,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       addBasicButtons : function(){
 
         var me = this;
-        var saveButton = new qx.ui.mobile.form.Button(g);
+        var saveButton = new qx.ui.mobile.form.Button(f);
         saveButton.addListener(q, function(){
 
           me.saveInstance();
@@ -41169,14 +42112,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           if(me._entity.relationships[i].editable && !me._entity.relationships[i].multiple && me._relationshipDomains[i]){
 
-            var referenceIndex = me._widgets[i]._getAttribute(j);
+            var referenceIndex = me._widgets[i]._getAttribute(h);
             var related = me._relationshipDomains[i][referenceIndex];
             me._instance.links[i] = [related];
           };
         };
         me.repository.saveInstance(me._entity, me._instance, function(created){
 
-          qx.core.Init.getApplication().getRouting().executeGet(b + me._entityName + d + created.objectId);
+          qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + c + created.objectId);
         });
       },
       buildWidgetFor : function(form, property){
@@ -41184,15 +42127,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var widget = kirra_qooxdoo.Widgets.createWidget(property, this.instanceEnumerator(property));
         this._widgets[property.name] = widget;
         if(widget.setRequired)widget.setRequired(property.required === true);
-        if(widget.setReadOnly)widget.setReadOnly(property.editable === false);
-        if(widget.setEnabled)widget.setEnabled(property.editable !== false);
+        if(widget.setReadOnly)widget.setReadOnly(this.isNewInstance() ? (property.initializable === false) : (property.editable === false));
+        if(widget.setEnabled)widget.setEnabled(this.isNewInstance() ? (property.initializable === true) : (property.editable === true));
         form.add(widget, property.label);
       },
       instanceEnumerator : function(property){
 
         var me = this;
         var kind = property.typeRef && property.typeRef.kind;
-        if(kind !== c){
+        if(kind !== b){
 
           return me.noOpValueEnumerator;
         };
@@ -41219,22 +42162,22 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "Boolean",b = "height",c = "None",d = "excluded",e = "_updatePosition",f = "item-unselected",g = "Integer",h = "menu",i = "qx.event.type.Data",j = "menu-scroller",k = "px",l = "__nd",m = "visible",n = "changeSelection",o = "__nb",p = "String",q = "qx.ui.mobile.dialog.Menu",r = "_applyNullable",s = "_applySelectedIndex",t = "_applyClearButtonLabel",u = "item-selected",v = "tap",w = "__nc",x = "__ne";
-  qx.Class.define(q, {
+  var a = "Boolean",b = "height",c = "None",d = "__nu",e = "excluded",f = "_updatePosition",g = "item-unselected",h = "Integer",i = "menu",j = "qx.event.type.Data",k = "menu-scroller",l = "px",m = "visible",n = "__nw",o = "changeSelection",p = "String",q = "__nt",r = "qx.ui.mobile.dialog.Menu",s = "_applyNullable",t = "__nv",u = "_applySelectedIndex",v = "_applyClearButtonLabel",w = "item-selected",x = "tap";
+  qx.Class.define(r, {
     extend : qx.ui.mobile.dialog.Popup,
     construct : function(itemsModel, anchor){
 
-      this.__nb = this._createSelectionList();
+      this.__nt = this._createSelectionList();
       if(itemsModel){
 
-        this.__nb.setModel(itemsModel);
+        this.__nt.setModel(itemsModel);
       };
-      this.__nc = new qx.ui.mobile.container.Composite();
-      this.__nd = this._createClearButton();
-      this.__ne = this._createListScroller(this.__nb);
-      this.__nc.add(this.__ne);
-      this.__nc.add(this.__nd);
-      qx.ui.mobile.dialog.Popup.call(this, this.__nc, anchor);
+      this.__nu = new qx.ui.mobile.container.Composite();
+      this.__nv = this._createClearButton();
+      this.__nw = this._createListScroller(this.__nt);
+      this.__nu.add(this.__nw);
+      this.__nu.add(this.__nv);
+      qx.ui.mobile.dialog.Popup.call(this, this.__nu, anchor);
       if(anchor){
 
         this.setModal(false);
@@ -41244,45 +42187,45 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       };
     },
     events : {
-      changeSelection : i
+      changeSelection : j
     },
     properties : {
       defaultCssClass : {
         refine : true,
-        init : h
+        init : i
       },
       selectedItemClass : {
-        init : u
+        init : w
       },
       unselectedItemClass : {
-        init : f
+        init : g
       },
       nullable : {
         init : false,
         check : a,
-        apply : r
+        apply : s
       },
       clearButtonLabel : {
         init : c,
         check : p,
-        apply : t
+        apply : v
       },
       selectedIndex : {
-        check : g,
-        apply : s,
+        check : h,
+        apply : u,
         nullable : true
       },
       visibleListItems : {
-        check : g,
-        apply : e,
+        check : h,
+        apply : f,
         nullable : true
       }
     },
     members : {
-      __nb : null,
-      __nd : null,
-      __ne : null,
-      __nc : null,
+      __nt : null,
+      __nv : null,
+      __nw : null,
+      __nu : null,
       show : function(){
 
         qx.ui.mobile.dialog.Popup.prototype.show.call(this);
@@ -41291,7 +42234,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _createClearButton : function(){
 
         var clearButton = new qx.ui.mobile.form.Button(this.getClearButtonLabel());
-        clearButton.addListener(v, this.__ng, this);
+        clearButton.addListener(x, this.__ny, this);
         clearButton.exclude();
         return clearButton;
       },
@@ -41301,14 +42244,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         listScroller.add(selectionList, {
           flex : 1
         });
-        listScroller.addCssClass(j);
+        listScroller.addCssClass(k);
         listScroller.setHeight(null);
         listScroller.setPreventEvents(false);
         return listScroller;
       },
       _getListScroller : function(){
 
-        return this.__ne;
+        return this.__nw;
       },
       _updatePosition : function(){
 
@@ -41316,13 +42259,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var listScrollerHeight = parseInt(parentHeight, 10) * 0.75;
         if(this.getVisibleListItems() !== null){
 
-          var newListScrollerHeight = this.__nb.getListItemHeight() * this.getVisibleListItems();
+          var newListScrollerHeight = this.__nt.getListItemHeight() * this.getVisibleListItems();
           if(newListScrollerHeight < listScrollerHeight){
 
             listScrollerHeight = newListScrollerHeight;
           };
         };
-        this.__ne.setHeight(listScrollerHeight + k);
+        this.__nw.setHeight(listScrollerHeight + l);
         qx.ui.mobile.dialog.Popup.prototype._updatePosition.call(this);
       },
       _createSelectionList : function(){
@@ -41345,13 +42288,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             };
           }
         });
-        selectionList.addListener(n, this.__nf, this);
-        selectionList.addListener(v, this._onSelectionListTap, this);
+        selectionList.addListener(o, this.__nx, this);
+        selectionList.addListener(x, this._onSelectionListTap, this);
         return selectionList;
       },
       getSelectionList : function(){
 
-        return this.__nb;
+        return this.__nt;
       },
       _onSelectionListTap : function(){
 
@@ -41359,19 +42302,19 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       setItems : function(itemsModel){
 
-        if(this.__nb){
+        if(this.__nt){
 
-          this.__nb.setModel(null);
-          this.__nb.setModel(itemsModel);
+          this.__nt.setModel(null);
+          this.__nt.setModel(itemsModel);
         };
       },
-      __nf : function(evt){
+      __nx : function(evt){
 
         this.setSelectedIndex(evt.getData());
       },
-      __ng : function(){
+      __ny : function(){
 
-        this.fireDataEvent(n, {
+        this.fireDataEvent(o, {
           index : null,
           item : null
         });
@@ -41379,11 +42322,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _applySelectedIndex : function(value, old){
 
-        var listModel = this.__nb.getModel();
+        var listModel = this.__nt.getModel();
         if(listModel !== null){
 
           var selectedItem = listModel.getItem(value);
-          this.fireDataEvent(n, {
+          this.fireDataEvent(o, {
             index : value,
             item : selectedItem
           });
@@ -41394,43 +42337,43 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         if(value){
 
-          this.__nd.setVisibility(m);
+          this.__nv.setVisibility(m);
         } else {
 
-          this.__nd.setVisibility(d);
+          this.__nv.setVisibility(e);
         };
       },
       _applyClearButtonLabel : function(value, old){
 
-        this.__nd.setValue(value);
+        this.__nv.setValue(value);
       },
       _render : function(){
 
-        var tmpModel = this.__nb.getModel();
-        this.__nb.setModel(null);
-        this.__nb.setModel(tmpModel);
+        var tmpModel = this.__nt.getModel();
+        this.__nt.setModel(null);
+        this.__nt.setModel(tmpModel);
       },
       scrollToItem : function(index){
 
         var scrollY = 0;
-        if(index !== null && this.__nb.getModel() != null){
+        if(index !== null && this.__nt.getModel() != null){
 
-          var listScrollChild = this.__ne.getScrollContainer();
+          var listScrollChild = this.__nw.getScrollContainer();
           var listScrollHeight = listScrollChild.getContainerElement().scrollHeight;
-          var listItemHeight = listScrollHeight / this.__nb.getModel().length;
+          var listItemHeight = listScrollHeight / this.__nt.getModel().length;
           if(listItemHeight){
 
             scrollY = index * listItemHeight;
           };
         };
-        this.__ne.scrollTo(0, -scrollY);
+        this.__nw.scrollTo(0, -scrollY);
       }
     },
     destruct : function(){
 
-      this.__nb.removeListener(v, this._onSelectionListTap, this);
-      qx.ui.mobile.core.Blocker.getInstance().removeListener(v, this.hide, this);
-      this._disposeObjects(o, l, x, w);
+      this.__nt.removeListener(x, this._onSelectionListTap, this);
+      qx.ui.mobile.core.Blocker.getInstance().removeListener(x, this.hide, this);
+      this._disposeObjects(q, t, n, d);
     }
   });
 })();
@@ -41442,9 +42385,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(layout){
 
       qx.ui.mobile.container.Composite.call(this);
-      this.__nh = [0, 0];
-      this.__ni = [0, 0];
-      this.__nj = [0, 0];
+      this.__nz = [0, 0];
+      this.__nA = [0, 0];
+      this.__nB = [0, 0];
       this._scrollContainer = this._createScrollContainer();
       this.addListener(x, this._onTouchStart, this);
       this.addListener(a, this._onTouchMove, this);
@@ -41454,7 +42397,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       this._add(this._scrollContainer, {
         flex : 1
       });
-      this._updateScrollIndicator(this.__nh[1]);
+      this._updateScrollIndicator(this.__nz[1]);
       this.initHeight();
     },
     properties : {
@@ -41489,13 +42432,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     },
     members : {
       _scrollContainer : null,
-      __nj : null,
-      __nh : null,
-      __ni : null,
-      __nk : null,
-      __nl : null,
-      __nm : null,
-      __nn : true,
+      __nB : null,
+      __nz : null,
+      __nA : null,
+      __nC : null,
+      __nD : null,
+      __nE : null,
+      __nF : true,
       getScrollContainer : function(){
 
         return this._scrollContainer;
@@ -41509,13 +42452,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _onTouchStart : function(evt){
 
-        this.__nk = (this.getScrollableX() && this.getScrollableY()) ? null : this.getScrollableY();
+        this.__nC = (this.getScrollableX() && this.getScrollableY()) ? null : this.getScrollableY();
         this._applyNoEasing();
-        this.__nj[0] = evt.getViewportLeft();
-        this.__nj[1] = evt.getViewportTop();
-        this.__nl = 0;
-        this.__nm = 0;
-        if(this.__nn === true){
+        this.__nB[0] = evt.getViewportLeft();
+        this.__nB[1] = evt.getViewportTop();
+        this.__nD = 0;
+        this.__nE = 0;
+        if(this.__nF === true){
 
           evt.stopPropagation();
         };
@@ -41524,47 +42467,47 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         if(this.isScrollableX()){
 
-          this.__nl = evt.getViewportLeft() - this.__nj[0];
-          this.__no();
-          if(Math.abs(this.__nm) < 3 || !this.isScrollableY() || !this.__nk){
+          this.__nD = evt.getViewportLeft() - this.__nB[0];
+          this.__nG();
+          if(Math.abs(this.__nE) < 3 || !this.isScrollableY() || !this.__nC){
 
-            this.__nm = 0;
+            this.__nE = 0;
           };
-          this.__ni[0] = Math.floor(this.__nh[0] + this.__nl);
-          this._scrollContainer.setTranslateX(this.__ni[0]);
+          this.__nA[0] = Math.floor(this.__nz[0] + this.__nD);
+          this._scrollContainer.setTranslateX(this.__nA[0]);
         };
         if(this.isScrollableY()){
 
-          this.__nm = evt.getViewportTop() - this.__nj[1];
-          this.__no();
-          if(Math.abs(this.__nl) < 3 || !this.isScrollableX() || this.__nk){
+          this.__nE = evt.getViewportTop() - this.__nB[1];
+          this.__nG();
+          if(Math.abs(this.__nD) < 3 || !this.isScrollableX() || this.__nC){
 
-            this.__nl = 0;
+            this.__nD = 0;
           };
-          this.__ni[1] = Math.floor(this.__nh[1] + this.__nm);
-          this._scrollContainer.setTranslateY(this.__ni[1]);
-          this._updateScrollIndicator(this.__ni[1]);
+          this.__nA[1] = Math.floor(this.__nz[1] + this.__nE);
+          this._scrollContainer.setTranslateY(this.__nA[1]);
+          this._updateScrollIndicator(this.__nA[1]);
         };
-        if(this.__nn === true){
+        if(this.__nF === true){
 
           evt.stopPropagation();
           evt.preventDefault();
         };
       },
-      __no : function(){
+      __nG : function(){
 
-        if(this.__nk === null){
+        if(this.__nC === null){
 
-          this.__nk = Math.abs(this.__nl / this.__nm) < 2;
+          this.__nC = Math.abs(this.__nD / this.__nE) < 2;
         };
       },
       _onTouchEnd : function(evt){
 
-        if(this.__nn === true){
+        if(this.__nF === true){
 
           evt.stopPropagation();
         };
-        this.scrollTo(this.__ni[0], this.__ni[1]);
+        this.scrollTo(this.__nA[0], this.__nA[1]);
       },
       _updateScrollIndicator : function(positionY){
 
@@ -41597,12 +42540,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var velocity = Math.abs(evt.getVelocity());
         var swipeDuration = new Date().getTime() - evt.getStartTime();
-        if(this.isScrollableY() && this.__nk && swipeDuration < 500){
+        if(this.isScrollableY() && this.__nC && swipeDuration < 500){
 
           this._applyMomentumEasing();
-          this.__ni[1] = this.__ni[1] + (velocity * 1.5 * this.__nm);
+          this.__nA[1] = this.__nA[1] + (velocity * 1.5 * this.__nE);
         };
-        this.scrollTo(this.__ni[0], this.__ni[1]);
+        this.scrollTo(this.__nA[0], this.__nA[1]);
       },
       scrollTo : function(positionX, positionY){
 
@@ -41632,7 +42575,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
           positionY = -lowerLimitY;
         };
-        if(!this.__nk){
+        if(!this.__nC){
 
           if(positionX >= 0){
 
@@ -41648,14 +42591,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         if(this.isScrollableX()){
 
           this._scrollContainer.setTranslateX(positionX);
-          this.__nh[0] = positionX;
+          this.__nz[0] = positionX;
         };
         if(this.isScrollableY()){
 
           this._scrollContainer.setTranslateY(positionY);
-          this.__nh[1] = positionY;
+          this.__nz[1] = positionY;
         };
-        this._updateScrollIndicator(this.__nh[1]);
+        this._updateScrollIndicator(this.__nz[1]);
       },
       add : function(child, options){
 
@@ -41776,7 +42719,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       setPreventEvents : function(value){
 
-        this.__nn = value;
+        this.__nF = value;
       }
     },
     destruct : function(){
@@ -41791,7 +42734,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this._unhandleSize(children[i]);
       };
       this._disposeObjects(l);
-      this.__nk = null;
+      this.__nC = null;
     }
   });
 })();
@@ -41803,14 +42746,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(){
 
       qx.core.Object.call(this);
-      this.__np = [];
+      this.__nH = [];
       this._buttons = [];
       this._buttonOptions = [];
       this._validationManager = new qx.ui.form.validation.Manager();
       this._resetter = this._createResetter();
     },
     members : {
-      __np : null,
+      __nH : null,
       _validationManager : null,
       _groupCounter : 0,
       _buttons : null,
@@ -41818,9 +42761,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _resetter : null,
       add : function(item, label, validator, name, validatorContext, options){
 
-        if(this.__nq()){
+        if(this.__nI()){
 
-          this.__np.push({
+          this.__nH.push({
             title : null,
             items : [],
             labels : [],
@@ -41830,24 +42773,24 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             }
           });
         };
-        this.__np[this._groupCounter].items.push(item);
-        this.__np[this._groupCounter].labels.push(label);
-        this.__np[this._groupCounter].options.push(options);
+        this.__nH[this._groupCounter].items.push(item);
+        this.__nH[this._groupCounter].labels.push(label);
+        this.__nH[this._groupCounter].options.push(options);
         if(name == null){
 
           name = label.replace(/\s+|&|-|\+|\*|\/|\||!|\.|,|:|\?|;|~|%|\{|\}|\(|\)|\[|\]|<|>|=|\^|@|\\/g, b);
         };
-        this.__np[this._groupCounter].names.push(name);
+        this.__nH[this._groupCounter].names.push(name);
         this._validationManager.add(item, validator, validatorContext);
         this._resetter.add(item);
       },
       addGroupHeader : function(title, options){
 
-        if(!this.__nq()){
+        if(!this.__nI()){
 
           this._groupCounter++;
         };
-        this.__np.push({
+        this.__nH.push({
           title : title,
           items : [],
           labels : [],
@@ -41861,9 +42804,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this._buttons.push(button);
         this._buttonOptions.push(options || null);
       },
-      __nq : function(){
+      __nI : function(){
 
-        return this.__np.length === 0;
+        return this.__nH.length === 0;
       },
       reset : function(){
 
@@ -41888,7 +42831,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       getGroups : function(){
 
-        return this.__np;
+        return this.__nH;
       },
       getButtons : function(){
 
@@ -41902,9 +42845,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var items = {
         };
-        for(var i = 0;i < this.__np.length;i++){
+        for(var i = 0;i < this.__nH.length;i++){
 
-          var group = this.__np[i];
+          var group = this.__nH[i];
           for(var j = 0;j < group.names.length;j++){
 
             var name = group.names[j];
@@ -41920,7 +42863,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     },
     destruct : function(){
 
-      this.__np = this._buttons = this._buttonOptions = null;
+      this.__nH = this._buttons = this._buttonOptions = null;
       this._validationManager.dispose();
       this._resetter.dispose();
     }
@@ -41934,8 +42877,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(){
 
       qx.core.Object.call(this);
-      this.__nr = [];
-      this.__ns = {
+      this.__nJ = [];
+      this.__nK = {
       };
       this.setRequiredFieldMessage(qx.locale.Manager.tr(l));
     },
@@ -41962,17 +42905,17 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __nr : null,
-      __nt : null,
-      __ns : null,
-      __nu : null,
+      __nJ : null,
+      __nL : null,
+      __nK : null,
+      __nM : null,
       add : function(formItem, validator, context){
 
-        if(!this.__nz(formItem)){
+        if(!this.__nR(formItem)){
 
           throw new Error(b);
         };
-        if(this.__nA(formItem) && !formItem.getValue){
+        if(this.__nS(formItem) && !formItem.getValue){
 
           if(validator != null){
 
@@ -41985,11 +42928,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           valid : null,
           context : context
         };
-        this.__nr.push(dataEntry);
+        this.__nJ.push(dataEntry);
       },
       remove : function(formItem){
 
-        var items = this.__nr;
+        var items = this.__nJ;
         for(var i = 0,len = items.length;i < len;i++){
 
           if(formItem === items[i].item){
@@ -42003,54 +42946,54 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       getItems : function(){
 
         var items = [];
-        for(var i = 0;i < this.__nr.length;i++){
+        for(var i = 0;i < this.__nJ.length;i++){
 
-          items.push(this.__nr[i].item);
+          items.push(this.__nJ[i].item);
         };
         return items;
       },
       validate : function(){
 
         var valid = true;
-        this.__nu = true;
+        this.__nM = true;
         var items = [];
-        for(var i = 0;i < this.__nr.length;i++){
+        for(var i = 0;i < this.__nJ.length;i++){
 
-          var formItem = this.__nr[i].item;
-          var validator = this.__nr[i].validator;
+          var formItem = this.__nJ[i].item;
+          var validator = this.__nJ[i].validator;
           items.push(formItem);
           if(validator == null){
 
-            var validatorResult = this.__nv(formItem);
+            var validatorResult = this.__nN(formItem);
             valid = valid && validatorResult;
-            this.__nu = validatorResult && this.__nu;
+            this.__nM = validatorResult && this.__nM;
             continue;
           };
-          var validatorResult = this.__nw(this.__nr[i], formItem.getValue());
+          var validatorResult = this.__nO(this.__nJ[i], formItem.getValue());
           valid = validatorResult && valid;
           if(validatorResult != null){
 
-            this.__nu = validatorResult && this.__nu;
+            this.__nM = validatorResult && this.__nM;
           };
         };
-        var formValid = this.__nx(items);
+        var formValid = this.__nP(items);
         if(qx.lang.Type.isBoolean(formValid)){
 
-          this.__nu = formValid && this.__nu;
+          this.__nM = formValid && this.__nM;
         };
         valid = formValid && valid;
-        this.__nB(valid);
-        if(qx.lang.Object.isEmpty(this.__ns)){
+        this.__nT(valid);
+        if(qx.lang.Object.isEmpty(this.__nK)){
 
           this.fireEvent(h);
         };
         return valid;
       },
-      __nv : function(formItem){
+      __nN : function(formItem){
 
         if(formItem.getRequired()){
 
-          if(this.__nA(formItem)){
+          if(this.__nS(formItem)){
 
             var validatorResult = !!formItem.getSelection()[0];
           } else {
@@ -42066,14 +43009,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         return true;
       },
-      __nw : function(dataEntry, value){
+      __nO : function(dataEntry, value){
 
         var formItem = dataEntry.item;
         var context = dataEntry.context;
         var validator = dataEntry.validator;
-        if(this.__ny(validator)){
+        if(this.__nQ(validator)){
 
-          this.__ns[formItem.toHashCode()] = null;
+          this.__nK[formItem.toHashCode()] = null;
           validator.validate(formItem, formItem.getValue(), this, context);
           return null;
         };
@@ -42107,7 +43050,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         dataEntry.valid = validatorResult;
         return validatorResult;
       },
-      __nx : function(items){
+      __nP : function(items){
 
         var formValidator = this.getValidator();
         var context = this.getContext() || this;
@@ -42116,9 +43059,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           return true;
         };
         this.setInvalidMessage(c);
-        if(this.__ny(formValidator)){
+        if(this.__nQ(formValidator)){
 
-          this.__ns[this.toHashCode()] = null;
+          this.__nK[this.toHashCode()] = null;
           formValidator.validateForm(items, this, context);
           return null;
         };
@@ -42149,7 +43092,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         return formValid;
       },
-      __ny : function(validator){
+      __nQ : function(validator){
 
         var async = false;
         if(!qx.lang.Type.isFunction(validator)){
@@ -42158,20 +43101,20 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         return async;
       },
-      __nz : function(formItem){
+      __nR : function(formItem){
 
         var clazz = formItem.constructor;
         return qx.Class.hasInterface(clazz, qx.ui.form.IForm);
       },
-      __nA : function(formItem){
+      __nS : function(formItem){
 
         var clazz = formItem.constructor;
         return qx.Class.hasInterface(clazz, qx.ui.core.ISingleSelection);
       },
-      __nB : function(value){
+      __nT : function(value){
 
-        var oldValue = this.__nt;
-        this.__nt = value;
+        var oldValue = this.__nL;
+        this.__nL = value;
         if(oldValue != value){
 
           this.fireDataEvent(f, value, oldValue);
@@ -42179,7 +43122,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       getValid : function(){
 
-        return this.__nt;
+        return this.__nL;
       },
       isValid : function(){
 
@@ -42188,9 +43131,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       getInvalidMessages : function(){
 
         var messages = [];
-        for(var i = 0;i < this.__nr.length;i++){
+        for(var i = 0;i < this.__nJ.length;i++){
 
-          var formItem = this.__nr[i].item;
+          var formItem = this.__nJ[i].item;
           if(!formItem.getValid()){
 
             messages.push(formItem.getInvalidMessage());
@@ -42205,9 +43148,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       getInvalidFormItems : function(){
 
         var res = [];
-        for(var i = 0;i < this.__nr.length;i++){
+        for(var i = 0;i < this.__nJ.length;i++){
 
-          var formItem = this.__nr[i].item;
+          var formItem = this.__nJ[i].item;
           if(!formItem.getValid()){
 
             res.push(formItem);
@@ -42217,45 +43160,45 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       reset : function(){
 
-        for(var i = 0;i < this.__nr.length;i++){
+        for(var i = 0;i < this.__nJ.length;i++){
 
-          var dataEntry = this.__nr[i];
+          var dataEntry = this.__nJ[i];
           dataEntry.item.setValid(true);
         };
-        this.__nt = null;
+        this.__nL = null;
       },
       setItemValid : function(formItem, valid){
 
-        this.__ns[formItem.toHashCode()] = valid;
+        this.__nK[formItem.toHashCode()] = valid;
         formItem.setValid(valid);
-        this.__nC();
+        this.__nU();
       },
       setFormValid : function(valid){
 
-        this.__ns[this.toHashCode()] = valid;
-        this.__nC();
+        this.__nK[this.toHashCode()] = valid;
+        this.__nU();
       },
-      __nC : function(){
+      __nU : function(){
 
-        var valid = this.__nu;
-        for(var hash in this.__ns){
+        var valid = this.__nM;
+        for(var hash in this.__nK){
 
-          var currentResult = this.__ns[hash];
+          var currentResult = this.__nK[hash];
           valid = currentResult && valid;
           if(currentResult == null){
 
             return;
           };
         };
-        this.__nB(valid);
-        this.__ns = {
+        this.__nT(valid);
+        this.__nK = {
         };
         this.fireEvent(h);
       }
     },
     destruct : function(){
 
-      this.__nr = null;
+      this.__nJ = null;
     }
   });
 })();
@@ -42267,29 +43210,29 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(validator){
 
       qx.core.Object.call(this);
-      this.__nD = validator;
+      this.__nV = validator;
     },
     members : {
-      __nD : null,
-      __nE : null,
+      __nV : null,
+      __nW : null,
       __dh : null,
-      __nF : null,
+      __nX : null,
       validate : function(item, value, manager, context){
 
-        this.__nF = false;
-        this.__nE = item;
+        this.__nX = false;
+        this.__nW = item;
         this.__dh = manager;
-        this.__nD.call(context || this, this, value);
+        this.__nV.call(context || this, this, value);
       },
       validateForm : function(items, manager, context){
 
-        this.__nF = true;
+        this.__nX = true;
         this.__dh = manager;
-        this.__nD.call(context, items, this);
+        this.__nV.call(context, items, this);
       },
       setValid : function(valid, message){
 
-        if(this.__nF){
+        if(this.__nX){
 
           if(message !== undefined){
 
@@ -42300,15 +43243,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           if(message !== undefined){
 
-            this.__nE.setInvalidMessage(message);
+            this.__nW.setInvalidMessage(message);
           };
-          this.__dh.setItemValid(this.__nE, valid);
+          this.__dh.setItemValid(this.__nW, valid);
         };
       }
     },
     destruct : function(){
 
-      this.__dh = this.__nE = null;
+      this.__dh = this.__nW = null;
     }
   });
 })();
@@ -42355,44 +43298,44 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(){
 
       qx.core.Object.call(this);
-      this.__nG = [];
+      this.__nY = [];
     },
     members : {
-      __nG : null,
+      __nY : null,
       add : function(item){
 
         if(this._supportsValue(item)){
 
           var init = item.getValue();
-        } else if(this.__nA(item)){
+        } else if(this.__nS(item)){
 
           var init = item.getSelection();
-        } else if(this.__nJ(item)){
+        } else if(this.__oc(item)){
 
           var init = item.getSelection().concat();
         } else {
 
           throw new Error(d + item + c);
         };;
-        this.__nG.push({
+        this.__nY.push({
           item : item,
           init : init
         });
       },
       reset : function(){
 
-        for(var i = 0;i < this.__nG.length;i++){
+        for(var i = 0;i < this.__nY.length;i++){
 
-          var dataEntry = this.__nG[i];
-          this.__nH(dataEntry.item, dataEntry.init);
+          var dataEntry = this.__nY[i];
+          this.__oa(dataEntry.item, dataEntry.init);
         };
       },
       resetItem : function(item){
 
         var init;
-        for(var i = 0;i < this.__nG.length;i++){
+        for(var i = 0;i < this.__nY.length;i++){
 
-          var dataEntry = this.__nG[i];
+          var dataEntry = this.__nY[i];
           if(dataEntry.item === item){
 
             init = dataEntry.init;
@@ -42403,34 +43346,34 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           throw new Error(a);
         };
-        this.__nH(item, init);
+        this.__oa(item, init);
       },
-      __nH : function(item, init){
+      __oa : function(item, init){
 
         if(this._supportsValue(item)){
 
           item.setValue(init);
-        } else if(this.__nA(item) || this.__nJ(item)){
+        } else if(this.__nS(item) || this.__oc(item)){
 
           item.setSelection(init);
         };
       },
       redefine : function(){
 
-        for(var i = 0;i < this.__nG.length;i++){
+        for(var i = 0;i < this.__nY.length;i++){
 
-          var item = this.__nG[i].item;
-          this.__nG[i].init = this.__nI(item);
+          var item = this.__nY[i].item;
+          this.__nY[i].init = this.__ob(item);
         };
       },
       redefineItem : function(item){
 
         var dataEntry;
-        for(var i = 0;i < this.__nG.length;i++){
+        for(var i = 0;i < this.__nY.length;i++){
 
-          if(this.__nG[i].item === item){
+          if(this.__nY[i].item === item){
 
-            dataEntry = this.__nG[i];
+            dataEntry = this.__nY[i];
             break;
           };
         };
@@ -42438,24 +43381,24 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           throw new Error(a);
         };
-        dataEntry.init = this.__nI(dataEntry.item);
+        dataEntry.init = this.__ob(dataEntry.item);
       },
-      __nI : function(item){
+      __ob : function(item){
 
         if(this._supportsValue(item)){
 
           return item.getValue();
-        } else if(this.__nA(item) || this.__nJ(item)){
+        } else if(this.__nS(item) || this.__oc(item)){
 
           return item.getSelection();
         };
       },
-      __nA : function(formItem){
+      __nS : function(formItem){
 
         var clazz = formItem.constructor;
         return qx.Class.hasInterface(clazz, qx.ui.core.ISingleSelection);
       },
-      __nJ : function(formItem){
+      __oc : function(formItem){
 
         var clazz = formItem.constructor;
         return qx.Class.hasInterface(clazz, qx.data.controller.ISelection);
@@ -42468,7 +43411,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     },
     destruct : function(){
 
-      this.__nG = null;
+      this.__nY = null;
     }
   });
 })();
@@ -42589,26 +43532,26 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(){
 
       qx.ui.form.Form.call(this);
-      this.__nK = [];
+      this.__od = [];
     },
     members : {
-      __nL : null,
-      __nK : null,
+      __oe : null,
+      __od : null,
       _createResetter : function(){
 
         return new qx.ui.mobile.form.Resetter();
       },
       setRenderer : function(renderer){
 
-        this.__nL = renderer;
+        this.__oe = renderer;
       },
       validate : function(){
 
         var validateResult = qx.ui.form.Form.prototype.validate.call(this);
-        this.__nK = [];
-        if(this.__nL != null){
+        this.__od = [];
+        if(this.__oe != null){
 
-          this.__nL.resetForm();
+          this.__oe.resetForm();
         };
         var groups = this.getGroups();
         for(var i = 0;i < groups.length;i++){
@@ -42619,10 +43562,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             var item = group.items[j];
             if(!item.isValid()){
 
-              this.__nK.push(item);
-              if(this.__nL != null){
+              this.__od.push(item);
+              if(this.__oe != null){
 
-                this.__nL.showErrorForItem(item);
+                this.__oe.showErrorForItem(item);
               } else {
 
                 alert(a + item.getInvalidMessage());
@@ -42630,9 +43573,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             };
           };
         };
-        if(this.__nL != null){
+        if(this.__oe != null){
 
-          this.__nL._domUpdated();
+          this.__oe._domUpdated();
         };
         return validateResult;
       },
@@ -42641,7 +43584,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var item = this._getItemByIndex(groupIndex, rowIndex);
         if(item){
 
-          this.__nL.showItem(item);
+          this.__oe.showItem(item);
         };
       },
       hideRow : function(groupIndex, rowIndex){
@@ -42649,7 +43592,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var item = this._getItemByIndex(groupIndex, rowIndex);
         if(item){
 
-          this.__nL.hideItem(item);
+          this.__oe.hideItem(item);
         };
       },
       _getItemByIndex : function(groupIndex, rowIndex){
@@ -42665,7 +43608,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       getInvalidItems : function(){
 
-        return this.__nK;
+        return this.__od;
       }
     }
   });
@@ -42802,7 +43745,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "touchmove",b = "toggleButton",c = "data-label-checked",d = "swipe",e = " should be boolean",f = "__nN",g = "value for ",h = "__nO",i = "toggleButtonSwitch",j = 'boolean',k = "qx.ui.mobile.form.ToggleButton",l = "OFF",m = "checked",n = "left",o = "tap",p = "ON",q = "data-label-unchecked",r = "__nM";
+  var a = "touchmove",b = "toggleButton",c = "data-label-checked",d = "__of",e = "swipe",f = " should be boolean",g = "__oh",h = "value for ",i = "toggleButtonSwitch",j = 'boolean',k = "qx.ui.mobile.form.ToggleButton",l = "OFF",m = "checked",n = "left",o = "tap",p = "ON",q = "data-label-unchecked",r = "__og";
   qx.Class.define(k, {
     extend : qx.ui.mobile.core.Widget,
     include : [qx.ui.mobile.form.MValue, qx.ui.form.MForm, qx.ui.form.MModelProperty, qx.ui.mobile.form.MState],
@@ -42812,19 +43755,19 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       qx.ui.mobile.core.Widget.call(this);
       if(labelChecked && labelUnchecked){
 
-        this.__nM = labelUnchecked;
-        this.__nN = labelChecked;
+        this.__of = labelUnchecked;
+        this.__og = labelChecked;
       };
-      this._setAttribute(c, this.__nN);
-      this._setAttribute(q, this.__nM);
-      this.__nO = this._createSwitch();
-      this._add(this.__nO);
+      this._setAttribute(c, this.__og);
+      this._setAttribute(q, this.__of);
+      this.__oh = this._createSwitch();
+      this._add(this.__oh);
       if(value){
 
         this.setValue(value);
       };
       this.addListener(o, this._onTap, this);
-      this.addListener(d, this._onSwipe, this);
+      this.addListener(e, this._onSwipe, this);
       this.addListener(a, this._onTouch, this);
     },
     properties : {
@@ -42834,14 +43777,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __nO : null,
-      __nP : false,
-      __nM : l,
-      __nN : p,
-      __nQ : 0,
+      __oh : null,
+      __oi : false,
+      __of : l,
+      __og : p,
+      __oj : 0,
       _getChild : function(){
 
-        return this.__nO;
+        return this.__oh;
       },
       _createSwitch : function(){
 
@@ -42853,7 +43796,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         if(typeof value !== j){
 
-          throw new Error(g + this + e);
+          throw new Error(h + this + f);
         };
         if(value){
 
@@ -42862,11 +43805,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           this.removeCssClass(m);
         };
-        this.__nP = value;
+        this.__oi = value;
       },
       _getValue : function(){
 
-        return this.__nP;
+        return this.__oi;
       },
       toggle : function(){
 
@@ -42890,13 +43833,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           var direction = evt.getDirection();
           if(direction == n){
 
-            if(this.__nP == true){
+            if(this.__oi == true){
 
               this.toggle();
             };
           } else {
 
-            if(this.__nP == false){
+            if(this.__oi == false){
 
               this.toggle();
             };
@@ -42905,16 +43848,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _checkLastTouchTime : function(){
 
-        var elapsedTime = new Date().getTime() - this.__nQ;
-        this.__nQ = new Date().getTime();
+        var elapsedTime = new Date().getTime() - this.__oj;
+        this.__oj = new Date().getTime();
         return elapsedTime > 500;
       }
     },
     destruct : function(){
 
       this.removeListener(o, this._onTap, this);
-      this.removeListener(d, this._onSwipe, this);
-      this._disposeObjects(h, r, f);
+      this.removeListener(e, this._onSwipe, this);
+      this._disposeObjects(g, d, r);
     }
   });
 })();
@@ -43116,7 +44059,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "changeModel",b = "text",c = "_validateSelection",d = "Boolean",e = "qx.data.Array",f = "focus",g = "_applyModel",h = "qx.event.type.Data",i = "",j = "change",k = "value",l = "_applySelection",m = "input",n = "Validation Error: Input value is not a number",o = "type",p = "qx.ui.mobile.form.SelectBox",q = "changeSelection",r = "selectbox-selected",s = "selectbox-unselected",t = "_applyNullable",u = "Validation Error: SelectBox is not nullable",v = "Validation Error: Input value is out of model range",w = "selectbox",x = "touchstart",y = "touchend",z = "click",A = "Validation Error: Please apply model before selection",B = "__selectionDialogTitle",C = "__nR";
+  var a = "changeModel",b = "text",c = "_validateSelection",d = "Boolean",e = "qx.data.Array",f = "focus",g = "_applyModel",h = "qx.event.type.Data",i = "",j = "change",k = "value",l = "_applySelection",m = "input",n = "Validation Error: Input value is not a number",o = "type",p = "qx.ui.mobile.form.SelectBox",q = "changeSelection",r = "selectbox-selected",s = "selectbox-unselected",t = "_applyNullable",u = "Validation Error: SelectBox is not nullable",v = "Validation Error: Input value is out of model range",w = "selectbox",x = "touchstart",y = "touchend",z = "click",A = "Validation Error: Please apply model before selection",B = "__selectionDialogTitle",C = "__ok";
   qx.Class.define(p, {
     extend : qx.ui.mobile.core.Widget,
     include : [qx.ui.mobile.form.MValue, qx.ui.form.MForm, qx.ui.mobile.form.MText, qx.ui.mobile.form.MState],
@@ -43127,8 +44070,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       this._setAttribute(o, b);
       this.setReadOnly(true);
       this.addListener(f, this.blur);
-      this.__nR = this._createSelectionDialog();
-      this.__nR.addListener(q, this._onChangeSelection, this);
+      this.__ok = this._createSelectionDialog();
+      this.__ok.addListener(q, this._onChangeSelection, this);
     },
     events : {
       changeSelection : h
@@ -43162,7 +44105,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __nR : null,
+      __ok : null,
       _getTagName : function(){
 
         return m;
@@ -43170,7 +44113,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _createContainerElement : function(){
 
         var containerElement = qx.ui.mobile.core.Widget.prototype._createContainerElement.call(this);
-        var showSelectionDialog = qx.lang.Function.bind(this.__nS, this);
+        var showSelectionDialog = qx.lang.Function.bind(this.__ol, this);
         qx.bom.Event.addNativeListener(containerElement, z, showSelectionDialog, false);
         qx.bom.Event.addNativeListener(containerElement, y, showSelectionDialog, false);
         qx.bom.Event.addNativeListener(containerElement, z, qx.bom.Event.preventDefault, false);
@@ -43187,15 +44130,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       getSelectionDialog : function(){
 
-        return this.__nR;
+        return this.__ok;
       },
       setDialogTitle : function(title){
 
-        this.__nR.setTitle(title);
+        this.__ok.setTitle(title);
       },
       setClearButtonLabel : function(value){
 
-        this.__nR.setClearButtonLabel(value);
+        this.__ok.setClearButtonLabel(value);
       },
       _setValue : function(value){
 
@@ -43242,13 +44185,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         this._render();
       },
-      __nS : function(){
+      __ol : function(){
 
         if(this.isEnabled() == true){
 
-          this.__nR.setSelectedIndex(this.getSelection());
-          this.__nR.setItems(this.getModel());
-          this.__nR.show();
+          this.__ok.setSelectedIndex(this.getSelection());
+          this.__ok.setItems(this.getModel());
+          this.__ok.show();
         };
       },
       _onChangeSelection : function(evt){
@@ -43286,12 +44229,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _applyNullable : function(value, old){
 
-        this.__nR.setNullable(value);
+        this.__ok.setNullable(value);
       }
     },
     destruct : function(){
 
-      this.__nR.removeListener(q, this._onChangeSelection, this);
+      this.__ok.removeListener(q, this._onChangeSelection, this);
       this._disposeObjects(C, B);
       this.removeListener(f, this.blur);
     }
@@ -43304,7 +44247,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     extend : qx.ui.mobile.form.renderer.AbstractRenderer,
     construct : function(form){
 
-      this.__nT = [];
+      this.__om = [];
       this._rows = [];
       this._labels = [];
       qx.ui.mobile.form.renderer.AbstractRenderer.call(this, form);
@@ -43315,7 +44258,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     members : {
       _rows : null,
       _labels : null,
-      __nT : null,
+      __om : null,
       _getTagName : function(){
 
         return n;
@@ -43446,7 +44389,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         errorNode.innerHTML = item.getInvalidMessage();
         qx.bom.element.Class.add(errorNode, c);
         qx.dom.Element.insertAfter(errorNode, item.getLayoutParent().getContainerElement());
-        this.__nT.push(errorNode);
+        this.__om.push(errorNode);
       },
       showItem : function(item){
 
@@ -43458,9 +44401,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       resetForm : function(){
 
-        for(var i = 0;i < this.__nT.length;i++){
+        for(var i = 0;i < this.__om.length;i++){
 
-          qx.dom.Element.remove(this.__nT[i]);
+          qx.dom.Element.remove(this.__om[i]);
         };
       }
     },
@@ -43498,95 +44441,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         return a;
       }
-    }
-  });
-})();
-(function(){
-
-  var a = "changeEnabled",b = "_applyWrap",c = "Boolean",d = "qx.ui.mobile.form.Label",e = "no-wrap",f = "label",g = "_applyValue",h = "boxAlignCenter",i = "changeValue",j = "for";
-  qx.Class.define(d, {
-    extend : qx.ui.mobile.core.Widget,
-    construct : function(value){
-
-      qx.ui.mobile.core.Widget.call(this);
-      if(value){
-
-        this.setValue(value);
-      };
-      this.addCssClass(h);
-      this._setLayout(new qx.ui.mobile.layout.HBox());
-      this.initWrap();
-    },
-    properties : {
-      defaultCssClass : {
-        refine : true,
-        init : f
-      },
-      value : {
-        nullable : true,
-        init : null,
-        apply : g,
-        event : i
-      },
-      anonymous : {
-        refine : true,
-        init : false
-      },
-      wrap : {
-        check : c,
-        init : true,
-        apply : b
-      }
-    },
-    members : {
-      __nU : null,
-      _getTagName : function(){
-
-        return f;
-      },
-      _applyValue : function(value, old){
-
-        this._setHtml(value);
-      },
-      _applyWrap : function(value, old){
-
-        if(value){
-
-          this.removeCssClass(e);
-        } else {
-
-          this.addCssClass(e);
-        };
-      },
-      _changeEnabled : function(evt){
-
-        if(evt){
-
-          this.setEnabled(evt.getData());
-        };
-      },
-      setLabelFor : function(elementId){
-
-        if(this.__nU){
-
-          this.__nU.removeListener(a, this._changeEnabled, this);
-        };
-        this.__nU = qx.ui.mobile.core.Widget.getWidgetById(elementId);
-        if(this.__nU){
-
-          this.__nU.addListener(a, this._changeEnabled, this);
-          this.setEnabled(this.__nU.getEnabled());
-        };
-        this._setAttribute(j, elementId);
-      }
-    },
-    destruct : function(){
-
-      if(this.__nU){
-
-        this.__nU.removeListener(a, this._changeEnabled, this);
-        this.__nU = null;
-      };
     }
   });
 })();
@@ -43685,9 +44539,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         var yearSlot = new qx.data.Array(years);
         var picker = new qx.ui.mobile.dialog.Picker();
-        picker.addSlot(daySlot);
-        picker.addSlot(monthSlot);
         picker.addSlot(yearSlot);
+        picker.addSlot(monthSlot);
+        picker.addSlot(daySlot);
         dateField.addListener(x, function(){
 
           var parsed;
@@ -43698,18 +44552,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             parsed = new Date();
           };
-          var slot0 = parsed.getDate() - 1;
+          var slot0 = parsed.getYear();
           var slot1 = parsed.getMonth();
-          var slot2 = parsed.getYear();
-          picker.setSelectedIndex(0, slot0);
+          var slot2 = parsed.getDate() - 1;
+          picker.setSelectedIndex(0, new Date().getYear() - slot0);
           picker.setSelectedIndex(1, slot1);
-          picker.setSelectedIndex(2, new Date().getYear() - slot2);
+          picker.setSelectedIndex(2, slot2);
           picker.show();
         });
         picker.addListener(p, function(e){
 
           var data = e.getData();
-          dateField.setValue(data[2].item + v + (months.indexOf(data[1].item) + 1) + v + data[0].item);
+          dateField.setValue(data[0].item + v + (months.indexOf(data[1].item) + 1) + v + data[2].item);
         });
         return dateField;
       },
@@ -43748,42 +44602,42 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "touchmove",b = "os.name",c = "height",d = "px",e = "transitionDuration",f = "__of",g = "qx.event.type.Data",h = "200ms",k = "0s",l = "changeSelection",m = "ios",n = "__oh",o = "picker-container",p = "Choose",q = "touchend",r = "picker-label",s = "qx.ui.mobile.dialog.Picker",t = "px,0px)",u = "confirmSelection",v = "tap",w = "picker-slot",x = "touchstart",y = "Cancel",z = "__og",A = "mshtml",B = "engine.name",C = "margin",D = "__oe",E = "translate3d(0px,",F = "__od",G = "picker",H = "transform",I = "changeBubble";
-  qx.Class.define(s, {
+  var a = "touchmove",b = "os.name",c = "__oy",d = "height",e = "px",f = "transitionDuration",g = "qx.event.type.Data",h = "200ms",k = "__ov",l = "__ox",m = "0s",n = "changeSelection",o = "ios",p = "picker-container",q = "Choose",r = "touchend",s = "picker-label",t = "qx.ui.mobile.dialog.Picker",u = "px,0px)",v = "confirmSelection",w = "tap",x = "picker-slot",y = "touchstart",z = "Cancel",A = "__ou",B = "mshtml",C = "engine.name",D = "margin",E = "translate3d(0px,",F = "__ow",G = "picker",H = "transform",I = "changeBubble";
+  qx.Class.define(t, {
     extend : qx.ui.mobile.dialog.Popup,
     construct : function(anchor){
 
-      this.__nV = {
+      this.__on = {
       };
-      this.__nW = {
+      this.__oo = {
       };
-      this.__nX = {
+      this.__op = {
       };
-      this.__nY = {
+      this.__oq = {
       };
-      this.__oa = [];
-      this.__ob = [];
-      this.__oc = new qx.data.Array();
-      this.__od = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
-      if(qx.core.Environment.get(B) == A){
+      this.__or = [];
+      this.__os = [];
+      this.__ot = new qx.data.Array();
+      this.__ou = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
+      if(qx.core.Environment.get(C) == B){
 
-        this.__od.setAnonymous(true);
+        this.__ou.setAnonymous(true);
       };
-      this.__od.addCssClass(o);
-      this.__oe = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
-      this.__of = new qx.ui.mobile.form.Button(p);
-      this.__of.addListener(v, this.confirm, this);
-      this.__og = new qx.ui.mobile.form.Button(y);
-      this.__og.addListener(v, this.hide, this);
-      var buttonContainer = this.__oh = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
-      buttonContainer.add(this.__of, {
+      this.__ou.addCssClass(p);
+      this.__ov = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.VBox());
+      this.__ow = new qx.ui.mobile.form.Button(q);
+      this.__ow.addListener(w, this.confirm, this);
+      this.__ox = new qx.ui.mobile.form.Button(z);
+      this.__ox.addListener(w, this.hide, this);
+      var buttonContainer = this.__oy = new qx.ui.mobile.container.Composite(new qx.ui.mobile.layout.HBox());
+      buttonContainer.add(this.__ow, {
         flex : 1
       });
-      buttonContainer.add(this.__og, {
+      buttonContainer.add(this.__ox, {
         flex : 1
       });
-      this.__oe.add(this.__od);
-      this.__oe.add(buttonContainer);
+      this.__ov.add(this.__ou);
+      this.__ov.add(buttonContainer);
       if(anchor){
 
         this.setModal(false);
@@ -43791,7 +44645,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         this.setModal(true);
       };
-      qx.ui.mobile.dialog.Popup.call(this, this.__oe, anchor);
+      qx.ui.mobile.dialog.Popup.call(this, this.__ov, anchor);
     },
     events : {
       changeSelection : g,
@@ -43804,19 +44658,19 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __oc : null,
-      __of : null,
-      __og : null,
-      __od : null,
-      __oh : null,
-      __oe : null,
-      __nV : null,
-      __nW : null,
-      __nX : null,
-      __nY : null,
-      __oa : null,
-      __ob : null,
-      __oi : null,
+      __ot : null,
+      __ow : null,
+      __ox : null,
+      __ou : null,
+      __oy : null,
+      __ov : null,
+      __on : null,
+      __oo : null,
+      __op : null,
+      __oq : null,
+      __or : null,
+      __os : null,
+      __oz : null,
       show : function(){
 
         qx.ui.mobile.dialog.Popup.prototype.show.call(this);
@@ -43829,22 +44683,22 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       getSelectedIndex : function(slotIndex){
 
-        var slotElement = this.__oa[slotIndex];
+        var slotElement = this.__or[slotIndex];
         if(slotElement){
 
-          return this.__ob[slotIndex];
+          return this.__os[slotIndex];
         };
         return null;
       },
       setSelectedIndex : function(slotIndex, value, useTransition){
 
-        var slotElement = this.__oa[slotIndex];
+        var slotElement = this.__or[slotIndex];
         if(slotElement){
 
           if(this._isSelectedIndexValid(slotElement, value)){
 
-            this.__nW[slotElement.id] = value;
-            this.__ob[slotIndex] = value;
+            this.__oo[slotElement.id] = value;
+            this.__os[slotIndex] = value;
             if(this.isShown()){
 
               this._updateSlot(slotElement, useTransition);
@@ -43854,30 +44708,30 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       setConfirmButtonCaption : function(caption){
 
-        if(this.__of){
+        if(this.__ow){
 
-          this.__of.setValue(caption);
+          this.__ow.setValue(caption);
         };
       },
       setCancelButtonCaption : function(caption){
 
-        if(this.__og){
+        if(this.__ox){
 
-          this.__og.setValue(caption);
+          this.__ox.setValue(caption);
         };
       },
       getPickerButtonContainer : function(){
 
-        return this.__oh;
+        return this.__oy;
       },
       addSlot : function(slotData){
 
         if(slotData !== null && slotData instanceof qx.data.Array){
 
-          this.__oc.push(slotData);
+          this.__ot.push(slotData);
           slotData.addListener(I, this._onChangeBubble, {
             self : this,
-            index : this.__oc.length - 1
+            index : this.__ot.length - 1
           });
           this._render();
         };
@@ -43886,7 +44740,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var newSlotDataLength = evt.getData().value.length;
         var selectedIndex = this.self.getSelectedIndex(this.index);
-        var pickerSlot = this.self.__od.getChildren()[this.index];
+        var pickerSlot = this.self.__ou.getChildren()[this.index];
         this.self._renderPickerSlotContent(pickerSlot, this.index);
         if(selectedIndex >= newSlotDataLength){
 
@@ -43896,30 +44750,30 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       removeSlot : function(slotIndex){
 
-        if(this.__oc.getLength() > slotIndex && slotIndex > -1){
+        if(this.__ot.getLength() > slotIndex && slotIndex > -1){
 
-          var slotData = this.__oc.getItem(slotIndex);
+          var slotData = this.__ot.getItem(slotIndex);
           slotData.removeListener(I, this._onChangeBubble, this);
-          this.__oc.removeAt(slotIndex);
+          this.__ot.removeAt(slotIndex);
           this._render();
         };
       },
       _disposePickerModel : function(){
 
-        for(var i = 0;i < this.__oc.length;i++){
+        for(var i = 0;i < this.__ot.length;i++){
 
-          var slotData = this.__oc.getItem(i);
+          var slotData = this.__ot.getItem(i);
           slotData.removeListener(I, this._onChangeBubble, this);
         };
-        this.__oc.dispose();
+        this.__ot.dispose();
       },
       getSlotCount : function(){
 
-        return this.__oc.getLength();
+        return this.__ot.getLength();
       },
       _increaseSelectedIndex : function(contentElement){
 
-        var oldSelectedIndex = this.__nW[contentElement.id];
+        var oldSelectedIndex = this.__oo[contentElement.id];
         var newSelectedIndex = oldSelectedIndex + 1;
         var slotIndex = this._getSlotIndexByElement(contentElement);
         var model = this._getModelByElement(contentElement);
@@ -43927,27 +44781,27 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           newSelectedIndex = model.getLength() - 1;
         };
-        this.__nW[contentElement.id] = newSelectedIndex;
-        this.__ob[slotIndex] = newSelectedIndex;
+        this.__oo[contentElement.id] = newSelectedIndex;
+        this.__os[slotIndex] = newSelectedIndex;
         this._updateSlot(contentElement);
       },
       _decreaseSelectedIndex : function(contentElement){
 
-        var oldSelectedIndex = this.__nW[contentElement.id];
+        var oldSelectedIndex = this.__oo[contentElement.id];
         var newSelectedIndex = oldSelectedIndex - 1;
         var slotIndex = this._getSlotIndexByElement(contentElement);
         if(newSelectedIndex < 0){
 
           newSelectedIndex = 0;
         };
-        this.__nW[contentElement.id] = newSelectedIndex;
-        this.__ob[slotIndex] = newSelectedIndex;
+        this.__oo[contentElement.id] = newSelectedIndex;
+        this.__os[slotIndex] = newSelectedIndex;
         this._updateSlot(contentElement);
       },
       _getSlotIndexByElement : function(contentElement){
 
         var contentElementId = contentElement.id;
-        var slotIndex = this.__nY[contentElementId];
+        var slotIndex = this.__oq[contentElementId];
         return slotIndex;
       },
       _isSelectedIndexValid : function(contentElement, selectedIndex){
@@ -43958,16 +44812,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _getModelByElement : function(contentElement){
 
         var slotIndex = this._getSlotIndexByElement(contentElement);
-        return this.__oc.getItem(slotIndex);
+        return this.__ot.getItem(slotIndex);
       },
       _fireConfirmSelection : function(){
 
-        var model = this.__oc;
+        var model = this.__ot;
         var slotCounter = (model ? model.getLength() : 0);
         var selectionData = [];
         for(var slotIndex = 0;slotIndex < slotCounter;slotIndex++){
 
-          var selectedIndex = this.__ob[slotIndex];
+          var selectedIndex = this.__os[slotIndex];
           var selectedValue = model.getItem(slotIndex).getItem(selectedIndex);
           var slotData = {
             index : selectedIndex,
@@ -43976,24 +44830,24 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
           selectionData.push(slotData);
         };
-        this.fireDataEvent(u, selectionData);
+        this.fireDataEvent(v, selectionData);
       },
       _fixPickerSlotHeight : function(target){
 
-        this.__oi = qx.bom.element.Style.get(target.children[0], c, 1);
-        this.__oi = parseFloat(this.__oi, 10);
+        this.__oz = qx.bom.element.Style.get(target.children[0], d, 1);
+        this.__oz = parseFloat(this.__oz, 10);
         var labelCount = this._getModelByElement(target).length;
-        var pickerSlotHeight = labelCount * this.__oi;
-        qx.bom.element.Style.set(target, c, pickerSlotHeight + d);
+        var pickerSlotHeight = labelCount * this.__oz;
+        qx.bom.element.Style.set(target, d, pickerSlotHeight + e);
       },
       _onTouchStart : function(evt){
 
         var target = evt.getCurrentTarget().getContainerElement();
         var touchX = evt.getViewportLeft();
         var touchY = evt.getViewportTop();
-        this.__nX[target.id] = this.__nW[target.id];
-        qx.bom.element.Style.set(target, e, k);
-        this.__nV[target.id] = {
+        this.__op[target.id] = this.__oo[target.id];
+        qx.bom.element.Style.set(target, f, m);
+        this.__on[target.id] = {
           x : touchX,
           y : touchY
         };
@@ -44005,22 +44859,22 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var target = evt.getCurrentTarget().getContainerElement();
         var model = this._getModelByElement(target);
         var slotIndex = this._getSlotIndexByElement(target);
-        var touchStartPoint = this.__nV[target.id];
+        var touchStartPoint = this.__on[target.id];
         if(!touchStartPoint){
 
           return;
         };
         var deltaY = evt.getViewportTop() - touchStartPoint.y;
-        var isSwipe = Math.abs(deltaY) >= this.__oi / 2;
+        var isSwipe = Math.abs(deltaY) >= this.__oz / 2;
         if(isSwipe){
 
-          this.__nW[target.id] = this.__nX[target.id];
-          this.__ob[slotIndex] = this.__nX[target.id];
+          this.__oo[target.id] = this.__op[target.id];
+          this.__os[slotIndex] = this.__op[target.id];
         } else {
 
           var viewportTop = evt.getViewportTop();
           var offsetParent = qx.bom.element.Location.getOffsetParent(target);
-          var targetTop = qx.bom.element.Location.getTop(offsetParent, C);
+          var targetTop = qx.bom.element.Location.getTop(offsetParent, D);
           var relativeTop = viewportTop - targetTop;
           var decreaseIncreaseLimit = offsetParent.offsetHeight / 2;
           if(relativeTop < decreaseIncreaseLimit){
@@ -44031,10 +44885,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             this._increaseSelectedIndex(target);
           };
         };
-        var selectedIndex = this.__nW[target.id];
+        var selectedIndex = this.__oo[target.id];
         var selectedValue = model.getItem(selectedIndex);
         this._updateSlot(target);
-        this.fireDataEvent(l, {
+        this.fireDataEvent(n, {
           index : selectedIndex,
           item : selectedValue,
           slot : slotIndex
@@ -44044,18 +44898,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var target = evt.getCurrentTarget();
         var targetElement = evt.getCurrentTarget().getContainerElement();
-        var touchStartPoint = this.__nV[targetElement.id];
+        var touchStartPoint = this.__on[targetElement.id];
         if(!touchStartPoint){
 
           return;
         };
         var deltaY = evt.getViewportTop() - touchStartPoint.y;
-        var selectedIndex = this.__nW[targetElement.id];
-        var offsetTop = -selectedIndex * this.__oi;
+        var selectedIndex = this.__oo[targetElement.id];
+        var offsetTop = -selectedIndex * this.__oz;
         var targetOffset = deltaY + offsetTop;
         var slotHeight = targetElement.offsetHeight;
         var pickerHeight = parseInt(target.getLayoutParent().getContainerElement().offsetHeight, 10);
-        var upperBounce = this.__oi;
+        var upperBounce = this.__oz;
         var lowerBounce = (-slotHeight + pickerHeight * 2);
         if(targetOffset > upperBounce){
 
@@ -44066,12 +44920,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           targetOffset = lowerBounce;
         };
         target.setTranslateY(targetOffset);
-        var steps = Math.round(-deltaY / this.__oi);
+        var steps = Math.round(-deltaY / this.__oz);
         var newIndex = selectedIndex + steps;
         var modelLength = this._getModelByElement(targetElement).getLength();
         if(newIndex < modelLength && newIndex >= 0){
 
-          this.__nX[targetElement.id] = newIndex;
+          this.__op[targetElement.id] = newIndex;
         };
         evt.preventDefault();
       },
@@ -44082,42 +44936,42 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           useTransition = true;
         };
-        if(qx.core.Environment.get(b) == m){
+        if(qx.core.Environment.get(b) == o){
 
           var transitionDuration = h;
           if(useTransition === false){
 
-            transitionDuration = k;
+            transitionDuration = m;
           };
-          qx.bom.element.Style.set(targetElement, e, transitionDuration);
+          qx.bom.element.Style.set(targetElement, f, transitionDuration);
         };
-        var selectedIndex = this.__nW[targetElement.id];
-        var offsetTop = -selectedIndex * this.__oi;
-        qx.bom.element.Style.set(targetElement, H, E + offsetTop + t);
+        var selectedIndex = this.__oo[targetElement.id];
+        var offsetTop = -selectedIndex * this.__oz;
+        qx.bom.element.Style.set(targetElement, H, E + offsetTop + u);
       },
       _updateAllSlots : function(){
 
-        for(var i = 0;i < this.__oa.length;i++){
+        for(var i = 0;i < this.__or.length;i++){
 
-          this._updateSlot(this.__oa[i]);
+          this._updateSlot(this.__or[i]);
         };
       },
       _render : function(){
 
         this._removePickerSlots();
-        this.__ob = [];
-        this.__oa = [];
-        this.__nY = {
+        this.__os = [];
+        this.__or = [];
+        this.__oq = {
         };
-        this.__nW = {
+        this.__oo = {
         };
-        var slotCounter = (this.__oc ? this.__oc.getLength() : 0);
+        var slotCounter = (this.__ot ? this.__ot.getLength() : 0);
         for(var slotIndex = 0;slotIndex < slotCounter;slotIndex++){
 
-          this.__ob.push(0);
+          this.__os.push(0);
           var pickerSlot = this._createPickerSlot(slotIndex);
-          this.__oa.push(pickerSlot.getContentElement());
-          this.__od.add(pickerSlot, {
+          this.__or.push(pickerSlot.getContentElement());
+          this.__ou.add(pickerSlot, {
             flex : 1
           });
           this._renderPickerSlotContent(pickerSlot, slotIndex);
@@ -44130,7 +44984,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           oldPickerSlotContent[i].dispose();
         };
-        var slotValues = this.__oc.getItem(slotIndex);
+        var slotValues = this.__ot.getItem(slotIndex);
         var slotLength = slotValues.getLength();
         for(var slotValueIndex = 0;slotValueIndex < slotLength;slotValueIndex++){
 
@@ -44144,24 +44998,24 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _createPickerSlot : function(slotIndex){
 
         var pickerSlot = new qx.ui.mobile.container.Composite();
-        pickerSlot.addCssClass(w);
-        pickerSlot.setTransformUnit(d);
-        pickerSlot.addListener(x, this._onTouchStart, this);
+        pickerSlot.addCssClass(x);
+        pickerSlot.setTransformUnit(e);
+        pickerSlot.addListener(y, this._onTouchStart, this);
         pickerSlot.addListener(a, this._onTouchMove, this);
-        pickerSlot.addListener(q, this._onTouchEnd, this);
-        this.__nY[pickerSlot.getId()] = slotIndex;
-        this.__nW[pickerSlot.getId()] = 0;
+        pickerSlot.addListener(r, this._onTouchEnd, this);
+        this.__oq[pickerSlot.getId()] = slotIndex;
+        this.__oo[pickerSlot.getId()] = 0;
         return pickerSlot;
       },
       _removePickerSlots : function(){
 
-        var children = this.__od.getChildren();
+        var children = this.__ou.getChildren();
         for(var i = children.length - 1;i >= 0;i--){
 
           var pickerSlot = children[i];
-          pickerSlot.removeListener(x, this._onTouchStart, this);
+          pickerSlot.removeListener(y, this._onTouchStart, this);
           pickerSlot.removeListener(a, this._onTouchMove, this);
-          pickerSlot.removeListener(q, this._onTouchEnd, this);
+          pickerSlot.removeListener(r, this._onTouchEnd, this);
           var oldPickerSlotContent = pickerSlot.removeAll();
           for(var j = 0;j < oldPickerSlotContent.length;j++){
 
@@ -44173,7 +45027,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _createPickerValueLabel : function(textValue){
 
         var pickerLabel = new qx.ui.mobile.basic.Label(textValue);
-        pickerLabel.addCssClass(r);
+        pickerLabel.addCssClass(s);
         return pickerLabel;
       }
     },
@@ -44181,137 +45035,89 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
       this._disposePickerModel();
       this._removePickerSlots();
-      this.__of.removeListener(v, this.confirm, this);
-      this.__og.removeListener(v, this.hide, this);
-      this._disposeObjects(F, n, f, z, D);
+      this.__ow.removeListener(w, this.confirm, this);
+      this.__ox.removeListener(w, this.hide, this);
+      this._disposeObjects(A, c, F, l, k);
     }
   });
 })();
 (function(){
 
-  var a = "/entities/",b = "/instances/",c = "",d = 'Date',f = "No records found",g = "showFor: ",h = "/relationships/",i = "Back",j = "changeSelection",k = "/",l = "kirra_qooxdoo.RelatedInstanceNavigator",m = ", ",n = ": ",o = "qx.event.type.Data";
-  qx.Class.define(l, {
-    extend : qx.ui.mobile.page.NavigationPage,
+  var a = "/entities/",b = "/instances/",c = "/relationships/",d = "Back",e = "changeSelection",f = "kirra_qooxdoo.RelatedInstanceNavigator",g = "/",h = "qx.event.type.Data";
+  qx.Class.define(f, {
+    extend : kirra_qooxdoo.AbstractInstanceNavigator,
     construct : function(repository){
 
-      qx.ui.mobile.page.NavigationPage.call(this);
+      kirra_qooxdoo.AbstractInstanceNavigator.call(this);
       this.repository = repository;
       this.setShowBackButton(true);
-      this.setBackButtonText(i);
+      this.setBackButtonText(d);
     },
     events : {
-      "show" : o
+      "show" : h
     },
     members : {
-      _entityName : null,
-      _entity : null,
+      _parentEntityName : null,
+      _parentEntity : null,
+      _childEntityName : null,
+      _childEntity : null,
+      _parentObjectId : null,
       _toolbar : null,
       _instanceList : null,
       _initialize : function(){
 
-        qx.ui.mobile.page.NavigationPage.prototype._initialize.call(this);
+        kirra_qooxdoo.AbstractInstanceNavigator.prototype._initialize.call(this);
         var me = this;
-        var list = this._instanceList = new qx.ui.mobile.list.List({
-          configureItem : function(item, data, row){
-
-            item.setTitle(data.shorthand);
-            item.setSubtitle(c);
-            item.setShowArrow(true);
-            item.data = data;
-            var details = [],value,detail;
-            for(name in me._detailProperties){
-
-              value = data.values[name];
-              if(me._entity.properties[name].typeRef && me._entity.properties[name].typeRef.typeName === d){
-
-                try{
-
-                  value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
-                } catch(e) {
-                };
-              };
-              if(value && value != null){
-
-                detail = me._detailProperties[name].label;
-                if(value !== true)detail += n + value;
-                details.push(detail);
-              };
-            };
-            item.setSubtitle(details.join(m));
-            item.setShowArrow(true);
-          }
-        });
-        this.getContent().add(list);
-        list.addListener(j, function(evt){
+        var list = me._buildInstanceList();
+        list.addListener(e, function(evt){
 
           var instanceSelected = me._instanceList.getModel().getItem(evt.getData());
-          qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + b + me._objectId + h + me._relationshipName + k + instanceSelected.objectId);
+          qx.core.Init.getApplication().getRouting().executeGet(a + me._parentEntityName + b + me._parentObjectId + c + me._relationshipName + g + instanceSelected.objectId);
         }, this);
       },
       _start : function(){
 
-        qx.ui.mobile.page.NavigationPage.prototype._start.call(this);
+        kirra_qooxdoo.AbstractInstanceNavigator.prototype._start.call(this);
       },
       _back : function(){
 
         var me = this;
-        qx.core.Init.getApplication().getRouting().executeGet(a + me._entityName + b + me._objectId, {
+        qx.core.Init.getApplication().getRouting().executeGet(a + me._parentEntityName + b + me._parentObjectId, {
           reverse : true
         });
       },
-      showFor : function(entityName, relationshipName, objectId){
+      showFor : function(parentEntityName, relationshipName, parentObjectId){
 
         var me = this;
-        console.log(g + entityName);
-        this._entityName = entityName;
+        this._parentEntity = null;
+        this._childEntityName = null;
+        this._childEntity = null;
+        this._parentEntityName = parentEntityName;
         this._relationshipName = relationshipName;
-        this._objectId = objectId;
-        me.show();
-        this.repository.loadEntity(this._entityName, function(entity){
+        this._parentObjectId = parentObjectId;
+        this.show();
+        this.repository.loadEntity(parentEntityName, function(parentEntity){
 
-          me._entity = entity;
-          me._relationship = entity.relationships[me._relationshipName];
-          me.buildDetailProperties();
-          me.reloadInstances();
+          me._parentEntity = parentEntity;
+          me._relationship = parentEntity.relationships[me._relationshipName];
+          me._childEntityName = me._relationship.typeRef.fullName;
+          me.setTitle(me._relationship.label);
+          me.repository.loadEntity(me._childEntityName, function(childEntity){
+
+            me._childEntity = childEntity;
+            me.buildDetailProperties(me._childEntity);
+            me.reloadInstances();
+          });
         });
       },
-      reloadInstances : function(){
+      _loadInstances : function(callback){
 
         var me = this;
-        this.repository.listRelatedInstances(this._entity, this._objectId, this._relationship, function(instances){
-
-          me.getContent().removeAll();
-          if(instances.contents.length === 0){
-
-            var nothingToSeeHere = new qx.ui.mobile.form.Label(f);
-            me.getContent().add(nothingToSeeHere);
-          } else {
-
-            me._instanceList.setModel(new qx.data.Array(instances.contents));
-            me.getContent().add(me._instanceList);
-          };
-        });
+        this.repository.listRelatedInstances(this._parentEntity, this._parentObjectId, this._relationship, callback);
       },
-      buildDetailProperties : function(){
+      _getInstanceListEntity : function(){
 
-        var me = this;
-        var detailProperties = {
-        };
-        var skippedMnemonic = false;
-        for(var p in me._entity.properties){
-
-          if(me._entity.properties[p].userVisible){
-
-            if(skippedMnemonic){
-
-              detailProperties[p] = {
-                label : me._entity.properties[p].label
-              };
-            };
-            skippedMnemonic = true;
-          };
-        };
-        me._detailProperties = detailProperties;
+        return this._childEntity;
       }
     }
   });
@@ -44346,9 +45152,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           sourcePath += this._objectId;
         };
-        qx.core.Init.getApplication().getRouting().executeGet(sourcePath, {
-          reverse : true
-        });
+        qx.core.Init.getApplication().goBack(sourcePath);
       },
       _initialize : function(){
 
@@ -44490,8 +45294,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "Boolean",b = "master-detail-detail",c = "device.type",d = "paddingLeft",e = "__os",f = "Hide",g = "orientationchange",h = "qx.ui.mobile.page.Manager",k = "__ol",l = "String",m = "resize",n = "start",o = "__oo",p = "master-detail-master",q = "tablet",r = "rem",s = "_applyMasterTitle",t = "_onLayoutChange",u = "update",v = "_applyHideMasterButtonCaption",w = "__ok",x = "desktop",y = "Master",z = "tap",A = "undefined";
-  qx.Class.define(h, {
+  var a = "Boolean",b = "master-detail-detail",c = "device.type",d = "paddingLeft",e = "__oJ",f = "Hide",g = "__oC",h = "orientationchange",k = "qx.ui.mobile.page.Manager",l = "String",m = "__oB",n = "resize",o = "start",p = "master-detail-master",q = "tablet",r = "rem",s = "_applyMasterTitle",t = "_onLayoutChange",u = "update",v = "_applyHideMasterButtonCaption",w = "desktop",x = "Master",y = "tap",z = "__oF",A = "undefined";
+  qx.Class.define(k, {
     extend : qx.core.Object,
     construct : function(isTablet, root){
 
@@ -44499,49 +45303,49 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       root = root || qx.core.Init.getApplication().getRoot();
       if(typeof isTablet !== A && isTablet !== null){
 
-        this.__oj = isTablet;
+        this.__oA = isTablet;
       } else {
 
-        this.__oj = qx.core.Environment.get(c) == x || qx.core.Environment.get(c) == q;
+        this.__oA = qx.core.Environment.get(c) == w || qx.core.Environment.get(c) == q;
       };
-      this.__ok = this._createDetailNavigation();
-      this.__ok.getNavigationBar().hide();
-      if(this.__oj){
+      this.__oB = this._createDetailNavigation();
+      this.__oB.getNavigationBar().hide();
+      if(this.__oA){
 
-        this.__ol = this._createMasterNavigation();
-        this.__ol.getNavigationBar().hide();
-        this.__om = this._createMasterContainer();
-        this.__on = this._createDetailContainer();
-        this.__oo = this._createMasterButton();
-        this.__oo.addListener(z, this._onMasterButtonTap, this);
-        this.__op = this._createHideMasterButton();
-        this.__op.addListener(z, this._onHideMasterButtonTap, this);
-        this.__ol.addListener(u, this._onMasterContainerUpdate, this);
-        this.__ok.addListener(u, this._onDetailContainerUpdate, this);
-        root.add(this.__on, {
+        this.__oC = this._createMasterNavigation();
+        this.__oC.getNavigationBar().hide();
+        this.__oD = this._createMasterContainer();
+        this.__oE = this._createDetailContainer();
+        this.__oF = this._createMasterButton();
+        this.__oF.addListener(y, this._onMasterButtonTap, this);
+        this.__oG = this._createHideMasterButton();
+        this.__oG.addListener(y, this._onHideMasterButtonTap, this);
+        this.__oC.addListener(u, this._onMasterContainerUpdate, this);
+        this.__oB.addListener(u, this._onDetailContainerUpdate, this);
+        root.add(this.__oE, {
           flex : 1
         });
-        this.__om.add(this.__ol, {
+        this.__oD.add(this.__oC, {
           flex : 1
         });
-        this.__on.add(this.__ok, {
+        this.__oE.add(this.__oB, {
           flex : 1
         });
-        qx.event.Registration.addListener(window, g, this._onLayoutChange, this);
-        this.__om.addListener(m, this._onLayoutChange, this);
-        this.__ol.getLayout().setShowAnimation(false);
-        this.__ok.getLayout().setShowAnimation(false);
+        qx.event.Registration.addListener(window, h, this._onLayoutChange, this);
+        this.__oD.addListener(n, this._onLayoutChange, this);
+        this.__oC.getLayout().setShowAnimation(false);
+        this.__oB.getLayout().setShowAnimation(false);
         this._onLayoutChange();
       } else {
 
-        root.add(this.__ok, {
+        root.add(this.__oB, {
           flex : 1
         });
       };
     },
     properties : {
       masterTitle : {
-        init : y,
+        init : x,
         check : l,
         apply : s
       },
@@ -44566,15 +45370,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __oj : null,
-      __ok : null,
-      __ol : null,
-      __oo : null,
-      __op : null,
-      __oq : null,
-      __or : null,
-      __om : null,
-      __on : null,
+      __oA : null,
+      __oB : null,
+      __oC : null,
+      __oF : null,
+      __oG : null,
+      __oH : null,
+      __oI : null,
+      __oD : null,
+      __oE : null,
       _createMasterContainer : function(){
 
         var masterContainer = new qx.ui.mobile.container.Drawer(null, new qx.ui.mobile.layout.HBox());
@@ -44590,23 +45394,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       getMasterContainer : function(){
 
-        return this.__om;
+        return this.__oD;
       },
       getDetailContainer : function(){
 
-        return this.__on;
+        return this.__oE;
       },
       getMasterButton : function(){
 
-        return this.__oo;
+        return this.__oF;
       },
       getMasterNavigation : function(){
 
-        return this.__ol;
+        return this.__oC;
       },
       getDetailNavigation : function(){
 
-        return this.__ok;
+        return this.__oB;
       },
       _createMasterButton : function(){
 
@@ -44626,7 +45430,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       addMaster : function(pages){
 
-        if(this.__oj){
+        if(this.__oA){
 
           if(pages){
 
@@ -44637,16 +45441,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             for(var i = 0;i < pages.length;i++){
 
               var masterPage = pages[i];
-              qx.event.Registration.addListener(masterPage, n, this._onMasterPageStart, this);
+              qx.event.Registration.addListener(masterPage, o, this._onMasterPageStart, this);
             };
-            if(this.__oq){
+            if(this.__oH){
 
-              this.__oq.concat(pages);
+              this.__oH.concat(pages);
             } else {
 
-              this.__oq = pages;
+              this.__oH = pages;
             };
-            this._add(pages, this.__ol);
+            this._add(pages, this.__oC);
           };
         } else {
 
@@ -44661,8 +45465,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       addDetail : function(pages){
 
-        this._add(pages, this.__ok);
-        if(pages && this.__oj){
+        this._add(pages, this.__oB);
+        if(pages && this.__oA){
 
           if(!qx.lang.Type.isArray(pages)){
 
@@ -44671,14 +45475,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           for(var i = 0;i < pages.length;i++){
 
             var detailPage = pages[i];
-            qx.event.Registration.addListener(detailPage, n, this._onDetailPageStart, this);
+            qx.event.Registration.addListener(detailPage, o, this._onDetailPageStart, this);
           };
-          if(this.__or){
+          if(this.__oI){
 
-            this.__or.concat(pages);
+            this.__oI.concat(pages);
           } else {
 
-            this.__or = pages;
+            this.__oI = pages;
           };
         };
       },
@@ -44686,7 +45490,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         if(qx.bom.Viewport.isPortrait() && this.isHideMasterOnDetailStart()){
 
-          this.__om.hide();
+          this.__oD.hide();
         };
       },
       _add : function(pages, target){
@@ -44700,133 +45504,133 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           var page = pages[i];
           {
           };
-          if(this.__oj && !page.getShowBackButtonOnTablet()){
+          if(this.__oA && !page.getShowBackButtonOnTablet()){
 
             page.setShowBackButton(false);
           };
-          page.setIsTablet(this.__oj);
+          page.setIsTablet(this.__oA);
           target.add(page);
         };
       },
       _onMasterContainerUpdate : function(evt){
 
         var widget = evt.getData();
-        widget.getRightContainer().remove(this.__op);
-        widget.getRightContainer().add(this.__op);
+        widget.getRightContainer().remove(this.__oG);
+        widget.getRightContainer().add(this.__oG);
       },
       _onDetailContainerUpdate : function(evt){
 
         var widget = evt.getData();
-        widget.getLeftContainer().remove(this.__oo);
-        widget.getLeftContainer().add(this.__oo);
+        widget.getLeftContainer().remove(this.__oF);
+        widget.getLeftContainer().add(this.__oF);
       },
       _onMasterButtonTap : function(){
 
-        this.__om.show();
+        this.__oD.show();
         if(qx.bom.Viewport.isLandscape()){
 
           this.setMasterContainerHidden(false);
           this._createDetailContainerGap();
-          this.__oo.exclude();
+          this.__oF.exclude();
         };
       },
       _onHideMasterButtonTap : function(){
 
-        this.__om.hide();
+        this.__oD.hide();
         if(qx.bom.Viewport.isLandscape()){
 
-          this.__oo.show();
+          this.__oF.show();
           this.setMasterContainerHidden(true);
           this._removeDetailContainerGap();
         };
       },
       _onLayoutChange : function(){
 
-        if(!this.__oj){
+        if(!this.__oA){
 
           return;
         };
         if(qx.bom.Viewport.isLandscape()){
 
-          this.__om.setTransitionDuration(0);
+          this.__oD.setTransitionDuration(0);
           if(this.isMasterContainerHidden() === false){
 
             this._createDetailContainerGap();
-            this.__om.show();
+            this.__oD.show();
           } else {
 
             this._removeDetailContainerGap();
-            this.__om.hide();
+            this.__oD.hide();
           };
-          this.__om.setHideOnParentTouch(false);
+          this.__oD.setHideOnParentTouch(false);
         } else {
 
-          this.__om.setTransitionDuration(500);
-          this.__om.setHideOnParentTouch(true);
-          this.__om.hide();
+          this.__oD.setTransitionDuration(500);
+          this.__oD.setHideOnParentTouch(true);
+          this.__oD.hide();
           this._removeDetailContainerGap();
         };
-        this.__os();
+        this.__oJ();
       },
       _createDetailContainerGap : function(){
 
-        qx.bom.element.Style.set(this.__on.getContainerElement(), d, this.__om.getSize() / 16 + r);
-        qx.event.Registration.fireEvent(window, m);
+        qx.bom.element.Style.set(this.__oE.getContainerElement(), d, this.__oD.getSize() / 16 + r);
+        qx.event.Registration.fireEvent(window, n);
       },
       _removeDetailContainerGap : function(){
 
-        qx.bom.element.Style.set(this.__on.getContainerElement(), d, null);
-        qx.event.Registration.fireEvent(window, m);
+        qx.bom.element.Style.set(this.__oE.getContainerElement(), d, null);
+        qx.event.Registration.fireEvent(window, n);
       },
-      __os : function(){
+      __oJ : function(){
 
-        if(!this.__oj){
+        if(!this.__oA){
 
           return;
         };
         if(qx.bom.Viewport.isPortrait()){
 
-          this.__oo.show();
-          this.__op.show();
+          this.__oF.show();
+          this.__oG.show();
         } else {
 
-          this.__oo.exclude();
-          this.__op.exclude();
+          this.__oF.exclude();
+          this.__oG.exclude();
           if(this.isAllowMasterHideOnLandscape()){
 
             if(this.isMasterContainerHidden()){
 
-              this.__oo.show();
+              this.__oF.show();
             } else {
 
-              this.__op.show();
+              this.__oG.show();
             };
           };
         };
       },
       _applyHideMasterButtonCaption : function(value, old){
 
-        if(this.__oj){
+        if(this.__oA){
 
-          this.__op.setLabel(value);
+          this.__oG.setLabel(value);
         };
       },
       _applyMasterTitle : function(value, old){
 
-        if(this.__oj){
+        if(this.__oA){
 
-          this.__oo.setLabel(value);
+          this.__oF.setLabel(value);
         };
       }
     },
     destruct : function(){
 
-      if(this.__oq){
+      if(this.__oH){
 
-        for(var i = 0;i < this.__oq.length;i++){
+        for(var i = 0;i < this.__oH.length;i++){
 
-          var masterPage = this.__oq[i];
-          qx.event.Registration.removeListener(masterPage, n, this._onMasterPageStart, this);
+          var masterPage = this.__oH[i];
+          qx.event.Registration.removeListener(masterPage, o, this._onMasterPageStart, this);
         };
       };
       if(this.___detailPages){
@@ -44834,16 +45638,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var j = 0;j < this.___detailPages.length;j++){
 
           var detailPage = this.___detailPages[j];
-          qx.event.Registration.removeListener(detailPage, n, this._onDetailPageStart, this);
+          qx.event.Registration.removeListener(detailPage, o, this._onDetailPageStart, this);
         };
       };
-      if(this.__oj){
+      if(this.__oA){
 
-        this.__om.removeListener(m, this._onLayoutChange, this);
-        qx.event.Registration.removeListener(window, g, this._onLayoutChange, this);
+        this.__oD.removeListener(n, this._onLayoutChange, this);
+        qx.event.Registration.removeListener(window, h, this._onLayoutChange, this);
       };
-      this.__oq = this.__or = null;
-      this._disposeObjects(w, k, o);
+      this.__oH = this.__oI = null;
+      this._disposeObjects(m, g, z);
     }
   });
 })();
@@ -44875,8 +45679,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       this.__jt.addListener(a, this._onParentSwipe, this);
       this.__jt.addListener(F, this._onParentTouchStart, this);
       this.__jt.addListener(h, this.forceHide, this);
-      this.__ot = [0, 0];
-      this.__ou = false;
+      this.__oK = [0, 0];
+      this.__oL = false;
       this.forceHide();
     },
     events : {
@@ -44918,11 +45722,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __ot : null,
+      __oK : null,
       __jt : null,
-      __ou : null,
-      __ov : null,
-      __ow : null,
+      __oL : null,
+      __oM : null,
+      __oN : null,
       _applyOrientation : function(value, old){
 
         this.removeCssClass(old);
@@ -45009,31 +45813,31 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           qx.bom.Element.removeListener(evt.getTarget(), p, this._onTransitionEnd, this);
         };
-        this.__ou = false;
+        this.__oL = false;
         this._disableTransition();
         if(this.isHidden()){
 
           this.exclude();
           this.__jt.removeCssClass(v);
         };
-        if(this.__ov != qx.bom.Viewport.isLandscape()){
+        if(this.__oM != qx.bom.Viewport.isLandscape()){
 
           this.show();
         };
       },
       _applyTransitionDuration : function(value, old){
 
-        this.__ow = value > 0;
+        this.__oN = value > 0;
       },
       show : function(){
 
-        if(this.__ou || !this.isHidden()){
+        if(this.__oL || !this.isHidden()){
 
           return;
         };
         qx.ui.mobile.container.Composite.prototype.show.call(this);
         this.__jt.addCssClass(v);
-        this.__ov = qx.bom.Viewport.isLandscape();
+        this.__oM = qx.bom.Viewport.isLandscape();
         if(this.getPositionZ() == l){
 
           if(this.__jt){
@@ -45064,7 +45868,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         if(this.getTransitionDuration() > 0){
 
           this._enableTransition();
-          this.__ou = true;
+          this.__oL = true;
           qx.bom.Element.addListener(this._getTransitionTarget().getContentElement(), p, this._onTransitionEnd, this);
           setTimeout(function(){
 
@@ -45078,11 +45882,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       hide : function(){
 
-        if(this.__ou || this.isHidden()){
+        if(this.__oL || this.isHidden()){
 
           return;
         };
-        this.__ov = qx.bom.Viewport.isLandscape();
+        this.__oM = qx.bom.Viewport.isLandscape();
         if(this.getPositionZ() == l){
 
           this.__jt.setTranslateX(0);
@@ -45090,7 +45894,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         if(this.getTransitionDuration() > 0){
 
-          this.__ou = true;
+          this.__oL = true;
           this._enableTransition();
           qx.bom.Element.addListener(this._getTransitionTarget().getContentElement(), p, this._onTransitionEnd, this);
           setTimeout(function(){
@@ -45153,12 +45957,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var clientX = evt.getAllTouches()[0].clientX;
         var clientY = evt.getAllTouches()[0].clientY;
-        this.__ot = [clientX, clientY];
+        this.__oK = [clientX, clientY];
         var isShown = !this.hasCssClass(z);
         if(isShown && this.isHideOnParentTouch()){
 
           var location = qx.bom.element.Location.get(this.getContainerElement());
-          if(this.getOrientation() == A && this.__ot[0] > location.right || this.getOrientation() == r && this.__ot[1] > location.bottom || this.getOrientation() == d && this.__ot[1] < location.top || this.getOrientation() == s && this.__ot[0] < location.left){
+          if(this.getOrientation() == A && this.__oK[0] > location.right || this.getOrientation() == r && this.__oK[1] > location.bottom || this.getOrientation() == d && this.__oK[1] < location.top || this.getOrientation() == s && this.__oK[0] < location.left){
 
             evt.preventDefault();
             this.hide();
@@ -45172,7 +45976,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         if(isHidden){
 
           var location = qx.bom.element.Location.get(this.getContainerElement());
-          if((direction == s && this.getOrientation() == A && this.__ot[0] < location.right + this.getTouchOffset() && this.__ot[0] > location.right) || (direction == A && this.getOrientation() == s && this.__ot[0] > location.left - this.getTouchOffset() && this.__ot[0] < location.left) || (direction == t && this.getOrientation() == r && this.__ot[1] < this.getTouchOffset() + location.bottom && this.__ot[1] > location.bottom) || (direction == D && this.getOrientation() == d && this.__ot[1] > location.top - this.getTouchOffset() && this.__ot[1] < location.top)){
+          if((direction == s && this.getOrientation() == A && this.__oK[0] < location.right + this.getTouchOffset() && this.__oK[0] > location.right) || (direction == A && this.getOrientation() == s && this.__oK[0] > location.left - this.getTouchOffset() && this.__oK[0] < location.left) || (direction == t && this.getOrientation() == r && this.__oK[1] < this.getTouchOffset() + location.bottom && this.__oK[1] > location.bottom) || (direction == D && this.getOrientation() == d && this.__oK[1] > location.top - this.getTouchOffset() && this.__oK[1] < location.top)){
 
             this.show();
           };
@@ -45184,25 +45988,25 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       this.__jt.removeListener(a, this._onParentSwipe, this);
       this.__jt.removeListener(F, this._onParentTouchStart, this);
       this.__jt.removeListener(h, this.forceHide, this);
-      this.__ot = this.__ou = this.__jt = this.__ow = null;
+      this.__oK = this.__oL = this.__jt = this.__oN = null;
     }
   });
 })();
 (function(){
 
-  var a = "navigation",b = "__oy",c = "animationEnd",d = "update",e = "blocked",f = "qx.ui.mobile.container.Navigation",g = "__mo",h = "visible",i = "hidden",j = "__ox",k = "updateLayout",l = "animationStart",m = "transitionDuration",n = "s",o = "qx.event.type.Data";
+  var a = "navigation",b = "animationEnd",c = "__oO",d = "update",e = "blocked",f = "qx.ui.mobile.container.Navigation",g = "visible",h = "hidden",i = "__oP",j = "updateLayout",k = "animationStart",l = "__mF",m = "transitionDuration",n = "s",o = "qx.event.type.Data";
   qx.Class.define(f, {
     extend : qx.ui.mobile.container.Composite,
     construct : function(){
 
       qx.ui.mobile.container.Composite.call(this, new qx.ui.mobile.layout.VBox());
-      this.__ox = this._createNavigationBar();
-      if(this.__ox){
+      this.__oO = this._createNavigationBar();
+      if(this.__oO){
 
-        this._add(this.__ox);
+        this._add(this.__oO);
       };
-      this.__mo = this._createContent();
-      this._add(this.__mo, {
+      this.__mF = this._createContent();
+      this._add(this.__mF, {
         flex : 1
       });
     },
@@ -45216,9 +46020,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       "update" : o
     },
     members : {
-      __ox : null,
-      __mo : null,
-      __oy : null,
+      __oO : null,
+      __mF : null,
+      __oP : null,
       add : function(widget){
 
         {
@@ -45233,23 +46037,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       getContent : function(){
 
-        return this.__mo;
+        return this.__mF;
       },
       getLayout : function(){
 
-        return this.__oy;
+        return this.__oP;
       },
       getNavigationBar : function(){
 
-        return this.__ox;
+        return this.__oO;
       },
       _createContent : function(){
 
-        this.__oy = new qx.ui.mobile.layout.Card();
-        var content = new qx.ui.mobile.container.Composite(this.__oy);
-        this.__oy.addListener(k, this._onUpdateLayout, this);
-        this.getLayout().addListener(l, this._onAnimationStart, this);
-        this.getLayout().addListener(c, this._onAnimationEnd, this);
+        this.__oP = new qx.ui.mobile.layout.Card();
+        var content = new qx.ui.mobile.container.Composite(this.__oP);
+        this.__oP.addListener(j, this._onUpdateLayout, this);
+        this.getLayout().addListener(k, this._onAnimationStart, this);
+        this.getLayout().addListener(b, this._onAnimationEnd, this);
         return content;
       },
       _onAnimationStart : function(){
@@ -45265,7 +46069,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var data = evt.getData();
         var widget = data.widget;
         var action = data.action;
-        if(action == h){
+        if(action == g){
 
           this._update(widget);
         };
@@ -45276,11 +46080,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this._setStyle(m, widget.getNavigationBarToggleDuration() + n);
         if(widget.isNavigationBarHidden()){
 
-          this.addCssClass(i);
+          this.addCssClass(h);
         } else {
 
           navigationBar.show();
-          this.removeCssClass(i);
+          this.removeCssClass(h);
         };
         navigationBar.removeAll();
         var leftContainer = widget.getLeftContainer();
@@ -45309,10 +46113,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     },
     destruct : function(){
 
-      this.getLayout().removeListener(l, this._onAnimationStart, this);
-      this.getLayout().removeListener(c, this._onAnimationEnd, this);
-      this._disposeObjects(j, g, b);
-      this.__ox = this.__mo = this.__oy = null;
+      this.getLayout().removeListener(k, this._onAnimationStart, this);
+      this.getLayout().removeListener(b, this._onAnimationEnd, this);
+      this._disposeObjects(c, l, i);
+      this.__oO = this.__mF = this.__oP = null;
     }
   });
 })();
@@ -45324,7 +46128,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(){
 
       qx.ui.mobile.layout.Abstract.call(this);
-      this.__oz = new qx.ui.mobile.layout.CardAnimation();
+      this.__oQ = new qx.ui.mobile.layout.CardAnimation();
     },
     events : {
       animationStart : u,
@@ -45345,12 +46149,12 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       }
     },
     members : {
-      __oA : null,
-      __oB : null,
-      __ou : null,
-      __oC : null,
-      __oD : null,
-      __oz : null,
+      __oR : null,
+      __oS : null,
+      __oL : null,
+      __oT : null,
+      __oU : null,
+      __oQ : null,
       _getCssClasses : function(){
 
         return [t, j];
@@ -45380,31 +46184,31 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       setCardAnimation : function(value){
 
-        this.__oz = value;
+        this.__oQ = value;
       },
       getCardAnimation : function(){
 
-        return this.__oz;
+        return this.__oQ;
       },
       _showWidget : function(widget, properties){
 
-        if(this.__oA == widget){
+        if(this.__oR == widget){
 
           return;
         };
-        if(this.__ou){
+        if(this.__oL){
 
-          this.__oF();
+          this.__oW();
         };
-        this.__oA = widget;
-        if(this.__oB && this.getShowAnimation() && qx.core.Environment.get(d)){
+        this.__oR = widget;
+        if(this.__oS && this.getShowAnimation() && qx.core.Environment.get(d)){
 
           properties = properties || {
           };
-          this.__oC = properties.animation || this.getDefaultAnimation();
+          this.__oT = properties.animation || this.getDefaultAnimation();
           properties.reverse = properties.reverse === null ? false : properties.reverse;
-          this.__oD = properties.fromHistory || properties.reverse;
-          this.__oE(widget);
+          this.__oU = properties.fromHistory || properties.reverse;
+          this.__oV(widget);
         } else {
 
           this._swapWidget();
@@ -45412,11 +46216,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _swapWidget : function(){
 
-        if(this.__oB){
+        if(this.__oS){
 
-          this.__oB.exclude();
+          this.__oS.exclude();
         };
-        this.__oB = this.__oA;
+        this.__oS = this.__oR;
       },
       _fixWidgetSize : function(widget){
 
@@ -45440,11 +46244,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
         };
       },
-      __oE : function(widget){
+      __oV : function(widget){
 
-        this.__ou = true;
-        this.fireDataEvent(p, [this.__oB, widget]);
-        var fromElement = this.__oB.getContainerElement();
+        this.__oL = true;
+        this.fireDataEvent(p, [this.__oS, widget]);
+        var fromElement = this.__oS.getContainerElement();
         var toElement = widget.getContainerElement();
         var onAnimationEnd = qx.lang.Function.bind(this._onAnimationEnd, this);
         if(qx.core.Environment.get(f)){
@@ -45454,11 +46258,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         qx.event.Registration.addListener(fromElement, o, this._onAnimationEnd, this);
         qx.event.Registration.addListener(toElement, o, this._onAnimationEnd, this);
-        var fromCssClasses = this.__oG(l);
-        var toCssClasses = this.__oG(r);
+        var fromCssClasses = this.__oX(l);
+        var toCssClasses = this.__oX(r);
         this._widget.addCssClass(b);
-        var toElementAnimation = this.__oz.getAnimation(this.__oC, r, this.__oD);
-        var fromElementAnimation = this.__oz.getAnimation(this.__oC, l, this.__oD);
+        var toElementAnimation = this.__oQ.getAnimation(this.__oT, r, this.__oU);
+        var fromElementAnimation = this.__oQ.getAnimation(this.__oT, l, this.__oU);
         qx.bom.element.Class.addClasses(toElement, toCssClasses);
         qx.bom.element.Class.addClasses(fromElement, fromCssClasses);
         qx.bom.element.Animation.animate(toElement, toElementAnimation);
@@ -45466,28 +46270,28 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _onAnimationEnd : function(evt){
 
-        this.__oF();
-        this.fireDataEvent(o, [this.__oB, this.__oA]);
+        this.__oW();
+        this.fireDataEvent(o, [this.__oS, this.__oR]);
       },
-      __oF : function(){
+      __oW : function(){
 
-        if(this.__ou){
+        if(this.__oL){
 
-          var fromElement = this.__oB.getContainerElement();
-          var toElement = this.__oA.getContainerElement();
+          var fromElement = this.__oS.getContainerElement();
+          var toElement = this.__oR.getContainerElement();
           qx.event.Registration.removeListener(fromElement, o, this._onAnimationEnd, this);
           qx.event.Registration.removeListener(toElement, o, this._onAnimationEnd, this);
-          qx.bom.element.Class.removeClasses(fromElement, this.__oG(l));
-          qx.bom.element.Class.removeClasses(toElement, this.__oG(r));
+          qx.bom.element.Class.removeClasses(fromElement, this.__oX(l));
+          qx.bom.element.Class.removeClasses(toElement, this.__oX(r));
           this._swapWidget();
           this._widget.removeCssClass(b);
-          this.__ou = false;
+          this.__oL = false;
         };
       },
-      __oG : function(direction){
+      __oX : function(direction){
 
-        var classes = [a, this.__oC, direction];
-        if(this.__oD){
+        var classes = [a, this.__oT, direction];
+        if(this.__oU){
 
           classes.push(h);
         };
@@ -45505,9 +46309,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(manager){
 
       qx.core.Object.call(this);
-      this.__oH = {
+      this.__oY = {
       };
-      this.__oI = qx.lang.Function.listener(this._onNative, this);
+      this.__pa = qx.lang.Function.listener(this._onNative, this);
     },
     statics : {
       PRIORITY : qx.event.Registration.PRIORITY_NORMAL,
@@ -45523,8 +46327,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       NATIVE_TO_TYPE : null
     },
     members : {
-      __oI : null,
-      __oH : null,
+      __pa : null,
+      __oY : null,
       canHandleEvent : function(target, type){
       },
       registerEvent : qx.core.Environment.select(a, {
@@ -45532,11 +46336,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
           var hash = qx.core.ObjectRegistry.toHashCode(target) + type;
           var nativeType = qx.event.handler.Transition.TYPE_TO_NATIVE[type];
-          this.__oH[hash] = {
+          this.__oY[hash] = {
             target : target,
             type : nativeType
           };
-          qx.bom.Event.addNativeListener(target, nativeType, this.__oI);
+          qx.bom.Event.addNativeListener(target, nativeType, this.__pa);
         },
         "default" : function(){
         }
@@ -45544,7 +46348,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       unregisterEvent : qx.core.Environment.select(a, {
         "webkit|gecko|mshtml" : function(target, type, capture){
 
-          var events = this.__oH;
+          var events = this.__oY;
           if(!events){
 
             return;
@@ -45554,7 +46358,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             delete events[hash];
           };
-          qx.bom.Event.removeNativeListener(target, qx.event.handler.Transition.TYPE_TO_NATIVE[type], this.__oI);
+          qx.bom.Event.removeNativeListener(target, qx.event.handler.Transition.TYPE_TO_NATIVE[type], this.__pa);
         },
         "default" : function(){
         }
@@ -45567,16 +46371,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     destruct : function(){
 
       var event;
-      var events = this.__oH;
+      var events = this.__oY;
       for(var id in events){
 
         event = events[id];
         if(event.target){
 
-          qx.bom.Event.removeNativeListener(event.target, event.type, this.__oI);
+          qx.bom.Event.removeNativeListener(event.target, event.type, this.__pa);
         };
       };
-      this.__oH = this.__oI = null;
+      this.__oY = this.__pa = null;
     },
     defer : function(statics){
 
@@ -46231,19 +47035,19 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
   qx.Bootstrap.define(c, {
     construct : function(){
 
-      this.__oJ = new qx.event.Messaging();
-      this.__oK = qx.bom.History.getInstance();
-      this.__oK.addListener(h, this.__oO, this);
+      this.__pb = new qx.event.Messaging();
+      this.__pc = qx.bom.History.getInstance();
+      this.__pc.addListener(h, this.__pg, this);
     },
     statics : {
       DEFAULT_PATH : k,
-      __oL : [],
-      __oM : []
+      __pd : [],
+      __pe : []
     },
     members : {
-      __oK : null,
-      __oJ : null,
-      __oN : null,
+      __pc : null,
+      __pb : null,
+      __pf : null,
       init : function(defaultRoute){
 
         {
@@ -46254,7 +47058,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       _getPathOrFallback : function(path, defaultPath){
 
-        if(path == b || path == null || !this.__oJ.has(g, path)){
+        if(path == b || path == null || !this.__pb.has(g, path)){
 
           path = defaultPath || qx.application.Routing.DEFAULT_PATH;
         };
@@ -46262,7 +47066,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       onGet : function(route, handler, scope){
 
-        return this.__oJ.on(g, route, handler, scope);
+        return this.__pb.on(g, route, handler, scope);
       },
       on : function(route, handler, scope){
 
@@ -46270,37 +47074,37 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       onPost : function(route, handler, scope){
 
-        return this.__oJ.on(m, route, handler, scope);
+        return this.__pb.on(m, route, handler, scope);
       },
       onPut : function(route, handler, scope){
 
-        return this.__oJ.on(f, route, handler, scope);
+        return this.__pb.on(f, route, handler, scope);
       },
       onDelete : function(route, handler, scope){
 
-        return this.__oJ.on(l, route, handler, scope);
+        return this.__pb.on(l, route, handler, scope);
       },
       onAny : function(route, handler, scope){
 
-        return this.__oJ.onAny(route, handler, scope);
+        return this.__pb.onAny(route, handler, scope);
       },
       remove : function(id){
 
-        this.__oJ.remove(id);
+        this.__pb.remove(id);
       },
-      __oO : function(evt){
+      __pg : function(evt){
 
         var path = evt.getData();
         path = this._getPathOrFallback(path);
-        if(path != this.__oN){
+        if(path != this.__pf){
 
           this._executeGet(path, null, true);
         };
       },
       _executeGet : function(path, customData, fromEvent){
 
-        this.__oN = path;
-        var history = this.__oR(path);
+        this.__pf = path;
+        var history = this.__pj(path);
         if(history){
 
           if(!customData){
@@ -46312,15 +47116,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             customData.fromEvent = fromEvent;
           } else {
 
-            this.__oQ(path, customData);
+            this.__pi(path, customData);
           };
         } else {
 
-          this.__oP(path, customData);
-          qx.application.Routing.__oM = [];
+          this.__ph(path, customData);
+          qx.application.Routing.__pe = [];
         };
-        this.__oK.setState(path);
-        this.__oJ.emit(g, path, null, customData);
+        this.__pc.setState(path);
+        this.__pb.emit(g, path, null, customData);
       },
       executeGet : function(path, customData){
 
@@ -46332,30 +47136,30 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       executePost : function(path, params, customData){
 
-        this.__oJ.emit(m, path, params, customData);
+        this.__pb.emit(m, path, params, customData);
       },
       executePut : function(path, params, customData){
 
-        this.__oJ.emit(f, path, params, customData);
+        this.__pb.emit(f, path, params, customData);
       },
       executeDelete : function(path, params, customData){
 
-        this.__oJ.emit(l, path, params, customData);
+        this.__pb.emit(l, path, params, customData);
       },
       getState : function(){
 
-        return this.__oK.getState();
+        return this.__pc.getState();
       },
-      __oP : function(path, customData){
+      __ph : function(path, customData){
 
-        qx.application.Routing.__oL.unshift({
+        qx.application.Routing.__pd.unshift({
           path : path,
           customData : customData
         });
       },
-      __oQ : function(path, customData){
+      __pi : function(path, customData){
 
-        var register = [qx.application.Routing.__oL, qx.application.Routing.__oM];
+        var register = [qx.application.Routing.__pd, qx.application.Routing.__pe];
         for(var i = 0;i < register.length;i++){
 
           for(var j = 0;j < register[i].length;j++){
@@ -46367,10 +47171,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           };
         };
       },
-      __oR : function(path){
+      __pj : function(path){
 
-        var back = qx.application.Routing.__oL;
-        var forward = qx.application.Routing.__oM;
+        var back = qx.application.Routing.__pd;
+        var forward = qx.application.Routing.__pe;
         var found = false;
         var entry = null;
         var length = back.length;
@@ -46420,7 +47224,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       dispose : function(){
 
-        this.__oK.removeListener(h, this.__oO, this);
+        this.__pc.removeListener(h, this.__pg, this);
       }
     }
   });
@@ -46432,14 +47236,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     construct : function(){
 
       this._listener = {
-      } , this.__oS = 0;
-      this.__oT = {
+      } , this.__pk = 0;
+      this.__pl = {
       };
     },
     members : {
       _listener : null,
-      __oS : null,
-      __oT : null,
+      __pk : null,
+      __pl : null,
       on : function(channel, type, handler, scope){
 
         return this._addListener(channel, type, handler, scope);
@@ -46452,7 +47256,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var listeners = this._listener[channel] = this._listener[channel] || {
         };
-        var id = this.__oS++;
+        var id = this.__pk++;
         var params = [];
         var param = null;
         if(qx.lang.Type.isString(type)){
@@ -46470,15 +47274,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           handler : handler,
           scope : scope
         };
-        this.__oT[id] = channel;
+        this.__pl[id] = channel;
         return id;
       },
       remove : function(id){
 
-        var channel = this.__oT[id];
+        var channel = this.__pl[id];
         var listener = this._listener[channel];
         delete listener[id];
-        delete this.__oT[id];
+        delete this.__pl[id];
       },
       has : function(channel, path){
 
@@ -46558,723 +47362,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         return match != undefined;
       }
-    }
-  });
-})();
-(function(){
-
-  var a = "request",b = "mshtml",c = "engine.name",d = "changeTitle",e = "abstract",f = "",g = '#',h = "_applyState",i = "Abstract method call",j = "event.hashchange",k = "_applyTitle",l = "changeState",m = "qx.bom.History",n = "String",o = "browser.documentmode",p = "qx.event.type.Data";
-  qx.Class.define(m, {
-    extend : qx.core.Object,
-    type : e,
-    construct : function(){
-
-      qx.core.Object.call(this);
-      this._baseUrl = window.location.href.split(g)[0] + g;
-      this._titles = {
-      };
-      this._setInitialState();
-    },
-    events : {
-      "request" : p
-    },
-    statics : {
-      SUPPORTS_HASH_CHANGE_EVENT : qx.core.Environment.get(j),
-      getInstance : function(){
-
-        var runsInIframe = !(window == window.top);
-        if(!this.$$instance){
-
-          if(runsInIframe && qx.core.Environment.get(o) == 9){
-
-            this.$$instance = new qx.bom.HashHistory();
-          } else if(runsInIframe && qx.core.Environment.get(c) == b && qx.core.Environment.get(o) < 9){
-
-            this.$$instance = new qx.bom.IframeHistory();
-          } else if(this.SUPPORTS_HASH_CHANGE_EVENT){
-
-            this.$$instance = new qx.bom.NativeHistory();
-          } else if((qx.core.Environment.get(c) == b)){
-
-            this.$$instance = new qx.bom.IframeHistory();
-          } else {
-
-            this.$$instance = new qx.bom.NativeHistory();
-          };;;
-        };
-        return this.$$instance;
-      }
-    },
-    properties : {
-      title : {
-        check : n,
-        event : d,
-        nullable : true,
-        apply : k
-      },
-      state : {
-        check : n,
-        event : l,
-        nullable : true,
-        apply : h
-      }
-    },
-    members : {
-      _titles : null,
-      _applyState : function(value, old){
-
-        this._writeState(value);
-      },
-      _setInitialState : function(){
-
-        this.setState(this._readState());
-      },
-      _encode : function(value){
-
-        if(qx.lang.Type.isString(value)){
-
-          return encodeURIComponent(value);
-        };
-        return f;
-      },
-      _decode : function(value){
-
-        if(qx.lang.Type.isString(value)){
-
-          return decodeURIComponent(value);
-        };
-        return f;
-      },
-      _applyTitle : function(title){
-
-        if(title != null){
-
-          document.title = title || f;
-        };
-      },
-      addToHistory : function(state, newTitle){
-
-        if(!qx.lang.Type.isString(state)){
-
-          state = state + f;
-        };
-        if(qx.lang.Type.isString(newTitle)){
-
-          this.setTitle(newTitle);
-          this._titles[state] = newTitle;
-        };
-        if(this.getState() !== state){
-
-          this._writeState(state);
-        };
-      },
-      navigateBack : function(){
-
-        qx.event.Timer.once(function(){
-
-          history.back();
-        }, this, 100);
-      },
-      navigateForward : function(){
-
-        qx.event.Timer.once(function(){
-
-          history.forward();
-        }, this, 100);
-      },
-      _onHistoryLoad : function(state){
-
-        this.setState(state);
-        this.fireDataEvent(a, state);
-        if(this._titles[state] != null){
-
-          this.setTitle(this._titles[state]);
-        };
-      },
-      _readState : function(){
-
-        throw new Error(i);
-      },
-      _writeState : function(){
-
-        throw new Error(i);
-      },
-      _setHash : function(value){
-
-        var url = this._baseUrl + (value || f);
-        var loc = window.location;
-        if(url != loc.href){
-
-          loc.href = url;
-        };
-      },
-      _getHash : function(){
-
-        var hash = /#(.*)$/.exec(window.location.href);
-        return hash && hash[1] ? hash[1] : f;
-      }
-    },
-    destruct : function(){
-
-      this._titles = null;
-    }
-  });
-})();
-(function(){
-
-  var a = "qx.blankpage",b = "undefined",c = "",d = "interval",e = "#",f = "-1000px",g = "hidden",h = "can't initialize iframe",i = "qx.bom.HashHistory",j = "absolute";
-  qx.Class.define(i, {
-    extend : qx.bom.History,
-    construct : function(){
-
-      qx.bom.History.call(this);
-      this._baseUrl = null;
-      this.__oX();
-    },
-    members : {
-      __oU : null,
-      __oV : null,
-      __oW : false,
-      addToHistory : function(state, newTitle){
-
-        if(!qx.lang.Type.isString(state)){
-
-          state = state + c;
-        };
-        if(qx.lang.Type.isString(newTitle)){
-
-          this.setTitle(newTitle);
-          this._titles[state] = newTitle;
-        };
-        if(this.getState() !== state){
-
-          this._writeState(state);
-        };
-      },
-      __oX : function(){
-
-        this.__oV = this.__oY();
-        document.body.appendChild(this.__oV);
-        this.__pa(function(){
-
-          this._baseUrl = this.__oV.contentWindow.document.location.href;
-          this.__pb();
-        }, this);
-      },
-      __oY : function(){
-
-        var iframe = qx.bom.Iframe.create({
-          src : qx.util.ResourceManager.getInstance().toUri(qx.core.Environment.get(a)) + e
-        });
-        iframe.style.visibility = g;
-        iframe.style.position = j;
-        iframe.style.left = f;
-        iframe.style.top = f;
-        return iframe;
-      },
-      __pa : function(callback, context, retry){
-
-        if(typeof retry === b){
-
-          retry = 0;
-        };
-        if(!this.__oV.contentWindow || !this.__oV.contentWindow.document){
-
-          if(retry > 20){
-
-            throw new Error(h);
-          };
-          qx.event.Timer.once(function(){
-
-            this.__pa(callback, context, ++retry);
-          }, this, 10);
-          return;
-        };
-        this.__oW = true;
-        callback.call(context || window);
-      },
-      __pb : function(){
-
-        qx.event.Idle.getInstance().addListener(d, this.__pd, this);
-      },
-      __pc : function(){
-
-        qx.event.Idle.getInstance().removeListener(d, this.__pd, this);
-      },
-      __pd : function(){
-
-        var currentState = this._readState();
-        if(qx.lang.Type.isString(currentState) && currentState != this.getState()){
-
-          this._onHistoryLoad(currentState);
-        };
-      },
-      _readState : function(){
-
-        var hash = !this._getHash() ? c : this._getHash().substr(1);
-        return this._decode(hash);
-      },
-      _getHash : function(){
-
-        if(!this.__oW){
-
-          return null;
-        };
-        return this.__oV.contentWindow.document.location.hash;
-      },
-      _writeState : function(state){
-
-        this._setHash(this._encode(state));
-      },
-      _setHash : function(value){
-
-        if(!this.__oV || !this._baseUrl){
-
-          return;
-        };
-        var hash = !this.__oV.contentWindow.document.location.hash ? c : this.__oV.contentWindow.document.location.hash.substr(1);
-        if(value != hash){
-
-          this.__oV.contentWindow.document.location.hash = value;
-        };
-      }
-    },
-    destruct : function(){
-
-      this.__pc();
-      this.__oV = null;
-    }
-  });
-})();
-(function(){
-
-  var a = "qx.event.handler.Iframe",b = "load",c = "iframe",d = "navigate";
-  qx.Class.define(a, {
-    extend : qx.core.Object,
-    implement : qx.event.IEventHandler,
-    statics : {
-      PRIORITY : qx.event.Registration.PRIORITY_NORMAL,
-      SUPPORTED_TYPES : {
-        load : 1,
-        navigate : 1
-      },
-      TARGET_CHECK : qx.event.IEventHandler.TARGET_DOMNODE,
-      IGNORE_CAN_HANDLE : false,
-      onevent : qx.event.GlobalError.observeMethod(function(target){
-
-        var currentUrl = qx.bom.Iframe.queryCurrentUrl(target);
-        if(currentUrl !== target.$$url){
-
-          qx.event.Registration.fireEvent(target, d, qx.event.type.Data, [currentUrl]);
-          target.$$url = currentUrl;
-        };
-        qx.event.Registration.fireEvent(target, b);
-      })
-    },
-    members : {
-      canHandleEvent : function(target, type){
-
-        return target.tagName.toLowerCase() === c;
-      },
-      registerEvent : function(target, type, capture){
-      },
-      unregisterEvent : function(target, type, capture){
-      }
-    },
-    defer : function(statics){
-
-      qx.event.Registration.addHandler(statics);
-    }
-  });
-})();
-(function(){
-
-  var a = "Iframe source could not be set!",b = "contentDocument",c = "engine.name",d = "",e = "qx.bom.Iframe",f = "osx",g = "qx.event.handler.Iframe.onevent(this)",h = "os.name",i = "webkit",j = "load",k = "iframe",l = "body";
-  qx.Class.define(e, {
-    statics : {
-      DEFAULT_ATTRIBUTES : {
-        onload : g,
-        frameBorder : 0,
-        frameSpacing : 0,
-        marginWidth : 0,
-        marginHeight : 0,
-        hspace : 0,
-        vspace : 0,
-        border : 0,
-        allowTransparency : true
-      },
-      create : function(attributes, win){
-
-        var attributes = attributes ? qx.lang.Object.clone(attributes) : {
-        };
-        var initValues = qx.bom.Iframe.DEFAULT_ATTRIBUTES;
-        for(var key in initValues){
-
-          if(attributes[key] == null){
-
-            attributes[key] = initValues[key];
-          };
-        };
-        return qx.dom.Element.create(k, attributes, win);
-      },
-      getWindow : function(iframe){
-
-        try{
-
-          return iframe.contentWindow;
-        } catch(ex) {
-
-          return null;
-        };
-      },
-      getDocument : function(iframe){
-
-        if(b in iframe){
-
-          try{
-
-            return iframe.contentDocument;
-          } catch(ex) {
-
-            return null;
-          };
-        };
-        try{
-
-          var win = this.getWindow(iframe);
-          return win ? win.document : null;
-        } catch(ex) {
-
-          return null;
-        };
-      },
-      getBody : function(iframe){
-
-        try{
-
-          var doc = this.getDocument(iframe);
-          return doc ? doc.getElementsByTagName(l)[0] : null;
-        } catch(ex) {
-
-          return null;
-        };
-      },
-      setSource : function(iframe, source){
-
-        try{
-
-          if(this.getWindow(iframe) && qx.dom.Hierarchy.isRendered(iframe)){
-
-            try{
-
-              if((qx.core.Environment.get(c) == i) && qx.core.Environment.get(h) == f){
-
-                var contentWindow = this.getWindow(iframe);
-                if(contentWindow){
-
-                  contentWindow.stop();
-                };
-              };
-              this.getWindow(iframe).location.replace(source);
-            } catch(ex) {
-
-              iframe.src = source;
-            };
-          } else {
-
-            iframe.src = source;
-          };
-          this.__pe(iframe);
-        } catch(ex) {
-
-          qx.log.Logger.warn(a);
-        };
-      },
-      queryCurrentUrl : function(iframe){
-
-        var doc = this.getDocument(iframe);
-        try{
-
-          if(doc && doc.location){
-
-            return doc.location.href;
-          };
-        } catch(ex) {
-        };
-        return d;
-      },
-      __pe : function(iframe){
-
-        var callback = function(){
-
-          qx.bom.Event.removeNativeListener(iframe, j, callback);
-          iframe.$$url = qx.bom.Iframe.queryCurrentUrl(iframe);
-        };
-        qx.bom.Event.addNativeListener(iframe, j, callback);
-      }
-    }
-  });
-})();
-(function(){
-
-  var a = "request",b = "qx.bom.IframeHistory",c = "engine.name",d = "can't initialize iframe",f = "",g = "mshtml",h = "interval",i = "state",j = '<html><body><div id="state">',k = "-1000px",l = "browser.version",m = "hidden",n = "qx.blankpage",o = "undefined",p = '</div></body></html>',q = "absolute";
-  qx.Class.define(b, {
-    extend : qx.bom.History,
-    construct : function(){
-
-      qx.bom.History.call(this);
-      this.__pj();
-    },
-    members : {
-      __oV : null,
-      __oW : false,
-      __pf : null,
-      __pg : null,
-      __ph : null,
-      _setInitialState : function(){
-
-        qx.bom.History.prototype._setInitialState.call(this);
-        this.__ph = this._getHash();
-      },
-      _setHash : function(value){
-
-        qx.bom.History.prototype._setHash.call(this, value);
-        this.__ph = this._encode(value);
-      },
-      addToHistory : function(state, newTitle){
-
-        if(!qx.lang.Type.isString(state)){
-
-          state = state + f;
-        };
-        if(qx.lang.Type.isString(newTitle)){
-
-          this.setTitle(newTitle);
-          this._titles[state] = newTitle;
-        };
-        if(this.getState() !== state){
-
-          this.setState(state);
-        };
-        this.fireDataEvent(a, state);
-      },
-      _onHistoryLoad : function(state){
-
-        this._setState(state);
-        this.fireDataEvent(a, state);
-        if(this._titles[state] != null){
-
-          this.setTitle(this._titles[state]);
-        };
-      },
-      _setState : function(state){
-
-        this.__pg = true;
-        this.setState(state);
-        this.__pg = false;
-      },
-      _applyState : function(value, old){
-
-        if(this.__pg){
-
-          return;
-        };
-        this._writeState(value);
-      },
-      _readState : function(){
-
-        if(!this.__oW){
-
-          return this._decode(this._getHash());
-        };
-        var doc = this.__oV.contentWindow.document;
-        var elem = doc.getElementById(i);
-        return elem ? this._decode(elem.innerText) : f;
-      },
-      _writeState : function(state){
-
-        if(!this.__oW){
-
-          this.__pi();
-          this.__pf = qx.event.Timer.once(function(){
-
-            this._writeState(state);
-          }, this, 50);
-          return;
-        };
-        this.__pi();
-        var state = this._encode(state);
-        if(qx.core.Environment.get(c) == g && qx.core.Environment.get(l) != 8){
-
-          this._setHash(state);
-        };
-        var doc = this.__oV.contentWindow.document;
-        doc.open();
-        doc.write(j + state + p);
-        doc.close();
-      },
-      __pi : function(){
-
-        if(this.__pf){
-
-          this.__pf.stop();
-          this.__pf.dispose();
-        };
-      },
-      __pj : function(){
-
-        this.__oX(function(){
-
-          qx.event.Idle.getInstance().addListener(h, this.__pd, this);
-        });
-      },
-      __pd : function(e){
-
-        var currentState = null;
-        var locationState = this._getHash();
-        if(!this.__pl(locationState)){
-
-          currentState = this.__pk(locationState);
-        } else {
-
-          currentState = this._readState();
-        };
-        if(qx.lang.Type.isString(currentState) && currentState != this.getState()){
-
-          this._onHistoryLoad(currentState);
-        };
-      },
-      __pk : function(locationState){
-
-        locationState = this._decode(locationState);
-        this._writeState(locationState);
-        return locationState;
-      },
-      __pl : function(locationState){
-
-        return qx.lang.Type.isString(locationState) && locationState == this.__ph;
-      },
-      __oX : function(handler){
-
-        this.__oV = this.__oY();
-        document.body.appendChild(this.__oV);
-        this.__pa(function(){
-
-          this._writeState(this.getState());
-          if(handler){
-
-            handler.call(this);
-          };
-        }, this);
-      },
-      __oY : function(){
-
-        var iframe = qx.bom.Iframe.create({
-          src : qx.util.ResourceManager.getInstance().toUri(qx.core.Environment.get(n))
-        });
-        iframe.style.visibility = m;
-        iframe.style.position = q;
-        iframe.style.left = k;
-        iframe.style.top = k;
-        return iframe;
-      },
-      __pa : function(callback, context, retry){
-
-        if(typeof retry === o){
-
-          retry = 0;
-        };
-        if(!this.__oV.contentWindow || !this.__oV.contentWindow.document){
-
-          if(retry > 20){
-
-            throw new Error(d);
-          };
-          qx.event.Timer.once(function(){
-
-            this.__pa(callback, context, ++retry);
-          }, this, 10);
-          return;
-        };
-        this.__oW = true;
-        callback.call(context || window);
-      }
-    },
-    destruct : function(){
-
-      this.__oV = null;
-      if(this.__pf){
-
-        this.__pf.dispose();
-        this.__pf = null;
-      };
-      qx.event.Idle.getInstance().removeListener(h, this.__pd, this);
-    }
-  });
-})();
-(function(){
-
-  var a = "qx.bom.NativeHistory",b = "hashchange",c = "engine.name",d = "interval";
-  qx.Class.define(a, {
-    extend : qx.bom.History,
-    construct : function(){
-
-      qx.bom.History.call(this);
-      this.__pb();
-    },
-    members : {
-      __oU : null,
-      __pb : function(){
-
-        if(qx.bom.History.SUPPORTS_HASH_CHANGE_EVENT){
-
-          var boundFunc = qx.lang.Function.bind(this.__pd, this);
-          this.__oU = qx.event.GlobalError.observeMethod(boundFunc);
-          qx.bom.Event.addNativeListener(window, b, this.__oU);
-        } else {
-
-          qx.event.Idle.getInstance().addListener(d, this.__pd, this);
-        };
-      },
-      __pc : function(){
-
-        if(qx.bom.History.SUPPORTS_HASH_CHANGE_EVENT){
-
-          qx.bom.Event.removeNativeListener(window, b, this.__oU);
-        } else {
-
-          qx.event.Idle.getInstance().removeListener(d, this.__pd, this);
-        };
-      },
-      __pd : function(){
-
-        var currentState = this._readState();
-        if(qx.lang.Type.isString(currentState) && currentState != this.getState()){
-
-          this._onHistoryLoad(currentState);
-        };
-      },
-      _readState : function(){
-
-        return this._decode(this._getHash());
-      },
-      _writeState : qx.core.Environment.select(c, {
-        "opera" : function(state){
-
-          qx.event.Timer.once(function(){
-
-            this._setHash(this._encode(state));
-          }, this, 0);
-        },
-        "default" : function(state){
-
-          this._setHash(this._encode(state));
-        }
-      })
-    },
-    destruct : function(){
-
-      this.__pc();
     }
   });
 })();
