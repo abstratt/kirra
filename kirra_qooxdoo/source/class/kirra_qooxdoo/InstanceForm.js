@@ -103,7 +103,9 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                         if (property.typeRef && property.typeRef.typeName === 'Date') {
                             try {
                                 value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
-                            } catch (e) {}
+                            } catch (e) {
+                                console.log(e);
+                            }
                         }
                         widget.setValue(value);
                         widget.setVisible && widget.setVisible(true);
@@ -346,9 +348,9 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             if (widget.setRequired)
                 widget.setRequired(property.required === true);
             if (widget.setReadOnly)
-                widget.setReadOnly(property.editable === false);
+                widget.setReadOnly(this.isNewInstance() ? (property.initializable === false) : (property.editable === false));
             if (widget.setEnabled)
-                widget.setEnabled(property.editable !== false);
+                widget.setEnabled(this.isNewInstance() ? (property.initializable === true) : (property.editable === true));
             form.add(widget, property.label);
         },
         

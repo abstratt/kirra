@@ -81,9 +81,9 @@ qx.Class.define("kirra_qooxdoo.Widgets", {
             }
             var yearSlot = new qx.data.Array(years);
             var picker = new qx.ui.mobile.dialog.Picker();
-            picker.addSlot(daySlot);
-            picker.addSlot(monthSlot);
             picker.addSlot(yearSlot);
+            picker.addSlot(monthSlot);
+            picker.addSlot(daySlot);
 
             dateField.addListener("tap", function () {
                 var parsed;
@@ -92,17 +92,17 @@ qx.Class.define("kirra_qooxdoo.Widgets", {
                 } catch (e) {
                     parsed = new Date();
                 }
-                var slot0 = parsed.getDate()-1;
+                var slot0 = parsed.getYear();
                 var slot1 = parsed.getMonth();
-                var slot2 = parsed.getYear();
-                picker.setSelectedIndex(0, slot0);
+                var slot2 = parsed.getDate()-1;
+                picker.setSelectedIndex(0, new Date().getYear() - slot0);
                 picker.setSelectedIndex(1, slot1);
-                picker.setSelectedIndex(2, new Date().getYear() - slot2);
+                picker.setSelectedIndex(2, slot2);
                 picker.show();
             });
             picker.addListener("confirmSelection", function(e) {
                 var data = e.getData();
-                dateField.setValue(data[2].item+'/'+(months.indexOf(data[1].item)+1)+'/'+data[0].item);
+                dateField.setValue(data[0].item+'/'+(months.indexOf(data[1].item)+1)+'/'+data[2].item);
             });
     
             return dateField;

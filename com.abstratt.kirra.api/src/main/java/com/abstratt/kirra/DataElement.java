@@ -5,6 +5,15 @@ public abstract class DataElement extends TypedElement<DataScope> {
     protected boolean derived;
     protected boolean editable;
     protected boolean initializable;
+    protected Integer position;
+    
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+    
+    public Integer getPosition() {
+        return position;
+    }
 
     public boolean isDerived() {
         return derived;
