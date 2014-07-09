@@ -32,8 +32,7 @@ public class Instance extends Tuple {
     }
 
     public Instance(String namespace, String entity) {
-        this.scopeName = entity;
-        this.scopeNamespace = namespace;
+        super(namespace, entity);
     }
 
     public Instance(TypeRef typeRef, String objectId) {
@@ -100,11 +99,11 @@ public class Instance extends Tuple {
     }
 
     public void setEntityName(String entityName) {
-        this.scopeName = entityName;
+        setScopeName(entityName);
     }
 
     public void setEntityNamespace(String namespace) {
-        this.scopeNamespace = namespace;
+        setScopeNamespace(namespace);
     }
 
     public void setFull(boolean full) {

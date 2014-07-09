@@ -16,6 +16,10 @@ public class TypeRef implements Serializable {
     public static String toString(String entityNamespace, String typeName) {
         return entityNamespace == null ? typeName : entityNamespace + TypeRef.SEPARATOR + typeName;
     }
+    
+    private static String toString(String entityNamespace, String typeName, TypeKind kind) {
+        return entityNamespace == null ? typeName : entityNamespace + TypeRef.SEPARATOR + typeName + (kind == null ? "" : ("("+ kind.toString() + ")"));
+    }
 
     private static final String COLON_SEPARATOR = "::";
     private static final String SEPARATOR = ".";

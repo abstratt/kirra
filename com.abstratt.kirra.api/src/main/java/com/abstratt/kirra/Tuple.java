@@ -26,6 +26,21 @@ public class Tuple implements Serializable {
         this.scopeName = typeRef.getTypeName();
         this.scopeNamespace = typeRef.getEntityNamespace();
     }
+    
+
+    public Tuple(String namespace, String scopeName) {
+        this.scopeName = scopeName;
+        this.scopeNamespace = namespace;
+    }
+
+    public void setScopeName(String entityName) {
+        this.scopeName = entityName;
+    }
+
+    public void setScopeNamespace(String namespace) {
+        this.scopeNamespace = namespace;
+    }
+
 
     public String getScopeName() {
         return scopeName;
