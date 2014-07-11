@@ -182,18 +182,38 @@ qx.Class.define("kirra_qooxdoo.Repository", {
 
             req.addListener("success", function (e) {
                 var req = e.getTarget();
-                var response = undefined
+                var response = undefined;
                 if (req.getStatus() !== 204) {
-		        response = req.getResponse();
-		        if (slotName)
-		            me[slotName] = response;
-		        if (typeof (response) === 'string')
-		            response = JSON.parse(response);
+    		        response = req.getResponse();
+    		        if (slotName)
+    		            me[slotName] = response;
+    		        if (typeof (response) === 'string')
+    		            response = JSON.parse(response);
                 }
-                //console.log(req.method + " " + req.getUrl());
-                //console.log(response);
                 if (callback)
                     callback(response);
+            }, this);
+            
+            req.addListener("statusError", function (e) {
+                var req = e.getTarget();
+                var message;
+                if (req.getStatus() === 400) {
+                    var response = req.getResponse();
+                    message = response.message;
+                } else if (req.getStatus() == 401) {
+                    message = "Login required";
+                } else if (req.getStatus() == 403) {
+                    message = "Unauthorized";
+                } else if (req.getStatus() == 404) {
+                    message = "Not found";
+                } else {
+                    message = "The server seems in trouble (" + req.getStatus() + ")";
+                }
+                var okButton = new qx.ui.mobile.form.Button("Ok");  
+                var messagePopup = new qx.ui.mobile.dialog.Popup(okButton);
+                messagePopup.setTitle(message);
+                messagePopup.show();
+                okButton.addListener("tap", function () { messagePopup.hide(); });
             }, this);
 
             req.addListener("loadEnd", function (e) {

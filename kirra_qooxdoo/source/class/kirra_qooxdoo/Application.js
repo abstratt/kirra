@@ -147,8 +147,6 @@ qx.Class.define("kirra_qooxdoo.Application",
       }, this);
       
       nm.onAny(".*", function (data) {
-          console.log("data.customData:");
-          console.log(data.customData);
           if (me.inAppHistory.indexOf(data.path) >= 0) {
               me.inAppHistory = me.inAppHistory.slice(0, me.inAppHistory.indexOf(data.path) + 1);
           } else {

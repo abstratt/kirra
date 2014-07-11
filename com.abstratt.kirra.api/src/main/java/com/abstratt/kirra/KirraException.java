@@ -11,18 +11,21 @@ public class KirraException extends RuntimeException {
 
     private Kind kind;
 
+    private String symbol;
+
     public KirraException(String message, Kind kind) {
-        this(message, null, kind, null);
+        this(message, null, kind, null, null);
     }
 
     public KirraException(String message, Throwable cause, Kind kind) {
-        this(message, cause, kind, null);
+        this(message, cause, kind, null, null);
     }
 
-    public KirraException(String message, Throwable cause, Kind kind, String context) {
+    public KirraException(String message, Throwable cause, Kind kind, String context, String symbol) {
         super(message, cause);
         this.kind = kind;
         this.context = context;
+        this.symbol = symbol;
     }
 
     public String getContext() {
@@ -35,8 +38,10 @@ public class KirraException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        if (context != null)
-            return super.getMessage() + " - " + context;
         return super.getMessage();
+    }
+
+    public String getSymbol() {
+        return symbol;
     }
 }

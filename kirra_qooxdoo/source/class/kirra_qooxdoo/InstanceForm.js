@@ -223,12 +223,12 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
             var multiRelationships = this._multiRelationships = [];
             for (var i in this._entity.relationships) {
                 var relationship = this._entity.relationships[i];
-                if (relationship.multiple) {
-                    if (relationship.navigable) {
+                if (relationship.navigable) {
+                    if (relationship.multiple) {
                         multiRelationships.push(relationship);
+                    } else {
+                        this.buildWidgetFor(form, relationship);
                     }
-                } else {
-                    this.buildWidgetFor(form, relationship);
                 }
             }
             var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
