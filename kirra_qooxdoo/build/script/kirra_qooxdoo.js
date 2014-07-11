@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.d04c726b26e5.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.dd375fb84d5f.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",
@@ -15343,15 +15343,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "/(objectId)/actions/(actionName)/parameters/(parameterName)/domain/",b = "Missing entity or extentUri",c = "loadEnd",d = ")",f = "success",g = "Missing instance or instance URI",h = "/actions/(actionName)",j = "(actionName)",k = "application/json",l = "kirra_qooxdoo.Repository",m = "PUT",n = ":",o = "(objectId)/actions/(actionName)",q = "entity.",r = "yyyy/MM/dd",s = "://",t = "Please wait",u = "Missing entityFullName: ",v = "",w = "Entity not found: ",x = "(",y = "/(objectId)/relationships/(relationshipName)/domain/",z = "DELETE",A = "POST",B = "/(objectId)/relationships/(relationshipName)/",C = "_entityList",D = 'GET',E = 'string',F = "Content-Type",G = "_application",H = "Missing objectId";
-  qx.Class.define(l, {
+  var a = "/(objectId)/actions/(actionName)/parameters/(parameterName)/domain/",b = "Missing entity or extentUri",c = "loadEnd",d = ")",f = "success",g = "Missing instance or instance URI",h = "/actions/(actionName)",j = "Unauthorized",k = "(actionName)",l = "application/json",m = "kirra_qooxdoo.Repository",n = "PUT",o = ":",q = "Login required",r = "(objectId)/actions/(actionName)",s = "entity.",t = "yyyy/MM/dd",u = "://",v = "Please wait",w = "Missing entityFullName: ",x = "",y = "Entity not found: ",z = "(",A = "/(objectId)/relationships/(relationshipName)/domain/",B = "tap",C = "The server seems in trouble (",D = "Ok",E = "Not found",F = "DELETE",G = "POST",H = "/(objectId)/relationships/(relationshipName)/",I = "statusError",J = "_entityList",K = 'GET',L = 'string',M = "Content-Type",N = "_application",O = "Missing objectId";
+  qx.Class.define(m, {
     extend : qx.core.Object,
     construct : function(applicationUri){
 
       qx.core.Object.call(this);
       this._parsedApplicationUri = qx.util.Uri.parseUri(applicationUri);
       this._applicationUri = applicationUri;
-      var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator(t);
+      var busyIndicator = new qx.ui.mobile.dialog.BusyIndicator(v);
       this._busyPopup = new qx.ui.mobile.dialog.Popup(busyIndicator);
     },
     members : {
@@ -15364,11 +15364,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _busyPopup : null,
       loadApplication : function(callback){
 
-        this.load(this._applicationUri, callback, G);
+        this.load(this._applicationUri, callback, N);
       },
       listRelationshipDomain : function(entity, objectId, relationship, callback){
 
-        var domainUri = entity.relationshipDomainUriTemplate || (entity.extentUri + y);
+        var domainUri = entity.relationshipDomainUriTemplate || (entity.extentUri + A);
         this.tryToLoad(this.resolve(domainUri, {
           objectId : objectId,
           relationshipName : relationship.name
@@ -15376,7 +15376,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       listRelatedInstances : function(entity, objectId, relationship, callback){
 
-        var relatedInstancesUri = entity.relatedInstancesUriTemplate || (entity.extentUri + B);
+        var relatedInstancesUri = entity.relatedInstancesUriTemplate || (entity.extentUri + H);
         this.load(this.resolve(relatedInstancesUri, {
           objectId : objectId,
           relationshipName : relationship.name
@@ -15403,21 +15403,21 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           });
           return;
         };
-        this.load(me._application.entities, callback, C);
+        this.load(me._application.entities, callback, J);
       },
       loadEntity : function(entityFullName, callback, retry){
 
-        if(!entityFullName)throw Error(u + entityFullName);
+        if(!entityFullName)throw Error(w + entityFullName);
         for(var i in this._entityList){
 
           if(this._entityList[i].fullName == entityFullName){
 
             var entityUri = this._entityList[i].uri;
-            this.load(entityUri, callback, q + entityFullName);
+            this.load(entityUri, callback, s + entityFullName);
             return;
           };
         };
-        if(retry === false)throw Error(w + entityFullName);
+        if(retry === false)throw Error(y + entityFullName);
         var me = this;
         this.loadEntities(function(){
 
@@ -15429,13 +15429,13 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var resolved = template;
         for(var p in values){
 
-          resolved = resolved.replace(x + p + d, values[p]);
+          resolved = resolved.replace(z + p + d, values[p]);
         };
         return resolved;
       },
       loadInstances : function(entityFullName, callback, retry){
 
-        if(!entityFullName)throw Error(u + entityFullName);
+        if(!entityFullName)throw Error(w + entityFullName);
         for(var i in this._entityList){
 
           if(this._entityList[i].fullName == entityFullName){
@@ -15448,7 +15448,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             return;
           };
         };
-        if(retry === false)throw Error(w + entityFullName);
+        if(retry === false)throw Error(y + entityFullName);
         var me = this;
         this.loadEntities(function(){
 
@@ -15458,7 +15458,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       loadInstance : function(entity, objectId, callback){
 
         if(!entity || !entity.extentUri)throw Error(b);
-        if(!objectId)throw Error(H);
+        if(!objectId)throw Error(O);
         var instanceUri = entity.instanceUriTemplate || (entity.extentUri + objectId);
         this.load(this.resolve(instanceUri, {
           objectId : objectId
@@ -15483,7 +15483,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       sendAction : function(entity, objectId, operation, arguments, callback){
 
         var me = this;
-        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + o);
+        var instanceActionUri = entity.instanceActionUriTemplate || (entity.extentUri + r);
         this.post(this.resolve(instanceActionUri, {
           objectId : objectId,
           actionName : operation.name
@@ -15497,7 +15497,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
         var me = this;
         var entityActionUri = entity.entityActionUriTemplate || (entity.uri + h);
-        this.post(entityActionUri.replace(j, operation.name), arguments || {
+        this.post(entityActionUri.replace(k, operation.name), arguments || {
         }, callback);
       },
       tryToLoad : function(uri, callback, slotName){
@@ -15516,23 +15516,23 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       },
       remove : function(uri, callback){
 
-        var req = this.buildRequest(uri, z);
+        var req = this.buildRequest(uri, F);
         this.sendRequest(req, callback);
       },
       post : function(uri, data, callback){
 
-        var req = this.buildRequest(uri, A);
-        req.setRequestHeader(F, k);
+        var req = this.buildRequest(uri, G);
+        req.setRequestHeader(M, l);
         req.setRequestData(qx.util.Serializer.toJson(data, (function(){
-        }), new qx.util.format.DateFormat(r)));
+        }), new qx.util.format.DateFormat(t)));
         this.sendRequest(req, callback);
       },
       put : function(uri, data, callback){
 
-        var req = this.buildRequest(uri, m);
-        req.setRequestHeader(F, k);
+        var req = this.buildRequest(uri, n);
+        req.setRequestHeader(M, l);
         req.setRequestData(qx.util.Serializer.toJson(data, (function(){
-        }), new qx.util.format.DateFormat(r)));
+        }), new qx.util.format.DateFormat(t)));
         this.sendRequest(req, callback);
       },
       sendRequest : function(req, callback, slotName){
@@ -15548,9 +15548,39 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
             response = req.getResponse();
             if(slotName)me[slotName] = response;
-            if(typeof (response) === E)response = JSON.parse(response);
+            if(typeof (response) === L)response = JSON.parse(response);
           };
           if(callback)callback(response);
+        }, this);
+        req.addListener(I, function(e){
+
+          var req = e.getTarget();
+          var message;
+          if(req.getStatus() === 400){
+
+            var response = req.getResponse();
+            message = response.message;
+          } else if(req.getStatus() == 401){
+
+            message = q;
+          } else if(req.getStatus() == 403){
+
+            message = j;
+          } else if(req.getStatus() == 404){
+
+            message = E;
+          } else {
+
+            message = C + req.getStatus() + d;
+          };;;
+          var okButton = new qx.ui.mobile.form.Button(D);
+          var messagePopup = new qx.ui.mobile.dialog.Popup(okButton);
+          messagePopup.setTitle(message);
+          messagePopup.show();
+          okButton.addListener(B, function(){
+
+            messagePopup.hide();
+          });
         }, this);
         req.addListener(c, function(e){
 
@@ -15564,9 +15594,9 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         var parsedUri = qx.util.Uri.parseUri(uri);
         if(!parsedUri.protocol){
 
-          uri = this._parsedApplicationUri.protocol + s + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (n + this._parsedApplicationUri.port) : v) + this._parsedApplicationUri.directory + uri;
+          uri = this._parsedApplicationUri.protocol + u + this._parsedApplicationUri.host + (this._parsedApplicationUri.port ? (o + this._parsedApplicationUri.port) : x) + this._parsedApplicationUri.directory + uri;
         };
-        return new qx.io.request.Xhr(uri, method || D);
+        return new qx.io.request.Xhr(uri, method || K);
       }
     }
   });
@@ -36694,6 +36724,33 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
+  var a = "qx.ui.mobile.form.Button",b = "button";
+  qx.Class.define(a, {
+    extend : qx.ui.mobile.basic.Atom,
+    properties : {
+      defaultCssClass : {
+        refine : true,
+        init : b
+      },
+      activatable : {
+        refine : true,
+        init : true
+      }
+    },
+    members : {
+      setValue : function(value){
+
+        this.setLabel(value);
+      },
+      getValue : function(){
+
+        return this.getLabel();
+      }
+    }
+  });
+})();
+(function(){
+
   var a = "loadEnd",b = "qx.io.request.AbstractRequest",c = "changePhase",d = "GET",f = "sent",g = "qx.event.type.Data",h = "qx.io.request.authentication.IAuthentication",i = "error",j = "fail",k = "loading",l = "load",m = "qx.event.type.Event",n = "abort",o = "success",p = "String",q = "",r = "opened",s = "POST",t = "statusError",u = "readyStateChange",v = "Abstract method call",w = "abstract",x = "unsent",y = "changeResponse",z = "Number",A = "Content-Type",B = "timeout",C = "undefined";
   qx.Class.define(b, {
     type : w,
@@ -37804,8 +37861,8 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "data.customData:",b = "current: ",c = "/entities/{entity}/instances/",d = "Found inAppHistory",e = "/entities/{entity}/actions/{actionName}",f = "kirra_qooxdoo.Application",g = "/entities/{entity}/instances/{objectId}",h = "/entities/{entity}/instances/{objectId}/actions/{actionName}",i = ".*",j = "[?&]?app-uri\=(.*)\&?",k = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}",l = "Falling back to ",m = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}",n = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.",o = "[?&]?app-path\=(.*)\&?",p = "No inAppHistory",q = "/";
-  qx.Class.define(f, {
+  var a = "current: ",b = "/entities/{entity}/instances/",c = "Found inAppHistory",d = "/entities/{entity}/actions/{actionName}",e = "kirra_qooxdoo.Application",f = "/entities/{entity}/instances/{objectId}",g = "/entities/{entity}/instances/{objectId}/actions/{actionName}",h = ".*",i = "[?&]?app-uri\=(.*)\&?",j = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}/{relatedObjectId}",k = "Falling back to ",l = "/entities/{entity}/instances/{objectId}/relationships/{relationshipName}",m = "You must specify an application URI or path (same server) using the app-uri or app-path query parameters, like '...?app-uri=http://myserver.com/myapp/rest/' or '...?app-path=/myapp/rest/'.",n = "[?&]?app-path\=(.*)\&?",o = "No inAppHistory",p = "/";
+  qx.Class.define(e, {
     extend : qx.application.Mobile,
     properties : {
       routing : {
@@ -37826,16 +37883,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         this.inAppHistory.pop();
         if(this.inAppHistory.length <= 1){
 
-          console.log(p);
-          console.log(l + fallback);
+          console.log(o);
+          console.log(k + fallback);
           qx.bom.History.getInstance().setState(fallback);
           return;
         };
         var goTo = this.inAppHistory.pop();
-        console.log(d);
+        console.log(c);
         console.log(this.inAppHistory);
         qx.bom.History.getInstance().setState(goTo);
-        console.log(b + qx.bom.History.getInstance().getState());
+        console.log(a + qx.bom.History.getInstance().getState());
       },
       main : function(){
 
@@ -37844,11 +37901,11 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         };
         var me = this;
         this.$$instance = this;
-        var uriMatches = window.location.search.match(j);
-        var pathMatches = window.location.search.match(o);
+        var uriMatches = window.location.search.match(i);
+        var pathMatches = window.location.search.match(n);
         if(!uriMatches && !pathMatches){
 
-          var abortMessage = n;
+          var abortMessage = m;
           alert(abortMessage);
           throw Error(abortMessage);
         };
@@ -37867,38 +37924,36 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         manager.addMaster(this.mainPage);
         manager.addDetail([this.instanceNavigator, this.instanceForm, this.actionForm, this.relatedInstanceNavigator]);
         var nm = new qx.application.Routing();
-        nm.onGet(q, function(data){
+        nm.onGet(p, function(data){
 
           this.mainPage.show();
         }, this);
-        nm.onGet(c, function(data){
+        nm.onGet(b, function(data){
 
           this.instanceNavigator.showFor(data.params.entity);
         }, this);
-        nm.onGet(g, function(data){
+        nm.onGet(f, function(data){
 
           this.instanceForm.showFor(data.params.entity, data.params.objectId);
         }, this);
-        nm.onGet(m, function(data){
+        nm.onGet(l, function(data){
 
           this.relatedInstanceNavigator.showFor(data.params.entity, data.params.relationshipName, data.params.objectId);
         }, this);
-        nm.onGet(h, function(data){
+        nm.onGet(g, function(data){
 
           this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
         }, this);
-        nm.onGet(k, function(data){
+        nm.onGet(j, function(data){
 
           this.instanceForm.showForRelated(data.params.entity, data.params.objectId, data.params.relationshipName, data.params.relatedObjectId);
         }, this);
-        nm.onGet(e, function(data){
+        nm.onGet(d, function(data){
 
           this.actionForm.showFor(data.params.entity, data.params.actionName, data.params.objectId);
         }, this);
-        nm.onAny(i, function(data){
+        nm.onAny(h, function(data){
 
-          console.log(a);
-          console.log(data.customData);
           if(me.inAppHistory.indexOf(data.path) >= 0){
 
             me.inAppHistory = me.inAppHistory.slice(0, me.inAppHistory.indexOf(data.path) + 1);
@@ -39204,33 +39259,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _getTagName : function(){
 
         return c;
-      }
-    }
-  });
-})();
-(function(){
-
-  var a = "qx.ui.mobile.form.Button",b = "button";
-  qx.Class.define(a, {
-    extend : qx.ui.mobile.basic.Atom,
-    properties : {
-      defaultCssClass : {
-        refine : true,
-        init : b
-      },
-      activatable : {
-        refine : true,
-        init : true
-      }
-    },
-    members : {
-      setValue : function(value){
-
-        this.setLabel(value);
-      },
-      getValue : function(){
-
-        return this.getLabel();
       }
     }
   });
@@ -41989,15 +42017,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         for(var i in this._entity.relationships){
 
           var relationship = this._entity.relationships[i];
-          if(relationship.multiple){
+          if(relationship.navigable){
 
-            if(relationship.navigable){
+            if(relationship.multiple){
 
               multiRelationships.push(relationship);
-            };
-          } else {
+            } else {
 
-            this.buildWidgetFor(form, relationship);
+              this.buildWidgetFor(form, relationship);
+            };
           };
         };
         var instanceFormRenderer = new qx.ui.mobile.form.renderer.Single(form);
