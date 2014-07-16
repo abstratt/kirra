@@ -31,20 +31,22 @@ qx.Class.define("kirra_qooxdoo.AbstractInstanceNavigator", {
                     for (name in me._detailProperties) {
                         value = data.values[name];
                         var entity = me._getInstanceListEntity();
-                        if (entity.properties[name].typeRef && entity.properties[name].typeRef.typeName === 'Date') {
+                        if (entity.properties[name] && entity.properties[name].typeRef && entity.properties[name].typeRef.typeName === 'Date') {
                               try {
                                   value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
                               } catch (e) {}
-                          }
-                          if (value && value != null) {
-                              detail = me._detailProperties[name].label;
-                              if (value !== true)
-                                  detail += ": " + value
-                              details.push(detail);
-                          }
-                      }
-                      item.setSubtitle(details.join(", "));
-                      item.setShowArrow(true);
+                        } else if (data.links[name] && data.links[name].length > 0) {
+                            value = data.links[name][0].shorthand;
+                        }
+                        if (value) {
+                            detail = me._detailProperties[name].label;
+                            if (value !== true)
+                                detail += ": " + value
+                            details.push(detail);
+                        }                        
+                    }
+                    item.setSubtitle(details.join(", "));
+                    item.setShowArrow(true);
                 }
             });
             this.getContent().add(me._instanceList);
@@ -80,6 +82,11 @@ qx.Class.define("kirra_qooxdoo.AbstractInstanceNavigator", {
                         detailProperties[p] = { label: entity.properties[p].label };
                     }
                     skippedMnemonic = true;
+                }
+            }
+            for (var r in entity.relationships) {
+                if (!entity.relationships[r].multiple) {
+                    detailProperties[r] = { label: entity.relationships[r].label };
                 }
             }
             me._detailProperties = detailProperties;

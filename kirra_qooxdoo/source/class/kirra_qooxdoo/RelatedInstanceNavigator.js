@@ -60,6 +60,7 @@ qx.Class.define("kirra_qooxdoo.RelatedInstanceNavigator", {
                     me._childEntity = childEntity;
                     me.buildDetailProperties(me._childEntity);
                     me.reloadInstances();
+                    me.buildActions();
                 });
             });
         },
@@ -69,6 +70,35 @@ qx.Class.define("kirra_qooxdoo.RelatedInstanceNavigator", {
         },
         _getInstanceListEntity : function () {
             return this._childEntity;
+        },
+        buildActions : function () {
+            var me = this;
+            if (this._toolbar)
+                this._toolbar.destroy();
+            var toolbar = this._toolbar = new qx.ui.mobile.toolbar.ToolBar();
+            this.add(toolbar);
+
+            if (this._relationship.editable) {
+                if (this._relationship.style === "LINK" && !this._relationship.oppositeRequired) {
+                    var addButton = new qx.ui.mobile.form.Button("Link");
+                    addButton.addListener("tap", function () {
+                    });
+                    toolbar.add(addButton);
+                    var deleteButton = new qx.ui.mobile.form.Button("Unlink");
+                    deleteButton.addListener("tap", function () {
+                    });
+                    toolbar.add(deleteButton);
+                } else {
+                    var addButton = new qx.ui.mobile.form.Button("Add");
+                    addButton.addListener("tap", function () {
+                    });
+                    toolbar.add(addButton);
+                    var deleteButton = new qx.ui.mobile.form.Button("Delete");
+                    deleteButton.addListener("tap", function () {
+                    });
+                    toolbar.add(deleteButton);                
+                }
+            } 
         }
     }
 });
