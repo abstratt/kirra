@@ -6,7 +6,7 @@ qx.Class.define("kirra_qooxdoo.EntityNavigator",
   {
     this.base(arguments);
     this.repository = repository;
-    this.setTitle("Overview");
+    this.setTitle("Main");
   },
 
 
