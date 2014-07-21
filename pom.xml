@@ -9,34 +9,19 @@
 		<tycho-version>0.21.0</tycho-version>
 	</properties>
 
-	    <scm>
-		<!--
-		    maven release plug in manages these properties, do not refactor into
-		    property
-		-->
+	<scm>
 		<connection>scm:git:https://abstratt@bitbucket.org/abstratt/kirra-api.git</connection>
 		<developerConnection>scm:git:https://abstratt@bitbucket.org/abstratt/kirra-api.git</developerConnection>
 		<url>https://bitbucket.org/abstratt/kirra-api/src</url>
-	    </scm>
+	</scm>
 
-<pluginRepositories>
- <pluginRepository>
-  <id>tycho-staged</id>
-  <url>https://oss.sonatype.org/content/repositories/orgeclipsetycho-1018/</url>
- </pluginRepository>
-</pluginRepositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>tycho-staged</id>
+			<url>https://oss.sonatype.org/content/repositories/orgeclipsetycho-1018/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
-	<repositories>
-		<repository>
-			<id>Abstratt-OSS</id>
-			<name>Abstratt OSS Repo</name>
-			<url>http://repository-textuml.forge.cloudbees.com/snapshot/</url>
-			<layout>default</layout>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 	<build>
 		<pluginManagement>
 			<plugins>
