@@ -6,7 +6,7 @@
 	<version>0.1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
-		<tycho-version>0.21.0-SNAPSHOT</tycho-version>
+		<tycho-version>0.21.0</tycho-version>
 	</properties>
 
 	    <scm>
@@ -19,13 +19,12 @@
 		<url>https://bitbucket.org/abstratt/kirra-api/src</url>
 	    </scm>
 
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>tycho-snapshots</id>
-			<url>http://oss.sonatype.org/content/groups/public/</url>
-		</pluginRepository>
-	</pluginRepositories>
+<pluginRepositories>
+ <pluginRepository>
+  <id>tycho-staged</id>
+  <url>https://oss.sonatype.org/content/repositories/orgeclipsetycho-1018/</url>
+ </pluginRepository>
+</pluginRepositories>
 
 	<repositories>
 		<repository>
