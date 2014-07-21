@@ -53,6 +53,10 @@ Apache ISIS seems to have a generic API for accessing the functionality of Isis 
 
 Isis has several viewer implementations, it would be great of they could be detached from the Isis runtime implementation and rely on an implementation-agnostic API like Kirra. 
 
+#### Swagger
+
+Automatic generation of a Swagger-compatible documentation based on any Kirra-compliant implementation.
+
 #### EMF/ECore
 Implement the Kirra API on top of EMF's ECore API.
 
