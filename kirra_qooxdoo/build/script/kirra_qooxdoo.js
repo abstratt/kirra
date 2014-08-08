@@ -20,7 +20,7 @@ qx.$$g = {}
 
 qx.$$loader = {
   parts : {"boot":[0]},
-  packages : {"0":{"uris":["__out__:kirra_qooxdoo.dd375fb84d5f.js"]}},
+  packages : {"0":{"uris":["__out__:kirra_qooxdoo.ef3d6249551f.js"]}},
   urisBefore : [],
   cssBefore : ["./resource/kirra_qooxdoo/css/custom.css","./resource/kirra_qooxdoo/css/styles.css"],
   boot : "boot",
@@ -8706,6 +8706,24 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
+  var a = "qx.event.IEventDispatcher";
+  qx.Interface.define(a, {
+    members : {
+      canDispatchEvent : function(target, event, type){
+
+        this.assertInstance(event, qx.event.type.Event);
+        this.assertString(type);
+      },
+      dispatchEvent : function(target, event, type){
+
+        this.assertInstance(event, qx.event.type.Event);
+        this.assertString(type);
+      }
+    }
+  });
+})();
+(function(){
+
   var a = "module.events",b = "Cloning only possible with properties.",c = "qx.core.Object",d = "module.property",e = "]",f = "[",g = "Object";
   qx.Class.define(c, {
     extend : Object,
@@ -9038,52 +9056,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "qx.event.handler.Object";
-  qx.Class.define(a, {
-    extend : qx.core.Object,
-    implement : qx.event.IEventHandler,
-    statics : {
-      PRIORITY : qx.event.Registration.PRIORITY_LAST,
-      SUPPORTED_TYPES : null,
-      TARGET_CHECK : qx.event.IEventHandler.TARGET_OBJECT,
-      IGNORE_CAN_HANDLE : false
-    },
-    members : {
-      canHandleEvent : function(target, type){
-
-        return qx.Class.supportsEvent(target.constructor, type);
-      },
-      registerEvent : function(target, type, capture){
-      },
-      unregisterEvent : function(target, type, capture){
-      }
-    },
-    defer : function(statics){
-
-      qx.event.Registration.addHandler(statics);
-    }
-  });
-})();
-(function(){
-
-  var a = "qx.event.IEventDispatcher";
-  qx.Interface.define(a, {
-    members : {
-      canDispatchEvent : function(target, event, type){
-
-        this.assertInstance(event, qx.event.type.Event);
-        this.assertString(type);
-      },
-      dispatchEvent : function(target, event, type){
-
-        this.assertInstance(event, qx.event.type.Event);
-        this.assertString(type);
-      }
-    }
-  });
-})();
-(function(){
-
   var a = "qx.event.type.Event";
   qx.Class.define(a, {
     extend : qx.core.Object,
@@ -9384,6 +9356,34 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
     defer : function(statics){
 
       qx.event.Registration.addDispatcher(statics);
+    }
+  });
+})();
+(function(){
+
+  var a = "qx.event.handler.Object";
+  qx.Class.define(a, {
+    extend : qx.core.Object,
+    implement : qx.event.IEventHandler,
+    statics : {
+      PRIORITY : qx.event.Registration.PRIORITY_LAST,
+      SUPPORTED_TYPES : null,
+      TARGET_CHECK : qx.event.IEventHandler.TARGET_OBJECT,
+      IGNORE_CAN_HANDLE : false
+    },
+    members : {
+      canHandleEvent : function(target, type){
+
+        return qx.Class.supportsEvent(target.constructor, type);
+      },
+      registerEvent : function(target, type, capture){
+      },
+      unregisterEvent : function(target, type, capture){
+      }
+    },
+    defer : function(statics){
+
+      qx.event.Registration.addHandler(statics);
     }
   });
 })();
@@ -11445,6 +11445,125 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
+  var a = "border-box",b = "qx.bom.element.BoxSizing",c = "css.boxsizing",d = "",e = "boxSizing",f = "content-box",g = ":",h = ";";
+  qx.Bootstrap.define(b, {
+    statics : {
+      __dp : {
+        tags : {
+          button : true,
+          select : true
+        },
+        types : {
+          search : true,
+          button : true,
+          submit : true,
+          reset : true,
+          checkbox : true,
+          radio : true
+        }
+      },
+      __dq : function(element){
+
+        var map = this.__dp;
+        return map.tags[element.tagName.toLowerCase()] || map.types[element.type];
+      },
+      compile : function(value){
+
+        if(qx.core.Environment.get(c)){
+
+          var prop = qx.bom.Style.getCssName(qx.core.Environment.get(c));
+          return prop + g + value + h;
+        } else {
+
+          {
+          };
+        };
+      },
+      get : function(element){
+
+        if(qx.core.Environment.get(c)){
+
+          return qx.bom.element.Style.get(element, e, null, false) || d;
+        };
+        if(qx.bom.Document.isStandardMode(qx.dom.Node.getWindow(element))){
+
+          if(!this.__dq(element)){
+
+            return f;
+          };
+        };
+        return a;
+      },
+      set : function(element, value){
+
+        if(qx.core.Environment.get(c)){
+
+          try{
+
+            element.style[qx.core.Environment.get(c)] = value;
+          } catch(ex) {
+
+            {
+            };
+          };
+        } else {
+
+          {
+          };
+        };
+      },
+      reset : function(element){
+
+        this.set(element, d);
+      }
+    }
+  });
+})();
+(function(){
+
+  var a = "cursor:",b = "engine.name",c = "ns-resize",d = "",e = "mshtml",f = "nw-resize",g = "n-resize",h = "engine.version",i = "nesw-resize",j = "opera",k = "browser.documentmode",l = ";",m = "nwse-resize",n = "ew-resize",o = "qx.bom.element.Cursor",p = "ne-resize",q = "e-resize",r = "browser.quirksmode",s = "cursor";
+  qx.Bootstrap.define(o, {
+    statics : {
+      __dr : {
+      },
+      compile : function(cursor){
+
+        return a + (this.__dr[cursor] || cursor) + l;
+      },
+      get : function(element, mode){
+
+        return qx.bom.element.Style.get(element, s, mode, false);
+      },
+      set : function(element, value){
+
+        element.style.cursor = this.__dr[value] || value;
+      },
+      reset : function(element){
+
+        element.style.cursor = d;
+      }
+    },
+    defer : function(statics){
+
+      if(qx.core.Environment.get(b) == e && ((parseFloat(qx.core.Environment.get(h)) < 9 || qx.core.Environment.get(k) < 9) && !qx.core.Environment.get(r))){
+
+        statics.__dr[i] = p;
+        statics.__dr[m] = f;
+        if(((parseFloat(qx.core.Environment.get(h)) < 8 || qx.core.Environment.get(k) < 8) && !qx.core.Environment.get(r))){
+
+          statics.__dr[n] = q;
+          statics.__dr[c] = g;
+        };
+      } else if(qx.core.Environment.get(b) == j && parseInt(qx.core.Environment.get(h)) < 12){
+
+        statics.__dr[i] = p;
+        statics.__dr[m] = f;
+      };
+    }
+  });
+})();
+(function(){
+
   var a = "engine.name",b = ");",c = "",d = ")",e = "zoom:1;filter:alpha(opacity=",f = "qx.bom.element.Opacity",g = "css.opacity",h = ";",i = "opacity:",j = "alpha(opacity=",k = "opacity",l = "filter";
   qx.Bootstrap.define(f, {
     statics : {
@@ -11565,125 +11684,6 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           return 1.0;
         }
       })
-    }
-  });
-})();
-(function(){
-
-  var a = "cursor:",b = "engine.name",c = "ns-resize",d = "",e = "mshtml",f = "nw-resize",g = "n-resize",h = "engine.version",i = "nesw-resize",j = "opera",k = "browser.documentmode",l = ";",m = "nwse-resize",n = "ew-resize",o = "qx.bom.element.Cursor",p = "ne-resize",q = "e-resize",r = "browser.quirksmode",s = "cursor";
-  qx.Bootstrap.define(o, {
-    statics : {
-      __dp : {
-      },
-      compile : function(cursor){
-
-        return a + (this.__dp[cursor] || cursor) + l;
-      },
-      get : function(element, mode){
-
-        return qx.bom.element.Style.get(element, s, mode, false);
-      },
-      set : function(element, value){
-
-        element.style.cursor = this.__dp[value] || value;
-      },
-      reset : function(element){
-
-        element.style.cursor = d;
-      }
-    },
-    defer : function(statics){
-
-      if(qx.core.Environment.get(b) == e && ((parseFloat(qx.core.Environment.get(h)) < 9 || qx.core.Environment.get(k) < 9) && !qx.core.Environment.get(r))){
-
-        statics.__dp[i] = p;
-        statics.__dp[m] = f;
-        if(((parseFloat(qx.core.Environment.get(h)) < 8 || qx.core.Environment.get(k) < 8) && !qx.core.Environment.get(r))){
-
-          statics.__dp[n] = q;
-          statics.__dp[c] = g;
-        };
-      } else if(qx.core.Environment.get(b) == j && parseInt(qx.core.Environment.get(h)) < 12){
-
-        statics.__dp[i] = p;
-        statics.__dp[m] = f;
-      };
-    }
-  });
-})();
-(function(){
-
-  var a = "border-box",b = "qx.bom.element.BoxSizing",c = "css.boxsizing",d = "",e = "boxSizing",f = "content-box",g = ":",h = ";";
-  qx.Bootstrap.define(b, {
-    statics : {
-      __dq : {
-        tags : {
-          button : true,
-          select : true
-        },
-        types : {
-          search : true,
-          button : true,
-          submit : true,
-          reset : true,
-          checkbox : true,
-          radio : true
-        }
-      },
-      __dr : function(element){
-
-        var map = this.__dq;
-        return map.tags[element.tagName.toLowerCase()] || map.types[element.type];
-      },
-      compile : function(value){
-
-        if(qx.core.Environment.get(c)){
-
-          var prop = qx.bom.Style.getCssName(qx.core.Environment.get(c));
-          return prop + g + value + h;
-        } else {
-
-          {
-          };
-        };
-      },
-      get : function(element){
-
-        if(qx.core.Environment.get(c)){
-
-          return qx.bom.element.Style.get(element, e, null, false) || d;
-        };
-        if(qx.bom.Document.isStandardMode(qx.dom.Node.getWindow(element))){
-
-          if(!this.__dr(element)){
-
-            return f;
-          };
-        };
-        return a;
-      },
-      set : function(element, value){
-
-        if(qx.core.Environment.get(c)){
-
-          try{
-
-            element.style[qx.core.Environment.get(c)] = value;
-          } catch(ex) {
-
-            {
-            };
-          };
-        } else {
-
-          {
-          };
-        };
-      },
-      reset : function(element){
-
-        this.set(element, d);
-      }
     }
   });
 })();
@@ -40158,14 +40158,14 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "/entities/",b = "/instances/",c = "Overview",d = "changeSelection",e = "kirra_qooxdoo.EntityNavigator",f = "qx.event.type.Data";
-  qx.Class.define(e, {
+  var a = "/entities/",b = "/instances/",c = "changeSelection",d = "kirra_qooxdoo.EntityNavigator",e = "Main",f = "qx.event.type.Data";
+  qx.Class.define(d, {
     extend : qx.ui.mobile.page.NavigationPage,
     construct : function(repository){
 
       qx.ui.mobile.page.NavigationPage.call(this);
       this.repository = repository;
-      this.setTitle(c);
+      this.setTitle(e);
     },
     events : {
       "show" : f
@@ -40185,7 +40185,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
           }
         });
         this.getContent().add(list);
-        list.addListener(d, function(evt){
+        list.addListener(c, function(evt){
 
           var selectedEntity = list.getModel().getItem(evt.getData());
           qx.core.Init.getApplication().getRouting().executeGet(a + selectedEntity.fullName + b);
@@ -41390,15 +41390,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 
               value = data.values[name];
               var entity = me._getInstanceListEntity();
-              if(entity.properties[name].typeRef && entity.properties[name].typeRef.typeName === c){
+              if(entity.properties[name] && entity.properties[name].typeRef && entity.properties[name].typeRef.typeName === c){
 
                 try{
 
                   value = kirra_qooxdoo.DateFormats.getYMDFormatter().format(kirra_qooxdoo.DateFormats.getISOFormatter().parse(value));
                 } catch(e) {
                 };
+              } else if(data.links[name] && data.links[name].length > 0){
+
+                value = data.links[name][0].shorthand;
               };
-              if(value && value != null){
+              if(value){
 
                 detail = me._detailProperties[name].label;
                 if(value !== true)detail += i + value;
@@ -41454,6 +41457,15 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
               };
             };
             skippedMnemonic = true;
+          };
+        };
+        for(var r in entity.relationships){
+
+          if(!entity.relationships[r].multiple){
+
+            detailProperties[r] = {
+              label : entity.relationships[r].label
+            };
           };
         };
         me._detailProperties = detailProperties;
@@ -41895,16 +41907,16 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             };
           };
         };
-        for(var relationshipName in this._instance.links){
+        for(var relationshipName in this._entity.relationships){
 
           var relationship = this._entity.relationships[relationshipName];
-          var link = this._instance.links[relationshipName][0];
           var widget = this._widgets[relationshipName];
           if(widget){
 
+            var links = this._instance.links[relationshipName];
             if(!me.isNewInstance() || relationship.editable){
 
-              widget.setValue(link.shorthand);
+              widget.setValue(links && links.length && links[0].shorthand);
               widget.setVisible && widget.setVisible(true);
             } else {
 
@@ -45071,18 +45083,18 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
 })();
 (function(){
 
-  var a = "/entities/",b = "/instances/",c = "/relationships/",d = "Back",e = "changeSelection",f = "kirra_qooxdoo.RelatedInstanceNavigator",g = "/",h = "qx.event.type.Data";
-  qx.Class.define(f, {
+  var a = "Add",b = "/entities/",c = "/instances/",d = "Link",e = "LINK",f = "/relationships/",g = "Back",h = "Unlink",i = "changeSelection",j = "tap",k = "kirra_qooxdoo.RelatedInstanceNavigator",l = "Delete",m = "/",n = "qx.event.type.Data";
+  qx.Class.define(k, {
     extend : kirra_qooxdoo.AbstractInstanceNavigator,
     construct : function(repository){
 
       kirra_qooxdoo.AbstractInstanceNavigator.call(this);
       this.repository = repository;
       this.setShowBackButton(true);
-      this.setBackButtonText(d);
+      this.setBackButtonText(g);
     },
     events : {
-      "show" : h
+      "show" : n
     },
     members : {
       _parentEntityName : null,
@@ -45097,10 +45109,10 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
         kirra_qooxdoo.AbstractInstanceNavigator.prototype._initialize.call(this);
         var me = this;
         var list = me._buildInstanceList();
-        list.addListener(e, function(evt){
+        list.addListener(i, function(evt){
 
           var instanceSelected = me._instanceList.getModel().getItem(evt.getData());
-          qx.core.Init.getApplication().getRouting().executeGet(a + me._parentEntityName + b + me._parentObjectId + c + me._relationshipName + g + instanceSelected.objectId);
+          qx.core.Init.getApplication().getRouting().executeGet(b + me._parentEntityName + c + me._parentObjectId + f + me._relationshipName + m + instanceSelected.objectId);
         }, this);
       },
       _start : function(){
@@ -45110,7 +45122,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _back : function(){
 
         var me = this;
-        qx.core.Init.getApplication().getRouting().executeGet(a + me._parentEntityName + b + me._parentObjectId, {
+        qx.core.Init.getApplication().getRouting().executeGet(b + me._parentEntityName + c + me._parentObjectId, {
           reverse : true
         });
       },
@@ -45135,6 +45147,7 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
             me._childEntity = childEntity;
             me.buildDetailProperties(me._childEntity);
             me.reloadInstances();
+            me.buildActions();
           });
         });
       },
@@ -45146,6 +45159,37 @@ qx.$$packageData['0']={"locales":{"C":{"alternateQuotationEnd":"’","alternateQ
       _getInstanceListEntity : function(){
 
         return this._childEntity;
+      },
+      buildActions : function(){
+
+        var me = this;
+        if(this._toolbar)this._toolbar.destroy();
+        var toolbar = this._toolbar = new qx.ui.mobile.toolbar.ToolBar();
+        this.add(toolbar);
+        if(this._relationship.editable){
+
+          if(this._relationship.style === e && !this._relationship.oppositeRequired){
+
+            var addButton = new qx.ui.mobile.form.Button(d);
+            addButton.addListener(j, function(){
+            });
+            toolbar.add(addButton);
+            var deleteButton = new qx.ui.mobile.form.Button(h);
+            deleteButton.addListener(j, function(){
+            });
+            toolbar.add(deleteButton);
+          } else {
+
+            var addButton = new qx.ui.mobile.form.Button(a);
+            addButton.addListener(j, function(){
+            });
+            toolbar.add(addButton);
+            var deleteButton = new qx.ui.mobile.form.Button(l);
+            deleteButton.addListener(j, function(){
+            });
+            toolbar.add(deleteButton);
+          };
+        };
       }
     }
   });
