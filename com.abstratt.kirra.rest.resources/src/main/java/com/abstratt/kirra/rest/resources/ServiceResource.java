@@ -10,6 +10,7 @@ import com.abstratt.kirra.Service;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.CommonHelper;
+import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.common.Paths;
 
 @Path(Paths.SERVICE_PATH)

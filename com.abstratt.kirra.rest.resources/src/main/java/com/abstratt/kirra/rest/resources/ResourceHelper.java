@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.abstratt.kirra.NamedElement;
 import com.abstratt.kirra.rest.common.CommonHelper;
+import com.abstratt.kirra.rest.common.KirraContext;
 
 public class ResourceHelper extends CommonHelper {
 

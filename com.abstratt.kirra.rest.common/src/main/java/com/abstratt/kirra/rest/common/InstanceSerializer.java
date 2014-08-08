@@ -18,10 +18,7 @@ import com.google.gson.JsonSerializer;
 
 public class InstanceSerializer implements JsonSerializer<Instance> {
 
-    private URI instancesUri;
-
-    public InstanceSerializer(URI uri) {
-        this.instancesUri = uri;
+    public InstanceSerializer() {
     }
     
     private static final List<String> EXCLUDED_FIELDS = Arrays.<String>asList(new String[] {
@@ -58,11 +55,11 @@ public class InstanceSerializer implements JsonSerializer<Instance> {
     }
 
     private JsonObject addBasicProperties(Gson gson, Instance instance, JsonObject instanceAsJson) {
-        URI linkedEntityUri = CommonHelper.resolve(instancesUri, "..", "..", instance.getTypeRef().toString());
+        URI entityUri = CommonHelper.resolve(KirraContext.getBaseURI(), Paths.ENTITIES, instance.getTypeRef().toString());
         instanceAsJson.addProperty("objectId", instance.getObjectId());
-        instanceAsJson.addProperty("uri", CommonHelper.resolve(linkedEntityUri, Paths.INSTANCES, instance.getObjectId()).toString());
+        instanceAsJson.addProperty("uri", CommonHelper.resolve(entityUri, Paths.INSTANCES, instance.getObjectId()).toString());
         instanceAsJson.addProperty("shorthand", getShorthand(instance));
-        instanceAsJson.addProperty("entityUri", linkedEntityUri.toString());
+        instanceAsJson.addProperty("entityUri", entityUri.toString());
         instanceAsJson.add("typeRef", gson.toJsonTree(instance.getTypeRef()));
         instanceAsJson.addProperty("scopeName", instance.getTypeRef().getTypeName());
         instanceAsJson.addProperty("scopeNamespace", instance.getTypeRef().getNamespace());

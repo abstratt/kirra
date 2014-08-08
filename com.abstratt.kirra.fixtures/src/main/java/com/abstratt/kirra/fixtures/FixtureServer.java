@@ -24,7 +24,7 @@ import org.restlet.service.StatusService;
 
 import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.SchemaManagement;
-import com.abstratt.kirra.rest.resources.KirraContext;
+import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.resources.KirraJaxRsApplication;
 import com.abstratt.kirra.rest.resources.KirraRestException;
 

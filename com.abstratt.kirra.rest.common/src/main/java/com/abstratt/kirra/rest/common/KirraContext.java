@@ -1,4 +1,4 @@
-package com.abstratt.kirra.rest.resources;
+package com.abstratt.kirra.rest.common;
 
 import java.net.URI;
 

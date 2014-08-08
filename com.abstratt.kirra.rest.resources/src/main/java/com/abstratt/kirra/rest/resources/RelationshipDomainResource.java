@@ -14,6 +14,7 @@ import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.CommonHelper;
+import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.common.Paths;
 
 @Path(Paths.RELATIONSHIP_DOMAIN_PATH)

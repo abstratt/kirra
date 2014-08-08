@@ -16,6 +16,7 @@ import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.CommonHelper;
+import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.common.Paths;
 
 @Path(Paths.INSTANCE_ACTION_PARAMETER_DOMAIN_PATH)

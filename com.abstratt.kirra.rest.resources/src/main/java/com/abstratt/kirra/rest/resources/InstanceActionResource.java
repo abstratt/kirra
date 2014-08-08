@@ -19,6 +19,7 @@ import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.CommonHelper;
+import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

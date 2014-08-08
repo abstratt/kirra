@@ -27,7 +27,7 @@ public class CommonHelper {
         Map<Class<?>, Object> map = new LinkedHashMap<Class<?>, Object>();
         map .put(Entity.class, new EntitySerializer(baseURI));
         map.put(Service.class, new TopLevelElementSerializer<Service>(baseURI));
-        map.put(Instance.class, new InstanceSerializer(baseURI));
+        map.put(Instance.class, new InstanceSerializer());
         map.put(TypeRef.class, TypeRefSerializer.INSTANCE);
         return buildGson(baseURI, map);
     }

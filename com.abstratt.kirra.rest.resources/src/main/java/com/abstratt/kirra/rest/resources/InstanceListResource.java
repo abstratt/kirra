@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.CommonHelper;
+import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.Gson;
 
