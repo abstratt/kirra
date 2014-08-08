@@ -14,7 +14,6 @@ import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.Service;
 import com.abstratt.kirra.TypeRef;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class CommonHelper {
@@ -24,7 +23,7 @@ public class CommonHelper {
         return URI.create(dirURI.toString() + "/");
     }
 
-    public static Gson buildGson(URI baseURI) {
+    public static GsonBuilder buildGson(URI baseURI) {
         Map<Class<?>, Object> map = new LinkedHashMap<Class<?>, Object>();
         map .put(Entity.class, new EntitySerializer(baseURI));
         map.put(Service.class, new TopLevelElementSerializer<Service>(baseURI));
@@ -33,18 +32,18 @@ public class CommonHelper {
         return buildGson(baseURI, map);
     }
     
-    public static Gson buildBasicGson() {
+    public static GsonBuilder buildBasicGson() {
         return CommonHelper.buildGson(null, Collections.<Class<?>, Object>singletonMap(TypeRef.class, (Object) TypeRefSerializer.INSTANCE));
     }
     
-    public static Gson buildGson(URI baseURI, Map<Class<?>, ?> adapters) {
+    public static GsonBuilder buildGson(URI baseURI, Map<Class<?>, ?> adapters) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
         gsonBuilder.setPrettyPrinting();
         gsonBuilder.excludeFieldsWithModifiers(Modifier.PRIVATE.ordinal());
         for (Map.Entry<Class<?>, ?> entry : adapters.entrySet()) 
             gsonBuilder.registerTypeAdapter(entry.getKey(), entry.getValue());
-        return gsonBuilder.create();
+        return gsonBuilder;
     }
 
     public static URI resolve(URI base, String... segments) {

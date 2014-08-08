@@ -4,7 +4,6 @@ import java.lang.reflect.Type;
 import java.net.URI;
 
 import com.abstratt.kirra.TopLevelElement;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
@@ -20,7 +19,7 @@ public class TopLevelElementSerializer<T extends TopLevelElement> implements Jso
 
     @Override
     public JsonElement serialize(T element, Type type, JsonSerializationContext context) {
-        JsonObject asJson = (JsonObject) CommonHelper.buildBasicGson().toJsonTree(element);
+        JsonObject asJson = (JsonObject) CommonHelper.buildBasicGson().create().toJsonTree(element);
         asJson.addProperty("uri", getTopLevelURI(element).toString());
         return asJson;
     }

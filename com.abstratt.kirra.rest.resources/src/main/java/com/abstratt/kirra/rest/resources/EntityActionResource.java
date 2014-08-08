@@ -48,6 +48,6 @@ public class EntityActionResource {
             argumentList.add(argumentValue);
         }
         List<?> result = KirraContext.getInstanceManagement().executeOperation(action, null, argumentList);
-        return CommonHelper.buildGson(null).toJson(result);
+        return CommonHelper.buildGson(null).create().toJson(result);
     }
 }

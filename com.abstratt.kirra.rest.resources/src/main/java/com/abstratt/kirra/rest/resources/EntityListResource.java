@@ -16,6 +16,6 @@ public class EntityListResource {
     @GET
     public String getEntities() {
         List<Entity> allEntities = KirraContext.getSchemaManagement().getAllEntities();
-        return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES)).toJson(allEntities);
+        return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES)).create().toJson(allEntities);
     }
 }

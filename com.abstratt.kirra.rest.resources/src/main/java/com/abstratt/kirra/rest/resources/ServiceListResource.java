@@ -16,6 +16,6 @@ public class ServiceListResource {
     @GET
     public String getServices() {
         List<Service> allServices = KirraContext.getSchemaManagement().getAllServices();
-        return CommonHelper.buildGson(ResourceHelper.resolve(Paths.SERVICES)).toJson(allServices);
+        return CommonHelper.buildGson(ResourceHelper.resolve(Paths.SERVICES)).create().toJson(allServices);
     }
 }

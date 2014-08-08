@@ -31,7 +31,6 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
-				<version>${tycho-version}</version>
 				<configuration>
 					<testSuite>com.abstratt.kirra.rest.tests</testSuite>
 					<testClass>com.abstratt.kirra.rest.tests.AllTests</testClass>

@@ -1,5 +1,8 @@
 package com.abstratt.kirra.rest.resources;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,7 +30,7 @@ public class InstanceResource {
         Instance instance = "_template".equals(objectId) ? instanceManagement.newInstance(entityRef.getEntityNamespace(), entityRef.getTypeName()) : instanceManagement.getInstance(entityRef.getEntityNamespace(), entityRef.getTypeName(),
                 objectId, true);
         ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
-        return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES)).toJson(instance);
+        return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instance);
     }
     
     @DELETE
@@ -43,14 +46,18 @@ public class InstanceResource {
     public String updateInstance(@PathParam("entityName") String entityName, @PathParam("objectId") String objectId,
             String existingInstanceRepresentation) {
         TypeRef typeRef = new TypeRef(entityName, TypeKind.Entity);
-        System.out.println(existingInstanceRepresentation);
         Instance toUpdate = new Gson().fromJson(existingInstanceRepresentation, Instance.class);
+        // flatten the structure in case the client is passing fully hidrated linked objects
+        for (List<Instance> linkedInstances : toUpdate.getLinks().values())
+            for (Instance instance : linkedInstances)
+                instance.setLinks(Collections.<String, List<Instance>>emptyMap());
+
         toUpdate.setObjectId(objectId);
         toUpdate.setEntityName(typeRef.getTypeName());
         toUpdate.setEntityNamespace(typeRef.getNamespace());
         Instance updated = KirraContext.getInstanceManagement().updateInstance(toUpdate);
         return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES))
-                .toJson(updated);
+                .create().toJson(updated);
     }
 
 }

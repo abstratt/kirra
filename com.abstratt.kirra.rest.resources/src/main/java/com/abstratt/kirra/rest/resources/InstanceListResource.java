@@ -1,5 +1,6 @@
 package com.abstratt.kirra.rest.resources;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -22,12 +23,16 @@ public class InstanceListResource {
     @POST
     public String createInstance(@PathParam("entityName") String entityName, String newInstanceRepresentation) {
         Instance toCreate = new Gson().fromJson(newInstanceRepresentation, Instance.class);
+        // flatten the structure in case the client is passing fully hidrated linked objects
+        for (List<Instance> linkedInstances : toCreate.getLinks().values())
+            for (Instance instance : linkedInstances)
+                instance.setLinks(Collections.<String, List<Instance>>emptyMap());
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         toCreate.setEntityNamespace(entityRef.getNamespace()); 
         toCreate.setEntityName(entityRef.getTypeName());
         Instance created = KirraContext.getInstanceManagement().createInstance(toCreate);
         return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES, created.getObjectId()))
-                .toJson(created);
+                .create().toJson(created);
     }
 
     @GET
@@ -36,6 +41,6 @@ public class InstanceListResource {
         List<Instance> allInstances = KirraContext.getInstanceManagement().getInstances(entityRef.getEntityNamespace(),
                 entityRef.getTypeName(), false);
         InstanceList instanceList = new InstanceList(allInstances);
-        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).toJson(instanceList);
+        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instanceList);
     }
 }

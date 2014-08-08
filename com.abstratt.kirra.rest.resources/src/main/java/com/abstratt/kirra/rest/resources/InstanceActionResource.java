@@ -52,6 +52,6 @@ public class InstanceActionResource {
             argumentList.add(argumentValue);
         }
         List<?> result = KirraContext.getInstanceManagement().executeOperation(action, objectId, argumentList);
-        return CommonHelper.buildGson(null).toJson(result);
+        return CommonHelper.buildGson(null).create().toJson(result);
     }
 }

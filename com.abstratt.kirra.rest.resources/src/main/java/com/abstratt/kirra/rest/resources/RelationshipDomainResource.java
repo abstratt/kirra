@@ -31,6 +31,6 @@ public class RelationshipDomainResource {
         
         List<Instance> domain = KirraContext.getInstanceManagement().getRelationshipDomain(entity, objectId, relationship);
         InstanceList instanceList = new InstanceList(domain);
-        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).toJson(instanceList);
+        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instanceList);
     }
 }

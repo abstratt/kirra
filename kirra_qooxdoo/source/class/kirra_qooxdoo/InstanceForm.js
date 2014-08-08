@@ -114,13 +114,13 @@ qx.Class.define("kirra_qooxdoo.InstanceForm", {
                     }
                 }
             }
-            for (var relationshipName in this._instance.links) {
+            for (var relationshipName in this._entity.relationships) {
                 var relationship = this._entity.relationships[relationshipName];
-                var link = this._instance.links[relationshipName][0];
                 var widget = this._widgets[relationshipName];
                 if (widget) {
+                    var links = this._instance.links[relationshipName];
                     if (!me.isNewInstance() || relationship.editable) {
-                        widget.setValue(link.shorthand);
+                        widget.setValue(links && links.length && links[0].shorthand);
                         widget.setVisible && widget.setVisible(true);
                     } else {
                         widget.setVisible && widget.setVisible(false);

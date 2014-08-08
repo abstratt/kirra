@@ -33,6 +33,6 @@ public class RelatedInstanceListResource {
         
         List<Instance> domain = KirraContext.getInstanceManagement().getRelatedInstances(entityRef.getNamespace(), entityRef.getTypeName(), objectId, relationshipName, true);
         InstanceList instanceList = new InstanceList(domain);
-        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).toJson(instanceList);
+        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instanceList);
     }
 }
