@@ -9,6 +9,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.TypeRef;
@@ -22,7 +25,7 @@ import com.google.gson.Gson;
 @Consumes("application/json")
 public class InstanceListResource {
     @POST
-    public String createInstance(@PathParam("entityName") String entityName, String newInstanceRepresentation) {
+    public Response createInstance(@PathParam("entityName") String entityName, String newInstanceRepresentation) {
         Instance toCreate = new Gson().fromJson(newInstanceRepresentation, Instance.class);
         // flatten the structure in case the client is passing fully hidrated linked objects
         for (List<Instance> linkedInstances : toCreate.getLinks().values())
@@ -32,8 +35,9 @@ public class InstanceListResource {
         toCreate.setEntityNamespace(entityRef.getNamespace()); 
         toCreate.setEntityName(entityRef.getTypeName());
         Instance created = KirraContext.getInstanceManagement().createInstance(toCreate);
-        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES, created.getObjectId()))
+        String json = CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES, created.getObjectId()))
                 .create().toJson(created);
+        return Response.status(Status.CREATED).entity(json).type(MediaType.APPLICATION_JSON).build();
     }
 
     @GET
