@@ -5,7 +5,6 @@ Kirra API
 
 [![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=kirra-api)](https://textuml.ci.cloudbees.com/job/kirra-api/)
 
-
 The Kirra API is a minimalistic API specification to access functionality of a business application in a business and technology agnostic way. 
 
 This reference implementation happens to use the Java language, but the intent is that it could be easily translated to other programming languages (or computing domains, such as network-oriented APIs).
@@ -41,7 +40,7 @@ Implements the SchemaManagement and InstanceManagement protocols as a proxy to a
 Cloudfier implements the Kirra API to expose the funcionality of business applications running off of executable UML models. Cloudfier can generate fully functional clients based on the schema exposed by the Kirra API. Status: [released](http://cloudfier.com/doc).
 
 #### HTML5 mobile-styled client
-A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/kirra_qooxdoo) ([demo](http://abstratt.github.io/kirra/kirra_qooxdoo/build/?app-path=/kirra/com.abstratt.kirra.fixtures/src/main/resources/fixtures/index.json)).
+A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/kirra_qooxdoo) ([demo](http://develop.cloudfier.com/kirra-api/kirra_qooxdoo/build/?app-path=/services/api-v2/demo-cloudfier-examples-taxi-fleet)).
 
 ###Ideas
 
