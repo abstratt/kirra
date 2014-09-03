@@ -29,7 +29,6 @@ public class RestClient {
 
     public <T> T executeMethod(HttpMethod method, Type resultType, int... acceptedStatuses) {
         try {
-            System.out.println(method.getName() + " - " + method.getURI());
             if (method instanceof EntityEnclosingMethod)
                 ((EntityEnclosingMethod) method).getRequestEntity().writeRequest(System.out);
             int response = httpClient.executeMethod(method);
