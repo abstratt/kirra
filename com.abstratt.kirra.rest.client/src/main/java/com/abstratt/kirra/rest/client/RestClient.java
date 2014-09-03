@@ -40,7 +40,6 @@ public class RestClient {
                 throw new RuntimeException("Unexpected status code: " + response + " - expected: "
                         + Arrays.asList(acceptedStatuses).toString());
             String responseBody = new String(method.getResponseBody());
-            System.out.println(responseBody);
             return new Gson().fromJson(new StringReader(responseBody), resultType);
         } catch (JsonParseException e) {
             throw e;
