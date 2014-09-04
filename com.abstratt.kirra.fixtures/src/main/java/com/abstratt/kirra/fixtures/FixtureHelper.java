@@ -19,17 +19,14 @@ public class FixtureHelper {
     private static <T> T loadFixture(boolean tryVariants, Type type, String... segments) {
         String relativePath = StringUtils.join(segments, "/");
         String resourcePath = "/fixtures/" + relativePath;
-        System.out.print("Loading fixtures from " + resourcePath + "... ");
         try (InputStream contents = FixtureHelper.class.getResourceAsStream(resourcePath)) {
             if (contents == null) {
                 if (tryVariants && segments.length > 0) {
                     segments[segments.length - 1] += ".json";
                     return FixtureHelper.loadFixture(false, type, segments);
                 }
-                System.out.println("Not found");
                 return null;
             }
-            System.out.println("OK!");
             return new Gson().fromJson(new InputStreamReader(contents), type);
         } catch (IOException e) {
             throw new KirraException("Unexpected", e, Kind.SCHEMA);
