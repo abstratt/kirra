@@ -11,6 +11,8 @@ This reference implementation happens to use the Java language, but the intent i
 
 The goal is that by detaching view technologies from model technologies, we can mix and match generic clients and domain-specific applications, no matter what particular technology (within and across language silos) for domain-driven development they are built on.
 
+![Built on DEV@Cloud](http://cloudbees.prod.acquia-sites.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)
+
 The generic object model
 -----------------
 Business entity instances in the application are accessed via the Instance class, which includes values for properties and optionally related/child instances.
