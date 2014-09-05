@@ -97,6 +97,11 @@ public class InstanceManagementOnREST implements InstanceManagement {
 				Paths.INSTANCES);
 		return page.contents;
 	}
+	
+	@Override
+	public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full) {
+	    return getInstances(namespace, name, full);
+	}
 
 	@Override
 	public List<Instance> getParameterDomain(Entity entity, String externalId,

@@ -1,6 +1,10 @@
 package com.abstratt.kirra.rest.resources;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -8,9 +12,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.TypeRef;
@@ -35,9 +41,12 @@ public class InstanceListResource {
     }
 
     @GET
-    public String getInstances(@PathParam("entityName") String entityName) {
+    public String getInstances(@PathParam("entityName") String entityName, @Context UriInfo uriInfo) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
-        List<Instance> allInstances = KirraContext.getInstanceManagement().getInstances(entityRef.getEntityNamespace(),
+        Map<String, List<Object>> criteria = new LinkedHashMap<String, List<Object>>();
+        for (Entry<String, List<String>> entry : uriInfo.getQueryParameters().entrySet())
+            criteria.put(entry.getKey(), new ArrayList<Object>(entry.getValue()));
+        List<Instance> allInstances = KirraContext.getInstanceManagement().filterInstances(criteria, entityRef.getEntityNamespace(),
                 entityRef.getTypeName(), false);
         InstanceList instanceList = new InstanceList(allInstances);
         return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instanceList);

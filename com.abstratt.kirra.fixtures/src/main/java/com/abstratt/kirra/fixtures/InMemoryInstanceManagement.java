@@ -158,6 +158,11 @@ public class InMemoryInstanceManagement implements InstanceManagement {
         TypeRef typeRef = new TypeRef(namespace, name, TypeKind.Entity);
         return getInstances(typeRef);
     }
+    
+    @Override
+    public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full) {
+        return getInstances(namespace, name, full);
+    }
 
     @Override
     public synchronized List<Instance> getParameterDomain(Entity entity, String externalId, Operation action, Parameter parameter) {

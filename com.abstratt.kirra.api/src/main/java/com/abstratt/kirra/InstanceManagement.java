@@ -1,6 +1,7 @@
 package com.abstratt.kirra;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Basic protocol for managing entity instances.
@@ -69,6 +70,8 @@ public interface InstanceManagement {
      * @see Instance#isFull()
      */
     public List<Instance> getInstances(String namespace, String name, boolean full);
+
+    public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full);
 
     public List<Instance> getParameterDomain(Entity entity, String externalId, Operation action, Parameter parameter);
 
