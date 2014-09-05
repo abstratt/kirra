@@ -3,20 +3,30 @@ package com.abstratt.kirra.rest.common;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.TypeRef;
+import com.abstratt.kirra.TypeRef.TypeKind;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-public class InstanceSerializer implements JsonSerializer<Instance> {
+public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeserializer<Instance> {
 
     public InstanceSerializer() {
     }
@@ -52,6 +62,39 @@ public class InstanceSerializer implements JsonSerializer<Instance> {
         asJson.add("links", linksAsJson);
         addBasicProperties(gson, instance, asJson);
         return asJson;
+    }
+    
+    @Override
+    public Instance deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+        JsonObject asJsonObject = jsonElement.getAsJsonObject();
+        // ensure links don't have sublinks/values and have an objectId
+        if (asJsonObject.has("links")) {
+            for (Entry<String, JsonElement> entry : asJsonObject.get("links").getAsJsonObject().entrySet()) {
+                JsonArray linkArray = entry.getValue().getAsJsonArray();
+                for (JsonElement link : linkArray) {
+                    JsonObject linkAsObject = link.getAsJsonObject();
+                    if (linkAsObject.has("uri")) {
+                        JsonElement uri = linkAsObject.get("uri");
+                        String uriString = uri.getAsString();
+                        String[] segments = StringUtils.split(uriString, "/");
+                        // uri is '...<entity>/instances/<objectId>'
+                        if (segments.length > 0)
+                            linkAsObject.addProperty("objectId", segments[segments.length - 1]);
+                        if (segments.length > 2) {
+                            String linkedTypeName = segments[segments.length - 3];
+                            TypeRef linkType = new TypeRef(linkedTypeName, TypeKind.Entity);
+                            linkAsObject.addProperty("scopeName", linkType.getTypeName());
+                            linkAsObject.addProperty("scopeNamespace", linkType.getNamespace());
+                        }
+                    }
+                    linkAsObject.remove("values");
+                    linkAsObject.remove("links");
+                    linkAsObject.addProperty("full", false);
+                }
+            }
+        }
+        Instance instance = new Gson().fromJson(jsonElement, Instance.class);
+        return instance;
     }
 
     private JsonObject addBasicProperties(Gson gson, Instance instance, JsonObject instanceAsJson) {

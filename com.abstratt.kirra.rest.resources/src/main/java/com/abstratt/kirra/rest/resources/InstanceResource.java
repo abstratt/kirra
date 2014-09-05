@@ -47,12 +47,7 @@ public class InstanceResource {
     public String updateInstance(@PathParam("entityName") String entityName, @PathParam("objectId") String objectId,
             String existingInstanceRepresentation) {
         TypeRef typeRef = new TypeRef(entityName, TypeKind.Entity);
-        Instance toUpdate = new Gson().fromJson(existingInstanceRepresentation, Instance.class);
-        // flatten the structure in case the client is passing fully hidrated linked objects
-        for (List<Instance> linkedInstances : toUpdate.getLinks().values())
-            for (Instance instance : linkedInstances)
-                instance.setLinks(Collections.<String, List<Instance>>emptyMap());
-
+        Instance toUpdate = CommonHelper.buildGson(null).create().fromJson(existingInstanceRepresentation, Instance.class);
         toUpdate.setObjectId(objectId);
         toUpdate.setEntityName(typeRef.getTypeName());
         toUpdate.setEntityNamespace(typeRef.getNamespace());

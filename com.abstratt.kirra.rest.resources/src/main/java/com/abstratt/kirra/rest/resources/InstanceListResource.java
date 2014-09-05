@@ -1,6 +1,5 @@
 package com.abstratt.kirra.rest.resources;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -18,7 +17,6 @@ import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.common.Paths;
-import com.google.gson.Gson;
 
 @Path(Paths.INSTANCES_PATH)
 @Produces("application/json")
@@ -26,11 +24,7 @@ import com.google.gson.Gson;
 public class InstanceListResource {
     @POST
     public Response createInstance(@PathParam("entityName") String entityName, String newInstanceRepresentation) {
-        Instance toCreate = new Gson().fromJson(newInstanceRepresentation, Instance.class);
-        // flatten the structure in case the client is passing fully hidrated linked objects
-        for (List<Instance> linkedInstances : toCreate.getLinks().values())
-            for (Instance instance : linkedInstances)
-                instance.setLinks(Collections.<String, List<Instance>>emptyMap());
+        Instance toCreate = CommonHelper.buildGson(null).create().fromJson(newInstanceRepresentation, Instance.class);
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         toCreate.setEntityNamespace(entityRef.getNamespace()); 
         toCreate.setEntityName(entityRef.getTypeName());
