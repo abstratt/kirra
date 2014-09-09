@@ -11,6 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.Operation;
@@ -46,10 +48,17 @@ public class InstanceActionResource {
         }.getType());
         List<Object> argumentList = new ArrayList<Object>();
         for (Parameter parameter : action.getParameters()) {
-            ResourceHelper.ensure(argumentMap.containsKey(parameter.getName()) || !parameter.isRequired(), "Parameter is required: " + parameter.getName(), Status.BAD_REQUEST);
+            ResourceHelper.ensure((argumentMap != null && argumentMap.containsKey(parameter.getName())) || !parameter.isRequired(), "Parameter is required: " + parameter.getName(), Status.BAD_REQUEST);
             Object argumentValue = argumentMap.get(parameter.getName());
-            if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity)
-                argumentValue = new Instance(parameter.getTypeRef(), ((Map<String,Object>) argumentValue).get("objectId").toString());
+            if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity) {
+                Map<String, Object> referenceArgument = (Map<String,Object>) argumentValue;
+                String referencedObjectId = (String) referenceArgument.get("objectId");
+                if (referenceArgument.containsKey("uri")) {
+                    String[] segments = StringUtils.split(referenceArgument.get("uri").toString(), "/");
+                    referencedObjectId = segments[segments.length - 1];
+                }
+                argumentValue = new Instance(parameter.getTypeRef(), referencedObjectId.toString());
+            }
             argumentList.add(argumentValue);
         }
         List<?> result = KirraContext.getInstanceManagement().executeOperation(action, objectId, argumentList);
