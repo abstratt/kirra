@@ -1,8 +1,5 @@
 package com.abstratt.kirra.rest.resources;
 
-import java.util.Collections;
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,7 +16,6 @@ import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.common.Paths;
-import com.google.gson.Gson;
 
 @Path(Paths.INSTANCE_PATH)
 public class InstanceResource {
