@@ -99,8 +99,9 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
 
     private JsonObject addBasicProperties(Gson gson, Instance instance, JsonObject instanceAsJson) {
         URI entityUri = CommonHelper.resolve(KirraContext.getBaseURI(), Paths.ENTITIES, instance.getTypeRef().toString());
+        URI instanceUri = CommonHelper.resolve(entityUri, Paths.INSTANCES, instance.getObjectId());
         instanceAsJson.addProperty("objectId", instance.getObjectId());
-        instanceAsJson.addProperty("uri", CommonHelper.resolve(entityUri, Paths.INSTANCES, instance.getObjectId()).toString());
+        instanceAsJson.addProperty("uri", instanceUri.toString());
         instanceAsJson.addProperty("shorthand", getShorthand(instance));
         instanceAsJson.addProperty("entityUri", entityUri.toString());
         instanceAsJson.add("typeRef", gson.toJsonTree(instance.getTypeRef()));
