@@ -17,6 +17,7 @@ public interface Paths {
     String ENTITY_PATH = Paths.ENTITIES_PATH + "{entityName}/";
     String ENTITY_ACTION_PATH = ENTITY_PATH + Paths.ACTIONS + "/{actionName}";
     String INSTANCES_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/";
+    String FINDER_RESULTS_PATH = Paths.ENTITY_PATH + Paths.FINDERS + "/{finderName}";
     String INSTANCE_PATH = Paths.INSTANCES_PATH + "{objectId}";
     String INSTANCE_ACTION_PATH = INSTANCE_PATH + "/" + Paths.ACTIONS + "/{actionName}";
     String RELATED_INSTANCES_PATH = INSTANCE_PATH + "/" + Paths.RELATIONSHIPS + "/{relationshipName}";

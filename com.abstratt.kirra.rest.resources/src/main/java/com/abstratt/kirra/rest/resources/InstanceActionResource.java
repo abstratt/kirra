@@ -44,23 +44,10 @@ public class InstanceActionResource {
         Instance instance = KirraContext.getInstanceManagement().getInstance(entityRef.getEntityNamespace(), entityRef.getTypeName(),
                 objectId, true);
         ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
+        
         Map<String, Object> argumentMap = new Gson().fromJson(argumentMapRepresentation, new TypeToken<Map<String, Object>>() {
         }.getType());
-        List<Object> argumentList = new ArrayList<Object>();
-        for (Parameter parameter : action.getParameters()) {
-            ResourceHelper.ensure((argumentMap != null && argumentMap.containsKey(parameter.getName())) || !parameter.isRequired(), "Parameter is required: " + parameter.getName(), Status.BAD_REQUEST);
-            Object argumentValue = argumentMap.get(parameter.getName());
-            if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity) {
-                Map<String, Object> referenceArgument = (Map<String,Object>) argumentValue;
-                String referencedObjectId = (String) referenceArgument.get("objectId");
-                if (referenceArgument.containsKey("uri")) {
-                    String[] segments = StringUtils.split(referenceArgument.get("uri").toString(), "/");
-                    referencedObjectId = segments[segments.length - 1];
-                }
-                argumentValue = new Instance(parameter.getTypeRef(), referencedObjectId.toString());
-            }
-            argumentList.add(argumentValue);
-        }
+        List<Object> argumentList = ResourceHelper.matchArgumentsToParameters(action, argumentMap);
         List<?> result = KirraContext.getInstanceManagement().executeOperation(action, objectId, argumentList);
         return CommonHelper.buildGson(null).create().toJson(result);
     }
