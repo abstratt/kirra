@@ -54,9 +54,15 @@ public class ResourceHelper extends CommonHelper {
 
     public static List<Object> matchArgumentsToParameters(Operation operation, Map<String, Object> argumentMap) {
         List<Object> argumentList = new ArrayList<Object>();
+        
+        Map<String, Object> argumentsByAllCapsNames = new LinkedHashMap<String, Object>();
+        if (argumentMap != null)
+            for (String key : argumentMap.keySet())
+                argumentsByAllCapsNames.put(key.toUpperCase(), argumentMap.get(key));
+        
         for (Parameter parameter : operation.getParameters()) {
-            ResourceHelper.ensure((argumentMap != null && argumentMap.containsKey(parameter.getName())) || !parameter.isRequired(), "Parameter is required: " + parameter.getName(), Status.BAD_REQUEST);
-            Object argumentValue = argumentMap.get(parameter.getName());
+            ResourceHelper.ensure((argumentsByAllCapsNames.containsKey(parameter.getName().toUpperCase())) || !parameter.isRequired(), "Parameter is required: " + parameter.getName(), Status.BAD_REQUEST);
+            Object argumentValue = argumentsByAllCapsNames.get(parameter.getName().toUpperCase());
             if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity) {
                 if (argumentValue instanceof List)
                     argumentValue = ((List) argumentValue).iterator().next();
