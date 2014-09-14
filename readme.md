@@ -44,6 +44,9 @@ Cloudfier implements the Kirra API to expose the funcionality of business applic
 #### HTML5 mobile-styled client
 A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/kirra_qooxdoo) ([demo](http://develop.cloudfier.com/kirra-api/kirra_qooxdoo/build/?app-path=/services/api-v2/demo-cloudfier-examples-taxi-fleet)).
 
+#### EBUI - Email-Based User Interface
+An email-based front-end for your Kirra-compliant business application. Status: [in progress](http://github.com/abstratt/ebui).
+
 ###Ideas
 
 #### EJB/JPA
