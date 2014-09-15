@@ -74,3 +74,5 @@ Implement the Kirra API over the object model of a Grails application, including
 Implement RO on top of the Kirra API, allowing any business application that is exposed via a Kirra-compatible API to have a fully functional REST API for free.
 
 In a way, the Kirra API has similar goals to Restful Objects, but aims to achieve them within the application, without requiring a network hop.
+
+{% include ribbon.html %}
