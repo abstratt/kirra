@@ -65,14 +65,18 @@ public class ResourceHelper extends CommonHelper {
             Object argumentValue = argumentsByAllCapsNames.get(parameter.getName().toUpperCase());
             if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity) {
                 if (argumentValue instanceof List)
-                    argumentValue = ((List) argumentValue).iterator().next();
-                Map<String, Object> referenceArgument = (Map<String,Object>) argumentValue;
-                String referencedObjectId = (String) referenceArgument.get("objectId");
-                if (referenceArgument.containsKey("uri")) {
-                    String[] segments = StringUtils.split(referenceArgument.get("uri").toString(), "/");
-                    referencedObjectId = segments[segments.length - 1];
+                    argumentValue = ((List<?>) argumentValue).iterator().next();
+                else if (argumentValue instanceof Map) {
+                    Map<String, Object> referenceArgument = (Map<String,Object>) argumentValue;
+                    String referencedObjectId = (String) referenceArgument.get("objectId");
+                    if (referenceArgument.containsKey("uri")) {
+                        String[] segments = StringUtils.split(referenceArgument.get("uri").toString(), "/");
+                        referencedObjectId = segments[segments.length - 1];
+                    }
+                    argumentValue = new Instance(parameter.getTypeRef(), referencedObjectId.toString());
+                } else {
+                    argumentValue = new Instance(parameter.getTypeRef(), (String) argumentValue);
                 }
-                argumentValue = new Instance(parameter.getTypeRef(), referencedObjectId.toString());
             }
             argumentList.add(argumentValue);
         }
