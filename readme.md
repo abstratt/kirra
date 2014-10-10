@@ -11,7 +11,8 @@ This reference implementation happens to use the Java language, but the intent i
 
 The goal is that by detaching view technologies from model technologies, we can mix and match generic clients and domain-specific applications, no matter what particular technology (within and across language silos) for domain-driven development they are built on.
 
-![Built on DEV@Cloud](http://cloudbees.prod.acquia-sites.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)
+[![Built on DEV@Cloud](http://cloudbees.prod.acquia-sites.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)](https://textuml.ci.cloudbees.com/job/kirra-api/)
+
 
 The generic object model
 -----------------
@@ -44,6 +45,9 @@ Cloudfier implements the Kirra API to expose the funcionality of business applic
 #### HTML5 mobile-styled client
 A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/kirra_qooxdoo) ([demo](http://develop.cloudfier.com/kirra-api/kirra_qooxdoo/build/?app-path=/services/api-v2/demo-cloudfier-examples-taxi-fleet)).
 
+#### EBUI - Email-Based User Interface
+An email-based front-end for your Kirra-compliant business application. Status: [in progress](http://github.com/abstratt/ebui).
+
 ###Ideas
 
 #### EJB/JPA
@@ -71,3 +75,5 @@ Implement the Kirra API over the object model of a Grails application, including
 Implement RO on top of the Kirra API, allowing any business application that is exposed via a Kirra-compatible API to have a fully functional REST API for free.
 
 In a way, the Kirra API has similar goals to Restful Objects, but aims to achieve them within the application, without requiring a network hop.
+
+{% include ribbon.html %}
