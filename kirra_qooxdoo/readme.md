@@ -9,4 +9,4 @@ In order to work on this project, you need to:
 
 You can also try it out against a Cloudfier-based application using this URL:
 
-http://abstratt.github.io/kirra/kirra_qooxdoo/source/?app-path=/services/api-v2/demo-cloudfier-examples-taxi-fleet
+http://develop.cloudfier.com/kirra-api/kirra_qooxdoo/build/?app-path=/services/api-v2/demo-cloudfier-examples-taxi-fleet
