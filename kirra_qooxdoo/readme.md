@@ -7,6 +7,6 @@ In order to work on this project, you need to:
 - run "./generate.py" whenever you add new dependencies to Qooxdoo classes
 - run "./generate.py source-server" to run a local webserver where you can test the application (under [this](http://localhost:9999/kirra-api/kirra_qooxdoo/source/?app-path=/kirra-api/com.abstratt.kirra.fixtures/src/main/resources/fixtures/index.json) localhost URL - note it is read-only as it will run against static files)
 
-You can also try it out against (in read-only mode) against static test fixtures at this URL:
+You can also try it out against a Cloudfier-based application using this URL:
 
-http://abstratt.github.io/kirra/kirra_qooxdoo/source/?app-path=/kirra/com.abstratt.kirra.fixtures/src/main/resources/fixtures/index.json
+http://develop.cloudfier.com/kirra-api/kirra_qooxdoo/build/?app-path=/services/api-v2/demo-cloudfier-examples-taxi-fleet
