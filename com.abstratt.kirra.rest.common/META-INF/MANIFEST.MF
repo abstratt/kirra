@@ -4,7 +4,7 @@ Bundle-Name: Kirra REST Implementation
 Bundle-SymbolicName: com.abstratt.kirra.rest.common
 Bundle-Version: 0.1.1.qualifier
 Bundle-Vendor: ABSTRATT
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.abstratt.kirra.rest.common
 Import-Package: com.abstratt.kirra,
  com.google.gson;version="2.2.4",
