@@ -50,6 +50,10 @@ An email-based front-end for your Kirra-compliant business application. Status: 
 
 ###Ideas
 
+#### MetaWidget
+
+Implement a [Metawidget](http://metawidget.org) inspector for the Kirra API, and get a free UI.
+
 #### EJB/JPA
 Implement the Kirra API over the object model of a EJB/JPA application.
 
