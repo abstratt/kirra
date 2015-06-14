@@ -17,10 +17,6 @@
       %license
    </license>
 
-   <url>
-      <update label="%updateSiteName" url="http://abstratt.com/update/"/>
-   </url>
-
    <plugin
          id="com.abstratt.kirra.api"
          download-size="0"
