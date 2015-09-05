@@ -55,6 +55,9 @@ Implement a [Metawidget](http://metawidget.org) inspector for the Kirra API, and
 
 Implement a client-side domain model generator for [tcomb/form](http://gcanti.github.io/tcomb-form/) based on the domain model schema exposed via the Kirra API, and get a free UI.
 
+#### ng-admin
+Implement a [ng-admin](https://github.com/marmelab/ng-admin)-based renderer for a Kirra-based REST API.
+
 #### EJB/JPA
 Implement the Kirra API over the object model of a EJB/JPA application.
 
