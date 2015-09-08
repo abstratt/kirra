@@ -62,24 +62,37 @@ var buildReferenceShorthandField = function(nga, relationship) {
 
 var buildEntity = function(nga, adminApp, appMenu, entity) {
     var appEntity = nga.entity(entity.fullName);
-    appEntity.url(entity.extentUri);
-    var appFields = [];
+    appEntity.url(function(entityName, viewType, identifierValue, identifierName) {
+        return entity.extentUri + (identifierValue || '');
+    });
+    var listFields = [];
     for (var propertyName in entity.properties) {
         var property = entity.properties[propertyName];
-        appFields.push(buildField(nga, property));
+        if (property.userVisible) {
+            listFields.push(buildField(nga, property));
+        }
     }
     var appReferences = [];
     for (var relationshipName in entity.relationships) {
         var relationship = entity.relationships[relationshipName];
         if (!relationship.multiple) {
-            appFields.push(buildReferenceField(nga, relationship));
-            appFields.push(buildReferenceShorthandField(nga, relationship));            
+            //appFields.push(buildReferenceField(nga, relationship));
+            listFields.push(buildReferenceShorthandField(nga, relationship));            
         }
     }
     
     appEntity.listView()
         .title(entity.label)    
-        .fields(appFields);
+        .fields(listFields)
+        .listActions(['edit', 'show']);
+        
+    appEntity.editionView()
+        .title('Edit ' + entity.label)    
+        .fields(listFields);
+        
+    appEntity.showView()
+        .title('Showing ' + entity.label)    
+        .fields(listFields);
         
     adminApp.addEntity(appEntity);
     appMenu.addChild(nga.menu(appEntity).title(entity.label));
@@ -104,8 +117,14 @@ var requestInterceptor = function (RestangularProvider) {
         console.log(url);
         console.log(headers);
         console.log(params);
-    
-        return { params: {}, headers: headers };
+        
+        if(operation == 'post' || operation == 'put') {
+            delete element.id;
+            element = { values: element };
+            return { element: element };
+        }
+        // remove parameters
+        return { params: {} } ;
     });
 };
 
@@ -117,14 +136,16 @@ var responseInterceptor = function (RestangularProvider) {
         console.log(what);
         console.log(url);
         var mapped;
-        if (operation == "getList") {
+        if (operation == 'getList') {
             var instances = data.contents;
             mapped = [];
             for (var i = 0;i < instances.length;i++) {
 		        mapped.push(mapInstance(instances[i]));
 		    }
-        } else {
+        } else if (operation == 'get' || operation == 'put') {
             mapped = mapInstance(data);
+        } else if (operation == 'delete') {
+            mapped = {};
         }
         return mapped;
     });
@@ -161,6 +182,7 @@ repository.loadApplication(function(loaded) {
 var myApp = angular.module('myApp', ['ng-admin']);        
 myApp.config(['NgAdminConfigurationProvider', function (nga) {
     var loadedApp = nga.application(application.applicationName).baseApiUrl(applicationUrl + 'entities/');
+    document.title = application.applicationName;
     buildEntities(nga, loadedApp, entities);
     nga.configure(loadedApp);
 }]);
