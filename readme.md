@@ -44,7 +44,6 @@ A generic mobile-styled HTML5 client that allows accessing any business applicat
 
 #### HTML desktop-styled client
 
-ng-admin
 A [ng-admin](https://github.com/marmelab/ng-admin)-based renderer for a Kirra-based REST API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/kirra-ng-admin) ([demo](http://develop.cloudfier.com/kirra-api/kirra-ng-admin/?app-uri=http://develop.cloudfier.com/services/api-v2/test-cloudfier-examples-carserv#/dashboard)).
 
 
