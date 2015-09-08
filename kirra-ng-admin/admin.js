@@ -88,7 +88,7 @@ var buildEntity = function(nga, adminApp, appMenu, entity) {
 var buildEntities = function (nga, adminApp, entities) {
     var appMenu = nga.menu();
     for (var name in entities) {
-        if (entities[name].concrete) {    
+        if (entities[name].concrete && entities[name].topLevel) {    
             buildEntity(nga, adminApp, appMenu, entities[name]);
         }
     }
