@@ -42,6 +42,11 @@ Cloudfier implements the Kirra API to expose the funcionality of business applic
 #### HTML5 mobile-styled client
 A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/kirra_qooxdoo) ([demo](http://develop.cloudfier.com/kirra-api/kirra_qooxdoo/build/?app-path=/services/api-v2/demo-cloudfier-examples-taxi-fleet)).
 
+#### HTML desktop-styled client
+
+A [ng-admin](https://github.com/marmelab/ng-admin)-based renderer for a Kirra-based REST API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/kirra-ng-admin) ([demo](http://develop.cloudfier.com/kirra-api/kirra-ng-admin/?app-uri=http://develop.cloudfier.com/services/api-v2/test-cloudfier-examples-carserv#/dashboard)).
+
+
 #### EBUI - Email-Based User Interface
 An email-based front-end for your Kirra-compliant business application. Status: [in progress](http://github.com/abstratt/ebui).
 
@@ -54,9 +59,6 @@ Implement a [Metawidget](http://metawidget.org) inspector for the Kirra API, and
 #### tcomb/form
 
 Implement a client-side domain model generator for [tcomb/form](http://gcanti.github.io/tcomb-form/) based on the domain model schema exposed via the Kirra API, and get a free UI.
-
-#### ng-admin
-Implement a [ng-admin](https://github.com/marmelab/ng-admin)-based renderer for a Kirra-based REST API.
 
 #### EJB/JPA
 Implement the Kirra API over the object model of a EJB/JPA application.
