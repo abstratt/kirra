@@ -11,9 +11,6 @@ This reference implementation happens to use the Java language, but the intent i
 
 The goal is that by detaching view technologies from model technologies, we can mix and match generic clients and domain-specific applications, no matter what particular technology (within and across language silos) for domain-driven development they are built on.
 
-[![Built on DEV@Cloud](https://www.cloudbees.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)](https://textuml.ci.cloudbees.com/job/kirra-api/)
-
-
 The generic object model
 -----------------
 Business entity instances in the application are accessed via the Instance class, which includes values for properties and optionally related/child instances.
@@ -54,6 +51,13 @@ An email-based front-end for your Kirra-compliant business application. Status: 
 
 Implement a [Metawidget](http://metawidget.org) inspector for the Kirra API, and get a free UI.
 
+#### tcomb/form
+
+Implement a client-side domain model generator for [tcomb/form](http://gcanti.github.io/tcomb-form/) based on the domain model schema exposed via the Kirra API, and get a free UI.
+
+#### ng-admin
+Implement a [ng-admin](https://github.com/marmelab/ng-admin)-based renderer for a Kirra-based REST API.
+
 #### EJB/JPA
 Implement the Kirra API over the object model of a EJB/JPA application.
 
@@ -79,5 +83,8 @@ Implement the Kirra API over the object model of a Grails application, including
 Implement RO on top of the Kirra API, allowing any business application that is exposed via a Kirra-compatible API to have a fully functional REST API for free.
 
 In a way, the Kirra API has similar goals to Restful Objects, but aims to achieve them within the application, without requiring a network hop.
+
+
+[![Built on DEV@Cloud](https://www.cloudbees.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)](https://textuml.ci.cloudbees.com/job/kirra-api/)
 
 {% include ribbon.html %}
