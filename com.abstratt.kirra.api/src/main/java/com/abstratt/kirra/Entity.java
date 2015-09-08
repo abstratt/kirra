@@ -23,6 +23,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     protected List<TypeRef> superTypes;
     protected boolean topLevel;
     protected boolean user;
+    protected String mnemonicProperty;
 
     @Override
     public boolean equals(Object obj) {
@@ -99,6 +100,10 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     public TypeKind getTypeKind() {
         return TypeKind.Entity;
     }
+    
+    public String getMnemonicProperty() {
+		return mnemonicProperty;
+	}
 
     @Override
     public int hashCode() {
@@ -198,6 +203,10 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     public void setUser(boolean user) {
         this.user = user;
     }
+    
+    public void setMnemonicProperty(String mnemonicProperty) {
+		this.mnemonicProperty = mnemonicProperty;
+	}
 
     public void setInstantiable(boolean instantiable) {
         this.instantiable = instantiable;

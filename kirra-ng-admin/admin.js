@@ -43,26 +43,54 @@ var buildField = function(nga, property) {
     return appField;
 };
 
+var buildReferenceField = function(nga, relationship) {
+    var appField = nga.field(relationship.name, 'reference').label(relationship.label);
+    var targetEntity = entities[relationship.typeRef.fullName];
+    var targetProperty = targetEntity.properties[targetEntity.mnemonicProperty];
+    appField
+        .targetEntity(nga.entity(relationship.typeRef.fullName))
+        .targetField(nga.field(targetProperty.name));
+        
+    return appField;
+};
+
+
+var buildReferenceShorthandField = function(nga, relationship) {
+    var appShorthandField = nga.field(relationship.name + "_shorthand", 'string').label(relationship.label);
+    return appShorthandField;
+};
 
 var buildEntity = function(nga, adminApp, appMenu, entity) {
     var appEntity = nga.entity(entity.fullName);
-    appEntity.url(applicationUrl + 'entities/' + entity.fullName + '/instances/');
+    appEntity.url(entity.extentUri);
     var appFields = [];
     for (var propertyName in entity.properties) {
         var property = entity.properties[propertyName];
         appFields.push(buildField(nga, property));
     }
+    var appReferences = [];
+    for (var relationshipName in entity.relationships) {
+        var relationship = entity.relationships[relationshipName];
+        if (!relationship.multiple) {
+            appFields.push(buildReferenceField(nga, relationship));
+            appFields.push(buildReferenceShorthandField(nga, relationship));            
+        }
+    }
+    
     appEntity.listView()
         .title(entity.label)    
         .fields(appFields);
+        
     adminApp.addEntity(appEntity);
     appMenu.addChild(nga.menu(appEntity).title(entity.label));
 };
 
 var buildEntities = function (nga, adminApp, entities) {
     var appMenu = nga.menu();
-    for (var i = 0;i < entities.length;i++) {
-        buildEntity(nga, adminApp, appMenu, entities[i]);
+    for (var name in entities) {
+        if (entities[name].concrete) {    
+            buildEntity(nga, adminApp, appMenu, entities[name]);
+        }
     }
     adminApp.menu(appMenu);
 };
@@ -105,16 +133,25 @@ var responseInterceptor = function (RestangularProvider) {
 var mapInstance = function(original) {
     var mapped = angular.copy(original.values);
     mapped.id = original.objectId;
+    angular.forEach(original.links, function(value, key) {
+        mapped[key + "_shorthand"] = value ? value[0].shorthand : null;
+    });
+    console.log("Mapped:");
+    console.log(mapped);
     return mapped;
 }
 
 var repository = kirra.newRepository(applicationUrl);
 var application;
 var entities;
+
 repository.loadApplication(function(loaded) {
     application = loaded;
     repository.loadEntities(function(loaded) {
-        entities = loaded;
+        entities = {};
+        angular.forEach(loaded, function (it) {
+            entities[it.fullName] = it;
+        }); 
         angular.element(document).ready(function() {
 	      angular.bootstrap(document, ['myApp']);
 	    });
