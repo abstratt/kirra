@@ -29,6 +29,10 @@ var toAppTypeName = function(property) {
 var buildField = function(nga, property, readonly) {
     var appField = nga.field(property.name, toAppTypeName(property)).label(property.label);
     appField.editable(!readonly);
+    if (property.required && !property.hasDefault) {
+        appField.validation({required: true});
+    }
+    //appField.attributes({ placeholder: property.description });
     if (property.typeRef.kind === 'Primitive') {
 	    switch (property.typeRef.typeName) {
 	        case 'Integer' : appField.format('0'); break;
@@ -44,12 +48,15 @@ var buildField = function(nga, property, readonly) {
     return appField;
 };
 
-var buildReferenceField = function(nga, relationship) {
+var buildReferenceField = function(nga, relationship, readonly) {
+    if (readonly) {
+        return buildReferenceShorthandField(nga, relationship);
+    }
     var appField = nga.field(relationship.name, 'reference').label(relationship.label);
     var targetEntity = entities[relationship.typeRef.fullName];
     var targetProperty = targetEntity.properties[targetEntity.mnemonicProperty];
     appField
-        .targetEntity(nga.entity(relationship.typeRef.fullName))
+        .targetEntity(nga.entity(relationship.typeRef.fullName).url(buildUrlResolver(targetEntity)))
         .targetField(nga.field(targetProperty.name));
     return appField;
 };
@@ -107,10 +114,7 @@ var buildActionDirectives = function(entity) {
 };
 
 var buildEntity = function(nga, adminApp, appMenu, entity) {
-    var appEntity = nga.entity(entity.fullName);
-    appEntity.url(function(entityName, viewType, identifierValue, identifierName) {
-        return entity.extentUri + (identifierValue || '');
-    });
+    var appEntity = nga.entity(entity.fullName).url(buildUrlResolver(entity));
     var listFields = [];
     var creationFields = [];
     var editFields = [];
@@ -133,12 +137,15 @@ var buildEntity = function(nga, adminApp, appMenu, entity) {
             }
         }
     }
-    var appReferences = [];
     for (var relationshipName in entity.relationships) {
         var relationship = entity.relationships[relationshipName];
         if (!relationship.multiple) {
-            //appFields.push(buildReferenceField(nga, relationship));
-            listFields.push(buildReferenceShorthandField(nga, relationship));            
+            listFields.push(buildReferenceField(nga, relationship, true));
+            editFields.push(buildReferenceField(nga, relationship, !relationship.editable));
+            showFields.push(buildReferenceField(nga, relationship, true));
+            if (relationship.initializable) {
+                creationFields.push(buildReferenceField(nga, relationship, false));
+            }
         }
     }
 
@@ -180,42 +187,52 @@ var getActionDisabledField = function(operationName) {
     return "_" + operationName + "Disabled"
 }; 
 
+var buildUrlResolver = function(entity) {
+    return function(entityName, viewType, identifierValue, identifierName) {
+        var computedUrl = entity.extentUri + (identifierValue || '');
+        console.log('URL for '+ entityName + '/' + identifierValue + ' is: ' + computedUrl); 
+        return computedUrl;
+    };
+};
+
 var buildEntities = function (nga, adminApp, entities) {
     var appMenu = nga.menu();
+    
+    // now go ahead and build out the UI
     for (var name in entities) {
-        if (entities[name].concrete && entities[name].topLevel) {    
-            buildEntity(nga, adminApp, appMenu, entities[name]);
+        var entity = entities[name];
+        if (entity.concrete && entity.topLevel) {    
+            buildEntity(nga, adminApp, appMenu, entity);
         }
     }
     adminApp.menu(appMenu);
 };
 
 var registerInterceptors = function (RestangularProvider) {
-    RestangularProvider.addFullRequestInterceptor(function(element, operation, what, url, headers, params) {	
+    RestangularProvider.addFullRequestInterceptor(function(element, operation, what, url, headers, params) {
+        var entity = entities[what];
         if(operation == 'post' || operation == 'put') {
-            delete element.id;
-            for (var propertyName in element) {
-                if (propertyName.startsWith('_')) {
-                    delete element[propertyName];
-                }
-            }
-            element = { values: element };
-            return { element: element };
+            return { element: fromInternalToExternal(entity, element) };
         }
+        if(operation == 'getList' && url.endsWith(what)) {
+            url = url + '/instances/';
+        } 	
+        
         // remove parameters
-        return { params: {} } ;
+        return { params: {}, url: url } ;
     });
 
     RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response) {
+        var entity = entities[what];
         var mapped;
         if (operation == 'getList') {
             var instances = data.contents;
             mapped = [];
             for (var i = 0;i < instances.length;i++) {
-		        mapped.push(mapInstance(instances[i]));
+		        mapped.push(fromExternalToInternal(entity, instances[i]));
 		    }
-        } else if (operation == 'get' || operation == 'put') {
-            mapped = mapInstance(data);
+        } else if (operation == 'get' || operation == 'put' || operation == 'post') {
+            mapped = fromExternalToInternal(entity, data);
         } else if (operation == 'delete') {
             mapped = {};
         }
@@ -228,16 +245,47 @@ var registerInterceptors = function (RestangularProvider) {
 	});
 };
 
-var mapInstance = function(original) {
-    var mapped = angular.copy(original.values);
-    mapped.id = original.objectId;
-    angular.forEach(original.links, function(value, key) {
-        mapped["_"+ key + "_shorthand"] = value ? value[0].shorthand : null;
+var fromInternalToExternal = function(entity, internal) {
+    var mapped = { values: {}, links: {}};
+    angular.forEach(entity.properties, function(property, name) {
+        mapped.values[name] = internal[name];
     });
-    angular.forEach(original.disabledActions, function(value, key) {
+    angular.forEach(entity.relationships, function(relationship, name) {
+        if (!relationship.multiple) {
+            var linkedObjectId = internal[name];
+            if (linkedObjectId) {
+                mapped.links[name] = [{ 
+                	objectId: linkedObjectId,
+                	scopeName: relationship.typeRef.typeName,
+                	scopeNamespace: relationship.typeRef.entityNamespace 
+            	}] ; 
+            }
+        }
+    });
+    console.log("Mapped to external:");
+    console.log(mapped);
+    return mapped;
+}
+
+var fromExternalToInternal = function(entity, external) {
+    var mapped = {};
+    angular.forEach(entity.properties, function(property, name) {
+        mapped[name] = external.values[name];
+    });
+    angular.forEach(entity.relationships, function(relationship, name) {
+        if (!relationship.multiple) {
+            var link = external.links[name];
+            if (link) {
+                mapped[name] = link[0].objectId;
+                mapped["_"+ name + "_shorthand"] = link[0].shorthand;
+            }
+        }
+    });
+    mapped.id = external.objectId;
+    angular.forEach(external.disabledActions, function(value, key) {
         mapped[getActionDisabledField(key)] = true;
     });
-    console.log("Mapped:");
+    console.log("Mapped to internal:");
     console.log(mapped);
     return mapped;
 };
