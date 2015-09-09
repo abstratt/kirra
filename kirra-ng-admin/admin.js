@@ -26,8 +26,9 @@ var toAppTypeName = function(property) {
 	}
 };
 
-var buildField = function(nga, property) {
+var buildField = function(nga, property, readonly) {
     var appField = nga.field(property.name, toAppTypeName(property)).label(property.label);
+    appField.editable(!readonly);
     if (property.typeRef.kind === 'Primitive') {
 	    switch (property.typeRef.typeName) {
 	        case 'Integer' : appField.format('0'); break;
@@ -62,7 +63,7 @@ var buildReferenceShorthandField = function(nga, relationship) {
 var kirraModule;
 
 var buildActionDirective = function(operation) {
-    var directive = function($state) {
+    var directive = function($http, $state, notification) {
         return {
             restrict: 'E',
             scope: {
@@ -74,11 +75,22 @@ var buildActionDirective = function(operation) {
             link: function ($scope) {
                 console.log(operation.name + " is disabled: " + $scope.entry().values[getActionDisabledField(operation.name)]);
                 $scope.entry = $scope.entry();
+                $scope.entity = $scope.entity();
+                $scope[operation.name + "Handler"] = function () {
+                    console.log("Executing "+ operation.name + " on ");
+                    console.log($scope.entry);
+                    console.log($scope.entity);
+                    console.log($http);
+                    $http.post(applicationUrl + 'entities/' + operation.owner.fullName + '/instances/' + $scope.entry.values.id + "/actions/" + operation.name, {})
+	                    .then(() => notification.log('Action performed: ' + operation.label, { addnCls: 'humane-flatty-success' }) )
+	                    .catch(e => notification.log('A problem occurred: ' + e.data.message, { addnCls: 'humane-flatty-error' }) && console.error(e) )
+	                    .finally(() => $state.go($state.current.name, $state.params, { reload: true }));
+                };
             },            
-	        template: "<a ng-hide=\"entry.values."+ getActionDisabledField(operation.name) + "\" class=\"btn btn-default btn-xs\" ng-class='btn-xs'>" + operation.label + "</a>"
+	        template: "<a ng-hide=\"entry.values."+ getActionDisabledField(operation.name) + "\" class=\"btn btn-default btn-xs\" ng-class='btn-xs' ng-click=\"" + operation.name + "Handler()\">" + operation.label + "</a>"
         };        
     };
-    directive.$inject = ['$state'];
+    directive.$inject = ['$http', '$state', 'notification'];
     kirraModule.directive('kirra' + capitalize(operation.name), directive);
 };
 
@@ -100,13 +112,27 @@ var buildEntity = function(nga, adminApp, appMenu, entity) {
         return entity.extentUri + (identifierValue || '');
     });
     var listFields = [];
+    var creationFields = [];
+    var editFields = [];
+    var showFields = [];
     for (var propertyName in entity.properties) {
         var property = entity.properties[propertyName];
         if (property.userVisible) {
-            listFields.push(buildField(nga, property));
+            if (property.typeRef.typeName !== 'Memo' || property.typeRef.kind !== 'Primitive') { 
+	            var newListField = buildField(nga, property, true);
+	            if (property.unique) {
+				    newListField.isDetailLink(true);
+				    newListField.detailLinkRoute('show');    
+	            }
+            }
+            listFields.push(newListField);
+            editFields.push(buildField(nga, property, !property.editable));
+            showFields.push(buildField(nga, property, true));
+            if (property.initializable) {
+                creationFields.push(buildField(nga, property, false));
+            }
         }
     }
-    
     var appReferences = [];
     for (var relationshipName in entity.relationships) {
         var relationship = entity.relationships[relationshipName];
@@ -116,7 +142,7 @@ var buildEntity = function(nga, adminApp, appMenu, entity) {
         }
     }
 
-    var actions = ['edit', 'show'];
+    var actions = [];
     angular.forEach(entity.operations, function (operation) {
         if (operation.instanceOperation && operation.kind == 'Action') {
 			var directiveName = 'kirra-' + operation.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
@@ -125,18 +151,26 @@ var buildEntity = function(nga, adminApp, appMenu, entity) {
         }
     });
     
+    listFields[0].isDetailLink(true);
+    listFields[0].detailLinkRoute('show');    
     appEntity.listView()
         .title(entity.label)    
         .fields(listFields)
         .listActions(actions);
+
+    appEntity.creationView()
+        .title('Create ' + entity.label)
+        .description(entity.description)
+        .fields(creationFields);
         
     appEntity.editionView()
-        .title('Edit ' + entity.label)    
-        .fields(listFields);
+        .title('Edit ' + entity.label + ': {{ entry.values.' + entity.mnemonicProperty + '}}')
+        .description(entity.description)
+        .fields(editFields);
         
     appEntity.showView()
-        .title('Showing ' + entity.label)    
-        .fields(listFields);
+        .title(entity.label + ': {{ entry.values.' + entity.mnemonicProperty + '}}')
+        .fields(showFields);
         
     adminApp.addEntity(appEntity);
     appMenu.addChild(nga.menu(appEntity).title(entity.label));
@@ -156,7 +190,7 @@ var buildEntities = function (nga, adminApp, entities) {
     adminApp.menu(appMenu);
 };
 
-var requestInterceptor = function (RestangularProvider) {
+var registerInterceptors = function (RestangularProvider) {
     RestangularProvider.addFullRequestInterceptor(function(element, operation, what, url, headers, params) {	
         if(operation == 'post' || operation == 'put') {
             delete element.id;
@@ -171,9 +205,7 @@ var requestInterceptor = function (RestangularProvider) {
         // remove parameters
         return { params: {} } ;
     });
-};
 
-var responseInterceptor = function (RestangularProvider) {
     RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response) {
         var mapped;
         if (operation == 'getList') {
@@ -189,6 +221,11 @@ var responseInterceptor = function (RestangularProvider) {
         }
         return mapped;
     });
+    
+    RestangularProvider.setErrorInterceptor(function(response, deferred, responseHandler) {
+        response.data = response.data.message;
+	    return true;
+	});
 };
 
 var mapInstance = function(original) {
@@ -203,7 +240,7 @@ var mapInstance = function(original) {
     console.log("Mapped:");
     console.log(mapped);
     return mapped;
-}
+};
 
 var repository = kirra.newRepository(applicationUrl);
 var application;
@@ -214,6 +251,9 @@ repository.loadApplication(function(loadedApp) {
     repository.loadEntities(function(loadedEntities) {
         entities = {};
         kirraModule = angular.module('kirraModule', ['ng-admin']);
+	        	
+	    kirraModule.config(['RestangularProvider', registerInterceptors]);
+        
         angular.forEach(loadedEntities, function (it) {
             entities[it.fullName] = it;
             // directives must be declared before bootstrapping 
@@ -233,13 +273,4 @@ var configureApp = function() {
 	    buildEntities(nga, adminApp, entities);
 	    nga.configure(adminApp);
 	}]);
-	
-	kirraModule.config(['RestangularProvider', requestInterceptor]);
-	kirraModule.config(['RestangularProvider', responseInterceptor]);
 };
-        
-
-
-
-
-
