@@ -27,47 +27,6 @@ var toAppTypeName = function(property) {
 	}
 };
 
-var buildField = function(nga, property, readonly) {
-    var appField = nga.field(property.name, toAppTypeName(property)).label(property.label);
-    appField.editable(!readonly);
-    if (property.required && !property.hasDefault) {
-        appField.validation({required: true});
-    }
-    //appField.attributes({ placeholder: property.description });
-    if (property.typeRef.kind === 'Primitive') {
-	    switch (property.typeRef.typeName) {
-	        case 'Integer' : appField.format('0'); break;
-	        case 'Double' : appField.format('0,0.00'); break;
-	    }
-    } else if (property.typeRef.kind === 'Enumeration') {
-        var choices = [];
-        angular.forEach(property.enumerationLiterals, function (it) {
-            choices.push({ value: it, label: it});
-        });
-        appField.choices(choices);
-    }
-    return appField;
-};
-
-var buildReferenceField = function(nga, relationship, readonly) {
-    if (readonly) {
-        return buildReferenceShorthandField(nga, relationship);
-    }
-    var appField = nga.field(relationship.name, 'reference').label(relationship.label);
-    var targetEntity = entities[relationship.typeRef.fullName];
-    var targetProperty = targetEntity.properties[targetEntity.mnemonicProperty];
-    appField
-        .targetEntity(nga.entity(relationship.typeRef.fullName).url(buildUrlResolver(targetEntity)))
-        .targetField(nga.field(targetProperty.name));
-    return appField;
-};
-
-
-var buildReferenceShorthandField = function(nga, relationship) {
-    var appShorthandField = nga.field("_" + relationship.name + "_shorthand", 'string').label(relationship.label);
-    return appShorthandField;
-};
-
 var kirraModule;
 
 var buildActionDirective = function(operation) {
@@ -106,12 +65,71 @@ var capitalize = function(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+
+var getActionDisabledField = function(operationName) {
+    return "_" + operationName + "Disabled"
+}; 
+
+var buildUrlResolver = function(entity) {
+    return function(entityName, viewType, identifierValue, identifierName) {
+        var computedUrl = entity.extentUri + (identifierValue || '');
+        console.log('URL for '+ entityName + '/' + identifierValue + ' is: ' + computedUrl); 
+        return computedUrl;
+    };
+};
+
 var buildActionDirectives = function(entity) {
     angular.forEach(entity.operations, function (operation) {
         if (operation.instanceOperation && operation.kind == 'Action') {
             buildActionDirective(operation);
         }
     });
+};
+
+var buildField = function(nga, property, readonly) {
+    var appField = nga.field(property.name, toAppTypeName(property)).label(property.label);
+    appField.editable(!readonly);
+    if (property.required && !property.hasDefault) {
+        appField.validation({required: true});
+    }
+    //appField.attributes({ placeholder: property.description });
+    if (property.typeRef.kind === 'Primitive') {
+	    switch (property.typeRef.typeName) {
+	        case 'Integer' : appField.format('0'); break;
+	        case 'Double' : appField.format('0,0.00'); break;
+	    }
+    } else if (property.typeRef.kind === 'Enumeration') {
+        var choices = [];
+        angular.forEach(property.enumerationLiterals, function (it) {
+            choices.push({ value: it, label: it});
+        });
+        appField.choices(choices);
+    }
+    return appField;
+};
+
+var buildReferenceField = function(nga, relationship, readonly) {
+    if (readonly) {
+        return buildReferenceShorthandField(nga, relationship);
+    }
+    var appField = nga.field(relationship.name, 'reference').label(relationship.label);
+    if (relationship.required && !relationship.hasDefault) {
+        appField.validation({required: true});
+    }
+    var targetEntity = entities[relationship.typeRef.fullName];
+    var targetProperty = targetEntity.properties[targetEntity.mnemonicProperty];
+    appField
+        .targetEntity(nga.entity(relationship.typeRef.fullName).url(buildUrlResolver(targetEntity)))
+        .targetField(nga.field(targetProperty.name));
+    return appField;
+};
+
+
+var buildReferenceShorthandField = function(nga, relationship) {
+    var appShorthandField = nga.field("_" + relationship.name + "_shorthand", 'string')
+    	.label(relationship.label)
+    	.editable(false);
+    return appShorthandField;
 };
 
 var buildEntity = function(nga, adminApp, appMenu, entity) {
@@ -140,7 +158,7 @@ var buildEntity = function(nga, adminApp, appMenu, entity) {
     }
     for (var relationshipName in entity.relationships) {
         var relationship = entity.relationships[relationshipName];
-        if (!relationship.multiple) {
+        if (!relationship.multiple && relationship.userVisible) {
             listFields.push(buildReferenceField(nga, relationship, true));
             editFields.push(buildReferenceField(nga, relationship, !relationship.editable));
             showFields.push(buildReferenceField(nga, relationship, true));
@@ -166,10 +184,12 @@ var buildEntity = function(nga, adminApp, appMenu, entity) {
         .fields(listFields)
         .listActions(actions);
 
-    appEntity.creationView()
-        .title('Create ' + entity.label)
-        .description(entity.description)
-        .fields(creationFields);
+    if (entity.instantiable) {
+	    appEntity.creationView()
+	        .title('Create ' + entity.label)
+	        .description(entity.description)
+	        .fields(creationFields);
+    }
         
     appEntity.editionView()
         .title('Edit ' + entity.label + ': {{ entry.values.' + entity.mnemonicProperty + '}}')
@@ -182,18 +202,6 @@ var buildEntity = function(nga, adminApp, appMenu, entity) {
         
     adminApp.addEntity(appEntity);
     appMenu.addChild(nga.menu(appEntity).title(entity.label));
-};
-
-var getActionDisabledField = function(operationName) {
-    return "_" + operationName + "Disabled"
-}; 
-
-var buildUrlResolver = function(entity) {
-    return function(entityName, viewType, identifierValue, identifierName) {
-        var computedUrl = entity.extentUri + (identifierValue || '');
-        console.log('URL for '+ entityName + '/' + identifierValue + ' is: ' + computedUrl); 
-        return computedUrl;
-    };
 };
 
 var buildEntities = function (nga, adminApp, entities) {
@@ -249,17 +257,18 @@ var registerInterceptors = function (RestangularProvider) {
 var fromInternalToExternal = function(entity, internal) {
     var mapped = { values: {}, links: {}};
     angular.forEach(entity.properties, function(property, name) {
-        mapped.values[name] = internal[name];
+        if (internal[name]) {
+            mapped.values[name] = internal[name];
+        }
     });
     angular.forEach(entity.relationships, function(relationship, name) {
         if (!relationship.multiple) {
-            var linkedObjectId = internal[name];
-            if (linkedObjectId) {
+            if (internal[name]) {
                 mapped.links[name] = [{ 
-                	objectId: linkedObjectId,
+                	objectId: internal[name],
                 	scopeName: relationship.typeRef.typeName,
                 	scopeNamespace: relationship.typeRef.entityNamespace 
-            	}] ; 
+            	}]; 
             }
         }
     });
