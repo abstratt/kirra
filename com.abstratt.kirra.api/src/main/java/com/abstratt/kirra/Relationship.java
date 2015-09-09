@@ -25,7 +25,6 @@ public class Relationship extends DataElement {
     protected String opposite;
     protected boolean primary;
     protected Style style;
-    protected boolean visible;
     protected boolean oppositeRequired;
 
     /**
@@ -65,10 +64,6 @@ public class Relationship extends DataElement {
         return primary;
     }
 
-    public boolean isVisible() {
-        return visible;
-    }
-
     public void setAssociationName(String associationName) {
         this.associationName = associationName;
     }
@@ -89,10 +84,6 @@ public class Relationship extends DataElement {
         this.style = style;
     }
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-    
     public void setOppositeRequired(boolean oppositeRequired) {
         this.oppositeRequired = oppositeRequired;
     }

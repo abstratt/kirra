@@ -44,7 +44,7 @@ public class TupleType extends TopLevelElement implements DataScope {
     }
 
     @Override
-    public Property getProperty(String name) {
+    public DataElement getProperty(String name) {
         return properties.get(name);
     }
 
