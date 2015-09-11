@@ -1,4 +1,4 @@
-<div class=".navbar-form  navbar-left" ng-show="raw">
+<div ng-show="raw">
 		<legend>{{entity.label}}: {{raw.shorthand}}</legend>
 		<div ng-repeat="fieldValue in fieldValues track by $index"  class=".container" ng-init="field = viewFields[$index]">
 			<div ng-init="typeName = field.typeRef.typeName; typeKind = field.typeRef.kind" class="row">
@@ -22,4 +22,22 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="span12" ng-repeat="edge in relationshipData">
+			<h4>{{edge.relationship.label}} <span ng-show="edge.instances.length">({{edge.instances.length}})</span></h4>
+			
+			<ul ng-show="edge.instances.length > 0" class="inline-block">
+				<li ng-repeat="instance in edge.instances" class="label label-inverse span2 text-center">{{instance.shorthand}}</li>
+				
+				<div ng-repeat="instance in edge.instances"> 
+				    <p>
+				    {{instance.shorthand}}
+				    </p>
+				</div>
+				
+			</ul>
+			<span ng-show="edge.instances.length == 0" class="label label-info span2 text-center">No records for {{edge.relationship.label}}</span>
+		</div>
+		
+		
 </div>

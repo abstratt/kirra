@@ -19,6 +19,16 @@ kirraNG.capitalize = function(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+kirraNG.filter = function(arrayOrMap, filter) {
+    var result = [];
+    angular.forEach(arrayOrMap, function(it) {
+        if (filter(it)) {
+            result.push(it);
+        }
+    });
+    return result;
+};
+
 kirraNG.generateHtmlName = function(camelCase) {
 	return camelCase.replace(/([a-z])([A-Z])/g, '$1-$2').replace('.', '-').toLowerCase();
 }
@@ -121,21 +131,39 @@ kirraNG.buildInstanceListController = function(entity) {
 };
 
 kirraNG.buildInstanceShowController = function(entity) {
-    var controller = function($scope, $stateParams, instanceService) {
+    var controller = function($scope, $stateParams, instanceService, $q) {
         var objectId = $stateParams.objectId;
         $scope.entity = entity;
         $scope.entityName = entity.fullName;
         $scope.viewFields = kirraNG.buildViewFields(entity);
+        var multipleRelationships = kirraNG.filter(entity.relationships, function(rel) { return rel.multiple; });  
         instanceService.get(entity, objectId).then(function(instance) { 
         	$scope.raw = instance;
         	$scope.fieldValues = kirraNG.buildFieldValues(entity, instance);
+        	$scope.relationshipData = [];
+        	return instance;
     	}, function(error) {
     	    console.log("Received an error");
     	    console.log(error);
     	    $scope.error = error;
+    	}).then(function(instance) {
+    	    var relationshipTasks = [];
+        	angular.forEach(multipleRelationships, function(relationship) {
+        	    var relationshipIndex = $scope.relationshipData.length; 
+        	    $scope.relationshipData.push({ 
+        	        relationship: relationship, 
+        	        relatedEntity: entitiesByName[relationship.typeRef.fullName], 
+        	        instances: null 
+    	        });
+        	    var next = instanceService.getRelated(entity, objectId, relationship.name).then(function(relatedInstances) {
+        	        return $scope.relationshipData[relationshipIndex].instances = relatedInstances;
+        	    });
+        	    relationshipTasks.push(next);
+        	});
+        	return $q.all(relationshipTasks);
     	});
     };
-    controller.$inject = ['$scope', '$stateParams', 'instanceService'];
+    controller.$inject = ['$scope', '$stateParams', 'instanceService', '$q'];
     return controller;
 };
 
@@ -144,22 +172,28 @@ kirraNG.buildInstanceService = function() {
     var serviceFactory = function($rootScope, $http) {
         var Instance = function (data) {
             angular.extend(this, data);
-        };	
+        };
+        var loadOne = function (response) {
+            return new Instance(response.data);
+        };
+        var loadMany = function (response) {
+            var instances = [];
+            angular.forEach(response.data.contents, function(data){
+                instances.push(new Instance(data));
+            });
+            return instances;
+        };
         Instance.query = function (entity) {
             var extentUri = entity.extentUri;
-	        return $http.get(extentUri).then(function (response) {
-	            var instances = [];
-	            angular.forEach(response.data.contents, function(data){
-	                instances.push(new Instance(data));
-	            });
-	            return instances;
-            });
+	        return $http.get(extentUri).then(loadMany);
 	    };
 	    Instance.get = function (entity, objectId) {
             var instanceUri = entity.instanceUriTemplate.replace('(objectId)', objectId);
-	        return $http.get(instanceUri).then(function (response) {
-	            return new Instance(response.data);
-            });
+	        return $http.get(instanceUri).then(loadOne);
+	    };
+	    Instance.getRelated = function (entity, objectId, relationshipName) {
+            var relatedInstancesUri = entity.relatedInstancesUriTemplate.replace('(objectId)', objectId).replace('(relationshipName)', relationshipName);
+	        return $http.get(relatedInstancesUri).then(loadMany);
 	    };
 	    return Instance;
     };
