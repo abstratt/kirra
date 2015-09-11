@@ -6,7 +6,7 @@
         </tr>
         <tr ng-repeat="row in rows">
           <td ng-repeat="property in tableProperties" >
-              <a ng-if="(property.name == entity.mnemonicProperty) || property.unique" ui-sref="show({entityName: '{{entityName}}', objectId: '{{row.raw.objectId}}'})">{{row.data[property.name]}}</a>
+              <a ng-if="(property.name == entity.mnemonicProperty) || property.unique" ui-sref="{{kirraNG.toState(entityName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.data[property.name]}}</a>
               <div ng-if="property.name != entity.mnemonicProperty && !property.unique && property.typeRef.typeName != 'Boolean'">
               {{row.data[property.name]}}
               </div>
@@ -23,4 +23,3 @@
 </div>
 <div ng-show="instances == false" class="text-info text-center">No instances found</div>
 </div>      
-<div ui-view></div>

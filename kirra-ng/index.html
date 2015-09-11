@@ -16,12 +16,12 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">{{applicationName}}</a>
+            <p class="navbar-brand">{{applicationName}}</p>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
 		        <li ng-repeat="entity in entities | filter:{topLevel: true}" class="divider-vertical">
-		            <a ui-sref="list({entityName: '{{entity.fullName}}'})">{{entity.label}}</a>
+		            <a ui-sref="{{kirraNG.toState(entity.fullName, 'list')}}">{{entity.label}}</a>
 		        </li>
     	    </ul>
 		  </div>	    	
@@ -31,7 +31,7 @@
 	  <div class="row">
 	      <div ui-view></div>        
 	  </div>  
-	</div>
+</div>
 	
 	
 </body>
