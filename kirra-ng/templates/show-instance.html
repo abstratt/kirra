@@ -24,19 +24,17 @@
 		</div>
 		
 		<div class="span12" ng-repeat="edge in relationshipData">
-			<h4>{{edge.relationship.label}} <span ng-show="edge.instances.length">({{edge.instances.length}})</span></h4>
+			<h4>{{edge.relationship.label}} <span ng-show="edge.rows.length">({{edge.rows.length}})</span></h4>
 			
-			<ul ng-show="edge.instances.length > 0" class="inline-block">
-				<li ng-repeat="instance in edge.instances" class="label label-inverse span2 text-center">{{instance.shorthand}}</li>
+			<ul ng-show="edge.rows.length > 0" class="inline-block">
+				<li ng-repeat="row in edge.rows" class="label label-inverse span2 text-center">{{row.raw.shorthand}}</li>
 				
-				<div ng-repeat="instance in edge.instances"> 
-				    <p>
-				    {{instance.shorthand}}
-				    </p>
+				<div ng-repeat="row in edge.rows"> 
+				    <p><a ui-sref="{{kirraNG.toState(edge.relationship.typeRef.fullName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.raw.shorthand}}</a></p>
 				</div>
 				
 			</ul>
-			<span ng-show="edge.instances.length == 0" class="label label-info span2 text-center">No records for {{edge.relationship.label}}</span>
+			<span ng-show="edge.rows.length == 0" class="label label-info span2 text-center">No records for {{edge.relationship.label}}</span>
 		</div>
 		
 		

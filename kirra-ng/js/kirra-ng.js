@@ -103,6 +103,23 @@ kirraNG.buildFieldValues = function(entity, instance) {
     return fieldValues;
 };
 
+kirraNG.buildTableRowData = function(instances) {
+	var rows = [];
+	angular.forEach(instances, function(instance){
+	    var row = { data: {}, raw: instance };
+	    angular.forEach(instance.values, function(value, name) {
+	        row.data[name] = value;
+	    });
+	    angular.forEach(instance.links, function(value, name) {
+	        if (value.length > 0) {
+	            row.data[name] = value[0].shorthand;
+	        }
+	    });
+        rows.push(row);
+    });
+    return rows;
+};
+
 kirraNG.buildInstanceListController = function(entity) {
     var controller = function($scope, instanceService) {
         $scope.entity = entity;
@@ -110,20 +127,7 @@ kirraNG.buildInstanceListController = function(entity) {
         $scope.tableProperties = kirraNG.buildTableColumns(entity);
         instanceService.query(entity).then(function(instances) { 
         	$scope.instances = instances;
-        	var rows = [];
-        	angular.forEach(instances, function(instance){
-        	    var row = { data: {}, raw: instance };
-        	    angular.forEach(instance.values, function(value, name) {
-        	        row.data[name] = value;
-        	    });
-        	    angular.forEach(instance.links, function(value, name) {
-        	        if (value.length > 0) {
-        	            row.data[name] = value[0].shorthand;
-        	        }
-        	    });
-                rows.push(row);
-            });
-            $scope.rows = rows;
+            $scope.rows = kirraNG.buildTableRowData(instances);
     	});
     };
     controller.$inject = ['$scope', 'instanceService'];
@@ -153,10 +157,10 @@ kirraNG.buildInstanceShowController = function(entity) {
         	    $scope.relationshipData.push({ 
         	        relationship: relationship, 
         	        relatedEntity: entitiesByName[relationship.typeRef.fullName], 
-        	        instances: null 
+        	        rows: null 
     	        });
         	    var next = instanceService.getRelated(entity, objectId, relationship.name).then(function(relatedInstances) {
-        	        return $scope.relationshipData[relationshipIndex].instances = relatedInstances;
+        	        $scope.relationshipData[relationshipIndex].rows = kirraNG.buildTableRowData(relatedInstances);
         	    });
         	    relationshipTasks.push(next);
         	});
