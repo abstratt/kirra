@@ -20,9 +20,11 @@ public class EntitySerializer extends TopLevelElementSerializer<Entity> {
         URI entityUri = getTopLevelURI(element);
         asJson.addProperty("fullName", element.getTypeRef().getFullName());
         asJson.addProperty("extentUri", CommonHelper.resolve(entityUri, Paths.INSTANCES + "/").toString());
+        asJson.addProperty("entityActionUriTemplate", CommonHelper.resolve(entityUri, Paths.ACTIONS, "(actionName)").toString());        
         asJson.addProperty("instanceUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)").toString());
         asJson.addProperty("instanceActionUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.ACTIONS, "(actionName)").toString());
         asJson.addProperty("relationshipDomainUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.RELATIONSHIPS, "(relationshipName)", Paths.DOMAIN).toString());
+        asJson.addProperty("relatedInstancesUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.RELATIONSHIPS, "(relationshipName)").toString());        
         asJson.addProperty("instanceActionParameterDomainUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.ACTIONS, "(actionName)", Paths.PARAMETERS, "(parameterName)", Paths.DOMAIN).toString());
         return asJson;
     }
