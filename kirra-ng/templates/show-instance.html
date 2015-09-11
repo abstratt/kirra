@@ -1,0 +1,35 @@
+<div class=".navbar-form  navbar-left" ng-show="raw">
+		<legend>{{entity.label}}: {{raw.shorthand}}</legend>
+		<div ng-repeat="field in viewFields"  class=".container">
+			<div ng-init="typeName = field.typeRef.typeName; typeKind = field.typeRef.kind" class="row">
+				<div class="span4 display-values" ng-if="typeKind != 'Entity' && typeName != 'Memo' && typeName != 'Boolean'" class="input-xlarge uneditable-input">
+				    <strong class="span2 display-label">{{field.label}}:</strong>
+					<p>{{fieldValues[field.name]}}</p>
+				</div>
+				<div class="span4 display-values" ng-if="typeKind != 'Entity' && typeName == 'Memo'" class="span12">
+					<strong class="span2 display-label">{{field.label}}:</strong>
+					<p ng-repeat="line in fieldValues[field.name].split('\n')">{{line}}</p>
+				</div>
+				<div class="span3 display-values" ng-if="typeKind != 'Entity' && typeName == 'Boolean'" class="span9">
+				    <strong class="span2 display-label">{{field.label}}:
+				    <span class="glyphicon {{fieldValues[field.name] ? 'glyphicon-ok' : 'glyphicon-remove'}}" aria-hidden="true"></span>
+				    </strong>
+				    <p></p>
+				</div>
+				<div class="span4 display-values" ng-if="typeKind == 'Entity'" class="input-xlarge uneditable-input">
+				    <strong class="span2 display-label">{{field.label}}:</strong>
+					<p><a ui-sref="show({entityName:'{{field.typeRef.fullName}}', objectId:'{{fieldValues[field.name].objectId}}'})">{{fieldValues[field.name].shorthand}}</a></p>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="btn-group" role="group" aria-label="...">
+			<button type="button" class="btn btn-default" ui-sref="list({entityName: '{{entity.fullName}}'})" >
+		  		<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Back
+			</button>
+		</div>
+		
+</div>
+
+

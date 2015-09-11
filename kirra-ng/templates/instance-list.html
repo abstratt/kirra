@@ -1,0 +1,26 @@
+<div>
+<div class="span12" ng-show="instances.length > 0">
+      <table  class="table table-striped" class="table table-striped">
+        <tr>
+          <th ng-repeat="property in tableProperties">{{::property.label}}</th>
+        </tr>
+        <tr ng-repeat="row in rows">
+          <td ng-repeat="property in tableProperties" >
+              <a ng-if="(property.name == entity.mnemonicProperty) || property.unique" ui-sref="show({entityName: '{{entityName}}', objectId: '{{row.raw.objectId}}'})">{{row.data[property.name]}}</a>
+              <div ng-if="property.name != entity.mnemonicProperty && !property.unique && property.typeRef.typeName != 'Boolean'">
+              {{row.data[property.name]}}
+              </div>
+              <div ng-if="property.typeRef.typeName == 'Boolean' && row.data[property.name]">
+		          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		      </div>
+		      <div ng-if="property.typeRef.typeName == 'Boolean' && !row.data[property.name]">-</div>
+          </td>
+        </tr>
+      </table>
+</div>
+<div align="center" ng-show="!instances">
+    <span class="info label">Loading...</span>
+</div>
+<div ng-show="instances == false" class="text-info text-center">No instances found</div>
+</div>      
+<div ui-view></div>
