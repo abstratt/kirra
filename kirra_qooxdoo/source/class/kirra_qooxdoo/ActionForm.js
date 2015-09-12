@@ -95,7 +95,7 @@ qx.Class.define("kirra_qooxdoo.ActionForm", {
                 me._back();
             });
             this.toolbar.add(cancelButton);
-            var okButton = new qx.ui.mobile.form.Button(this._action.label);
+            var okButton = new qx.ui.mobile.form.Button('Go!');
             okButton.addListener("tap", function () {
                 me.executeAction();
             });
