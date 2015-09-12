@@ -111,10 +111,11 @@ kirraNG.buildRowData = function(entity, instance, instanceActions) {
     angular.forEach(instance.values, function(value, name) {
         data[name] = value;
     });
-    angular.forEach(instance.links, function(value, name) {
-        if (value.length > 0) {
-            data[name] = value[0].shorthand;
-        }
+    angular.forEach(instance.links, function(link, name) {
+        data[name] = link.length > 0 ? {
+            shorthand: link[0].shorthand,
+            objectId: link[0].objectId
+        } : {}
     });
     
     var row = { 
