@@ -1,7 +1,11 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-sm-8">
+
 <div ng-show="raw">
 		<legend>{{entity.label}}: {{raw.shorthand}}</legend>
-		<div ng-repeat="fieldValue in fieldValues track by $index"  class=".container" ng-init="field = viewFields[$index]">
-			<div ng-init="typeName = field.typeRef.typeName; typeKind = field.typeRef.kind" class="row">
+		<div ng-repeat="fieldValue in fieldValues track by $index" ng-init="field = viewFields[$index]">
+			<div ng-init="typeName = field.typeRef.typeName; typeKind = field.typeRef.kind">
 				<div class="span4 display-values" ng-if="typeKind != 'Entity' && typeName != 'Memo' && typeName != 'Boolean'" class="input-xlarge uneditable-input">
 				    <strong class="span2 display-label">{{field.label}}:</strong>
 					<p>{{fieldValue}}</p>
@@ -18,12 +22,13 @@
 				</div>
 				<div class="span4 display-values" ng-if="typeKind == 'Entity'" class="input-xlarge uneditable-input">
 				    <strong class="span2 display-label">{{field.label}}:</strong>
-					<p><a ui-sref="{{kirraNG.toState(field.typeRef.fullName, 'show')}}({ objectId: '{{fieldValue.objectId}}' })">{{fieldValue.shorthand}}</a></p>
+					<p ng-if="fieldValue"><a ui-sref="{{kirraNG.toState(field.typeRef.fullName, 'show')}}({ objectId: '{{fieldValue.objectId}}' })">{{fieldValue.shorthand}}</a></p>
+					<p ng-if="!fieldValue">N/A</p>
 				</div>
 			</div>
 		</div>
 		
-		<div class="span12" ng-repeat="edge in relationshipData">
+		<div ng-repeat="edge in childrenData">
 			<h4>{{edge.relationship.label}} <span ng-show="edge.rows.length">({{edge.rows.length}})</span></h4>
 			
 			<ul ng-show="edge.rows.length > 0" class="inline-block">
@@ -37,5 +42,36 @@
 			<span ng-show="edge.rows.length == 0" class="label label-info span2 text-center">No records for {{edge.relationship.label}}</span>
 		</div>
 		
-		
+</div>
+<div ng-show="raw==undefined">Loading...</div>
+</div>
+<div class="col-sm-4">
+    <div class="row">
+        <legend>Actions</legend>
+        <div ng-if="enabledActions.length">
+              <div class="btn-group" role="group">
+	              <button ng-repeat="action in enabledActions" type="button" class="btn btn-default" ng-click="performAction(action)">
+                      {{action.label}}
+	              </button>
+              </div>
+        </div>
+	</div>
+
+    <div class="row">
+        <legend>Related:</legend>
+		<div ng-repeat="edge in relatedData">
+			<h4>{{edge.relationship.label}} <span ng-show="edge.rows.length">({{edge.rows.length}})</span></h4>
+			
+			<ul ng-show="edge.rows.length > 0" class="inline-block">
+				<li ng-repeat="row in edge.rows" class="label label-inverse span2 text-center">{{row.raw.shorthand}}</li>
+				
+				<div ng-repeat="row in edge.rows"> 
+				    <p><a ui-sref="{{kirraNG.toState(edge.relationship.typeRef.fullName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.raw.shorthand}}</a></p>
+				</div>
+				
+			</ul>
+			<span ng-show="edge.rows.length == 0" class="label label-info span2 text-center">No records for {{edge.relationship.label}}</span>
+		</div>
+	</div>
+</div>
 </div>

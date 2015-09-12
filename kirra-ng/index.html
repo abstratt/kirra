@@ -12,7 +12,7 @@
   <style>.ng-cloak { display:none; }</style>
 </head>
 <body>
-  <div class="container span12" ng-controller="KirraRepositoryCtrl">
+  <div ng-controller="KirraRepositoryCtrl">
   
     <nav class="navbar navbar-default">
       <div class="container-fluid" ng-cloak>
@@ -28,10 +28,7 @@
 		  </div>	    	
 	  </div>
     </nav>
-	
-	  <div class="row">
-	      <div ui-view></div>        
-	  </div>  
+    <div ui-view></div>        
 </div>
 	
 	

@@ -103,10 +103,14 @@ kirraNG.buildFieldValues = function(entity, instance) {
     return fieldValues;
 };
 
-kirraNG.buildRowData = function(entity, instance, instanceActions) {
-    var enabledActions = kirraNG.filter(instanceActions, function(action) { 
+kirraNG.getEnabledActions = function(instance, instanceActions) {
+    return kirraNG.filter(instanceActions, function(action) { 
         return instance.disabledActions[action.name] == undefined;
     });
+};
+
+kirraNG.buildRowData = function(entity, instance, instanceActions) {
+    var enabledActions = kirraNG.getEnabledActions(instance, instanceActions);
     var data = {};
     angular.forEach(instance.values, function(value, name) {
         data[name] = value;
@@ -168,37 +172,45 @@ kirraNG.buildInstanceListController = function(entity) {
 };
 
 kirraNG.buildInstanceShowController = function(entity) {
+    var multipleRelationships = kirraNG.filter(entity.relationships, function(rel) { return rel.multiple; });  
+
     var controller = function($scope, $stateParams, instanceService, $q) {
         var objectId = $stateParams.objectId;
         $scope.entity = entity;
+        $scope.objectId = objectId;
         $scope.entityName = entity.fullName;
         $scope.viewFields = kirraNG.buildViewFields(entity);
-        var multipleRelationships = kirraNG.filter(entity.relationships, function(rel) { return rel.multiple; });  
-        instanceService.get(entity, objectId).then(function(instance) { 
-        	$scope.raw = instance;
-        	$scope.fieldValues = kirraNG.buildFieldValues(entity, instance);
-        	$scope.relationshipData = [];
-        	return instance;
-    	}, function(error) {
-    	    console.log("Received an error");
-    	    console.log(error);
-    	    $scope.error = error;
-    	}).then(function(instance) {
+    	$scope.performAction = function(action) {
+    	    instanceService.performAction(entity, objectId, action.name).then(
+    	        function() { return instanceService.get(entity, objectId); }
+            ).then($scope.loadInstanceCallback).then($scope.loadInstanceRelatedCallback);
+    	};
+    	$scope.loadInstanceCallback = function(instance) { 
+	    	$scope.raw = instance;
+	    	$scope.enabledActions = kirraNG.getEnabledActions(instance, kirraNG.getInstanceActions(entity));
+	    	$scope.fieldValues = kirraNG.buildFieldValues(entity, instance);
+	    	$scope.relatedData = [];
+	    	$scope.childrenData = [];
+	    	return instance;
+		};
+    	$scope.loadInstanceRelatedCallback = function(relationship) {
     	    var relationshipTasks = [];
         	angular.forEach(multipleRelationships, function(relationship) {
-        	    var relationshipIndex = $scope.relationshipData.length; 
-        	    $scope.relationshipData.push({ 
+        	    var edgeData = { 
         	        relationship: relationship, 
         	        relatedEntity: entitiesByName[relationship.typeRef.fullName], 
         	        rows: null 
-    	        });
+    	        };
+    	        var edgeList = relationship.style == 'CHILD' ? $scope.childrenData : $scope.relatedData;
+    	        edgeList.push(edgeData);
         	    var next = instanceService.getRelated(entity, objectId, relationship.name).then(function(relatedInstances) {
-        	        $scope.relationshipData[relationshipIndex].rows = kirraNG.buildTableData(entity, relatedInstances);
+        	        edgeData.rows = kirraNG.buildTableData(entity, relatedInstances);
         	    });
         	    relationshipTasks.push(next);
         	});
         	return $q.all(relationshipTasks);
-    	});
+        };
+        instanceService.get(entity, objectId).then($scope.loadInstanceCallback).then($scope.loadInstanceRelatedCallback);
     };
     controller.$inject = ['$scope', '$stateParams', 'instanceService', '$q'];
     return controller;
