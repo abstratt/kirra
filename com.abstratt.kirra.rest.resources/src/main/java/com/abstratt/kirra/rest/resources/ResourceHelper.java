@@ -66,7 +66,7 @@ public class ResourceHelper extends CommonHelper {
             if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity) {
                 if (argumentValue instanceof List)
                     argumentValue = ((List<?>) argumentValue).iterator().next();
-                else if (argumentValue instanceof Map) {
+                if (argumentValue instanceof Map) {
                     Map<String, Object> referenceArgument = (Map<String,Object>) argumentValue;
                     String referencedObjectId = (String) referenceArgument.get("objectId");
                     if (referenceArgument.containsKey("uri")) {

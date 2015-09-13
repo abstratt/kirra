@@ -1,5 +1,6 @@
 package com.abstratt.kirra.rest.resources;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -35,4 +36,16 @@ public class RelatedInstanceResource extends InstanceResource {
         ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
         return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES, objectId, Paths.RELATIONSHIPS, relationshipName)).create().toJson(instance);
     }
+    @DELETE
+    public void detachInstance(@PathParam("entityName") String entityName, @PathParam("objectId") String objectId, @PathParam("relationshipName") String relationshipName, @PathParam("relatedObjectId") String relatedObjectId) {
+        TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        InstanceManagement instanceManagement = KirraContext.getInstanceManagement();
+        
+        Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
+        ResourceHelper.ensure(entity != null, null, Status.NOT_FOUND);
+        
+        Relationship relationship = entity.getRelationship(relationshipName);
+        ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
+        instanceManagement.unlinkInstances(relationship, objectId, relatedObjectId);
+    }    
 }
