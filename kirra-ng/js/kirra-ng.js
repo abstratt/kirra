@@ -173,6 +173,11 @@ kirraNG.buildInstanceListController = function(entity) {
     	});
     	$scope.performAction = function(row, action) {
     	    var objectId = row.raw.objectId;
+    	    
+    	    if (action.parameters.length > 0) {
+    	        $state.go(kirraNG.toState(entity.fullName, 'performInstanceAction'), { objectId: objectId, actionName: action.name } );
+    	        return;
+    	    }
     	    instanceService.performAction(entity, objectId, action.name).then(
     	        function() { return instanceService.get(entity, objectId); }
             ).then(
@@ -194,9 +199,7 @@ kirraNG.buildInstanceEditController = function(entity) {
         var objectId = $stateParams.objectId;
 
         $scope.objectId = objectId;
-
         $scope.entity = entity;
-
         $scope.entityName = entity.fullName;
 
     	$scope.loadInstanceCallback = function(instance) { 
@@ -247,6 +250,59 @@ kirraNG.buildInstanceEditController = function(entity) {
     return controller;
 };
 
+kirraNG.buildActionController = function(entity) {
+    var controller = function($scope, $state, $stateParams, instanceService, $q) {
+        var objectId = $stateParams.objectId;
+        var actionName = $stateParams.actionName;
+        var action = entity.operations[actionName];
+
+        $scope.objectId = objectId;
+        $scope.entity = entity;
+        $scope.entityName = entity.fullName;
+        $scope.actionName = actionName;
+        $scope.action = action;
+        $scope.inputFields = action.parameters;
+        $scope.parameterValues = {};
+        
+        $scope.findCandidatesFor = function(parameter, value) {
+            value = value.toUpperCase();
+            return instanceService.getParameterDomain(entity, $scope.objectId, actionName, parameter.name).then(function(instances) {
+                return kirraNG.filter(instances, 
+                	function(it) { return it.shorthand.toUpperCase().indexOf(value) == 0; },
+                	function(it) { return it; }
+            	);
+            });
+        };
+        
+        $scope.onCandidateSelected =  function(selectedCandidate, inputField, $label) {
+            $scope.parameterValues[inputField.name] = [selectedCandidate];
+        };
+        
+        $scope.formatCandidate = function(inputField) {
+            if (!$scope.parameterValues || !$scope.parameterValues[inputField.name]) {
+                return '';
+            }
+            return $scope.parameterValues[inputField.name][0].shorthand;
+        };
+        
+        $scope.cancel = function() {
+            window.history.back();
+    	};
+    	
+        $scope.performAction = function() {
+            var arguments = angular.copy($scope.parameterValues);
+            var objectId = $scope.objectId;
+            var actionName = $scope.actionName;
+            instanceService.performAction(entity, objectId, actionName, arguments).then(function() { window.history.back(); });
+    	};
+        
+        instanceService.get(entity, objectId).then($scope.loadInstanceCallback);
+    };
+    controller.$inject = ['$scope', '$state', '$stateParams', 'instanceService', '$q'];
+    return controller;
+};
+
+
 kirraNG.buildInstanceShowController = function(entity) {
     var multipleRelationships = kirraNG.filter(entity.relationships, function(rel) { return rel.multiple && rel.userVisible; });
 
@@ -280,6 +336,10 @@ kirraNG.buildInstanceShowController = function(entity) {
     	};
 
     	$scope.performAction = function(action) {
+    	    if (action.parameters.length > 0) {
+    	        $state.go(kirraNG.toState(entity.fullName, 'performInstanceAction'), { objectId: objectId, actionName: action.name } );
+    	        return;
+    	    }
     	    instanceService.performAction(entity, objectId, action.name).then(
     	        function() { return instanceService.get(entity, objectId); }
             ).then($scope.loadInstanceCallback).then($scope.loadInstanceRelatedCallback);
@@ -324,8 +384,8 @@ kirraNG.buildInstanceService = function() {
             });
             return instances;
         };
-        Instance.performAction = function(entity, objectId, actionName) {
-            return $http.post(entity.instanceActionUriTemplate.replace('(objectId)', objectId).replace('(actionName)', actionName), {});
+        Instance.performAction = function(entity, objectId, actionName, arguments) {
+            return $http.post(entity.instanceActionUriTemplate.replace('(objectId)', objectId).replace('(actionName)', actionName), arguments || {});
         };
         Instance.unlink = function(entity, objectId, relationshipName, relatedObjectId) {
             return $http.delete(entity.relatedInstanceUriTemplate.replace('(objectId)', objectId).replace('(relationshipName)', relationshipName).replace('(relatedObjectId)', relatedObjectId), {});
@@ -335,9 +395,14 @@ kirraNG.buildInstanceService = function() {
 	        return $http.get(extentUri).then(loadMany);
 	    };
 	    Instance.getRelationshipDomain = function (entity, objectId, relationshipName) {
-            var relatedInstancesUri = entity.relationshipDomainUriTemplate.replace('(objectId)', objectId).replace('(relationshipName)', relationshipName);
-	        return $http.get(relatedInstancesUri).then(loadMany);
+            var relationshipDomainUri = entity.relationshipDomainUriTemplate.replace('(objectId)', objectId).replace('(relationshipName)', relationshipName);
+	        return $http.get(relationshipDomainUri).then(loadMany);
 	    };
+	    Instance.getParameterDomain = function (entity, objectId, actionName, parameterName) {
+            var parameterDomainUri = entity.instanceActionParameterDomainUriTemplate.replace('(objectId)', objectId).replace('(actionName)', actionName).replace('(parameterName)', parameterName);
+	        return $http.get(parameterDomainUri).then(loadMany);
+	    };
+	    
 	    Instance.get = function (entity, objectId) {
             var instanceUri = entity.instanceUriTemplate.replace('(objectId)', objectId);
 	        return $http.get(instanceUri).then(loadOne);
@@ -384,6 +449,7 @@ repository.loadApplication(function(loadedApp) {
         angular.forEach(entitiesByName, function(entity, entityName) {
             kirraModule.controller(entityName + 'InstanceShowCtrl', kirraNG.buildInstanceShowController(entity));
             kirraModule.controller(entityName + 'InstanceEditCtrl', kirraNG.buildInstanceEditController(entity));
+            kirraModule.controller(entityName + 'ActionCtrl', kirraNG.buildActionController(entity));
             kirraModule.controller(entityName + 'InstanceListCtrl', kirraNG.buildInstanceListController(entity));        
         });
         kirraModule.factory('instanceService', kirraNG.buildInstanceService());
@@ -410,7 +476,14 @@ repository.loadApplication(function(loadedApp) {
 	                controller: entityName + 'InstanceEditCtrl',
 	                templateUrl: 'templates/edit-instance.html',
 	                params: { objectId: { value: undefined } }
+	            });
+	            $stateProvider.state(kirraNG.toState(entityName, 'performInstanceAction'), {
+	                url: "/" + entityName + "/:objectId/perform/:actionName",
+	                controller: entityName + 'ActionCtrl',
+	                templateUrl: 'templates/execute-action.html',
+	                params: { objectId: { value: undefined }, actionName: { value: undefined } }
 	            });                
+	                            
             }); 
         });
         
