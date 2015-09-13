@@ -35,7 +35,12 @@
 				<li ng-repeat="row in edge.rows" class="label label-inverse span2 text-center">{{row.raw.shorthand}}</li>
 				
 				<div ng-repeat="row in edge.rows"> 
-				    <p><a ui-sref="{{kirraNG.toState(edge.relationship.typeRef.fullName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.raw.shorthand}}</a></p>
+				    <p>
+					    <a ui-sref="{{kirraNG.toState(edge.relationship.typeRef.fullName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.raw.shorthand}}</a>
+					    <a href="#" ng-click="unlink(edge.relationship, row.raw.objectId)">
+					        <span ng-if="edge.relationship.editable" class="glyphicon glyphicon-remove"></span>
+					    </a>
+				    </p>
 				</div>
 				
 			</ul>
@@ -47,7 +52,7 @@
 </div>
 <div class="col-sm-4">
     <div class="row">
-        <legend>Actions</legend>
+        <h4>Actions</h4>
         <div ng-if="enabledActions.length">
               <div class="btn-group" role="group">
 	              <button ng-repeat="action in enabledActions" type="button" class="btn btn-default" ng-click="performAction(action)">
@@ -58,7 +63,6 @@
 	</div>
 
     <div class="row">
-        <legend>Related:</legend>
 		<div ng-repeat="edge in relatedData">
 			<h4>{{edge.relationship.label}} <span ng-show="edge.rows.length">({{edge.rows.length}})</span></h4>
 			
@@ -66,7 +70,12 @@
 				<li ng-repeat="row in edge.rows" class="label label-inverse span2 text-center">{{row.raw.shorthand}}</li>
 				
 				<div ng-repeat="row in edge.rows"> 
-				    <p><a ui-sref="{{kirraNG.toState(edge.relationship.typeRef.fullName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.raw.shorthand}}</a></p>
+				    <p>
+				        <a ui-sref="{{kirraNG.toState(edge.relationship.typeRef.fullName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.raw.shorthand}}</a>
+					    <a href="#" ng-click="unlink(edge.relationship, row.raw.objectId)">
+					        <span ng-if="edge.relationship.editable" class="glyphicon glyphicon-remove"></span>
+					    </a>
+				    </p>
 				</div>
 				
 			</ul>

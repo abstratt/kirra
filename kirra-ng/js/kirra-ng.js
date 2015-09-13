@@ -172,7 +172,7 @@ kirraNG.buildInstanceListController = function(entity) {
 };
 
 kirraNG.buildInstanceShowController = function(entity) {
-    var multipleRelationships = kirraNG.filter(entity.relationships, function(rel) { return rel.multiple; });  
+    var multipleRelationships = kirraNG.filter(entity.relationships, function(rel) { return rel.multiple && rel.userVisible; });  
 
     var controller = function($scope, $stateParams, instanceService, $q) {
         var objectId = $stateParams.objectId;
@@ -180,6 +180,9 @@ kirraNG.buildInstanceShowController = function(entity) {
         $scope.objectId = objectId;
         $scope.entityName = entity.fullName;
         $scope.viewFields = kirraNG.buildViewFields(entity);
+    	$scope.unlink = function(relationship, otherId) {
+    	    instanceService.unlink(entity, objectId, relationship.name, otherId).then($scope.loadInstanceCallback);
+    	};
     	$scope.performAction = function(action) {
     	    instanceService.performAction(entity, objectId, action.name).then(
     	        function() { return instanceService.get(entity, objectId); }
@@ -234,6 +237,9 @@ kirraNG.buildInstanceService = function() {
         };
         Instance.performAction = function(entity, objectId, actionName) {
             return $http.post(entity.instanceActionUriTemplate.replace('(objectId)', objectId).replace('(actionName)', actionName), {});
+        };
+        Instance.unlink = function(entity, objectId, relationshipName, relatedObjectId) {
+            return $http.delete(entity.relatedInstanceUriTemplate.replace('(objectId)', objectId).replace('(relationshipName)', relationshipName).replace('(relatedObjectId)', relatedObjectId), {});
         };
         Instance.query = function (entity) {
             var extentUri = entity.extentUri;
