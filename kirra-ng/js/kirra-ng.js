@@ -19,14 +19,19 @@ kirraNG.capitalize = function(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-kirraNG.filter = function(arrayOrMap, filter) {
+kirraNG.filter = function(arrayOrMap, filter, mapping) {
     var result = [];
+    mapping = mapping || function(it) { return it; };
     angular.forEach(arrayOrMap, function(it) {
         if (filter(it)) {
-            result.push(it);
+            result.push(mapping(it));
         }
     });
     return result;
+};
+
+kirraNG.map = function(arrayOrMap, mapping) {
+    return arrayOrMap.filter(function() { return true; }, mapping);
 };
 
 kirraNG.generateHtmlName = function(camelCase) {
@@ -72,6 +77,11 @@ kirraNG.buildInputFields = function(entity, createMode) {
         	inputFields.push(property);
     	}
     });
+    angular.forEach(entity.relationships, function(relationship) {
+        if (relationship.userVisible && !relationship.multiple && ((createMode && relationship.initializable) || (!createMode && relationship.editable))) {
+        	inputFields.push(relationship);
+    	}
+    });
     return inputFields;
 };
 
@@ -90,28 +100,23 @@ kirraNG.buildViewFields = function(entity) {
     return viewFields;
 };
 
-kirraNG.buildFieldValues = function(entity, instance, populateRelated, initializable, editable) {
+kirraNG.buildFieldValues = function(instance, properties, relationships, initializable, editable) {
     // need to preserve order to allow retrieval by index
     var fieldValues = [];
-    angular.forEach(entity.properties, function(property) {
+    angular.forEach(properties, function(property) {
         if (property.userVisible && (!initializable || property.initializable) && (!editable || property.editable)) {
         	fieldValues.push(instance.values[property.name]);
     	}
     });
-    if (populateRelated) { 
-	    angular.forEach(entity.relationships, function(relationship) {
-	        if (relationship.userVisible && !relationship.multiple && (!initializable || relationship.initializable) && (!editable || relationship.editable)) {
-	            if (instance.links[relationship.name]) {
-		            fieldValues.push({
-		            	shorthand: instance.links[relationship.name][0].shorthand,
-		            	objectId: instance.links[relationship.name][0].objectId
-		        	});
-	        	} else {
-	        	    fieldValues.push(undefined);    
-	        	}
-	    	}
-	    });
-    }
+    angular.forEach(relationships, function(relationship) {
+        if (relationship.userVisible && !relationship.multiple && (!initializable || relationship.initializable) && (!editable || relationship.editable)) {
+            if (instance.links[relationship.name]) { 
+	            fieldValues.push(instance.links[relationship.name][0].shorthand);
+        	} else {
+        	    fieldValues.push(undefined);    
+        	}
+    	}
+    });
     return fieldValues;
 };
 
@@ -161,6 +166,7 @@ kirraNG.buildInstanceListController = function(entity) {
         $scope.entityName = entity.fullName;
         $scope.tableProperties = kirraNG.buildTableColumns(entity);
         $scope.actions = kirraNG.getInstanceActions(entity);
+        $scope.instances = null;
         instanceService.query(entity).then(function(instances) { 
         	$scope.instances = instances;
             $scope.rows = kirraNG.buildTableData(entity, instances);
@@ -196,22 +202,46 @@ kirraNG.buildInstanceEditController = function(entity) {
     	$scope.loadInstanceCallback = function(instance) { 
 	    	$scope.raw = instance;
 	    	$scope.enabledActions = kirraNG.getEnabledActions(instance, kirraNG.getInstanceActions(entity));
-	    	$scope.inputValues = instance.values;
+	    	$scope.propertyValues = angular.copy(instance.values);
+	    	$scope.linkValues = angular.copy(instance.links);
 	    	return instance;
 		};
     
         $scope.inputFields = kirraNG.buildInputFields(entity, false);
+        
+        $scope.findCandidatesFor = function(relationship, value) {
+            value = value.toUpperCase();
+            return instanceService.getRelationshipDomain(entity, $scope.objectId, relationship.name).then(function(instances) {
+                return kirraNG.filter(instances, 
+                	function(it) { return it.shorthand.toUpperCase().indexOf(value) == 0; },
+                	function(it) { return it; }
+            	);
+            });
+        };
+        
+        $scope.onCandidateSelected =  function(selectedCandidate, inputField, $label) {
+            $scope.linkValues[inputField.name] = [selectedCandidate];
+        };
+        
+        $scope.formatCandidate = function(inputField) {
+            if (!$scope.linkValues || !$scope.linkValues[inputField.name]) {
+                return '';
+            }
+            return $scope.linkValues[inputField.name][0].shorthand;
+        };
         
         $scope.cancel = function() {
             window.history.back();
     	};
     	
         $scope.save = function() {
-            var newValues = angular.copy($scope.inputValues);
-            instanceService.put(entity, { objectId: $scope.objectId, values: newValues }).then(function() { window.history.back(); });
+            var newValues = angular.copy($scope.propertyValues);
+            var newLinks = angular.copy($scope.linkValues);
+            var newRepresentation = { objectId: $scope.objectId, values: newValues, links: newLinks };
+            instanceService.put(entity, newRepresentation).then(function() { window.history.back(); });
     	};
         
-        instanceService.get(entity, objectId).then($scope.loadInstanceCallback).then($scope.loadInstanceRelatedCallback);
+        instanceService.get(entity, objectId).then($scope.loadInstanceCallback);
     };
     controller.$inject = ['$scope', '$state', '$stateParams', 'instanceService', '$q'];
     return controller;
@@ -233,7 +263,7 @@ kirraNG.buildInstanceShowController = function(entity) {
     	$scope.loadInstanceCallback = function(instance) { 
 	    	$scope.raw = instance;
 	    	$scope.enabledActions = kirraNG.getEnabledActions(instance, kirraNG.getInstanceActions(entity));
-	    	$scope.fieldValues = kirraNG.buildFieldValues(entity, instance, true);
+	    	$scope.fieldValues = kirraNG.buildFieldValues(instance, entity.properties, entity.relationships);
 	    	$scope.relatedData = [];
 	    	$scope.childrenData = [];
 	    	return instance;
@@ -304,6 +334,10 @@ kirraNG.buildInstanceService = function() {
             var extentUri = entity.extentUri;
 	        return $http.get(extentUri).then(loadMany);
 	    };
+	    Instance.getRelationshipDomain = function (entity, objectId, relationshipName) {
+            var relatedInstancesUri = entity.relationshipDomainUriTemplate.replace('(objectId)', objectId).replace('(relationshipName)', relationshipName);
+	        return $http.get(relatedInstancesUri).then(loadMany);
+	    };
 	    Instance.get = function (entity, objectId) {
             var instanceUri = entity.instanceUriTemplate.replace('(objectId)', objectId);
 	        return $http.get(instanceUri).then(loadOne);
@@ -338,6 +372,20 @@ repository.loadApplication(function(loadedApp) {
             $scope.kirraNG = kirraNG;
         });
         
+        kirraModule.controller('TypeAheadCtrl', function($scope) {
+            $scope.findCandidatesFor = function(value) {
+	            value = value.toUpperCase();
+	            return instanceService.getRelationshipDomain(entity, relationship.name).then(function(instances) {
+	                return kirraNG.filter(instances, function(it) { return it.shorthand.toUpperCase().indexOf(value) >= 0 });
+	            });
+	        }; 
+        });
+        
+        angular.forEach(entitiesByName, function(entity, entityName) {
+            kirraModule.controller(entityName + 'InstanceShowCtrl', kirraNG.buildInstanceShowController(entity));
+            kirraModule.controller(entityName + 'InstanceEditCtrl', kirraNG.buildInstanceEditController(entity));
+            kirraModule.controller(entityName + 'InstanceListCtrl', kirraNG.buildInstanceListController(entity));        
+        });
         kirraModule.factory('instanceService', kirraNG.buildInstanceService());
         
         kirraModule.config(function($stateProvider, $urlRouterProvider) {
@@ -348,18 +396,18 @@ repository.loadApplication(function(loadedApp) {
                 var entity = entitiesByName[entityName];
 		        $stateProvider.state(kirraNG.toState(entityName, 'list'), {
 	                url: "/" + entityName + "/",
-	                controller: kirraNG.buildInstanceListController(entity),
+	                controller: entityName + 'InstanceListCtrl',
 	                templateUrl: 'templates/instance-list.html'
 	            });
 	            $stateProvider.state(kirraNG.toState(entityName, 'show'), {
 	                url: "/" + entityName + "/:objectId/show",
-	                controller: kirraNG.buildInstanceShowController(entity),
+	                controller: entityName + 'InstanceShowCtrl',
 	                templateUrl: 'templates/show-instance.html',
 	                params: { objectId: { value: undefined } }
 	            });
 	            $stateProvider.state(kirraNG.toState(entityName, 'edit'), {
 	                url: "/" + entityName + "/:objectId/edit",
-	                controller: kirraNG.buildInstanceEditController(entity),
+	                controller: entityName + 'InstanceEditCtrl',
 	                templateUrl: 'templates/edit-instance.html',
 	                params: { objectId: { value: undefined } }
 	            });                

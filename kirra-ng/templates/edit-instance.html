@@ -2,14 +2,25 @@
 <div class="row">
 <div class="col-sm-8">
 
-<div ng-show="inputValues">
+<div ng-show="propertyValues || linkValues">
         <legend>Edit {{entity.label}}: {{raw.shorthand}}</legend>
 		<form>
-			<div ng-repeat="inputField in inputFields" class="form-group">
-				<div ng-init="typeName = field.typeRef.typeName; typeKind = field.typeRef.kind">
-					<div class="span4 display-values" ng-if="typeKind != 'Entity' && typeName != 'Memo'">
+			<div ng-repeat="inputField in inputFields track by $index" class="form-group">
+				<div ng-init="typeName = inputField.typeRef.typeName; typeKind = inputField.typeRef.kind">
+					<div ng-if="typeKind != 'Entity' && typeName != 'Memo'">
 					    <label>{{inputField.label}}:</label>
-					    <input type="string" class="form-control" id="{{inputField.name}}" ng-model="inputValues[inputField.name]">
+					    <input type="text" class="form-control" id="{{inputField.name}}" ng-model="propertyValues[inputField.name]">
+					</div>
+					<div ng-if="typeKind == 'Entity'">
+					    <label>{{inputField.label}}:</label>
+					    <input
+					        type="text" class="form-control" 
+					        id="{{inputField.name}}"
+					        ng-model="linkValues[inputField.name][0].shorthand"
+					        typeahead="shorthand as candidate.shorthand for candidate in findCandidatesFor(inputField, $viewValue)"
+					        typeahead-editable="false"
+					        typeahead-input-formatter="formatCandidate(inputField)"
+					        typeahead-on-select="onCandidateSelected($item, inputField, $label)">
 					</div>
 				</div>
 			</div>

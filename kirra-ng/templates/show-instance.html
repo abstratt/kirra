@@ -20,9 +20,9 @@
 				    </strong>
 				    <p></p>
 				</div>
-				<div class="span4 display-values" ng-if="typeKind == 'Entity'" class="input-xlarge uneditable-input">
+				<div class="span4 display-values" ng-if="typeKind == 'Entity'" class="input-xlarge uneditable-input" ng-init="relatedObjectId = raw.links[field.name][0].objectId">
 				    <strong class="span2 display-label">{{field.label}}:</strong>
-					<p ng-if="fieldValue"><a ui-sref="{{kirraNG.toState(field.typeRef.fullName, 'show')}}({ objectId: '{{fieldValue.objectId}}' })">{{fieldValue.shorthand}}</a></p>
+					<p ng-if="fieldValue"><a ui-sref="{{kirraNG.toState(field.typeRef.fullName, 'show')}}({ objectId: '{{relatedObjectId}}' })">{{fieldValue}}</a></p>
 					<p ng-if="!fieldValue">N/A</p>
 				</div>
 			</div>
