@@ -52,34 +52,27 @@
 </div>
 <div class="col-sm-4">
     <div class="row">
-        <h4>Actions</h4>
-        <div ng-if="enabledActions.length">
-              <div class="btn-group" role="group">
-	              <button ng-repeat="action in enabledActions" type="button" class="btn btn-default" ng-click="performAction(action)">
-                      {{action.label}}
-	              </button>
-              </div>
-        </div>
-	</div>
-
+          <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default" ng-click="edit()">
+                  Edit
+              </button>
+              <button ng-repeat="action in enabledActions" type="button" class="btn btn-default" ng-click="performAction(action)">
+                  {{action.label}}
+              </button>
+          </div>
+    </div>
     <div class="row">
 		<div ng-repeat="edge in relatedData">
-			<h4>{{edge.relationship.label}} <span ng-show="edge.rows.length">({{edge.rows.length}})</span></h4>
-			
-			<ul ng-show="edge.rows.length > 0" class="inline-block">
-				<li ng-repeat="row in edge.rows" class="label label-inverse span2 text-center">{{row.raw.shorthand}}</li>
-				
-				<div ng-repeat="row in edge.rows"> 
-				    <p>
-				        <a ui-sref="{{kirraNG.toState(edge.relationship.typeRef.fullName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.raw.shorthand}}</a>
-					    <a href="#" ng-click="unlink(edge.relationship, row.raw.objectId)">
-					        <span ng-if="edge.relationship.editable" class="glyphicon glyphicon-remove"></span>
-					    </a>
-				    </p>
-				</div>
-				
-			</ul>
+			<h4>{{edge.relationship.label}} <span ng-if="edge.rows.length > 1" ng-show="edge.rows.length">({{edge.rows.length}})</span></h4>
+			<div>
+			<div ng-repeat="row in edge.rows"> 
+			        <a ui-sref="{{kirraNG.toState(edge.relationship.typeRef.fullName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.raw.shorthand}}</a>
+				    <a href="#" ng-click="unlink(edge.relationship, row.raw.objectId)">
+				        <span ng-if="edge.relationship.editable" class="glyphicon glyphicon-remove"></span>
+				    </a>
+			</div>
 			<span ng-show="edge.rows.length == 0" class="label label-info span2 text-center">No records for {{edge.relationship.label}}</span>
+			</div>
 		</div>
 	</div>
 </div>

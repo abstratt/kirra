@@ -1,0 +1,32 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-sm-8">
+
+<div ng-show="inputValues">
+        <legend>Edit {{entity.label}}: {{raw.shorthand}}</legend>
+		<form>
+			<div ng-repeat="inputField in inputFields" class="form-group">
+				<div ng-init="typeName = field.typeRef.typeName; typeKind = field.typeRef.kind">
+					<div class="span4 display-values" ng-if="typeKind != 'Entity' && typeName != 'Memo'">
+					    <label>{{inputField.label}}:</label>
+					    <input type="string" class="form-control" id="{{inputField.name}}" ng-model="inputValues[inputField.name]">
+					</div>
+				</div>
+			</div>
+		</form>
+</div>
+<div ng-show="raw==undefined">Loading...</div>
+</div>
+<div class="col-sm-4">
+        <div >
+              <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-default" ng-click="cancel()">
+                      Cancel
+	              </button>
+	              <button type="button" class="btn btn-default" ng-click="save()">
+                      Save
+	              </button>
+              </div>
+        </div>
+</div>
+</div>
