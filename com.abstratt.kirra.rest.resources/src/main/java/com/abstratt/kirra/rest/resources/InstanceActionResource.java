@@ -1,6 +1,5 @@
 package com.abstratt.kirra.rest.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,15 +10,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response.Status;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Operation.OperationKind;
-import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.TypeRef;
-import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.common.Paths;

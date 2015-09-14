@@ -17,8 +17,6 @@ import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class ResourceHelper extends CommonHelper {
 
