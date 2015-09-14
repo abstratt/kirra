@@ -11,26 +11,9 @@
   <script src="js/kirra-ng.js"></script>
 </head>
 <body>
-  <div ng-controller="KirraRepositoryCtrl">
-  
-    <nav class="navbar navbar-default">
-      <div class="container-fluid" ng-cloak>
-          <div class="navbar-header">
-            <p class="navbar-brand">{{applicationName}}</p>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-		        <li ng-repeat="entity in entities | filter:{topLevel: true}" class="divider-vertical">
-		            <a ui-sref="{{kirraNG.toState(entity.fullName, 'list')}}">{{entity.label}}</a>
-		        </li>
-    	    </ul>
-		  </div>	    	
-	  </div>
-    </nav>
+<div ng-controller="KirraRepositoryCtrl">    
+    <div ng-include src="'templates/nav-bar.html'"></div>
     <div ui-view></div>        
 </div>
-	
-	
 </body>
-
 </html>
