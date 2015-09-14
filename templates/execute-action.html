@@ -21,8 +21,8 @@
 				        type="text" class="form-control" 
 				        id="{{inputField.name}}"
 				        ng-model="parameterValues[inputField.name].shorthand"
+				        typeahead-min-length="0"
 				        typeahead="shorthand as candidate.shorthand for candidate in findCandidatesFor(inputField, $viewValue)"
-				        typeahead-editable="false"
 				        typeahead-input-formatter="formatCandidate(inputField)"
 				        typeahead-on-select="onCandidateSelected($item, inputField, $label)">
 				</div>

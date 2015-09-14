@@ -18,7 +18,7 @@
 					        id="{{inputField.name}}"
 					        ng-model="linkValues[inputField.name][0].shorthand"
 					        typeahead="shorthand as candidate.shorthand for candidate in findCandidatesFor(inputField, $viewValue)"
-					        typeahead-editable="false"
+					        typeahead-min-length="0"
 					        typeahead-input-formatter="formatCandidate(inputField)"
 					        typeahead-on-select="onCandidateSelected($item, inputField, $label)">
 					</div>

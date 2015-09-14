@@ -259,16 +259,19 @@ kirraNG.buildInstanceEditController = function(entity, mode) {
         
         $scope.findCandidatesFor = function(relationship, value) {
             value = value.toUpperCase();
-            var relationshipDomain;
+            var domain;
             if (creation) {
                 var relatedEntity = entitiesByName[relationship.typeRef.fullName];
-                relationshipDomain = instanceService.query(relatedEntity);
+                domain = instanceService.query(relatedEntity);
             } else {
-                relationshipDomain = instanceService.getRelationshipDomain(entity, $scope.objectId, relationship.name)
+                domain = instanceService.getRelationshipDomain(entity, $scope.objectId, relationship.name)
             }
-            return relationshipDomain.then(function(instances) {
+            if (value.trim() == '' || value.trim() == '.' || value.trim() == '*' || value.trim() == '%') {
+                return domain;
+            } 
+            return domain.then(function(instances) {
                 return kirraNG.filter(instances, 
-                	function(it) { return it.shorthand.toUpperCase().indexOf(value) == 0; },
+                	function(it) { return (it.shorthand.toUpperCase().indexOf(value) == 0); },
                 	function(it) { return it; }
             	);
             });
@@ -323,9 +326,13 @@ kirraNG.buildActionController = function(entity) {
         
         $scope.findCandidatesFor = function(parameter, value) {
             value = value.toUpperCase();
-            return instanceService.getParameterDomain(entity, $scope.objectId, actionName, parameter.name).then(function(instances) {
+            var domain = instanceService.getParameterDomain(entity, $scope.objectId, actionName, parameter.name);
+            if (value.trim() == '' || value.trim() == '.' || value.trim() == '*' || value.trim() == '%') {
+                return domain;
+            } 
+            return domain.then(function(instances) {
                 return kirraNG.filter(instances, 
-                	function(it) { return it.shorthand.toUpperCase().indexOf(value) == 0; },
+                	function(it) { return (it.shorthand.toUpperCase().indexOf(value) == 0); },
                 	function(it) { return it; }
             	);
             });
@@ -502,15 +509,6 @@ repository.loadApplication(function(loadedApp) {
             $scope.applicationName = application.applicationName;
             $scope.entities = loadedEntities;
             $scope.kirraNG = kirraNG;
-        });
-        
-        kirraModule.controller('TypeAheadCtrl', function($scope) {
-            $scope.findCandidatesFor = function(value) {
-	            value = value.toUpperCase();
-	            return instanceService.getRelationshipDomain(entity, relationship.name).then(function(instances) {
-	                return kirraNG.filter(instances, function(it) { return it.shorthand.toUpperCase().indexOf(value) >= 0 });
-	            });
-	        }; 
         });
         
         angular.forEach(entitiesByName, function(entity, entityName) {
