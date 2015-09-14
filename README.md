@@ -1,7 +1,7 @@
 This is a generic HTML5/JavaScript(Angular) client for any Kirra-compliant applications. 
 
 This is a generic Angular admin application that builds the UI dynamically based on the 
-application schema that is discovered using the [back-end (Kirra-based) REST API](/abstratt/kirra/blob/master/readme.md).
+application schema that is discovered using the [back-end (Kirra-based) REST API](///github.com/abstratt/kirra/blob/master/readme.md).
 
 This is still in very early development, many features are missing. You can try it out against any Cloudfier-based application using URLs like these:
 
