@@ -1,4 +1,4 @@
-This is a generic HTML5/JavaScript(Angular) client for any [Kirra-compliant](///github.com/abstratt/kirra/blob/master/readme.md) applications. 
+This is a generic HTML5/JavaScript(Angular) client for any application exposing their domain model as a [Kirra-compliant](///github.com/abstratt/kirra/blob/master/readme.md) REST API. 
 
 This is a generic Angular admin application that builds the UI dynamically based on the 
 application schema that is discovered using the back-end (Kirra-based) REST API.
