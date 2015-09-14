@@ -1,0 +1,33 @@
+{
+  "name": "kirra-ng",
+  "version": "1.0.0",
+  "keywords": [
+  ],
+  "author": {
+    "name": "Rafael Chaves",
+    "email": "rafael@abstratt.com",
+    "url": "http://abstratt.com"
+  },
+  "homepage": "http://abstratt.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abstratt/kirra"
+  },
+
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+
+  "dependencies": {
+    "angular": "~1.3.15",
+    "angular-bootstrap": "^0.12.0",
+    "bootstrap": ">=3.0.0",
+    "q": "1.0.1",
+    "array.prototype.find": "1.0.0"
+  },
+  "devDependencies": {
+  },
+  "bundleDependencies": [],
+  "private": true
+}

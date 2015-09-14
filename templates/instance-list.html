@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6">
+            <legend>{{entity.label}}</legend>
+        </div>            
+        <div class="col-sm-6">            
+            <div class="btn-group" role="group">
+                <button ng-if="entity.instantiable" type="button" class="btn btn-default" ng-click="create()"><span class="glyphicon glyphicon-plus" aria-hidden="true"> Create</span></button>
+                <button ng-repeat="action in entityActions" type="button" class="btn btn-default" ng-click="performEntityAction(action)">
+                {{action.label}}
+                </button>
+            </div>
+        </div>            
+    </div>
+    <div class="row">
+        <div class="col-sm-8">    
+            <div ng-show="instances.length > 0">
+                <table  class="table table-striped" class="table table-striped">
+                    <tr>
+                        <th ng-repeat="property in tableProperties">{{::property.label}}</th>
+                        <th ng-if="actions.length">Actions</td>
+                    </tr>
+                    <tr ng-repeat="row in rows track by $index">
+                        <td ng-repeat="property in tableProperties" >
+                            <a ng-if="(property.name == entity.mnemonicProperty) || property.unique" ui-sref="{{kirraNG.toState(entityName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.data[property.name]}}</a>
+                            <div ng-if="property.name != entity.mnemonicProperty && !property.unique && property.typeRef.typeName != 'Boolean' && property.typeRef.kind != 'Entity'">
+                                {{row.data[property.name]}}
+                            </div>
+                            <div ng-if="property.name != entity.mnemonicProperty && !property.unique && property.typeRef.kind == 'Entity'">
+                                <a ui-sref="{{kirraNG.toState(property.typeRef.fullName, 'show')}}({ objectId: '{{row.data[property.name].objectId}}' })">{{row.data[property.name].shorthand}}</a>
+                            </div>
+                            <div ng-if="property.typeRef.typeName == 'Boolean' && row.data[property.name]">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </div>
+                            <div ng-if="property.typeRef.typeName == 'Boolean' && !row.data[property.name]">-</div>
+                        </td>
+                        <td ng-if="actions.length" ng-init="useDropdown = row.enabledActions.length > 2">
+                            <div class="btn-group-vertical" dropdown role="group">
+                                <button ng-if="!useDropdown" ng-repeat="action in row.enabledActions" type="button" class="btn btn-default btn-sm btn-block" ng-click="performInstanceAction(row, action)">
+                                {{action.label}}
+                                </button>
+                                <button ng-if="useDropdown" type="button" class="btn btn-default btn-sm  btn-block" dropdown-toggle ng-disabled="disabled">
+                                Actions
+                                <span class="caret"></span>
+                                </button>
+                                <ul ng-if="useDropdown" class="dropdown-menu" role="menu">
+                                    <li ng-repeat="action in row.enabledActions" role="menuitem"><a ng-click="performInstanceAction(row, action)">{{action.label}}</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div align="center" ng-if="instances == undefined">
+                <span class="info label">Loading...</span>
+            </div>
+            <div ng-show="instances == false" class="text-info text-center">No instances found</div>
+        </div>
+    </div>
+</div>
