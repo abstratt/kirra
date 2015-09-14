@@ -20,7 +20,7 @@
 				    <input
 				        type="text" class="form-control" 
 				        id="{{inputField.name}}"
-				        ng-model="parameterValues[inputField.name][0].shorthand"
+				        ng-model="parameterValues[inputField.name].shorthand"
 				        typeahead="shorthand as candidate.shorthand for candidate in findCandidatesFor(inputField, $viewValue)"
 				        typeahead-editable="false"
 				        typeahead-input-formatter="formatCandidate(inputField)"

@@ -37,7 +37,7 @@
 				<div ng-repeat="row in edge.rows"> 
 				    <p>
 					    <a ui-sref="{{kirraNG.toState(edge.relationship.typeRef.fullName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.raw.shorthand}}</a>
-					    <a href="#" ng-click="unlink(edge.relationship, row.raw.objectId)">
+					    <a sref="$state.get()" ng-click="unlink(edge.relationship, row.raw.objectId)">
 					        <span ng-if="edge.relationship.editable" class="glyphicon glyphicon-remove"></span>
 					    </a>
 				    </p>
@@ -67,7 +67,7 @@
 			<div>
 			<div ng-repeat="row in edge.rows"> 
 			        <a ui-sref="{{kirraNG.toState(edge.relationship.typeRef.fullName, 'show')}}({ objectId: '{{row.raw.objectId}}' })">{{row.raw.shorthand}}</a>
-				    <a href="#" ng-click="unlink(edge.relationship, row.raw.objectId)">
+				    <a sref="$state.get()" ng-click="unlink(edge.relationship, row.raw.objectId)"
 				        <span ng-if="edge.relationship.editable" class="glyphicon glyphicon-remove"></span>
 				    </a>
 			</div>

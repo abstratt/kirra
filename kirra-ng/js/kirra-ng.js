@@ -160,6 +160,11 @@ kirraNG.getInstanceActions = function(entity) {
     return kirraNG.filter(entity.operations, function(op) { return op.instanceOperation && op.kind == 'Action'; })
 };
 
+kirraNG.getEntityActions = function(entity) {
+    return kirraNG.filter(entity.operations, function(op) { return !op.instanceOperation && op.kind == 'Action'; })
+};
+
+
 kirraNG.buildInstanceListController = function(entity) {
     var controller = function($scope, $state, instanceService) {
         $scope.entity = entity;
@@ -167,18 +172,20 @@ kirraNG.buildInstanceListController = function(entity) {
         $scope.tableProperties = kirraNG.buildTableColumns(entity);
         $scope.actions = kirraNG.getInstanceActions(entity);
         $scope.instances = null;
+        $scope.entityActions = kirraNG.getEntityActions(entity);
         instanceService.query(entity).then(function(instances) { 
         	$scope.instances = instances;
             $scope.rows = kirraNG.buildTableData(entity, instances);
     	});
-    	$scope.performAction = function(row, action) {
+    	$scope.performInstanceAction = function(row, action) {
     	    var objectId = row.raw.objectId;
     	    
     	    if (action.parameters.length > 0) {
     	        $state.go(kirraNG.toState(entity.fullName, 'performInstanceAction'), { objectId: objectId, actionName: action.name } );
     	        return;
     	    }
-    	    instanceService.performAction(entity, objectId, action.name).then(
+    	    
+    	    instanceService.performInstanceAction(entity, objectId, action.name).then(
     	        function() { return instanceService.get(entity, objectId); }
             ).then(
                 function(instance) {
@@ -189,12 +196,49 @@ kirraNG.buildInstanceListController = function(entity) {
                 }
             );
     	};
+    	
+    	$scope.performEntityAction = function(action) {
+    	    if (action.parameters.length > 0) {
+    	        $state.go(kirraNG.toState(entity.fullName, 'performEntityAction'), { actionName: action.name } );
+    	        return;
+    	    }
+    	    
+    	    instanceService.performEntityAction(entity, action.name).then(
+                function() {
+                    $state.go($state.current.name, $state.params, { reload: true });
+                }
+            );
+    	};
+    	
+    	$scope.performInstanceAction = function(row, action) {
+    	    var objectId = row.raw.objectId;
+    	    
+    	    if (action.parameters.length > 0) {
+    	        $state.go(kirraNG.toState(entity.fullName, 'performInstanceAction'), { objectId: objectId, actionName: action.name } );
+    	        return;
+    	    }
+    	    instanceService.performInstanceAction(entity, objectId, action.name).then(
+    	        function() { return instanceService.get(entity, objectId); }
+            ).then(
+                function(instance) {
+                    var newRow = kirraNG.buildRowData(entity, instance, kirraNG.getInstanceActions(entity));
+                    row.data = newRow.data;
+                    row.raw = newRow.raw;
+                    row.enabledActions = newRow.enabledActions;
+                }
+            );
+    	};
+    	$scope.create = function() {
+    	    $state.go(kirraNG.toState(entity.fullName, 'create'));
+    	};
     };
     controller.$inject = ['$scope', '$state', 'instanceService'];
     return controller;
 };
 
-kirraNG.buildInstanceEditController = function(entity) {
+kirraNG.buildInstanceEditController = function(entity, mode) {
+    var creation = mode == 'create';
+    var editing = mode == 'edit';
     var controller = function($scope, $state, $stateParams, instanceService, $q) {
         var objectId = $stateParams.objectId;
 
@@ -203,6 +247,7 @@ kirraNG.buildInstanceEditController = function(entity) {
         $scope.entityName = entity.fullName;
 
     	$scope.loadInstanceCallback = function(instance) { 
+            $scope.formLabel = creation ? ('Creating ' + entity.label) : ('Editing ' + entity.label + ': ' + instance.shorthand); 
 	    	$scope.raw = instance;
 	    	$scope.enabledActions = kirraNG.getEnabledActions(instance, kirraNG.getInstanceActions(entity));
 	    	$scope.propertyValues = angular.copy(instance.values);
@@ -241,10 +286,15 @@ kirraNG.buildInstanceEditController = function(entity) {
             var newValues = angular.copy($scope.propertyValues);
             var newLinks = angular.copy($scope.linkValues);
             var newRepresentation = { objectId: $scope.objectId, values: newValues, links: newLinks };
-            instanceService.put(entity, newRepresentation).then(function() { window.history.back(); });
+            if (creation) {
+                instanceService.post(entity, newRepresentation).then(function(created) {
+                    $state.go(kirraNG.toState(entity.fullName, 'show'), { objectId: created.objectId } ); 
+            	});
+            } else {
+                instanceService.put(entity, newRepresentation).then(function() { window.history.back(); });
+            } 
     	};
-        
-        instanceService.get(entity, objectId).then($scope.loadInstanceCallback);
+        instanceService.get(entity, creation ? '_template' : objectId).then($scope.loadInstanceCallback);
     };
     controller.$inject = ['$scope', '$state', '$stateParams', 'instanceService', '$q'];
     return controller;
@@ -275,14 +325,14 @@ kirraNG.buildActionController = function(entity) {
         };
         
         $scope.onCandidateSelected =  function(selectedCandidate, inputField, $label) {
-            $scope.parameterValues[inputField.name] = [selectedCandidate];
+            $scope.parameterValues[inputField.name] = selectedCandidate;
         };
         
         $scope.formatCandidate = function(inputField) {
             if (!$scope.parameterValues || !$scope.parameterValues[inputField.name]) {
                 return '';
             }
-            return $scope.parameterValues[inputField.name][0].shorthand;
+            return $scope.parameterValues[inputField.name].shorthand;
         };
         
         $scope.cancel = function() {
@@ -293,10 +343,12 @@ kirraNG.buildActionController = function(entity) {
             var arguments = angular.copy($scope.parameterValues);
             var objectId = $scope.objectId;
             var actionName = $scope.actionName;
-            instanceService.performAction(entity, objectId, actionName, arguments).then(function() { window.history.back(); });
+            if (objectId == undefined) {
+                instanceService.performEntityAction(entity, actionName, arguments).then(function() { window.history.back(); });
+            } else {
+                instanceService.performInstanceAction(entity, objectId, actionName, arguments).then(function() { window.history.back(); });
+            }
     	};
-        
-        instanceService.get(entity, objectId).then($scope.loadInstanceCallback);
     };
     controller.$inject = ['$scope', '$state', '$stateParams', 'instanceService', '$q'];
     return controller;
@@ -332,7 +384,9 @@ kirraNG.buildInstanceShowController = function(entity) {
     	};
 
     	$scope.unlink = function(relationship, otherId) {
-    	    instanceService.unlink(entity, objectId, relationship.name, otherId).then($scope.loadInstanceCallback);
+    	    instanceService.unlink(entity, objectId, relationship.name, otherId).then(function() {
+    	        return instanceService.get(entity, objectId).then($scope.loadInstanceCallback).then($scope.loadInstanceRelatedCallback);
+    	    });
     	};
 
     	$scope.performAction = function(action) {
@@ -340,7 +394,7 @@ kirraNG.buildInstanceShowController = function(entity) {
     	        $state.go(kirraNG.toState(entity.fullName, 'performInstanceAction'), { objectId: objectId, actionName: action.name } );
     	        return;
     	    }
-    	    instanceService.performAction(entity, objectId, action.name).then(
+    	    instanceService.performInstanceAction(entity, objectId, action.name).then(
     	        function() { return instanceService.get(entity, objectId); }
             ).then($scope.loadInstanceCallback).then($scope.loadInstanceRelatedCallback);
     	};
@@ -384,8 +438,11 @@ kirraNG.buildInstanceService = function() {
             });
             return instances;
         };
-        Instance.performAction = function(entity, objectId, actionName, arguments) {
+        Instance.performInstanceAction = function(entity, objectId, actionName, arguments) {
             return $http.post(entity.instanceActionUriTemplate.replace('(objectId)', objectId).replace('(actionName)', actionName), arguments || {});
+        };
+        Instance.performEntityAction = function(entity, actionName, arguments) {
+            return $http.post(entity.entityActionUriTemplate.replace('(actionName)', actionName), arguments || {});
         };
         Instance.unlink = function(entity, objectId, relationshipName, relatedObjectId) {
             return $http.delete(entity.relatedInstanceUriTemplate.replace('(objectId)', objectId).replace('(relationshipName)', relationshipName).replace('(relatedObjectId)', relatedObjectId), {});
@@ -409,6 +466,9 @@ kirraNG.buildInstanceService = function() {
 	    };
 	    Instance.put = function (entity, instance) {
 	        return $http.put(entity.instanceUriTemplate.replace('(objectId)', instance.objectId), instance).then(loadOne);
+	    };
+	    Instance.post = function (entity, instance) {
+	        return $http.post(entity.extentUri, instance).then(loadOne);
 	    };
 	    Instance.getRelated = function (entity, objectId, relationshipName) {
             var relatedInstancesUri = entity.relatedInstancesUriTemplate.replace('(objectId)', objectId).replace('(relationshipName)', relationshipName);
@@ -448,7 +508,8 @@ repository.loadApplication(function(loadedApp) {
         
         angular.forEach(entitiesByName, function(entity, entityName) {
             kirraModule.controller(entityName + 'InstanceShowCtrl', kirraNG.buildInstanceShowController(entity));
-            kirraModule.controller(entityName + 'InstanceEditCtrl', kirraNG.buildInstanceEditController(entity));
+            kirraModule.controller(entityName + 'InstanceEditCtrl', kirraNG.buildInstanceEditController(entity, 'edit'));
+            kirraModule.controller(entityName + 'InstanceCreateCtrl', kirraNG.buildInstanceEditController(entity, 'create'));            
             kirraModule.controller(entityName + 'ActionCtrl', kirraNG.buildActionController(entity));
             kirraModule.controller(entityName + 'InstanceListCtrl', kirraNG.buildInstanceListController(entity));        
         });
@@ -477,13 +538,23 @@ repository.loadApplication(function(loadedApp) {
 	                templateUrl: 'templates/edit-instance.html',
 	                params: { objectId: { value: undefined } }
 	            });
+	            $stateProvider.state(kirraNG.toState(entityName, 'create'), {
+	                url: "/" + entityName + "/create",
+	                controller: entityName + 'InstanceCreateCtrl',
+	                templateUrl: 'templates/edit-instance.html'
+	            });
 	            $stateProvider.state(kirraNG.toState(entityName, 'performInstanceAction'), {
 	                url: "/" + entityName + "/:objectId/perform/:actionName",
 	                controller: entityName + 'ActionCtrl',
 	                templateUrl: 'templates/execute-action.html',
 	                params: { objectId: { value: undefined }, actionName: { value: undefined } }
 	            });                
-	                            
+	            $stateProvider.state(kirraNG.toState(entityName, 'performEntityAction'), {
+	                url: "/" + entityName + "/perform/:actionName",
+	                controller: entityName + 'ActionCtrl',
+	                templateUrl: 'templates/execute-action.html',
+	                params: { actionName: { value: undefined } }
+	            });                
             }); 
         });
         

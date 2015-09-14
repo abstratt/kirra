@@ -3,7 +3,7 @@
 <div class="col-sm-8">
 
 <div ng-show="propertyValues || linkValues">
-        <legend>Edit {{entity.label}}: {{raw.shorthand}}</legend>
+        <legend>{{formLabel}}</legend>
 		<form>
 			<div ng-repeat="inputField in inputFields track by $index" class="form-group">
 				<div ng-init="typeName = inputField.typeRef.typeName; typeKind = inputField.typeRef.kind">
