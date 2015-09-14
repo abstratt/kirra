@@ -6,7 +6,7 @@
 	<form>
 		<div ng-repeat="inputField in inputFields track by $index" class="form-group">
 			<div ng-init="typeName = inputField.typeRef.typeName; typeKind = inputField.typeRef.kind">
-				<div ng-if="typeKind != 'Entity' && typeName != 'Memo'">
+				<div ng-if="typeKind == 'Primitive' && typeName != 'Memo'">
 				    <label>{{inputField.label}}:</label>
 				    <input type="text" class="form-control" id="{{inputField.name}}" ng-model="parameterValues[inputField.name]">
 				</div>
@@ -14,6 +14,14 @@
 				    <label>{{inputField.label}}:</label>
 				    <textarea class="form-control" id="{{inputField.name}}" ng-model="parameterValues[inputField.name]">
 				    </textarea>
+				</div>
+				<div ng-if="typeKind == 'Enumeration'">
+				    <label>{{inputField.label}}:</label>
+				    <p>
+				    <select ng-model="parameterValues[inputField.name]"">
+						<option ng-repeat="literal in inputField.enumerationLiterals">{{literal}}</option>
+                    </select>
+                    </p>
 				</div>
 				<div ng-if="typeKind == 'Entity'">
 				    <label>{{inputField.label}}:</label>
