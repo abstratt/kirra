@@ -259,7 +259,14 @@ kirraNG.buildInstanceEditController = function(entity, mode) {
         
         $scope.findCandidatesFor = function(relationship, value) {
             value = value.toUpperCase();
-            return instanceService.getRelationshipDomain(entity, $scope.objectId, relationship.name).then(function(instances) {
+            var relationshipDomain;
+            if (creation) {
+                var relatedEntity = entitiesByName[relationship.typeRef.fullName];
+                relationshipDomain = instanceService.query(relatedEntity);
+            } else {
+                relationshipDomain = instanceService.getRelationshipDomain(entity, $scope.objectId, relationship.name)
+            }
+            return relationshipDomain.then(function(instances) {
                 return kirraNG.filter(instances, 
                 	function(it) { return it.shorthand.toUpperCase().indexOf(value) == 0; },
                 	function(it) { return it; }
