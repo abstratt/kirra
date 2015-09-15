@@ -30,6 +30,16 @@ kirraNG.filter = function(arrayOrMap, filter, mapping) {
     return result;
 };
 
+kirraNG.find = function(arrayOrMap, filter) {
+    var found = undefined;
+    angular.forEach(arrayOrMap, function(it) {
+        if (!found && filter(it)) {
+            found = it;
+        }
+    });
+    return found;
+};
+
 kirraNG.map = function(arrayOrMap, mapping) {
     return arrayOrMap.filter(function() { return true; }, mapping);
 };
@@ -164,6 +174,11 @@ kirraNG.getEntityActions = function(entity) {
     return kirraNG.filter(entity.operations, function(op) { return !op.instanceOperation && op.kind == 'Action'; })
 };
 
+
+kirraNG.isEditable = function(entity) {
+    var check = function (it) { return it.editable; };
+    return kirraNG.find(entity.properties, check) || kirraNG.find(entity.relationships, check);
+};
 
 kirraNG.buildInstanceListController = function(entity) {
     var controller = function($scope, $state, instanceService) {
@@ -381,6 +396,8 @@ kirraNG.buildInstanceShowController = function(entity) {
         $scope.entity = entity;
 
         $scope.entityName = entity.fullName;
+        
+        $scope.editable = kirraNG.isEditable(entity);
 
     	$scope.loadInstanceCallback = function(instance) { 
 	    	$scope.raw = instance;
