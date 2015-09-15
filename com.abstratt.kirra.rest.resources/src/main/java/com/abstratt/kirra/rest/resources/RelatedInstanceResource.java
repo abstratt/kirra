@@ -1,7 +1,12 @@
 package com.abstratt.kirra.rest.resources;
 
+import java.util.List;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -11,6 +16,7 @@ import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.Relationship;
+import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
@@ -48,4 +54,27 @@ public class RelatedInstanceResource extends InstanceResource {
         ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
         instanceManagement.unlinkInstances(relationship, objectId, relatedObjectId);
     }    
+    @Produces("application/json")
+    @Consumes("application/json")
+    @PUT
+    public String attachInstance(@PathParam("entityName") String entityName, @PathParam("objectId") String objectId, @PathParam("relationshipName") String relationshipName, @PathParam("relatedObjectId") String relatedObjectId) {
+        TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        SchemaManagement schemaManagement = KirraContext.getSchemaManagement();
+        Entity entity = schemaManagement.getEntity(entityRef);
+        ResourceHelper.ensure(entity != null, null, Status.NOT_FOUND);
+        
+        Relationship relationship = entity.getRelationship(relationshipName);
+        ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
+        
+        InstanceManagement instanceManagement = KirraContext.getInstanceManagement();
+        
+        instanceManagement.linkInstances(relationship, objectId, relatedObjectId);
+        
+        Instance instance = instanceManagement.getInstance(relationship.getTypeRef().getEntityNamespace(), relationship.getTypeRef().getTypeName(),
+                relatedObjectId, true);
+        
+        ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
+        return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES, objectId, Paths.RELATIONSHIPS, relationshipName)).create().toJson(instance);
+    }
+
 }
