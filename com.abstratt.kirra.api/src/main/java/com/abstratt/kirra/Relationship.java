@@ -26,6 +26,7 @@ public class Relationship extends DataElement {
     protected boolean primary;
     protected Style style;
     protected boolean oppositeRequired;
+    protected boolean oppositeReadOnly;    
 
     /**
      * The name of the association that connects the two relationship ends.
@@ -91,4 +92,12 @@ public class Relationship extends DataElement {
     public boolean isOppositeRequired() {
         return oppositeRequired;
     }
+    
+    public void setOppositeReadOnly(boolean oppositeReadOnly) {
+		this.oppositeReadOnly = oppositeReadOnly;
+	}
+    
+    public boolean isOppositeReadOnly() {
+		return oppositeReadOnly;
+	}
 }
