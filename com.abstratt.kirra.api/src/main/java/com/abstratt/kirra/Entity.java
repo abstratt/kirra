@@ -80,7 +80,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return properties == null ? null : new ArrayList<Property>(properties.values());
     }
 
-    public DataElement getProperty(String name) {
+    public Property getProperty(String name) {
         return properties.get(name);
     }
 

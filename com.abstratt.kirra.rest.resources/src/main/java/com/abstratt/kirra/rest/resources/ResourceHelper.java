@@ -71,7 +71,7 @@ public class ResourceHelper extends CommonHelper {
                         String[] segments = StringUtils.split(referenceArgument.get("uri").toString(), "/");
                         referencedObjectId = segments[segments.length - 1];
                     }
-                    argumentValue = new Instance(parameter.getTypeRef(), referencedObjectId.toString());
+                    argumentValue = referencedObjectId != null ? new Instance(parameter.getTypeRef(), referencedObjectId.toString()) : null;
                 } else {
                     argumentValue = new Instance(parameter.getTypeRef(), (String) argumentValue);
                 }
