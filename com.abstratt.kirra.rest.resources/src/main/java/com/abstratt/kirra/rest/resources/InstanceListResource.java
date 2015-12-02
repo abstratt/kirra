@@ -1,6 +1,7 @@
 package com.abstratt.kirra.rest.resources;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -42,13 +42,17 @@ public class InstanceListResource {
     }
 
     @GET
-    public String getInstances(@PathParam("entityName") String entityName, @Context UriInfo uriInfo, @QueryParam("includeSubtypes")  Boolean subTypes) {
+    public String getInstances(@PathParam("entityName") String entityName, @Context UriInfo uriInfo) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         Map<String, List<Object>> criteria = new LinkedHashMap<String, List<Object>>();
+        List<String> builtInParameters = Arrays.asList("includesubtypes");
+        List<String> includeSubtypesValue = uriInfo.getQueryParameters().getOrDefault("includesubtypes", Arrays.asList());
+		boolean includeSubtypes = Boolean.parseBoolean(includeSubtypesValue.stream().findAny().orElse(Boolean.FALSE.toString()));
         for (Entry<String, List<String>> entry : uriInfo.getQueryParameters().entrySet())
-            criteria.put(entry.getKey(), new ArrayList<Object>(entry.getValue()));
+        	if (!builtInParameters.contains(entry.getKey()))
+        		criteria.put(entry.getKey(), new ArrayList<Object>(entry.getValue()));
         List<Instance> allInstances = KirraContext.getInstanceManagement().filterInstances(criteria, entityRef.getEntityNamespace(),
-                entityRef.getTypeName(), false, subTypes != null && subTypes);
+                entityRef.getTypeName(), false, includeSubtypes);
         InstanceList instanceList = new InstanceList(allInstances);
         return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instanceList);
     }
