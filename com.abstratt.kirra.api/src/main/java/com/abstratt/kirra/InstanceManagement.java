@@ -70,13 +70,21 @@ public interface InstanceManagement {
      * @return
      * @see Instance#isFull()
      */
-    public List<Instance> getInstances(String namespace, String name, boolean full, boolean includeSubclasses);
-    
-    public default List<Instance> getInstances(String namespace, String name, boolean full) {
-    	return getInstances(namespace, name, full, false);
+    public default List<Instance> getInstances(String namespace, String name, boolean full, boolean includeSubclasses) {
+    	if (includeSubclasses) 
+    		throw new UnsupportedOperationException("Support for subclasses not implemented");
+    	return getInstances(namespace, name, full);
     }
+    
+    public List<Instance> getInstances(String namespace, String name, boolean full);
 
     public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full);
+    
+    public default List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full, boolean includeSubclasses) {
+    	if (includeSubclasses) 
+    		throw new UnsupportedOperationException("Support for subclasses not implemented");
+    	return filterInstances(criteria, namespace, name, full);
+    }
 
     public List<Instance> getParameterDomain(Entity entity, String externalId, Operation action, Parameter parameter);
 

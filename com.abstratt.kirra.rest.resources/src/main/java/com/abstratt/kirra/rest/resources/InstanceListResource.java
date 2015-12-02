@@ -12,6 +12,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -41,7 +42,7 @@ public class InstanceListResource {
     }
 
     @GET
-    public String getInstances(@PathParam("entityName") String entityName, @Context UriInfo uriInfo) {
+    public String getInstances(@PathParam("entityName") String entityName, @Context UriInfo uriInfo, @QueryParam("includeSubtypes")  Boolean subTypes) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         Map<String, List<Object>> criteria = new LinkedHashMap<String, List<Object>>();
         for (Entry<String, List<String>> entry : uriInfo.getQueryParameters().entrySet())
