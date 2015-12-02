@@ -154,7 +154,9 @@ public class InMemoryInstanceManagement implements InstanceManagement {
     }
 
     @Override
-    public synchronized List<Instance> getInstances(String namespace, String name, boolean full) {
+    public synchronized List<Instance> getInstances(String namespace, String name, boolean full, boolean subClasses) {
+    	if (subClasses) 
+    		throw new UnsupportedOperationException("Cannot include instances of subclasses");
         TypeRef typeRef = new TypeRef(namespace, name, TypeKind.Entity);
         return getInstances(typeRef);
     }

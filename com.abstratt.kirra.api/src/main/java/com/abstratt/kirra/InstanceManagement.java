@@ -66,10 +66,15 @@ public interface InstanceManagement {
      * @param name
      * @param full
      *            whether instances should be fully loaded
+     * @param includeSubclasses            
      * @return
      * @see Instance#isFull()
      */
-    public List<Instance> getInstances(String namespace, String name, boolean full);
+    public List<Instance> getInstances(String namespace, String name, boolean full, boolean includeSubclasses);
+    
+    public default List<Instance> getInstances(String namespace, String name, boolean full) {
+    	return getInstances(namespace, name, full, false);
+    }
 
     public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full);
 
