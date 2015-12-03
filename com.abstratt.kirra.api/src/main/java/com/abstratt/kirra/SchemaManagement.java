@@ -2,6 +2,7 @@ package com.abstratt.kirra;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface SchemaManagement {
     public String getApplicationName();
@@ -16,6 +17,15 @@ public interface SchemaManagement {
      * @return the list of entities found
      */
     public List<Entity> getEntities(String namespace);
+    
+    /**
+     * Returns all entities that have the give base entity as their super entity.
+     * @param baseEntity
+     * @return
+     */
+    public default List<Entity> getSubEntities(TypeRef baseEntity) {
+    	return getEntities(null).stream().filter(e -> e.getSuperTypes().contains(baseEntity)).collect(Collectors.toList());
+    }
 
     /**
      * Returns the entity with the given name. Returns null a corresponding
