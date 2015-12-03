@@ -2,6 +2,7 @@ package com.abstratt.kirra.rest.resources;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,10 +47,14 @@ public class InstanceListResource {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         Map<String, List<Object>> criteria = new LinkedHashMap<String, List<Object>>();
         List<String> builtInParameters = Arrays.asList("includesubtypes");
-        List<String> includeSubtypesValue = uriInfo.getQueryParameters().getOrDefault("includesubtypes", Arrays.asList());
-		boolean includeSubtypes = Boolean.parseBoolean(includeSubtypesValue.stream().findAny().orElse(Boolean.FALSE.toString()));
+        boolean includeSubtypes = false;
         for (Entry<String, List<String>> entry : uriInfo.getQueryParameters().entrySet())
-        	if (!builtInParameters.contains(entry.getKey()))
+        	if (builtInParameters.contains(entry.getKey())) {
+        		if (entry.getKey().equals("includesubtypes")) {
+        			// carefully avoiding Restlet bug #640 https://github.com/restlet/restlet-framework-java/issues/640
+        			includeSubtypes = Boolean.parseBoolean(entry.getValue().stream().findAny().orElse(Boolean.FALSE.toString()));        		    	
+        		}
+    		} else
         		criteria.put(entry.getKey(), new ArrayList<Object>(entry.getValue()));
         List<Instance> allInstances = KirraContext.getInstanceManagement().filterInstances(criteria, entityRef.getEntityNamespace(),
                 entityRef.getTypeName(), false, includeSubtypes);
