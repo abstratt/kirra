@@ -26,7 +26,7 @@ public interface SchemaManagement {
     public default List<Entity> getSubEntities(TypeRef baseEntity) {
     	return getEntities(null).stream().filter(e -> e.getSuperTypes().contains(baseEntity)).collect(Collectors.toList());
     }
-
+    
     /**
      * Returns the entity with the given name. Returns null a corresponding
      * class does not exist, or if it is not an entity.

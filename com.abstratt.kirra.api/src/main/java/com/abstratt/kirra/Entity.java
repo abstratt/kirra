@@ -1,6 +1,7 @@
 package com.abstratt.kirra;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,7 +21,8 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     protected Map<String, Property> properties;
     protected Map<String, Relationship> relationships;
     protected boolean standalone;
-    protected List<TypeRef> superTypes;
+    protected Collection<TypeRef> superTypes;
+    protected Collection<TypeRef> subTypes;
     protected boolean topLevel;
     protected boolean user;
     protected String mnemonicProperty;
@@ -92,7 +94,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return relationships == null ? null : new ArrayList<Relationship>(relationships.values());
     }
 
-    public List<TypeRef> getSuperTypes() {
+    public Collection<TypeRef> getSuperTypes() {
         return superTypes;
     }
 
@@ -192,8 +194,12 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         this.standalone = standalone;
     }
 
-    public void setSuperTypes(List<TypeRef> superTypes) {
+    public void setSuperTypes(Collection<TypeRef> superTypes) {
         this.superTypes = superTypes;
+    }
+    
+    public void setSubTypes(Collection<TypeRef> subTypes) {
+        this.subTypes = subTypes;
     }
 
     public void setTopLevel(boolean topLevel) {
