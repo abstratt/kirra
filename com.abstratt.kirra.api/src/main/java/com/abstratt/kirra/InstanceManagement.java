@@ -127,7 +127,7 @@ public interface InstanceManagement {
      * @param sourceId
      * @param destinationId
      */
-    public void unlinkInstances(Relationship relationship, String sourceId, String destinationId);
+    public void unlinkInstances(Relationship relationship, String sourceId, InstanceRef destinationId);
 
     /**
      * Updates a persistent instance.

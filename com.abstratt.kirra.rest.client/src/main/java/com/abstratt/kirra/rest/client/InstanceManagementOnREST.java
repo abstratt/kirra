@@ -9,6 +9,7 @@ import java.util.Map;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
+import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.KirraException;
 import com.abstratt.kirra.KirraException.Kind;
 import com.abstratt.kirra.Operation;
@@ -145,7 +146,7 @@ public class InstanceManagementOnREST implements InstanceManagement {
 
 	@Override
 	public void unlinkInstances(Relationship relationship, String sourceId,
-			String destinationId) {
+			InstanceRef destinationRef) {
 		// TODO Auto-generated method stub
 
 	}

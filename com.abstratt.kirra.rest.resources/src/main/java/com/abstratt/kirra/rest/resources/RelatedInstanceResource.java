@@ -15,9 +15,11 @@ import javax.ws.rs.core.Response.Status;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
+import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.TypeRef;
+import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.common.Paths;
@@ -36,8 +38,10 @@ public class RelatedInstanceResource extends InstanceResource {
         Relationship relationship = entity.getRelationship(relationshipName);
         ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
 
-        Instance instance = instanceManagement.getInstance(relationship.getTypeRef().getEntityNamespace(), relationship.getTypeRef().getTypeName(),
-                relatedObjectId, true);
+        InstanceRef relatedInstanceRef = getInstanceRef(relatedObjectId, relationship.getTypeRef());
+        
+		Instance instance = instanceManagement.getInstance(relatedInstanceRef.getEntityNamespace(), relatedInstanceRef.getEntityName(),
+				relatedInstanceRef.getObjectId(), true);
         
         ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
         return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES, objectId, Paths.RELATIONSHIPS, relationshipName)).create().toJson(instance);
@@ -52,7 +56,8 @@ public class RelatedInstanceResource extends InstanceResource {
         
         Relationship relationship = entity.getRelationship(relationshipName);
         ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
-        instanceManagement.unlinkInstances(relationship, objectId, relatedObjectId);
+        InstanceRef relatedInstanceRef = getInstanceRef(relatedObjectId, relationship.getTypeRef());
+        instanceManagement.unlinkInstances(relationship, objectId, relatedInstanceRef);
     }    
     @Produces("application/json")
     @Consumes("application/json")
@@ -76,5 +81,16 @@ public class RelatedInstanceResource extends InstanceResource {
         ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
         return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES, objectId, Paths.RELATIONSHIPS, relationshipName)).create().toJson(instance);
     }
-
+    private InstanceRef getInstanceRef(String objectId, TypeRef defaultType) {
+        TypeRef instanceType;
+        if (objectId.contains("@")) {
+        	String[] components = objectId.split("@");
+        	ResourceHelper.ensure(components.length == 2, null, Status.NOT_FOUND); 
+        	instanceType = new TypeRef(components[0], TypeKind.Entity);
+        	objectId = components[1];
+        } else {
+        	instanceType = defaultType;
+        }
+        return new InstanceRef(instanceType.getEntityNamespace(), instanceType.getTypeName(), objectId);
+    }
 }

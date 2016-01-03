@@ -10,11 +10,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
+import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.KirraException;
 import com.abstratt.kirra.KirraException.Kind;
 import com.abstratt.kirra.Operation;
@@ -200,7 +199,7 @@ public class InMemoryInstanceManagement implements InstanceManagement {
     }
 
     @Override
-    public synchronized void unlinkInstances(Relationship relationship, String sourceId, String destinationId) {
+    public synchronized void unlinkInstances(Relationship relationship, String sourceId, InstanceRef destinationRef) {
     }
 
     @Override
