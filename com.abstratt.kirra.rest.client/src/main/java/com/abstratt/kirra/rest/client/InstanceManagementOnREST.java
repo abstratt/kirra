@@ -127,9 +127,14 @@ public class InstanceManagementOnREST implements InstanceManagement {
 
 	@Override
 	public void linkInstances(Relationship relationship, String sourceId,
-			String destinationId) {
+			InstanceRef destinationRef) {
 		// TODO Auto-generated method stub
-
+	}
+	
+	@Override
+	public void unlinkInstances(Relationship relationship, String sourceId,
+			InstanceRef destinationRef) {
+		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -144,12 +149,6 @@ public class InstanceManagementOnREST implements InstanceManagement {
 
 	}
 
-	@Override
-	public void unlinkInstances(Relationship relationship, String sourceId,
-			InstanceRef destinationRef) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public Instance updateInstance(Instance instance) {

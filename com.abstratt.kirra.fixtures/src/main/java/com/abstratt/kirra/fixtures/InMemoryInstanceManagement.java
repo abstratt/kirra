@@ -183,10 +183,6 @@ public class InMemoryInstanceManagement implements InstanceManagement {
     }
 
     @Override
-    public synchronized void linkInstances(Relationship relationship, String sourceId, String destinationId) {
-    }
-
-    @Override
     public Instance newInstance(String namespace, String name) {
         Instance instance = new Instance(namespace, name);
         return instance;
@@ -196,6 +192,10 @@ public class InMemoryInstanceManagement implements InstanceManagement {
     public synchronized void saveContext() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public synchronized void linkInstances(Relationship relationship, String sourceId, InstanceRef destinationRef) {
     }
 
     @Override

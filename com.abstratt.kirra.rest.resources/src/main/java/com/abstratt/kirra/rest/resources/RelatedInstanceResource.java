@@ -1,11 +1,8 @@
 package com.abstratt.kirra.rest.resources;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -71,9 +68,11 @@ public class RelatedInstanceResource extends InstanceResource {
         Relationship relationship = entity.getRelationship(relationshipName);
         ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
         
+        InstanceRef relatedInstanceRef = getInstanceRef(relatedObjectId, relationship.getTypeRef());
+        
         InstanceManagement instanceManagement = KirraContext.getInstanceManagement();
         
-        instanceManagement.linkInstances(relationship, objectId, relatedObjectId);
+        instanceManagement.linkInstances(relationship, objectId, relatedInstanceRef);
         
         Instance instance = instanceManagement.getInstance(relationship.getTypeRef().getEntityNamespace(), relationship.getTypeRef().getTypeName(),
                 relatedObjectId, true);

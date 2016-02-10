@@ -93,16 +93,6 @@ public interface InstanceManagement {
     public List<Instance> getRelationshipDomain(Entity entity, String objectId, Relationship relationship);
 
     /**
-     * Establishes a link between the two instances through the given
-     * relationship.
-     * 
-     * @param relationship
-     * @param sourceId
-     * @param destinationId
-     */
-    public void linkInstances(Relationship relationship, String sourceId, String destinationId);
-
-    /**
      * Creates a transient instance of the given type. Default values will have
      * been properly assigned. Transient instances have identities just like
      * persisted instances. However, they are discarded at the end of a session
@@ -119,6 +109,17 @@ public interface InstanceManagement {
 
     public void saveContext();
 
+
+    /**
+     * Establishes a link between the two instances through the given
+     * relationship.
+     * 
+     * @param relationship
+     * @param sourceId
+     * @param destinationId
+     */
+    public void linkInstances(Relationship relationship, String sourceId, InstanceRef destinationId);
+    
     /**
      * Breaks an existing link between two instances through the given
      * relationship.
