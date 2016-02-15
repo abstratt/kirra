@@ -21,6 +21,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
@@ -50,14 +51,16 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         JsonObject asJson = (JsonObject) gson.toJsonTree(instance);
 
         // flatten links to avoid infinite recursion due to cyclic refs
-        Map<String, List<Instance>> links = instance.getLinks();
+        Map<String, Instance> links = instance.getLinks();
         JsonObject linksAsJson = new JsonObject();
-        for (Map.Entry<String, List<Instance>> link : links.entrySet()) {
-            JsonArray linkArray = new JsonArray();
+        for (Map.Entry<String, Instance> link : links.entrySet()) {
             String relationshipName = link.getKey();
-            linksAsJson.add(relationshipName, linkArray);
-            for (Instance linkedInstance : link.getValue())
-                linkArray.add(addBasicProperties(gson, linkedInstance, new JsonObject()));
+            JsonElement element;
+            if (link.getValue() == null)
+            	element = JsonNull.INSTANCE;
+            else
+            	element = addBasicProperties(gson, link.getValue(), new JsonObject()); 
+            linksAsJson.add(relationshipName, element);
         }
         asJson.add("links", linksAsJson);
         addBasicProperties(gson, instance, asJson);

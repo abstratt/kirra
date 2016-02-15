@@ -1,6 +1,6 @@
     {
       "links": {
-        "category": [
+        "category":
           {
             "links": {},
             "disabledActions": {},
@@ -13,8 +13,8 @@
             "scopeNamespace": "expenses",
             "shorthand": "Meal"
           }
-        ],
-        "employee": [
+        ,
+        "employee":
           {
             "links": {},
             "disabledActions": {},
@@ -31,7 +31,7 @@
             "scopeNamespace": "expenses",
             "shorthand": "Camille Jouel"
           }
-        ]
+        
       },
       "disabledActions": {
         "submit": ""

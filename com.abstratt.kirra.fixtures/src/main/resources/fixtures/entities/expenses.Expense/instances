@@ -4,7 +4,7 @@
   "contents": [
     {
       "links": {
-        "category": [
+        "category":
           {
             "links": {},
             "disabledActions": {},
@@ -16,9 +16,8 @@
             "scopeName": "Category",
             "scopeNamespace": "expenses",
             "shorthand": "Meal"
-          }
-        ],
-        "employee": [
+          },
+        "employee": 
           {
             "links": {},
             "disabledActions": {},
@@ -35,7 +34,6 @@
             "scopeNamespace": "expenses",
             "shorthand": "Camille Jouel"
           }
-        ]
       },
       "disabledActions": {
         "reject": "",
@@ -60,7 +58,7 @@
     },
     {
       "links": {
-        "category": [
+        "category":
           {
             "links": {},
             "disabledActions": {},
@@ -73,8 +71,8 @@
             "scopeNamespace": "expenses",
             "shorthand": "Airfare"
           }
-        ],
-        "employee": [
+        ,
+        "employee":
           {
             "links": {},
             "disabledActions": {},
@@ -91,7 +89,6 @@
             "scopeNamespace": "expenses",
             "shorthand": "John Ford"
           }
-        ]
       },
       "disabledActions": {
         "approve": "",
@@ -117,7 +114,7 @@
     },
     {
       "links": {
-        "category": [
+        "category": 
           {
             "links": {},
             "disabledActions": {},
@@ -130,8 +127,8 @@
             "scopeNamespace": "expenses",
             "shorthand": "Meal"
           }
-        ],
-        "employee": [
+        ,
+        "employee":
           {
             "links": {},
             "disabledActions": {},
@@ -148,7 +145,6 @@
             "scopeNamespace": "expenses",
             "shorthand": "John Ford"
           }
-        ]
       },
       "disabledActions": {
         "approve": "",
@@ -175,7 +171,7 @@
     },
     {
       "links": {
-        "category": [
+        "category": 
           {
             "links": {},
             "disabledActions": {},
@@ -188,8 +184,8 @@
             "scopeNamespace": "expenses",
             "shorthand": "Lodging"
           }
-        ],
-        "employee": [
+        ,
+        "employee":
           {
             "links": {},
             "disabledActions": {},
@@ -206,7 +202,6 @@
             "scopeNamespace": "expenses",
             "shorthand": "John Ford"
           }
-        ]
       },
       "disabledActions": {
         "approve": "",

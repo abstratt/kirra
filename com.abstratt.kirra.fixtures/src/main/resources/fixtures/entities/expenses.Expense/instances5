@@ -1,6 +1,6 @@
 {
       "links": {
-        "category": [
+        "category":
           {
             "links": {},
             "disabledActions": {},
@@ -13,8 +13,8 @@
             "scopeNamespace": "expenses",
             "shorthand": "Lodging"
           }
-        ],
-        "employee": [
+        ,
+        "employee": 
           {
             "links": {},
             "disabledActions": {},
@@ -31,7 +31,6 @@
             "scopeNamespace": "expenses",
             "shorthand": "John Ford"
           }
-        ]
       },
       "disabledActions": {
         "approve": "",

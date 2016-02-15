@@ -25,7 +25,7 @@ public class Instance extends Tuple {
      */
     protected Map<String, String> disabledActions = new HashMap<String, String>();
     protected boolean full;
-    protected Map<String, List<Instance>> links = new HashMap<String, List<Instance>>();
+    protected Map<String, Instance> links = new HashMap<String, Instance>();
     protected String objectId;
 
     public Instance() {
@@ -52,7 +52,7 @@ public class Instance extends Tuple {
         return scopeNamespace;
     }
 
-    public Map<String, List<Instance>> getLinks() {
+    public Map<String, Instance> getLinks() {
         return links;
     }
 
@@ -64,16 +64,14 @@ public class Instance extends Tuple {
         return new InstanceRef(scopeNamespace, scopeName, objectId);
     }
 
-    public List<Instance> getRelated(String propertyName) {
+    public Instance getRelated(String propertyName) {
         if (links == null)
             return null;
         return links.get(propertyName);
     }
 
     public Instance getSingleRelated(String reference) {
-        if (links == null || !links.containsKey(reference) || links.get(reference).isEmpty())
-            return null;
-        return links.get(reference).get(0);
+    	return getRelated(reference);
     }
 
     /**
@@ -110,20 +108,20 @@ public class Instance extends Tuple {
         this.full = full;
     }
 
-    public void setLinks(Map<String, List<Instance>> links) {
-        this.links = new HashMap<String, List<Instance>>(links);
+    public void setLinks(Map<String, Instance> links) {
+        this.links = new HashMap<String, Instance>(links);
     }
 
     public void setObjectId(String objectId) {
         this.objectId = objectId;
     }
 
-    public void setRelated(String propertyName, List<Instance> toLink) {
+    public void setRelated(String propertyName, Instance toLink) {
         links.put(propertyName, toLink);
     }
 
     public void setSingleRelated(String propertyName, Instance toLink) {
-        setRelated(propertyName, Collections.singletonList(toLink));
+        setRelated(propertyName, toLink);
     }
 
     @Override

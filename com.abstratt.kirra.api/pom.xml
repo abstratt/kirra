@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.abstratt.kirra</groupId>
 		<artifactId>com.abstratt.kirra.parent</artifactId>
-		<version>0.1.1-SNAPSHOT</version>
+		<version>0.2.201601-SNAPSHOT</version>
 	</parent>
 	<artifactId>com.abstratt.kirra.api</artifactId>
 	<packaging>eclipse-plugin</packaging>

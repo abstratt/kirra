@@ -3,11 +3,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>com.abstratt.kirra.rest.resources</artifactId>
+	<groupId>com.abstratt.mdd.kirra</groupId>
+	<artifactId>com.abstratt.kirra.populator</artifactId>
+	<version>0.2.201601-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 	<parent>
-		<groupId>com.abstratt.kirra</groupId>
 		<artifactId>com.abstratt.kirra.parent</artifactId>
+		<groupId>com.abstratt.kirra</groupId>
 		<version>0.2.201601-SNAPSHOT</version>
+		<relativePath>..</relativePath>
 	</parent>
 </project>

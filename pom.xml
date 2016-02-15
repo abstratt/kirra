@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.kirra</groupId>
 	<artifactId>com.abstratt.kirra.parent</artifactId>
-	<version>0.1.1-SNAPSHOT</version>
+	<version>0.2.201601-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
 		<tycho-version>0.22.0</tycho-version>
@@ -54,7 +54,7 @@
 						<artifact>
 							<groupId>com.abstratt.kirra</groupId>
 							<artifactId>kirra-api-dependencies</artifactId>
-							<version>0.1.1-SNAPSHOT</version>
+							<version>0.2.201601-SNAPSHOT</version>
 							<classifier>kirra-api-dependencies</classifier>
 						</artifact>
 					</target>
@@ -98,6 +98,7 @@
 	<modules>
 		<module>kirra-api-dependencies</module>
 		<module>com.abstratt.kirra.api</module>
+		<module>com.abstratt.kirra.populator</module>
 		<module>com.abstratt.kirra.rest.common</module>
 		<module>com.abstratt.kirra.rest.client</module>
 		<module>com.abstratt.kirra.rest.resources</module>
