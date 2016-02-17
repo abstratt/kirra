@@ -2,6 +2,8 @@ package com.abstratt.kirra;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.abstratt.kirra.KirraException.Kind;
 
@@ -18,7 +20,7 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
     private static final long serialVersionUID = 1L;
     protected boolean hasDefault;
 
-    protected List<String> enumerationLiterals;
+    protected Map<String, String> enumerationLiterals;
     protected boolean multiple;
     protected boolean required;
 
@@ -45,7 +47,7 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
      * In the case this typed element is typed by an enumeration, these are the
      * enumeration values.
      */
-    public List<String> getEnumerationLiterals() {
+    public Map<String, String> getEnumerationLiterals() {
         return enumerationLiterals;
     }
 
@@ -81,8 +83,12 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
         this.hasDefault = defaulting;
     }
 
-    public void setEnumerationLiterals(List<String> enumerationLiterals) {
+    public void setEnumerationLiterals(Map<String, String> enumerationLiterals) {
         this.enumerationLiterals = enumerationLiterals;
+    }
+    
+    public void setEnumerationLiterals(List<String> enumerationLiterals) {
+        this.enumerationLiterals = enumerationLiterals == null ? null : enumerationLiterals.stream().collect(Collectors.toMap(it -> it, it -> it));
     }
 
     public void setMultiple(boolean multiple) {

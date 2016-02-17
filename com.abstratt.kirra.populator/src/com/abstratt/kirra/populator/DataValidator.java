@@ -140,7 +140,7 @@ public class DataValidator {
                     valueTypeError = "Dates must be in the format yyyy/MM/dd";
                 }
             else if (property.getTypeRef().getKind() == TypeKind.Enumeration) {
-                if (!property.getEnumerationLiterals().contains(propertyValue.asText())) {
+                if (!property.getEnumerationLiterals().containsKey(propertyValue.asText())) {
                     valueTypeError = "Expected one of " + property.getEnumerationLiterals().toString() + ", found: "
                             + propertyValue.textValue();
                 }
