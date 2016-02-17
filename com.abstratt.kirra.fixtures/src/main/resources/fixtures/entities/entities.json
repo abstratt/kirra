@@ -441,12 +441,12 @@
         "kind": "Finder",
         "parameters": [
           {
-            "enumerationLiterals": [
-              "Draft",
-              "Submitted",
-              "Approved",
-              "Rejected"
-            ],
+            "enumerationLiterals": {
+              "Draft": "Draft",
+              "Submitted": "Submitted",
+              "Approved": "Approved",
+              "Rejected": "Rejected"
+            },
             "typeRef": {
               "entityNamespace": "expenses.Expense",
               "typeName": "Status",
@@ -538,12 +538,12 @@
         "derived": false,
         "initializable": false,
         "editable": false,
-        "enumerationLiterals": [
-          "Draft",
-          "Submitted",
-          "Approved",
-          "Rejected"
-        ],
+        "enumerationLiterals": {
+          "Draft": "Draft",
+          "Submitted": "Submitted",
+          "Approved": "Approved",
+          "Rejected": "Rejected"
+        },
         "typeRef": {
           "entityNamespace": "expenses.Expense",
           "typeName": "Status",
