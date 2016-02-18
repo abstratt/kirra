@@ -74,8 +74,10 @@ public class RelatedInstanceResource extends InstanceResource {
         
         instanceManagement.linkInstances(relationship, objectId, relatedInstanceRef);
         
+        InstanceRef relatedRef = getInstanceRef(relatedObjectId, relationship.getTypeRef());
+        
         Instance instance = instanceManagement.getInstance(relationship.getTypeRef().getEntityNamespace(), relationship.getTypeRef().getTypeName(),
-                relatedObjectId, true);
+        		relatedRef.getObjectId(), true);
         
         ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
         return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES, objectId, Paths.RELATIONSHIPS, relationshipName)).create().toJson(instance);
