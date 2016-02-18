@@ -3,11 +3,9 @@ package com.abstratt.kirra.rest.common;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -17,7 +15,6 @@ import com.abstratt.kirra.TypeRef.TypeKind;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -73,27 +70,24 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         // ensure links don't have sublinks/values and have an objectId
         if (asJsonObject.has("links")) {
             for (Entry<String, JsonElement> entry : asJsonObject.get("links").getAsJsonObject().entrySet()) {
-                JsonArray linkArray = entry.getValue().getAsJsonArray();
-                for (JsonElement link : linkArray) {
-                    JsonObject linkAsObject = link.getAsJsonObject();
-                    if (linkAsObject.has("uri")) {
-                        JsonElement uri = linkAsObject.get("uri");
-                        String uriString = uri.getAsString();
-                        String[] segments = StringUtils.split(uriString, "/");
-                        // uri is '...<entity>/instances/<objectId>'
-                        if (segments.length > 0)
-                            linkAsObject.addProperty("objectId", segments[segments.length - 1]);
-                        if (segments.length > 2) {
-                            String linkedTypeName = segments[segments.length - 3];
-                            TypeRef linkType = new TypeRef(linkedTypeName, TypeKind.Entity);
-                            linkAsObject.addProperty("scopeName", linkType.getTypeName());
-                            linkAsObject.addProperty("scopeNamespace", linkType.getNamespace());
-                        }
+                JsonObject linkAsObject = entry.getValue().getAsJsonObject();
+                if (linkAsObject.has("uri")) {
+                    JsonElement uri = linkAsObject.get("uri");
+                    String uriString = uri.getAsString();
+                    String[] segments = StringUtils.split(uriString, "/");
+                    // uri is '...<entity>/instances/<objectId>'
+                    if (segments.length > 0)
+                        linkAsObject.addProperty("objectId", segments[segments.length - 1]);
+                    if (segments.length > 2) {
+                        String linkedTypeName = segments[segments.length - 3];
+                        TypeRef linkType = new TypeRef(linkedTypeName, TypeKind.Entity);
+                        linkAsObject.addProperty("scopeName", linkType.getTypeName());
+                        linkAsObject.addProperty("scopeNamespace", linkType.getNamespace());
                     }
-                    linkAsObject.remove("values");
-                    linkAsObject.remove("links");
-                    linkAsObject.addProperty("full", false);
                 }
+                linkAsObject.remove("values");
+                linkAsObject.remove("links");
+                linkAsObject.addProperty("full", false);
             }
         }
         Instance instance = new Gson().fromJson(jsonElement, Instance.class);
