@@ -29,6 +29,16 @@ public abstract class NamedElement<O extends NameScope> implements Serializable,
     protected String label;
     protected String name;
     protected String symbol;
+    protected boolean userVisible;
+    
+
+	public boolean isUserVisible() {
+	    return userVisible;
+	}
+
+	public void setUserVisible(boolean userVisible) {
+	    this.userVisible = userVisible;
+	}
 
     @Override
     public int compareTo(NamedElement<O> o) {
