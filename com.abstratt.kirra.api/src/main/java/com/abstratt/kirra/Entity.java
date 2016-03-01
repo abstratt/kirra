@@ -24,7 +24,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     protected Collection<TypeRef> superTypes;
     protected Collection<TypeRef> subTypes;
     protected boolean topLevel;
-    protected boolean user;
+    protected boolean role;
     protected String mnemonicProperty;
 
     @Override
@@ -154,10 +154,6 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return topLevel && concrete;
     }
 
-    public boolean isUser() {
-        return user;
-    }
-
     public void setConcrete(boolean concrete) {
         this.concrete = concrete;
     }
@@ -206,8 +202,21 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         this.topLevel = topLevel;
     }
 
-    public void setUser(boolean user) {
-        this.user = user;
+
+    public boolean isRole() {
+        return role;
+    }
+
+    public void setRole(boolean role) {
+        this.role = role;
+    }
+    
+    public boolean isUser() {
+        return role;
+    }
+
+    public void setUser(boolean role) {
+        this.role = role;
     }
     
     public void setMnemonicProperty(String mnemonicProperty) {
