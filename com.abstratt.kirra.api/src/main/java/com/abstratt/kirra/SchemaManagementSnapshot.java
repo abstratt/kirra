@@ -68,8 +68,15 @@ public class SchemaManagementSnapshot implements SchemaManagement {
     @Override
     public Entity getEntity(String namespaceName, String name) {
         build();
+        String[] nameComponents = TypeRef.splitName(name);
+        if (nameComponents[0] != null) {
+        	namespaceName = nameComponents[0];
+        	name = nameComponents[1];
+        }
         Namespace namespace = getNamespace(namespaceName);
-        Entity found = namespace == null ? null : namespace.findEntity(name);
+        if (namespace == null)
+            throw new KirraException("Unknown namespace: " + namespaceName, null, Kind.SCHEMA);
+        Entity found = namespace.findEntity(name);
         if (found == null)
             throw new KirraException("Unknown entity: " + name + " on namespace: " + namespaceName, null, Kind.SCHEMA);
         return found;

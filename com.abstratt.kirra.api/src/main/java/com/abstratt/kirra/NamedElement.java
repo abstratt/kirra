@@ -25,11 +25,11 @@ public abstract class NamedElement<O extends NameScope> implements Serializable,
     }
 
     private static final long serialVersionUID = 1L;
+    protected boolean userVisible;
     protected String description;
     protected String label;
     protected String name;
     protected String symbol;
-    protected boolean userVisible;
     
 
 	public boolean isUserVisible() {

@@ -7,6 +7,7 @@ public class Schema {
     protected String applicationName;
     protected String build;
     protected List<Namespace> namespaces;
+	private Entity userEntity;
 
     public Namespace findNamespace(String name) {
         for (Namespace namespace : namespaces)
@@ -59,4 +60,12 @@ public class Schema {
     public void setNamespaces(List<Namespace> namespaces) {
         this.namespaces = namespaces;
     }
+
+	public Entity getUserEntity() {
+		return userEntity;
+	}
+	
+	public void setUserEntity(Entity userEntity) {
+		this.userEntity = userEntity;
+	}
 }

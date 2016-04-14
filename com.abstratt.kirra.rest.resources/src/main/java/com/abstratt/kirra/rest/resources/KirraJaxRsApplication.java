@@ -14,7 +14,8 @@ public class KirraJaxRsApplication extends javax.ws.rs.core.Application {
 				InstanceResource.class, InstanceListResource.class,
 				FinderResultResource.class,
 				InstanceActionResource.class, EntityActionResource.class, 
-				RelatedInstanceListResource.class, RelatedInstanceResource.class };
+				RelatedInstanceListResource.class, RelatedInstanceResource.class,
+				LoginResource.class, LogoutResource.class};
 		return new HashSet<Class<?>>(Arrays.asList(resourceClasses));
 	}
 }

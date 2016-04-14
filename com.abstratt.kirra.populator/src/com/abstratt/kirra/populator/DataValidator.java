@@ -66,15 +66,14 @@ public class DataValidator {
                     collector.addError("Invalid entity: " + entityNode.getKey() + " for namespace " + namespace);
                     continue;
                 }
-                String entityName = entity.getName();
-                index = instanceCount.get(namespace + '.' + entityName);
+                index = instanceCount.get(entity.getTypeRef().getFullName());
                 if (index == null)
-                    instanceCount.put(namespace + '.' + entityName, index = new AtomicInteger(0));
+                    instanceCount.put(entity.getTypeRef().getFullName(), index = new AtomicInteger(0));
                 for (Iterator<JsonNode> instanceNodes = entityNode.getValue().elements(); instanceNodes.hasNext();) {
                     index.incrementAndGet();
                     JsonNode instanceNode = instanceNodes.next();
                     if (instanceNode == null || !instanceNode.isObject()) {
-                        collector.addError("Invalid instance " + entityName + "#" + index + ". Expected a map.");
+                        collector.addError("Invalid instance " + entity.getTypeRef().getFullName() + "#" + index + ". Expected a map.");
                         continue;
                     }
                     validateInstance(entity, instanceNode);

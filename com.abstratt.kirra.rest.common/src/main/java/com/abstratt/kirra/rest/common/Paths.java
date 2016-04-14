@@ -27,6 +27,8 @@ public interface Paths {
     String INSTANCE_ACTION_PARAMETER_DOMAIN_PATH = INSTANCE_ACTION_PATH + "/" + Paths.PARAMETERS + "/{parameterName}/" + DOMAIN;
     String LOGIN = "login";
     String LOGOUT = "logout";
+    String LOGIN_PATH = Paths.ROOT_PATH + LOGIN;
+    String LOGOUT_PATH = Paths.ROOT_PATH + LOGOUT;
     String PASSWORD_RESET = "passwordReset";
     String PROFILE = "profile";
 

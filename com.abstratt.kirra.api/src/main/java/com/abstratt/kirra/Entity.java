@@ -13,6 +13,13 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     private static final long serialVersionUID = 1L;
     protected boolean concrete;
     protected boolean instantiable;
+    protected boolean standalone;
+    protected boolean topLevel;
+    protected boolean role;
+    protected boolean user;
+    protected String mnemonicProperty;
+    protected Collection<TypeRef> superTypes;
+    protected Collection<TypeRef> subTypes;
     /**
      * A map of disabled action names -> reasons.
      */
@@ -20,12 +27,6 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     protected Map<String, Operation> operations;
     protected Map<String, Property> properties;
     protected Map<String, Relationship> relationships;
-    protected boolean standalone;
-    protected Collection<TypeRef> superTypes;
-    protected Collection<TypeRef> subTypes;
-    protected boolean topLevel;
-    protected boolean role;
-    protected String mnemonicProperty;
 
     @Override
     public boolean equals(Object obj) {
@@ -212,11 +213,11 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     }
     
     public boolean isUser() {
-        return role;
+        return user;
     }
 
-    public void setUser(boolean role) {
-        this.role = role;
+    public void setUser(boolean user) {
+        this.user = user;
     }
     
     public void setMnemonicProperty(String mnemonicProperty) {
