@@ -118,7 +118,11 @@ public class TypeRef implements Serializable {
     }
     
     public static String[] splitName(String typeName) {
-        String[] result = {null, typeName};
+    	return splitName(typeName, null);
+    }
+    
+    public static String[] splitName(String typeName, String defaultNamespace) {
+        String[] result = {defaultNamespace, typeName};
         int separatorIndex = typeName.lastIndexOf(TypeRef.SEPARATOR);
         if (separatorIndex >= 0) {
             result[0] = typeName.substring(0, separatorIndex);

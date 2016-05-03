@@ -166,6 +166,9 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     public void setOperations(List<Operation> operations) {
         this.operations = new LinkedHashMap<String, Operation>();
         for (Operation operation : operations) {
+        	if (this.operations.containsKey(operation.getName()))
+        		// stick to the first one found
+        		continue;
             operation.setOwner(this);
             this.operations.put(operation.getName(), operation);
         }
@@ -174,6 +177,9 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     public void setProperties(List<Property> properties) {
         this.properties = new LinkedHashMap<String, Property>();
         for (Property property : properties) {
+        	if (this.properties.containsKey(property.getName()))
+        		// stick to the first one found
+        		continue;
             property.setOwner(this);
             this.properties.put(property.getName(), property);
         }
@@ -182,6 +188,9 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     public void setRelationships(List<Relationship> entityRelationships) {
         this.relationships = new LinkedHashMap<String, Relationship>();
         for (Relationship relationship : entityRelationships) {
+        	if (relationships.containsKey(relationship.getName()))
+        		// stick to the first one found
+        		continue;
             relationship.setOwner(this);
             this.relationships.put(relationship.getName(), relationship);
         }

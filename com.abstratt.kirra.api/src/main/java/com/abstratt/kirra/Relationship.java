@@ -21,6 +21,7 @@ public class Relationship extends DataElement {
 
     private static final long serialVersionUID = 1L;
     protected String associationName;
+    protected String associationNamespace;
     protected boolean navigable;
     protected String opposite;
     protected boolean primary;
@@ -34,6 +35,10 @@ public class Relationship extends DataElement {
     public String getAssociationName() {
         return associationName;
     }
+    
+    public String getAssociationNamespace() {
+		return associationNamespace;
+	}
 
     /**
      * Returns the name of the opposite relationship, if available.
@@ -68,6 +73,10 @@ public class Relationship extends DataElement {
     public void setAssociationName(String associationName) {
         this.associationName = associationName;
     }
+    
+    public void setAssociationNamespace(String associationNamespace) {
+		this.associationNamespace = associationNamespace;
+	}
 
     public void setNavigable(boolean navigable) {
         this.navigable = navigable;

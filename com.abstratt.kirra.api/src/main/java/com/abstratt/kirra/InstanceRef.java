@@ -11,6 +11,16 @@ public class InstanceRef {
         this.entityName = entityName;
         this.objectId = objectId;
     }
+    
+    public static InstanceRef parse(String asString, String defaultNamespace) {
+    	String[] components = asString.split("@");
+    	if (components.length != 2)
+    		return null;
+    	String typeName = components[0];
+    	String objectId = components[1];
+		String[] typeComponents = TypeRef.splitName(typeName, defaultNamespace);
+		return new InstanceRef(typeComponents[0], typeComponents[1], objectId);
+    }
 
     @Override
     public boolean equals(Object obj) {
