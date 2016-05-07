@@ -73,6 +73,10 @@ public class InstanceRef {
 
     @Override
     public String toString() {
+        return toString(entityNamespace, entityName, objectId);
+    }
+    
+    public static String toString(String entityNamespace, String entityName, String objectId) {
         return TypeRef.toString(entityNamespace, entityName) + '@' + objectId;
     }
 }
