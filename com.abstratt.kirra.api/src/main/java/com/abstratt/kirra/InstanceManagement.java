@@ -44,6 +44,13 @@ public interface InstanceManagement {
     public Instance getCurrentUser();
 
     public List<Operation> getEnabledEntityActions(Entity entity);
+    
+    public default EntityCapabilities getEntityCapabilities(Entity entity) {
+    	return new EntityCapabilities();
+    }
+    public default InstanceCapabilities getInstanceCapabilities(Entity entity, String objectId) {
+    	return new InstanceCapabilities();
+    }
 
     /**
      * Loads an instance with the given identifier.

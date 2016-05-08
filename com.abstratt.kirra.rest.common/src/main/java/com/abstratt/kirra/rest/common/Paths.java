@@ -14,6 +14,7 @@ public interface Paths {
     String INSTANCES = "instances";
 
     String ENTITIES_PATH = Paths.ROOT_PATH + Paths.ENTITIES + "/";
+    String CAPABILITIES = "capabilities";
     String ENTITY_PATH = Paths.ENTITIES_PATH + "{entityName}/";
     String ENTITY_ACTION_PATH = ENTITY_PATH + Paths.ACTIONS + "/{actionName}";
     String INSTANCES_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/";
@@ -27,8 +28,10 @@ public interface Paths {
     String INSTANCE_ACTION_PARAMETER_DOMAIN_PATH = INSTANCE_ACTION_PATH + "/" + Paths.PARAMETERS + "/{parameterName}/" + DOMAIN;
     String LOGIN = "login";
     String LOGOUT = "logout";
-    String LOGIN_PATH = Paths.ROOT_PATH + LOGIN;
-    String LOGOUT_PATH = Paths.ROOT_PATH + LOGOUT;
+    String SESSION = "session";
+    String SESSION_PATH = Paths.ROOT_PATH + SESSION + "/";
+    String LOGIN_PATH = SESSION_PATH + LOGIN;
+    String LOGOUT_PATH = SESSION_PATH + LOGOUT;
     String PASSWORD_RESET = "passwordReset";
     String PROFILE = "profile";
 

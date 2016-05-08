@@ -11,7 +11,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 import com.abstratt.kirra.Entity;
+import com.abstratt.kirra.EntityCapabilities;
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.InstanceCapabilities;
 import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.KirraException;
@@ -35,7 +37,7 @@ public class InMemoryInstanceManagement implements InstanceManagement {
         this.instances = new HashMap<>();
         this.schemaManagement = schemaManagement;
     }
-
+    
     @Override
     public synchronized Instance createInstance(Instance instance) {
         List<Instance> instances = getInstances(instance.getTypeRef());
