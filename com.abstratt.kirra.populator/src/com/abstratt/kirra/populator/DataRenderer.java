@@ -34,7 +34,7 @@ public class DataRenderer {
         @Override
         @JsonValue
         public String toString() {
-            return reference.getEntityName() + '@' + sequenceNumber;
+            return reference.getEntityNamespace() + '.' + reference.getEntityName() + '@' + sequenceNumber;
         }
     }
 
@@ -52,8 +52,7 @@ public class DataRenderer {
         Map<String, Map<String, ?>> namespaceMap = new LinkedHashMap<String, Map<String, ?>>();
         for (String namespace : this.repository.getNamespaces()) {
             Map<String, List<?>> renderedNamespace = renderNamespace(namespace);
-            if (!renderedNamespace.isEmpty())
-                namespaceMap.put(namespace, renderedNamespace);
+            namespaceMap.put(namespace, renderedNamespace);
         }
         referenceMap = null;
         return namespaceMap;
@@ -131,8 +130,7 @@ public class DataRenderer {
         for (Entity entity : entities)
             if (entity.isConcrete()) {
                 List<Map<String, ?>> renderInstances = renderInstances(entity);
-                if (!renderInstances.isEmpty())
-                    entityMap.put(entity.getName(), renderInstances);
+                entityMap.put(entity.getName(), renderInstances);
             }
         return entityMap;
     }
