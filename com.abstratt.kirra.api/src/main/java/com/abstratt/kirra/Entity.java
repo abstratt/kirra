@@ -17,7 +17,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     protected boolean topLevel;
     protected boolean role;
     protected boolean user;
-    protected String mnemonicProperty;
+    protected String mnemonicSlot;
     protected Collection<TypeRef> superTypes;
     protected Collection<TypeRef> subTypes;
     /**
@@ -27,6 +27,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     protected Map<String, Operation> operations;
     protected Map<String, Property> properties;
     protected Map<String, Relationship> relationships;
+    protected List<String> orderedDataElements;
 
     @Override
     public boolean equals(Object obj) {
@@ -83,7 +84,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return properties == null ? null : new ArrayList<Property>(properties.values());
     }
 
-    public Property getProperty(String name) {
+    public DataElement getProperty(String name) {
         return properties.get(name);
     }
 
@@ -104,8 +105,8 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return TypeKind.Entity;
     }
     
-    public String getMnemonicProperty() {
-		return mnemonicProperty;
+    public String getMnemonicSlot() {
+		return mnemonicSlot;
 	}
 
     @Override
@@ -229,8 +230,8 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         this.user = user;
     }
     
-    public void setMnemonicProperty(String mnemonicProperty) {
-		this.mnemonicProperty = mnemonicProperty;
+    public void setMnemonicSlot(String mnemonicSlot) {
+		this.mnemonicSlot = mnemonicSlot;
 	}
 
     public void setInstantiable(boolean instantiable) {
@@ -240,4 +241,11 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     public boolean isInstantiable() {
         return instantiable;
     }
+    
+    public List<String> getOrderedDataElements() {
+		return orderedDataElements;
+	}
+    public void setOrderedDataElements(List<String> orderedDataElements) {
+		this.orderedDataElements = orderedDataElements;
+	}
 }

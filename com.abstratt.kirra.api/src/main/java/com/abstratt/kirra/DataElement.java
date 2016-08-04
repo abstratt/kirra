@@ -6,6 +6,7 @@ public abstract class DataElement extends TypedElement<DataScope> {
     protected boolean editable;
     protected boolean initializable;
     protected Integer position;
+	protected boolean mnemonic;
     
     public void setPosition(Integer position) {
         this.position = position;
@@ -51,4 +52,12 @@ public abstract class DataElement extends TypedElement<DataScope> {
     public String toString() {
         return this.getOwner() + "->" + super.toString();
     }
+
+	public boolean isMnemonic() {
+		return mnemonic;
+	}
+
+	public void setMnemonic(boolean mnemonic) {
+		this.mnemonic = mnemonic;
+	}
 }
