@@ -96,6 +96,10 @@ public interface InstanceManagement {
     public List<Instance> getParameterDomain(Entity entity, String externalId, Operation action, Parameter parameter);
 
     public List<Instance> getRelatedInstances(String namespace, String name, String externalId, String relationship, boolean full);
+    
+    public default List<Instance> getRelatedInstances(Instance anchorInstance, String relationship, boolean full) {
+    	return getRelatedInstances(anchorInstance.getScopeNamespace(), anchorInstance.getScopeName(), anchorInstance.getObjectId(), relationship, full);
+    }
 
     public List<Instance> getRelationshipDomain(Entity entity, String objectId, Relationship relationship);
 
