@@ -42,4 +42,5 @@ public interface Paths {
     String SIGNUP = "signup";
     String TESTS = "tests";
     String UI = "ui";
+	String TEMPLATE = "_template";
 }
