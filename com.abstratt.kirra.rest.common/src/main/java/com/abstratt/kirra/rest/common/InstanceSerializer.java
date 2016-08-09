@@ -70,24 +70,28 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         // ensure links don't have sublinks/values and have an objectId
         if (asJsonObject.has("links")) {
             for (Entry<String, JsonElement> entry : asJsonObject.get("links").getAsJsonObject().entrySet()) {
-                JsonObject linkAsObject = entry.getValue().getAsJsonObject();
-                if (linkAsObject.has("uri")) {
-                    JsonElement uri = linkAsObject.get("uri");
-                    String uriString = uri.getAsString();
-                    String[] segments = StringUtils.split(uriString, "/");
-                    // uri is '...<entity>/instances/<objectId>'
-                    if (segments.length > 0)
-                        linkAsObject.addProperty("objectId", segments[segments.length - 1]);
-                    if (segments.length > 2) {
-                        String linkedTypeName = segments[segments.length - 3];
-                        TypeRef linkType = new TypeRef(linkedTypeName, TypeKind.Entity);
-                        linkAsObject.addProperty("scopeName", linkType.getTypeName());
-                        linkAsObject.addProperty("scopeNamespace", linkType.getNamespace());
-                    }
-                }
-                linkAsObject.remove("values");
-                linkAsObject.remove("links");
-                linkAsObject.addProperty("full", false);
+            	if (entry.getValue().isJsonObject()) {
+	                JsonObject linkAsObject = entry.getValue().getAsJsonObject();
+	                if (linkAsObject.has("uri")) {
+	                    JsonElement uri = linkAsObject.get("uri");
+	                    if (!uri.isJsonNull()) {
+		                    String uriString = uri.getAsString();
+		                    String[] segments = StringUtils.split(uriString, "/");
+		                    // uri is '...<entity>/instances/<objectId>'
+		                    if (segments.length > 0)
+		                        linkAsObject.addProperty("objectId", segments[segments.length - 1]);
+		                    if (segments.length > 2) {
+		                        String linkedTypeName = segments[segments.length - 3];
+		                        TypeRef linkType = new TypeRef(linkedTypeName, TypeKind.Entity);
+		                        linkAsObject.addProperty("scopeName", linkType.getTypeName());
+		                        linkAsObject.addProperty("scopeNamespace", linkType.getNamespace());
+		                    }
+	                    }
+	                }
+	                linkAsObject.remove("values");
+	                linkAsObject.remove("links");
+	                linkAsObject.addProperty("full", false);
+            	}
             }
         }
         Instance instance = new Gson().fromJson(jsonElement, Instance.class);
