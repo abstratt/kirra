@@ -14,9 +14,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -35,8 +37,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class DataPopulator {
     class Loader {
-        private Map<String, Map<String, List<String>>> instances = new HashMap<String, Map<String, List<String>>>();
-
+        private Map<String, Map<String, List<String>>> instances;
+        private Map<Instance, List<Consumer<Instance>>> linkingActions;
+        
         private Instance createOrResolveRelated(String currentNamespace, JsonNode referenceOrObject, TypeRef type) {
             if (referenceOrObject.isObject()) {
                 Entity relatedEntity = repository.getEntity(type.getEntityNamespace(), type.getTypeName());
@@ -81,28 +84,30 @@ public class DataPopulator {
             Map<String, Relationship> validRelationships = new HashMap<String, Relationship>();
             for (Relationship relationship : entity.getRelationships())
                 validRelationships.put(relationship.getName(), relationship);
-            Map<Relationship, JsonNode> multivaluedRelationships = new LinkedHashMap<>();
+            List<Consumer<Instance>> instanceLinkingActions = new LinkedList<>();
             for (Iterator<String> propertyNames = instanceNode.fieldNames(); propertyNames.hasNext();) {
                 String slotName = propertyNames.next();
                 if (validProperties.containsKey(slotName))
                     setProperty(newInstance, instanceNode.get(slotName), validProperties.get(slotName));
                 else if (validRelationships.containsKey(slotName)) {
                 	Relationship relationship = validRelationships.get(slotName);
-					if (relationship.isMultiple())
-                		multivaluedRelationships.put(relationship, instanceNode.get(slotName));
-                	else 
-                		setRelationship(newInstance, instanceNode.get(slotName), relationship);
+                	Consumer<Instance> linkingAction = created -> setRelationship(created, instanceNode.get(slotName), relationship);
+					if (relationship.isMultiple() || !relationship.isRequired())
+						instanceLinkingActions.add(linkingAction);
+					else
+						linkingAction.accept(newInstance);
                 }
             }
             Instance created = repository.createInstance(newInstance);
-            multivaluedRelationships.forEach((relationship, referencesAsJsonArray) -> {
-            	setMultiRelationship(created, referencesAsJsonArray, relationship);
-            });
+            linkingActions.put(created, instanceLinkingActions);
             getEntityInstances(entity.getEntityNamespace(), entity.getName()).add(created.getObjectId());
             return created;
         }
 
         private int processTree(JsonNode tree) {
+        	instances = new HashMap<String, Map<String, List<String>>>();
+            linkingActions = new LinkedHashMap<>();
+            
             for (String namespace : repository.getNamespaces())
                 instances.put(namespace, new HashMap<String, List<String>>());
             int count = 0;
@@ -116,6 +121,12 @@ public class DataPopulator {
                     }
                 }
             }
+            
+            linkingActions.forEach((instance, actions) -> {
+            	actions.forEach(it -> it.accept(instance));
+            	repository.updateInstance(instance);
+            });
+            
             return count;
         }
 
@@ -189,10 +200,10 @@ public class DataPopulator {
         }
 
         private void setRelationship(Instance newInstance, JsonNode jsonNode, Relationship relationship) {
-            if (relationship.isMultiple())
-                setMultiRelationship(newInstance, jsonNode, relationship);
-            else
-                setSingleRelationship(newInstance, jsonNode, relationship);
+    		if (relationship.isMultiple())
+    			setMultiRelationship(newInstance, jsonNode, relationship);
+    		else
+    			setSingleRelationship(newInstance, jsonNode, relationship);
         }
 
         private void setSingleRelationship(Instance newInstance, JsonNode jsonNode, Relationship relationship) {
