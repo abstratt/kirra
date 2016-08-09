@@ -18,9 +18,17 @@ public class KirraContext {
         return KirraContext.schemaManagement.get();
     }
 
+    public static String getEnvironment() {
+    	return KirraContext.environment.get();
+    }
     public static void setBaseURI(URI newValue) {
         KirraContext.setOrClear(KirraContext.baseURI, newValue);
     }
+    
+    public static void setEnvironment(String newValue) {
+        KirraContext.setOrClear(KirraContext.environment, newValue);
+    }
+
 
     public static void setInstanceManagement(InstanceManagement newValue) {
         KirraContext.setOrClear(KirraContext.instanceManagement, newValue);
@@ -37,9 +45,12 @@ public class KirraContext {
             slot.set(newValue);
     }
 
+    private static ThreadLocal<String> environment = new ThreadLocal<String>();
+    
     private static ThreadLocal<URI> baseURI = new ThreadLocal<URI>();
 
     private static ThreadLocal<InstanceManagement> instanceManagement = new ThreadLocal<InstanceManagement>();
 
     private static ThreadLocal<SchemaManagement> schemaManagement = new ThreadLocal<SchemaManagement>();
+
 }
