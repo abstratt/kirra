@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.Service;
+import com.abstratt.kirra.Tuple;
 import com.abstratt.kirra.TypeRef;
 import com.google.gson.GsonBuilder;
 
@@ -28,6 +29,7 @@ public class CommonHelper {
         map.put(Entity.class, new EntitySerializer(baseURI));
         map.put(Service.class, new TopLevelElementSerializer<Service>(baseURI));
         map.put(Instance.class, new InstanceSerializer());
+        map.put(Tuple.class, new TupleSerializer());
         map.put(TypeRef.class, TypeRefSerializer.INSTANCE);
         return buildGson(baseURI, map);
     }

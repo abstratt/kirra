@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 public interface SchemaManagement {
     public String getApplicationName();
+    public default String getApplicationLabel() {
+    	return getApplicationName();
+    }
 
     public String getBuild();
 

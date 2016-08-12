@@ -49,6 +49,12 @@ public class SchemaManagementSnapshot implements SchemaManagement {
         build();
         return schema.getApplicationName();
     }
+    
+    @Override
+    public String getApplicationLabel() {
+        build();
+        return schema.getApplicationLabel();
+    }
 
     @Override
     public String getBuild() {

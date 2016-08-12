@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 public class IndexResource {
     public static class Index {
         public final String applicationName;
+        public final String applicationLabel;
         public final URI entities;
         public final URI services;
         public final URI currentUser;
@@ -27,6 +28,7 @@ public class IndexResource {
         private Index() {
             this.uri = ResourceHelper.resolve();
             this.applicationName = KirraContext.getSchemaManagement().getApplicationName();
+            this.applicationLabel = KirraContext.getSchemaManagement().getApplicationLabel();
             this.entities = ResourceHelper.resolve(Paths.ENTITIES);
             this.services = ResourceHelper.resolve(Paths.SERVICES);
             Instance currentUser = KirraContext.getInstanceManagement().getCurrentUser();

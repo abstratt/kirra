@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Schema {
     protected String applicationName;
+    protected String applicationLabel;
     protected String build;
     protected List<Namespace> namespaces;
 	private Entity userEntity;
@@ -40,6 +41,13 @@ public class Schema {
     public String getApplicationName() {
         return applicationName;
     }
+    
+    public String getApplicationLabel() {
+        return applicationLabel;
+    }
+    public void setApplicationLabel(String applicationLabel) {
+		this.applicationLabel = applicationLabel;
+	}
 
     public String getBuild() {
         return build;
