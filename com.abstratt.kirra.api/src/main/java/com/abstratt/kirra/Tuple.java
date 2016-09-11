@@ -20,6 +20,7 @@ public class Tuple implements Serializable {
     protected Map<String, Object> values = new LinkedHashMap<String, Object>();
 
     public Tuple() {
+    	
     }
 
     public Tuple(TypeRef typeRef) {
