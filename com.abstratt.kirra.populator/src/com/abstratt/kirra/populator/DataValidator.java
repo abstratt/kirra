@@ -102,23 +102,24 @@ public class DataValidator {
         for (Iterator<String> propertyNames = instanceNode.fieldNames(); propertyNames.hasNext();) {
             String propertyName = propertyNames.next();
             if (validProperties.containsKey(propertyName)) {
-                validateProperty(entityName, instanceNode.get(propertyName), validProperties.get(propertyName));
-                propertiesFound.add(propertyName);
+                boolean propertyValid = validateProperty(entityName, instanceNode.get(propertyName), validProperties.get(propertyName));
+                if (propertyValid)
+                	propertiesFound.add(propertyName);
             } else if (validRelationships.containsKey(propertyName))
                 validateRelationship(entity, instanceNode.get(propertyName), validRelationships.get(propertyName));
             else
-                collector.addError("Instance " + entityName + "#" + index + " refers to an unknown property: '" + propertyName + "'");
+                collector.addWarning("Instance " + entityName + "#" + index + " refers to an unknown property: '" + propertyName + "'");
         }
         requiredProperties.removeAll(propertiesFound);
         for (String missing : requiredProperties)
             collector.addError("Instance " + entityName + "#" + index + " missing required property: '" + missing + "'");
     }
 
-    private void validateProperty(String entityName, JsonNode propertyValue, DataElement property) {
+    private boolean validateProperty(String entityName, JsonNode propertyValue, DataElement property) {
         if (property.isDerived()) {
-            collector.addError("Instance " + entityName + "#" + index + " has value for a derived property (" + property.getName() + "): "
+            collector.addWarning("Instance " + entityName + "#" + index + " has value for a derived property (" + property.getName() + "): "
                     + propertyValue.asToken());
-            return;
+            return false;
         }
         String validPropertyTypeName = property.getTypeRef().getTypeName();
         String valueTypeError = null;
@@ -155,9 +156,12 @@ public class DataValidator {
                 valueTypeError = "Expected " + validPropertyTypeName + " value, found double value";
             break;
         }
-        if (valueTypeError != null)
-            collector.addError("Instance " + entityName + "#" + index + " has invalid value for " + property.getName() + ". "
+        if (valueTypeError != null) {
+            collector.addWarning("Instance " + entityName + "#" + index + " has invalid value for " + property.getName() + ". "
                     + valueTypeError);
+            return false;
+        }
+        return true;
     }
 
     private void validateReference(TypeRef typeRef, String currentNamespace, JsonNode jsonNode) {
