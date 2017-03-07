@@ -250,7 +250,9 @@ public class DataPopulator {
     }
 
     public int populate(InputStream contents) {
+    	boolean wasPopulating = repository.isPopulating();
         try {
+        	repository.setPopulating(true);
             JsonNode tree = DataParser.parse(new InputStreamReader(contents));
             if (tree == null || !tree.isObject())
                 return 0;
@@ -259,6 +261,8 @@ public class DataPopulator {
             throw new KirraException("Error parsing JSON contents", e, KirraException.Kind.VALIDATION);
         } catch (IOException e) {
             throw new KirraException("Error reading contents", e, KirraException.Kind.VALIDATION);
-        }
+        } finally {
+			repository.setPopulating(wasPopulating);
+		}
     }
 }

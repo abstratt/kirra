@@ -41,7 +41,18 @@ public interface InstanceManagement {
      */
     public List<?> executeOperation(Operation operation, String externalId, List<?> arguments);
 
+    /**
+     * Returns an instance describing the currently logged-in user/profile.
+     */
     public Instance getCurrentUser();
+    
+    public default List<Instance> getCurrentUserRoles() {
+    	throw new UnsupportedOperationException();
+    }
+    
+    public default Instance createUser(Instance userInfo) {
+    	return createInstance(userInfo);
+    }
 
     public List<Operation> getEnabledEntityActions(Entity entity);
     

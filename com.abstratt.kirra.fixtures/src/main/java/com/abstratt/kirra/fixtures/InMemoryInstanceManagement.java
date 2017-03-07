@@ -127,7 +127,7 @@ public class InMemoryInstanceManagement implements InstanceManagement {
     private Map<String, String> buildDisabledActions(String... operationNames) {
         return asList(operationNames).stream().collect(toMap(o -> o, o -> ""));
     }
-
+    
     @Override
     public Instance getCurrentUser() {
         // TODO Auto-generated method stub

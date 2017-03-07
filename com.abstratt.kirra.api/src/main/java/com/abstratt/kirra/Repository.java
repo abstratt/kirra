@@ -30,4 +30,12 @@ public interface Repository extends SchemaManagement, InstanceManagement {
     public void setRepositoryURI(URI uri) throws KirraException;
 
     public void setValidating(boolean isValidating);
+    
+    public default void setPopulating(boolean isInitializing) {
+    	
+    }
+    
+    public default boolean isPopulating() {
+    	return false;
+    }
 }
