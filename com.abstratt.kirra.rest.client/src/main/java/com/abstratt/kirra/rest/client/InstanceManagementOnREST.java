@@ -39,7 +39,7 @@ public class InstanceManagementOnREST implements InstanceManagement {
 				Paths.ENTITIES, instance.getTypeRef().toString(),
 				Paths.INSTANCES, "");
 	}
-
+	
 	@Override
 	public void deleteInstance(Instance instance) {
 		// TODO Auto-generated method stub

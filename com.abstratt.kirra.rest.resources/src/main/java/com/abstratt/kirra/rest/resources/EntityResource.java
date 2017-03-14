@@ -1,10 +1,5 @@
 package com.abstratt.kirra.rest.resources;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -37,8 +32,7 @@ public class EntityResource {
     @Path(Paths.CAPABILITIES)
     public String getEntityCapabilities(@Context UriInfo uriInfo, @PathParam("entityName") String entityName) {
         TypeRef typeRef = new TypeRef(entityName, TypeKind.Entity);
-        Entity entity = KirraContext.getSchemaManagement().getEntity(typeRef);
-    	EntityCapabilities capabilities = KirraContext.getInstanceManagement().getEntityCapabilities(entity);
+    	EntityCapabilities capabilities = KirraContext.getInstanceManagement().getEntityCapabilities(typeRef);
 		return CommonHelper.buildGson(uriInfo.getBaseUri()).create().toJson(capabilities);
     }
 }

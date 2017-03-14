@@ -1,6 +1,5 @@
 package com.abstratt.kirra.rest.resources;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,12 +14,10 @@ import com.abstratt.kirra.rest.common.Paths;
 @Produces("application/json")
 public class LoginResource {
     @GET
-    @Consumes("application/json")
     public void login() {
     }
     
     @POST
-    @Consumes("application/json")
     public void login(String argumentMapRepresentation) {
     }
 }

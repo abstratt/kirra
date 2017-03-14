@@ -5,6 +5,7 @@ public interface Paths {
     String API = "api";
     String DATA = "data";
     String DOMAIN = "domain";
+    String CURRENT_USER = "currentUser";
     String ENTITIES = "entities";
     String EVENTS = "events";
     String PARAMETERS = "parameters";
@@ -15,6 +16,7 @@ public interface Paths {
 
     String ENTITIES_PATH = Paths.ROOT_PATH + Paths.ENTITIES + "/";
     String CAPABILITIES = "capabilities";
+    String ALL_ENTITY_CAPABILITIES_PATH = Paths.ROOT_PATH + Paths.CAPABILITIES + "/";
     String ENTITY_PATH = Paths.ENTITIES_PATH + "{entityName}/";
     String ENTITY_ACTION_PATH = ENTITY_PATH + Paths.ACTIONS + "/{actionName}";
     String INSTANCES_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/";
@@ -26,20 +28,19 @@ public interface Paths {
     String RELATIONSHIP_PATH = INSTANCE_PATH + "/" + Paths.RELATIONSHIPS + "/{relationshipName}/";
     String RELATIONSHIP_DOMAIN_PATH = RELATIONSHIP_PATH + DOMAIN;
     String INSTANCE_ACTION_PARAMETER_DOMAIN_PATH = INSTANCE_ACTION_PATH + "/" + Paths.PARAMETERS + "/{parameterName}/" + DOMAIN;
-    String LOGIN = "login";
-    String LOGOUT = "logout";
     String SESSION = "session";
-    String SESSION_PATH = Paths.ROOT_PATH + SESSION + "/";
-    String LOGIN_PATH = SESSION_PATH + LOGIN;
-    String LOGOUT_PATH = SESSION_PATH + LOGOUT;
-    String PASSWORD_RESET = "passwordReset";
-    String PROFILE = "profile";
-
+    String LOGIN = SESSION + "/" + "login";
+    String LOGOUT = SESSION + "/" + "logout";
     String ROOT_PATH = "{application}/";
+    String SESSION_PATH = ROOT_PATH + SESSION + "/";
+    String LOGIN_PATH = ROOT_PATH + LOGIN + "/";
+    String LOGOUT_PATH = ROOT_PATH + LOGOUT + "/";
+    String PASSWORD_RESET = "passwordReset";
     String SERVICE_PATH = Paths.SERVICES_PATH + "{serviceName}/";
     String SERVICES = "services";
     String SERVICES_PATH = Paths.ROOT_PATH + Paths.SERVICES + "/";
     String SIGNUP = "signup";
+    String SIGNUP_PATH = Paths.ROOT_PATH + SIGNUP;
     String TESTS = "tests";
     String UI = "ui";
 	String TEMPLATE = "_template";

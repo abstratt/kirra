@@ -21,6 +21,10 @@ public interface SchemaManagement {
      */
     public List<Entity> getEntities(String namespace);
     
+    public default List<Entity> getRoleEntities(String namespace) {
+    	return getEntities(namespace).stream().filter(e -> e.isRole()).collect(Collectors.toList());
+    }
+    
     /**
      * Returns all entities that have the give base entity as their super entity.
      * @param baseEntity
@@ -43,6 +47,10 @@ public interface SchemaManagement {
     public Entity getEntity(TypeRef typeRef);
 
     public Collection<TypeRef> getEntityNames();
+    
+    public default Collection<Entity> getRoleEntities() {
+    	return getEntityNames().stream().map(t -> getEntity(t)).filter(it -> it.isRole()).collect(Collectors.toList());
+    }
 
     /**
      * Returns the operations available for the given entity type.
@@ -85,10 +93,13 @@ public interface SchemaManagement {
     public List<TupleType> getTupleTypes(String namespace);
 
     List<Entity> getAllEntities();
-
+    
     List<Service> getAllServices();
 
     List<TupleType> getAllTupleTypes();
 
     Relationship getOpposite(Relationship relationship);
+	public default List<TypeRef> getAllEntityRefs() {
+		return getAllEntities().stream().map(e -> e.getTypeRef()).collect(Collectors.toList());
+	}
 }

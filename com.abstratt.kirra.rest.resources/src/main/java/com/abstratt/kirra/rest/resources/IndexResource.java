@@ -1,11 +1,16 @@
 package com.abstratt.kirra.rest.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.lang.model.element.Modifier;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.rest.common.CommonHelper;
@@ -21,26 +26,44 @@ public class IndexResource {
         public final String applicationName;
         public final String applicationLabel;
         public final URI entities;
+        public final URI entityCapabilities;
         public final URI services;
         public final URI currentUser;
+        public final URI session;
+        public final Map<String, URI> currentUserRoles;
         public final URI uri;
 
         private Index() {
             this.uri = ResourceHelper.resolve();
             this.applicationName = KirraContext.getSchemaManagement().getApplicationName();
             this.applicationLabel = KirraContext.getSchemaManagement().getApplicationLabel();
+            this.entityCapabilities = ResourceHelper.resolve(Paths.CAPABILITIES);
             this.entities = ResourceHelper.resolve(Paths.ENTITIES);
             this.services = ResourceHelper.resolve(Paths.SERVICES);
+            this.session = ResourceHelper.resolve(Paths.SESSION);
             Instance currentUser = KirraContext.getInstanceManagement().getCurrentUser();
+            List<Instance> currentUserRoles = KirraContext.getInstanceManagement().getCurrentUserRoles();
             if (currentUser != null) {
-                URI entityUri = CommonHelper.resolve(KirraContext.getBaseURI(), Paths.ENTITIES, currentUser.getTypeRef().toString());
-                URI instanceUri = CommonHelper.resolve(entityUri, Paths.INSTANCES, currentUser.getObjectId());
+                URI instanceUri = extractInstanceURI(currentUser);
                 this.currentUser = instanceUri;
-            } else 
+            } else {
                 this.currentUser = null;
+            }
+            if (currentUserRoles != null) {
+            	this.currentUserRoles = currentUserRoles.stream()
+            			.collect(Collectors.toMap(r -> r.getTypeRef().toString(), r-> extractInstanceURI(r)));
+            } else {
+            	this.currentUserRoles = null;
+            }
         }
+
     }
 
+    private static URI extractInstanceURI(Instance currentUser) {
+    	URI entityUri = CommonHelper.resolve(KirraContext.getBaseURI(), Paths.ENTITIES, currentUser.getTypeRef().toString());
+    	URI instanceUri = CommonHelper.resolve(entityUri, Paths.INSTANCES, currentUser.getObjectId());
+    	return instanceUri;
+    }
     @GET
     public String getIndex() {
         Index index = new Index();
@@ -48,5 +71,16 @@ public class IndexResource {
         gsonBuilder.excludeFieldsWithModifiers(Modifier.PRIVATE.ordinal());
         Gson gson = gsonBuilder.create();
         return gson.toJson(index);
+    }
+    
+    @GET
+    @Path(Paths.SESSION_PATH)
+    public Response getSession() {
+    	Instance currentUser = KirraContext.getInstanceManagement().getCurrentUser();
+        if (currentUser != null) {
+        	URI userUri = extractInstanceURI(currentUser);
+        	return Response.temporaryRedirect(userUri).build();
+        }
+        return Response.status(Status.FORBIDDEN).build();
     }
 }

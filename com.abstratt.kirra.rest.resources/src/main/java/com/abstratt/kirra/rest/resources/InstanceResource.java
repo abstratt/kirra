@@ -61,7 +61,7 @@ public class InstanceResource {
         TypeRef typeRef = new TypeRef(entityName, TypeKind.Entity);
         Entity entity = KirraContext.getSchemaManagement().getEntity(typeRef);
     	InstanceCapabilities capabilities = KirraContext.getInstanceManagement().getInstanceCapabilities(entity, objectId);
-
+    	ResourceHelper.ensure(capabilities != null, "Instance not found", Status.NOT_FOUND);
     	return CommonHelper.buildGson(uriInfo.getBaseUri()).create().toJson(capabilities);
     }
 }

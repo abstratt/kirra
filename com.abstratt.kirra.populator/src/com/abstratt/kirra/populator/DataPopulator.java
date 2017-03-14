@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class DataPopulator {
     class Loader {
         private Map<String, Map<String, List<String>>> instances;
-        private Map<Instance, List<Consumer<Instance>>> linkingActions;
+        private Map<Instance, List<LinkingAction>> linkingActions;
         
         private Instance createOrResolveRelated(String currentNamespace, JsonNode referenceOrObject, TypeRef type) {
             if (referenceOrObject.isObject()) {
@@ -84,18 +84,14 @@ public class DataPopulator {
             Map<String, Relationship> validRelationships = new HashMap<String, Relationship>();
             for (Relationship relationship : entity.getRelationships())
                 validRelationships.put(relationship.getName(), relationship);
-            List<Consumer<Instance>> instanceLinkingActions = new LinkedList<>();
+            List<LinkingAction> instanceLinkingActions = new LinkedList<>();
             for (Iterator<String> propertyNames = instanceNode.fieldNames(); propertyNames.hasNext();) {
                 String slotName = propertyNames.next();
                 if (validProperties.containsKey(slotName))
                     setProperty(newInstance, instanceNode.get(slotName), validProperties.get(slotName));
                 else if (validRelationships.containsKey(slotName)) {
                 	Relationship relationship = validRelationships.get(slotName);
-                	Consumer<Instance> linkingAction = created -> setRelationship(created, instanceNode.get(slotName), relationship);
-					if (relationship.isMultiple() || !relationship.isRequired())
-						instanceLinkingActions.add(linkingAction);
-					else
-						linkingAction.accept(newInstance);
+					instanceLinkingActions.add(new LinkingAction(relationship, instanceNode, slotName));
                 }
             }
             Instance created = repository.createInstance(newInstance);
@@ -200,6 +196,7 @@ public class DataPopulator {
         }
 
         private void setRelationship(Instance newInstance, JsonNode jsonNode, Relationship relationship) {
+        	System.out.println("Setting " + newInstance.getReference() + "."  + relationship.getName() + " to " + jsonNode);
     		if (relationship.isMultiple())
     			setMultiRelationship(newInstance, jsonNode, relationship);
     		else
@@ -211,6 +208,22 @@ public class DataPopulator {
             if (related != null)
                 newInstance.setSingleRelated(relationship.getName(), related);
         }
+        
+    	class LinkingAction implements Consumer<Instance> { 
+			private Relationship relationship;
+			private JsonNode instanceNode;
+			private String slotName;
+			public LinkingAction(Relationship relationship, JsonNode instanceNode, String slotName) {
+    			this.relationship = relationship;
+    			this.instanceNode = instanceNode;
+    			this.slotName = slotName;
+    		}
+			@Override
+			public void accept(Instance instance) {
+    			setRelationship(instance, instanceNode.get(slotName), relationship);
+    		}
+    	}
+
     }
 
     public static String ID = DataPopulator.class.getPackage().getName();

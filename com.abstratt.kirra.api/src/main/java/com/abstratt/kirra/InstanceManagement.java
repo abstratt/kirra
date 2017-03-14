@@ -2,6 +2,7 @@ package com.abstratt.kirra;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Basic protocol for managing entity instances.
@@ -56,9 +57,14 @@ public interface InstanceManagement {
 
     public List<Operation> getEnabledEntityActions(Entity entity);
     
-    public default EntityCapabilities getEntityCapabilities(Entity entity) {
+    public default EntityCapabilities getEntityCapabilities(TypeRef entity) {
     	return new EntityCapabilities();
     }
+    
+    public default Map<TypeRef, EntityCapabilities> getEntityCapabilities(List<TypeRef> entities) {
+    	return entities.stream().collect(Collectors.toMap(e -> e, e -> getEntityCapabilities(e)));
+    }
+    
     public default InstanceCapabilities getInstanceCapabilities(Entity entity, String objectId) {
     	return new InstanceCapabilities();
     }
