@@ -5,6 +5,8 @@ Kirra API
 
 [![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=kirra-api)](https://textuml.ci.cloudbees.com/job/kirra-api/)
 
+[![Build Status on Travis CI](https://travis-ci.org/abstratt/kirra.svg?branch=master)](https://travis-ci.org/abstratt/kirra.svg?branch=master)
+
 The Kirra API is a minimalistic API specification to access functionality of a business application in a business and technology agnostic way. 
 
 This reference implementation happens to use the Java language, but the intent is that it could be easily translated to other programming languages (or computing domains, such as network-oriented APIs).
