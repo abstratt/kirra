@@ -32,6 +32,8 @@ public class EntityActionResource {
     public String execute(@PathParam("entityName") String entityName, 
             @PathParam("actionName") String actionName, String argumentMapRepresentation) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        AuthorizationHelper.checkEntityActionAuthorized(entityRef, actionName);
+        
         Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
         ResourceHelper.ensure(entity != null, "Entity not found", Status.NOT_FOUND);
         Operation action = entity.getOperation(actionName);

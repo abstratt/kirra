@@ -1,6 +1,8 @@
 package com.abstratt.kirra.rest.common;
 
+import java.io.File;
 import java.net.URI;
+import java.util.List;
 
 import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.SchemaManagement;
@@ -21,12 +23,19 @@ public class KirraContext {
     public static String getEnvironment() {
     	return KirraContext.environment.get();
     }
+    public static List<Upload> getUploads() {
+    	return KirraContext.uploads.get();
+    }
     public static void setBaseURI(URI newValue) {
         KirraContext.setOrClear(KirraContext.baseURI, newValue);
     }
     
     public static void setEnvironment(String newValue) {
         KirraContext.setOrClear(KirraContext.environment, newValue);
+    }
+    
+    public static void setUploads(List<Upload> newValue) {
+        KirraContext.setOrClear(KirraContext.uploads, newValue);
     }
 
 
@@ -44,13 +53,41 @@ public class KirraContext {
         else
             slot.set(newValue);
     }
-
-    private static ThreadLocal<String> environment = new ThreadLocal<String>();
     
-    private static ThreadLocal<URI> baseURI = new ThreadLocal<URI>();
+    public static class Upload {
+    	private final String name;
+    	private final File contents;
+		private final String contentType;
+		private final String originalName;
+		public Upload(String name, String contentType, String originalName, File contents) {
+			super();
+			this.name = name;
+			this.contents = contents;
+			this.contentType = contentType;
+			this.originalName = originalName;
+		}
+		public String getName() {
+			return name;
+		}
+		public File getContents() {
+			return contents;
+		}
+		public String getContentType() {
+			return contentType;
+		}
+		public String getOriginalName() {
+			return originalName;
+		}
+    }
+    
+    private static ThreadLocal<List<Upload>> uploads = new ThreadLocal<>();
+    
+    private static ThreadLocal<String> environment = new ThreadLocal<>();
+    
+    private static ThreadLocal<URI> baseURI = new ThreadLocal<>();
 
-    private static ThreadLocal<InstanceManagement> instanceManagement = new ThreadLocal<InstanceManagement>();
+    private static ThreadLocal<InstanceManagement> instanceManagement = new ThreadLocal<>();
 
-    private static ThreadLocal<SchemaManagement> schemaManagement = new ThreadLocal<SchemaManagement>();
+    private static ThreadLocal<SchemaManagement> schemaManagement = new ThreadLocal<>();
 
 }

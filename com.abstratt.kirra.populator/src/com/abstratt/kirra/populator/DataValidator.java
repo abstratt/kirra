@@ -137,7 +137,11 @@ public class DataValidator {
                 try {
                     new SimpleDateFormat("yyyy/MM/dd").parse(propertyValue.asText());
                 } catch (ParseException e) {
-                    valueTypeError = "Dates must be in the format yyyy/MM/dd";
+                	try {
+                		new SimpleDateFormat("yyyy-MM-dd").parse(propertyValue.asText());
+                	} catch (ParseException e2) {
+                		valueTypeError = "Dates must be in the format yyyy-MM-dd or yyyy/MM/dd";
+                	}
                 }
             else if (property.getTypeRef().getKind() == TypeKind.Enumeration) {
                 if (!property.getEnumerationLiterals().containsKey(propertyValue.asText())) {

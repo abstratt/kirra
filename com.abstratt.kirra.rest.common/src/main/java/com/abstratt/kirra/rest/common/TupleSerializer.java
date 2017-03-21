@@ -1,5 +1,6 @@
 package com.abstratt.kirra.rest.common;
 
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,7 @@ public class TupleSerializer implements JsonSerializer<Tuple> {
 
     @Override
     public JsonElement serialize(Tuple  tuple, Type type, JsonSerializationContext context) {
-        Gson gson = CommonHelper.buildBasicGson().setExclusionStrategies(new ExclusionStrategy() {
+        Gson gson = CommonHelper.buildBasicGson().addSerializationExclusionStrategy(new ExclusionStrategy() {
             @Override
             public boolean shouldSkipClass(Class<?> arg0) {
                 return false;

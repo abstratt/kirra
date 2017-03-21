@@ -33,6 +33,7 @@ public class FinderResultResource {
     @GET
     public String findInstances(@PathParam("entityName") String entityName, @PathParam("finderName") String finderName,@Context UriInfo uriInfo) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        AuthorizationHelper.checkEntityFinderAuthorized(entityRef, finderName);
         
         Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
         ResourceHelper.ensure(entity != null, "Entity not found", Status.NOT_FOUND);
@@ -54,6 +55,7 @@ public class FinderResultResource {
     @POST
     public String findInstances(@PathParam("entityName") String entityName, @PathParam("finderName") String finderName,String argumentMapRepresentation) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        AuthorizationHelper.checkEntityFinderAuthorized(entityRef, finderName);
         
         Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
         ResourceHelper.ensure(entity != null, "Entity not found", Status.NOT_FOUND);

@@ -29,7 +29,11 @@ public class ResourceHelper extends CommonHelper {
     }
 
     public static void fail(Throwable exception, Status status) {
-        throw new KirraRestException(null, status == null ? Status.INTERNAL_SERVER_ERROR : status, exception);
+    	fail(exception, null, status);
+    }
+    
+    public static void fail(Throwable exception, String message, Status status) {
+        throw new KirraRestException(message, status == null ? Status.INTERNAL_SERVER_ERROR : status, exception);
     }
 
     public static URI resolve(boolean directory, String... segments) {

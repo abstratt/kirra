@@ -65,7 +65,7 @@ public interface InstanceManagement {
     	return entities.stream().collect(Collectors.toMap(e -> e, e -> getEntityCapabilities(e)));
     }
     
-    public default InstanceCapabilities getInstanceCapabilities(Entity entity, String objectId) {
+    public default InstanceCapabilities getInstanceCapabilities(TypeRef entity, String objectId) {
     	return new InstanceCapabilities();
     }
 
@@ -177,4 +177,15 @@ public interface InstanceManagement {
     public void validateInstance(Instance toValidate);
 
     public void zap();
+
+	default public void deleteBlob(TypeRef entityRef, String objectId, String blobPropertyName, String blobToken) {
+		throw new UnsupportedOperationException();
+	}
+	default public Blob addBlob(TypeRef entityRef, String objectId, String blobPropertyName, Blob newBlob) {
+		throw new UnsupportedOperationException();
+	}
+	default public Blob getBlob(TypeRef entityRef, String objectId, String blobPropertyName, String blobToken) {
+		throw new UnsupportedOperationException();
+	}
+	
 }

@@ -3,6 +3,7 @@ package com.abstratt.kirra.rest.common;
 public interface Paths {
     String ACTIONS = "actions";
     String API = "api";
+    String BLOBS = "blobs";
     String DATA = "data";
     String DOMAIN = "domain";
     String CURRENT_USER = "currentUser";
@@ -22,6 +23,7 @@ public interface Paths {
     String INSTANCES_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/";
     String FINDER_RESULTS_PATH = Paths.ENTITY_PATH + Paths.FINDERS + "/{finderName}";
     String INSTANCE_PATH = Paths.INSTANCES_PATH + "{objectId}";
+    String INSTANCE_BLOB_PATH = INSTANCE_PATH + "/" + Paths.BLOBS + "/{propertyName}";
     String INSTANCE_ACTION_PATH = INSTANCE_PATH + "/" + Paths.ACTIONS + "/{actionName}";
     String RELATED_INSTANCES_PATH = INSTANCE_PATH + "/" + Paths.RELATIONSHIPS + "/{relationshipName}";
     String RELATED_INSTANCE_PATH = RELATED_INSTANCES_PATH + "/{relatedObjectId}";
@@ -43,5 +45,6 @@ public interface Paths {
     String SIGNUP_PATH = Paths.ROOT_PATH + SIGNUP;
     String TESTS = "tests";
     String UI = "ui";
-	String TEMPLATE = "_template";
+	String TEMPLATE = "template";
+	String TEMPLATE_PATH = Paths.INSTANCES_PATH + TEMPLATE;
 }

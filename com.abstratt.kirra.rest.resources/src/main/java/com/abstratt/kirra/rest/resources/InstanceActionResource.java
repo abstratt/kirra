@@ -31,6 +31,7 @@ public class InstanceActionResource {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
         ResourceHelper.ensure(entity != null, "Entity not found", Status.NOT_FOUND);
+        AuthorizationHelper.checkInstanceActionAuthorized(entityRef, objectId, actionName);
         Operation action = entity.getOperation(actionName);
         ResourceHelper.ensure(action != null, "Action not found", Status.NOT_FOUND);
         ResourceHelper.ensure(action.isInstanceOperation(), "Not an instance action", Status.BAD_REQUEST);

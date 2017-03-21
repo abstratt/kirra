@@ -28,8 +28,17 @@ public class InstanceResource {
     public String getInstance(@PathParam("entityName") String entityName, @PathParam("objectId") String objectId) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         InstanceManagement instanceManagement = KirraContext.getInstanceManagement();
-        Instance instance = "_template".equals(objectId) ? instanceManagement.newInstance(entityRef.getEntityNamespace(), entityRef.getTypeName()) : instanceManagement.getInstance(entityRef.getEntityNamespace(), entityRef.getTypeName(),
-                objectId, true);
+        boolean isTemplate = "_template".equals(objectId);
+		Instance instance;
+		if (isTemplate) {
+			instance = instanceManagement.newInstance(entityRef.getEntityNamespace(), entityRef.getTypeName());
+			AuthorizationHelper.checkInstanceCreationAuthorized(entityRef);
+		} else {
+			AuthorizationHelper.checkInstanceReadAuthorized(entityRef, objectId);
+			instance = instanceManagement.getInstance(entityRef.getEntityNamespace(), entityRef.getTypeName(),
+			        objectId, true);
+		}
+		
         ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
         return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instance);
     }
@@ -37,6 +46,7 @@ public class InstanceResource {
     @DELETE
     public void deleteInstance(@PathParam("entityName") String entityName, @PathParam("objectId") String objectId) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        AuthorizationHelper.checkInstanceDeleteAuthorized(entityRef, objectId);
         InstanceManagement instanceManagement = KirraContext.getInstanceManagement();
         instanceManagement.deleteInstance(entityRef.getEntityNamespace(), entityRef.getTypeName(), objectId);
     }
@@ -47,6 +57,7 @@ public class InstanceResource {
     public String updateInstance(@PathParam("entityName") String entityName, @PathParam("objectId") String objectId,
             String existingInstanceRepresentation) {
         TypeRef typeRef = new TypeRef(entityName, TypeKind.Entity);
+        AuthorizationHelper.checkInstanceUpdateAuthorized(typeRef, objectId);
         Instance toUpdate = CommonHelper.buildGson(null).create().fromJson(existingInstanceRepresentation, Instance.class);
         toUpdate.setObjectId(objectId);
         toUpdate.setEntityName(typeRef.getTypeName());
@@ -59,8 +70,7 @@ public class InstanceResource {
     @Path(Paths.CAPABILITIES)
     public String getInstanceCapabilities(@Context UriInfo uriInfo, @PathParam("entityName") String entityName, @PathParam("objectId") String objectId) {
         TypeRef typeRef = new TypeRef(entityName, TypeKind.Entity);
-        Entity entity = KirraContext.getSchemaManagement().getEntity(typeRef);
-    	InstanceCapabilities capabilities = KirraContext.getInstanceManagement().getInstanceCapabilities(entity, objectId);
+        InstanceCapabilities capabilities = KirraContext.getInstanceManagement().getInstanceCapabilities(typeRef, objectId);
     	ResourceHelper.ensure(capabilities != null, "Instance not found", Status.NOT_FOUND);
     	return CommonHelper.buildGson(uriInfo.getBaseUri()).create().toJson(capabilities);
     }

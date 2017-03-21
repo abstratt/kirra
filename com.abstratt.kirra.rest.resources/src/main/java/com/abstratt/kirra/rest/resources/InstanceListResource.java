@@ -2,7 +2,6 @@ package com.abstratt.kirra.rest.resources;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +31,10 @@ import com.abstratt.kirra.rest.common.Paths;
 public class InstanceListResource {
     @POST
     public Response createInstance(@PathParam("entityName") String entityName, String newInstanceRepresentation) {
+    	TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        AuthorizationHelper.checkInstanceCreationAuthorized(entityRef);
+    	
         Instance toCreate = CommonHelper.buildGson(null).create().fromJson(newInstanceRepresentation, Instance.class);
-        TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         toCreate.setEntityNamespace(entityRef.getNamespace()); 
         toCreate.setEntityName(entityRef.getTypeName());
         Instance created = KirraContext.getInstanceManagement().createInstance(toCreate);
@@ -45,6 +46,8 @@ public class InstanceListResource {
     @GET
     public String getInstances(@PathParam("entityName") String entityName, @Context UriInfo uriInfo) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        AuthorizationHelper.checkEntityListAuthorized(entityRef);
+        
         Map<String, List<Object>> criteria = new LinkedHashMap<String, List<Object>>();
         List<String> builtInParameters = Arrays.asList("includesubtypes");
         boolean includeSubtypes = false;

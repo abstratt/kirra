@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.apache.commons.io.FileUtils;
@@ -31,6 +35,7 @@ import com.abstratt.kirra.Property;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.Repository;
 import com.abstratt.kirra.TypeRef;
+import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.pluginutils.LogUtils;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -174,8 +179,8 @@ public class DataPopulator {
                 value = propertyValue.asText();
                 if (propertyTypeName.equals("Date")) {
                     try {
-                        value = new SimpleDateFormat("yyyy/MM/dd").parse(propertyValue.asText());
-                    } catch (ParseException e) {
+                        value = LocalDateTime.parse(propertyValue.asText(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                    } catch (DateTimeParseException e) {
                         // no good, don't set
                         return;
                     }
@@ -190,6 +195,17 @@ public class DataPopulator {
                 if (!propertyTypeName.equals("Double"))
                     return;
                 value = propertyValue.asDouble();
+                break;
+            case START_OBJECT:
+                if (property.getTypeRef().getKind() == TypeKind.Blob) {
+            		Map<String, Object> asMap = new LinkedHashMap<>();
+            		asMap.put("token", propertyValue.get("token").asText());
+            		asMap.put("contentType", propertyValue.get("contentType").asText());
+            		asMap.put("originalName", Optional.ofNullable(propertyValue.get("originalName")).map(it -> it.asText()).orElse(null));
+            		asMap.put("contentLength", propertyValue.get("contentLength").asInt());
+            		asMap.put("contents", propertyValue.get("contents").asText());
+            		value = asMap;
+                }                
                 break;
             }
             newInstance.setValue(property.getName(), value);

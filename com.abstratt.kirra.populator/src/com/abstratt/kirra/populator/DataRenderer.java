@@ -12,15 +12,22 @@ import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.Repository;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Produces a JSON representation from a repository's data.
  */
 public class DataRenderer {
-    static class LazyReference {
-        final private InstanceRef reference;
+    public static class LazyReference {
+        private final InstanceRef reference;
         private Long sequenceNumber;
+        public InstanceRef getReference() {
+			return reference;
+		}
+
+		public Long getSequenceNumber() {
+			return sequenceNumber;
+		}
+
 
         public LazyReference(InstanceRef reference) {
             super();
@@ -30,12 +37,7 @@ public class DataRenderer {
         public void setSequenceNumber(Long sequenceNumber) {
             this.sequenceNumber = sequenceNumber;
         }
-
-        @Override
-        @JsonValue
-        public String toString() {
-            return reference.getEntityNamespace() + '.' + reference.getEntityName() + '@' + sequenceNumber;
-        }
+        
     }
 
     public static String ID = DataRenderer.class.getPackage().getName();
