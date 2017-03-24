@@ -149,7 +149,7 @@ public class DataValidator {
                     valueTypeError = "Expected one of " + property.getEnumerationLiterals().toString() + ", found: "
                             + propertyValue.textValue();
                 }
-            } else if (!validPropertyTypeName.equals("String") && !validPropertyTypeName.equals("Memo"))
+            } else if (!validPropertyTypeName.equals("String") && !validPropertyTypeName.equals("Memo") && !validPropertyTypeName.equals("Geolocation"))
                 valueTypeError = "Expected " + validPropertyTypeName + " value, found string value";
             break;
         case VALUE_NUMBER_INT:
