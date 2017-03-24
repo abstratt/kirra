@@ -10,10 +10,12 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -178,12 +180,19 @@ public class DataPopulator {
             case VALUE_STRING:
                 value = propertyValue.asText();
                 if (propertyTypeName.equals("Date")) {
-                    try {
-                        value = LocalDateTime.parse(propertyValue.asText(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-                    } catch (DateTimeParseException e) {
-                        // no good, don't set
-                        return;
-                    }
+                	String asText = propertyValue.asText();
+                	value = Arrays.asList("yyyy/MM/dd", "yyyy-MM-dd").stream()
+            			.map(pattern -> {
+            				try {
+								LocalDate parsed = LocalDate.parse(asText, DateTimeFormatter.ofPattern(pattern));
+            					return parsed.atStartOfDay();
+                            } catch (DateTimeParseException e) {
+                                return null;
+                            }
+            			})
+            			.filter(it -> it != null)
+            			.findAny()
+            			.orElse(null);
                 }
                 break;
             case VALUE_NUMBER_INT:

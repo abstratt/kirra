@@ -4,6 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 public class InstanceCapabilities {
+	public InstanceCapabilities() {
+		super();
+	}
+	public InstanceCapabilities(List<String> instance, Map<String, List<String>> attributes,
+			Map<String, List<String>> relationships, Map<String, List<String>> actions) {
+		super();
+		this.instance = instance;
+		this.attributes = attributes;
+		this.relationships = relationships;
+		this.actions = actions;
+	}
 	protected List<String> instance;
 	protected Map<String, List<String>> attributes;
 	protected Map<String, List<String>> relationships;

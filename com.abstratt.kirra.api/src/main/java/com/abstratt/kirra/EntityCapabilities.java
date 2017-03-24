@@ -4,6 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 public class EntityCapabilities {
+	public EntityCapabilities(List<String> entity, Map<String, List<String>> queries,
+			Map<String, List<String>> actions) {
+		super();
+		this.entity = entity;
+		this.queries = queries;
+		this.actions = actions;
+	}
+	public EntityCapabilities() {
+		super();
+	}
 	protected List<String> entity;
 	protected Map<String, List<String>> queries;
 	protected Map<String, List<String>> actions;

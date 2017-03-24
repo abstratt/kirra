@@ -111,6 +111,7 @@ public class DataValidator {
                 collector.addWarning("Instance " + entityName + "#" + index + " refers to an unknown property: '" + propertyName + "'");
         }
         requiredProperties.removeAll(propertiesFound);
+        requiredProperties.removeIf(name -> entity.getProperty(name).isHasDefault());
         for (String missing : requiredProperties)
             collector.addError("Instance " + entityName + "#" + index + " missing required property: '" + missing + "'");
     }

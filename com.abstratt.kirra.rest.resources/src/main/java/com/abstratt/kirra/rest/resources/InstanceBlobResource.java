@@ -35,7 +35,7 @@ import com.abstratt.kirra.rest.common.Paths;
 
 @Path(Paths.INSTANCE_BLOB_PATH)
 public class InstanceBlobResource {
-	private static final int ATTACHMENT_LIMIT = 200 * 1024;
+	private static final int ATTACHMENT_LIMIT = 512 * 1024;
 
 	@DELETE
 	@Path("{blobToken}")
@@ -98,7 +98,7 @@ public class InstanceBlobResource {
 				Status.BAD_REQUEST);
 
 		uploads.forEach(it -> ResourceHelper.ensure(it.getContents().length() <= ATTACHMENT_LIMIT,
-				"Attachments limited to " + ATTACHMENT_LIMIT + " bytes", Status.BAD_REQUEST));
+				"Attachments limited to " + (ATTACHMENT_LIMIT/1024) + " kb, actual size: " + (it.getContents().length()/1024) + " kb", Status.BAD_REQUEST));
 		ResourceHelper.ensure(uploads.size() == 1 || blobProperty.isMultiple(), "Too many attachments received",
 				Status.BAD_REQUEST);
 		
