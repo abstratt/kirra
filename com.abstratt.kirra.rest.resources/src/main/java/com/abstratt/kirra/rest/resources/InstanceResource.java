@@ -34,12 +34,12 @@ public class InstanceResource {
 			instance = instanceManagement.newInstance(entityRef.getEntityNamespace(), entityRef.getTypeName());
 			AuthorizationHelper.checkInstanceCreationAuthorized(entityRef);
 		} else {
-			AuthorizationHelper.checkInstanceReadAuthorized(entityRef, objectId);
 			instance = instanceManagement.getInstance(entityRef.getEntityNamespace(), entityRef.getTypeName(),
 			        objectId, true);
+			ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
+			AuthorizationHelper.checkInstanceReadAuthorized(entityRef, objectId);
 		}
 		
-        ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
         return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instance);
     }
     
