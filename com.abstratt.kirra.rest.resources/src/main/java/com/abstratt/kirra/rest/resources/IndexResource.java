@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response.Status;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
+import com.abstratt.kirra.rest.common.KirraContext.Options;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,6 +33,7 @@ public class IndexResource {
         public final URI session;
         public final Map<String, URI> currentUserRoles;
         public final URI uri;
+        public final KirraContext.Options options;
 
         private Index() {
             this.uri = ResourceHelper.resolve();
@@ -55,6 +57,7 @@ public class IndexResource {
             } else {
             	this.currentUserRoles = null;
             }
+            this.options = KirraContext.getOptions();
         }
 
     }

@@ -23,6 +23,10 @@ public class KirraContext {
     public static String getEnvironment() {
     	return KirraContext.environment.get();
     }
+    public static Options getOptions() {
+    	return KirraContext.options.get();
+    }
+
     public static List<Upload> getUploads() {
     	return KirraContext.uploads.get();
     }
@@ -36,6 +40,10 @@ public class KirraContext {
     
     public static void setUploads(List<Upload> newValue) {
         KirraContext.setOrClear(KirraContext.uploads, newValue);
+    }
+    
+    public static void setOptions(Options newValue) {
+        KirraContext.setOrClear(KirraContext.options, newValue);
     }
 
 
@@ -79,6 +87,23 @@ public class KirraContext {
 			return originalName;
 		}
     }
+    
+    public static class Options {
+    	public Options(boolean isLoginRequired, boolean isLoginAllowed) {
+			this.isLoginRequired = isLoginRequired;
+			this.isLoginAllowed = isLoginAllowed;
+		}
+		boolean isLoginRequired;
+    	boolean isLoginAllowed;
+		public boolean isLoginRequired() {
+			return isLoginRequired;
+		}
+		public boolean isLoginAllowed() {
+			return isLoginAllowed;
+		}
+    }
+    
+    private static ThreadLocal<Options> options = new ThreadLocal<>();
     
     private static ThreadLocal<List<Upload>> uploads = new ThreadLocal<>();
     
