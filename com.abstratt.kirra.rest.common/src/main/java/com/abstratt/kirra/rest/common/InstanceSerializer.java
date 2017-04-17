@@ -3,12 +3,14 @@ package com.abstratt.kirra.rest.common;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
@@ -45,22 +47,38 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
             }
             
         }).create();
-        JsonObject asJson = (JsonObject) gson.toJsonTree(instance);
+        
+        // hide any non-user visible properties and relationships
+        Entity entity = KirraContext.getSchemaManagement().getEntity(instance.getTypeRef());
 
+        Map<String, Object> values = instance.getValues();
+        // remove non-user visible properties
+		entity.getProperties()
+			.stream()
+			.filter(it -> !it.isUserVisible())
+			.forEach(it -> values.remove(it.getName()));
+		JsonElement valuesAsJson = gson.toJsonTree(values);
+		
         // flatten links to avoid infinite recursion due to cyclic refs
         Map<String, Instance> links = instance.getLinks();
         JsonObject linksAsJson = new JsonObject();
         for (Map.Entry<String, Instance> link : links.entrySet()) {
             String relationshipName = link.getKey();
             JsonElement element;
-            if (link.getValue() == null)
-            	element = JsonNull.INSTANCE;
-            else
-            	element = addBasicProperties(gson, link.getValue(), new JsonObject()); 
-            linksAsJson.add(relationshipName, element);
+            // only include user visible properties
+            if (entity.getRelationship(relationshipName).isUserVisible()) {
+	            Instance linkValue = link.getValue();
+				if (linkValue == null)
+	            	element = JsonNull.INSTANCE;
+	            else
+	            	element = addBasicProperties(gson, link.getValue(), new JsonObject()); 
+	            linksAsJson.add(relationshipName, element);
+            }
         }
+        JsonObject asJson = new JsonObject();
         asJson.add("links", linksAsJson);
-        addBasicProperties(gson, instance, asJson);
+        asJson.add("values", valuesAsJson);
+    	addBasicProperties(gson, instance, asJson);
         return asJson;
     }
     
