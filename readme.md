@@ -3,8 +3,8 @@
 Kirra API
 ===
 
-[![Test Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=kirra-api)](https://textuml.ci.cloudbees.com/job/kirra-api-tests/)
-[![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=kirra-api)](https://textuml.ci.cloudbees.com/job/kirra-api-build/)
+[![Test Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=kirra-api-tests)](https://textuml.ci.cloudbees.com/job/kirra-api-tests/)
+[![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=kirra-api-build)](https://textuml.ci.cloudbees.com/job/kirra-api-build/)
 [![Build Status on Travis CI](https://travis-ci.org/abstratt/kirra.svg?branch=master)](https://travis-ci.org/abstratt/kirra.svg?branch=master)
 
 The Kirra API is a minimalistic API specification to access functionality of a business application in a business and technology agnostic way. 
