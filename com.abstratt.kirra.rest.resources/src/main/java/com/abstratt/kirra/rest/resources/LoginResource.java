@@ -17,7 +17,7 @@ import com.abstratt.kirra.rest.common.Paths;
 @Produces("application/json")
 public class LoginResource {
     @GET
-    public void login() {
+    public void loginAsGET() {
     	ensureLoggedIn();
     }
 
@@ -27,9 +27,14 @@ public class LoginResource {
 		ensureLoggedIn();
     }
 	
+	@POST
+    public void loginAsEmptyPOST() {
+		ensureLoggedIn();
+    }
+	
     
     private void ensureLoggedIn() {
     	Instance currentUser = KirraContext.getInstanceManagement().getCurrentUser();
-    	ResourceHelper.ensure(currentUser != null, "User not logged in", Status.UNAUTHORIZED);
+    	ResourceHelper.ensure(currentUser != null, "Login failed", Status.UNAUTHORIZED);
 	}	
 }

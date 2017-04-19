@@ -78,6 +78,7 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         JsonObject asJson = new JsonObject();
         asJson.add("links", linksAsJson);
         asJson.add("values", valuesAsJson);
+        asJson.add("disabledActions", context.serialize(instance.getDisabledActions()));
     	addBasicProperties(gson, instance, asJson);
         return asJson;
     }

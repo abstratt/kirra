@@ -46,7 +46,6 @@ public class KirraContext {
         KirraContext.setOrClear(KirraContext.options, newValue);
     }
 
-
     public static void setInstanceManagement(InstanceManagement newValue) {
         KirraContext.setOrClear(KirraContext.instanceManagement, newValue);
     }
@@ -102,7 +101,6 @@ public class KirraContext {
 			return isLoginAllowed;
 		}
     }
-    
     private static ThreadLocal<Options> options = new ThreadLocal<>();
     
     private static ThreadLocal<List<Upload>> uploads = new ThreadLocal<>();

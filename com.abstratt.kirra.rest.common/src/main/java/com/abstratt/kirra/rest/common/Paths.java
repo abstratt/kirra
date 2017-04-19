@@ -42,7 +42,7 @@ public interface Paths {
     String SERVICES = "services";
     String SERVICES_PATH = Paths.ROOT_PATH + Paths.SERVICES + "/";
     String SIGNUP = "signup";
-    String SIGNUP_PATH = Paths.ROOT_PATH + SIGNUP;
+    String SIGNUP_PATH = Paths.ROOT_PATH + SIGNUP + "/{roleEntityName}";
     String TESTS = "tests";
     String UI = "ui";
 	String TEMPLATE = "template";
