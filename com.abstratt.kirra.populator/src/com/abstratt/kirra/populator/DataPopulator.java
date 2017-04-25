@@ -45,7 +45,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class DataPopulator {
     class Loader {
         private Map<String, Map<String, List<String>>> instances;
-        private Map<Instance, List<LinkingAction>> linkingActions;
+        private Map<Instance, List<LinkingAction>> simpleLinkingActions;
+        private Map<Instance, List<LinkingAction>> multipleLinkingActions;
         
         private Instance createOrResolveRelated(String currentNamespace, JsonNode referenceOrObject, TypeRef type) {
             if (referenceOrObject.isObject()) {
@@ -53,7 +54,7 @@ public class DataPopulator {
                 return processInstance(relatedEntity, referenceOrObject);
             } else if (referenceOrObject.isTextual()) {
                 Instance resolved = resolveReference(currentNamespace, referenceOrObject.textValue());
-                return resolved != null && resolved.isInstanceOf(type) ? resolved : null;
+                return resolved != null ? resolved : null;
             }
             return null;
         }
@@ -91,28 +92,34 @@ public class DataPopulator {
             Map<String, Relationship> validRelationships = new HashMap<String, Relationship>();
             for (Relationship relationship : entity.getRelationships())
                 validRelationships.put(relationship.getName(), relationship);
-            List<LinkingAction> instanceLinkingActions = new LinkedList<>();
+            List<LinkingAction> simpleInstanceLinkingActions = new LinkedList<>();
+            List<LinkingAction> multipleInstanceLinkingActions = new LinkedList<>();
             for (Iterator<String> propertyNames = instanceNode.fieldNames(); propertyNames.hasNext();) {
                 String slotName = propertyNames.next();
                 if (validProperties.containsKey(slotName))
                     setProperty(newInstance, instanceNode.get(slotName), validProperties.get(slotName));
                 else if (validRelationships.containsKey(slotName)) {
                 	Relationship relationship = validRelationships.get(slotName);
-					instanceLinkingActions.add(new LinkingAction(relationship, instanceNode, slotName));
+                	if (relationship.isMultiple())
+                		multipleInstanceLinkingActions.add(new LinkingAction(relationship, instanceNode, slotName));
+                	else
+                		simpleInstanceLinkingActions.add(new LinkingAction(relationship, instanceNode, slotName));
                 }
             }
             Instance created = repository.createInstance(newInstance);
-            linkingActions.put(created, instanceLinkingActions);
+            simpleLinkingActions.put(created, simpleInstanceLinkingActions);
+            multipleLinkingActions.put(created, multipleInstanceLinkingActions);
             getEntityInstances(entity.getEntityNamespace(), entity.getName()).add(created.getObjectId());
             return created;
         }
 
         private int processTree(JsonNode tree) {
-        	instances = new HashMap<String, Map<String, List<String>>>();
-            linkingActions = new LinkedHashMap<>();
+        	instances = new LinkedHashMap<String, Map<String, List<String>>>();
+            simpleLinkingActions = new LinkedHashMap<>();
+            multipleLinkingActions = new LinkedHashMap<>();
             
             for (String namespace : repository.getNamespaces())
-                instances.put(namespace, new HashMap<String, List<String>>());
+                instances.put(namespace, new LinkedHashMap<String, List<String>>());
             int count = 0;
             for (Iterator<Map.Entry<String, JsonNode>> namespaceNodes = tree.fields(); namespaceNodes.hasNext();) {
                 Entry<String, JsonNode> namespaceNode = namespaceNodes.next();
@@ -125,9 +132,13 @@ public class DataPopulator {
                 }
             }
             
-            linkingActions.forEach((instance, actions) -> {
+            simpleLinkingActions.forEach((instance, actions) -> {
             	actions.forEach(it -> it.accept(instance));
             	repository.updateInstance(instance);
+            });
+            
+            multipleLinkingActions.forEach((instance, actions) -> {
+            	actions.forEach(it -> it.accept(instance));
             });
             
             return count;
@@ -141,14 +152,17 @@ public class DataPopulator {
             Reference ref = Reference.parse(currentNamespace, referenceString);
             if (ref == null)
                 return null;
-            Map<String, List<String>> namespace = instances.get(ref.getNamespace());
+            String referencedNamespace = ref.getNamespace();
+			Map<String, List<String>> namespace = instances.get(referencedNamespace);
             if (namespace == null)
                 return null;
-            List<String> entity = namespace.get(ref.getEntity());
+            String referencedEntity = ref.getEntity();
+			List<String> entity = namespace.get(referencedEntity);
             if (entity == null || entity.size() <= ref.getIndex())
                 return null;
             // phew!
-            return repository.getInstance(ref.getNamespace(), ref.getEntity(), entity.get(ref.getIndex()), false);
+            String externalId = entity.get(ref.getIndex());
+			return repository.getInstance(referencedNamespace, referencedEntity, externalId, false);
         }
 
         // kirra #31
@@ -221,7 +235,6 @@ public class DataPopulator {
         }
 
         private void setRelationship(Instance newInstance, JsonNode jsonNode, Relationship relationship) {
-        	System.out.println("Setting " + newInstance.getReference() + "."  + relationship.getName() + " to " + jsonNode);
     		if (relationship.isMultiple())
     			setMultiRelationship(newInstance, jsonNode, relationship);
     		else

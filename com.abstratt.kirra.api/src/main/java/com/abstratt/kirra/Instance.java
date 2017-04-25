@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.abstratt.kirra.TypeRef.TypeKind;
 
@@ -126,7 +127,11 @@ public class Instance extends Tuple {
 
     @Override
     public String toString() {
-        return "Instance (" + getReference() + ") - values: " + getValues() + " - links: " + links;
+        Map<String, Object> valuesToShow = getValues();
+		Map<String, InstanceRef> linksToShow = links.entrySet()
+			.stream()
+			.collect(Collectors.toMap(it -> it.getKey(), it -> it.getValue().getReference()));
+		return "Instance (" + getReference() + ") - values: " + valuesToShow + " - links: " + linksToShow;
     }
 
     @Override

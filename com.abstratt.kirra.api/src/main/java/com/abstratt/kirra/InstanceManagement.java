@@ -115,7 +115,8 @@ public interface InstanceManagement {
     public List<Instance> getRelatedInstances(String namespace, String name, String externalId, String relationship, boolean full);
     
     public default List<Instance> getRelatedInstances(Instance anchorInstance, String relationship, boolean full) {
-    	return getRelatedInstances(anchorInstance.getScopeNamespace(), anchorInstance.getScopeName(), anchorInstance.getObjectId(), relationship, full);
+    	List<Instance> relatedInstances = getRelatedInstances(anchorInstance.getScopeNamespace(), anchorInstance.getScopeName(), anchorInstance.getObjectId(), relationship, full);
+		return relatedInstances;
     }
 
     public List<Instance> getRelationshipDomain(Entity entity, String objectId, Relationship relationship);

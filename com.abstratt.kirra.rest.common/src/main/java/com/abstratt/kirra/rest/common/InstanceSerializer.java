@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -61,6 +63,8 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
 		
         // flatten links to avoid infinite recursion due to cyclic refs
         Map<String, Instance> links = instance.getLinks();
+        Set<String> filledInSlotNames = links.keySet();
+        Set<String> allSlotNames = entity.getRelationships().stream().map(it -> it.getName()).collect(Collectors.toSet());
         JsonObject linksAsJson = new JsonObject();
         for (Map.Entry<String, Instance> link : links.entrySet()) {
             String relationshipName = link.getKey();
