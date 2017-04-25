@@ -33,7 +33,7 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<configuration>
 					<testSuite>com.abstratt.kirra.rest.tests</testSuite>
-					<testClass>com.abstratt.kirra.rest.tests.AllTests</testClass>
+					<testClass>com.abstratt.kirra.rest.tests.AllKirraRESTTests</testClass>
 					<systemProperties>
 						<eclipse.consoleLog>true</eclipse.consoleLog>
 						<kirra.fixtures.port>38083</kirra.fixtures.port>
