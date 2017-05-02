@@ -6,11 +6,13 @@ import java.util.List;
 public class Schema {
     protected String applicationName;
     protected String applicationLabel;
-    protected String build;
+    protected String applicationLogo;
+
+	protected String build;
     protected List<Namespace> namespaces;
 	private Entity userEntity;
 
-    public Namespace findNamespace(String name) {
+	public Namespace findNamespace(String name) {
         for (Namespace namespace : namespaces)
             if (namespace.getName().equals(name))
                 return namespace;
@@ -48,6 +50,14 @@ public class Schema {
     public void setApplicationLabel(String applicationLabel) {
 		this.applicationLabel = applicationLabel;
 	}
+    
+    public String getApplicationLogo() {
+    	return applicationLogo;
+    }
+    
+    public void setApplicationLogo(String applicationLogo) {
+    	this.applicationLogo = applicationLogo;
+    }
 
     public String getBuild() {
         return build;

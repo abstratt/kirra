@@ -26,6 +26,7 @@ public class IndexResource {
     public static class Index {
         public final String applicationName;
         public final String applicationLabel;
+        public final String applicationLogo;
         public final URI entities;
         public final URI entityCapabilities;
         public final URI services;
@@ -39,6 +40,7 @@ public class IndexResource {
             this.uri = ResourceHelper.resolve();
             this.applicationName = KirraContext.getSchemaManagement().getApplicationName();
             this.applicationLabel = KirraContext.getSchemaManagement().getApplicationLabel();
+            this.applicationLogo = KirraContext.getSchemaManagement().getApplicationLogo();
             this.entityCapabilities = ResourceHelper.resolve(Paths.CAPABILITIES);
             this.entities = ResourceHelper.resolve(Paths.ENTITIES);
             this.services = ResourceHelper.resolve(Paths.SERVICES);

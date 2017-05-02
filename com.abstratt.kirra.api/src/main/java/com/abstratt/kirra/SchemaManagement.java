@@ -9,6 +9,9 @@ public interface SchemaManagement {
     public default String getApplicationLabel() {
     	return getApplicationName();
     }
+    public default String getApplicationLogo() {
+    	return null;
+    }
 
     public String getBuild();
 

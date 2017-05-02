@@ -31,7 +31,6 @@ public class InstanceActionResource {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
         ResourceHelper.ensure(entity != null, "Entity not found", Status.NOT_FOUND);
-        AuthorizationHelper.checkInstanceActionAuthorized(entityRef, objectId, actionName);
         Operation action = entity.getOperation(actionName);
         ResourceHelper.ensure(action != null, "Action not found", Status.NOT_FOUND);
         ResourceHelper.ensure(action.isInstanceOperation(), "Not an instance action", Status.BAD_REQUEST);
@@ -40,6 +39,7 @@ public class InstanceActionResource {
         Instance instance = KirraContext.getInstanceManagement().getInstance(entityRef.getEntityNamespace(), entityRef.getTypeName(),
                 objectId, true);
         ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
+        AuthorizationHelper.checkInstanceActionAuthorized(entityRef, objectId, actionName);
         
         Map<String, Object> argumentMap = new Gson().fromJson(argumentMapRepresentation, new TypeToken<Map<String, Object>>() {
         }.getType());

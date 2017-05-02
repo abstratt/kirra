@@ -51,6 +51,12 @@ public class SchemaManagementSnapshot implements SchemaManagement {
     }
     
     @Override
+    public String getApplicationLogo() {
+        build();
+        return schema.getApplicationLogo();
+    }
+    
+    @Override
     public String getApplicationLabel() {
         build();
         return schema.getApplicationLabel();

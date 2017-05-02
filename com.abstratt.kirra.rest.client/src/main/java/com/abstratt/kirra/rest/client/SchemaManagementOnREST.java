@@ -57,7 +57,7 @@ public class SchemaManagementOnREST implements SchemaManagement {
     public String getApplicationName() {
         return getIndex().get("applicationName").toString();
     }
-
+    
     @Override
     public String getBuild() {
         return getIndex().get("build").toString();

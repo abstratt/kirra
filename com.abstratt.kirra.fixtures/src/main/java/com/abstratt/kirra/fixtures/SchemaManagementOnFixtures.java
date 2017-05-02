@@ -56,6 +56,11 @@ public class SchemaManagementOnFixtures implements SchemaManagement {
     public String getApplicationName() {
         return (String) getIndex().get("applicationName");
     }
+    
+    @Override
+    public String getApplicationLogo() {
+    	return (String) getIndex().get("applicationLogo");
+    }
 
     @Override
     public String getBuild() {
