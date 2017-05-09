@@ -28,6 +28,7 @@ public class InstanceResource {
     public String getInstance(@PathParam("entityName") String entityName, @PathParam("objectId") String objectId) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         InstanceManagement instanceManagement = KirraContext.getInstanceManagement();
+        Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
         boolean isTemplate = "_template".equals(objectId);
 		Instance instance;
 		if (isTemplate) {
@@ -36,7 +37,7 @@ public class InstanceResource {
 		} else {
 			instance = instanceManagement.getInstance(entityRef.getEntityNamespace(), entityRef.getTypeName(),
 			        objectId, true);
-			ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
+			ResourceHelper.ensure(instance != null, entity.getLabel() + " " + objectId + " not found", Status.NOT_FOUND);
 			AuthorizationHelper.checkInstanceReadAuthorized(entityRef, objectId);
 		}
 		

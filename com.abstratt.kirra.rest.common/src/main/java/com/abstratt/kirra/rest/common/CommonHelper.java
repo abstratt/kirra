@@ -4,7 +4,9 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Collections;
@@ -18,8 +20,6 @@ import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.Service;
 import com.abstratt.kirra.Tuple;
 import com.abstratt.kirra.TypeRef;
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -54,6 +54,8 @@ public class CommonHelper {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setPrettyPrinting();
         gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialization());
+        gsonBuilder.registerTypeAdapter(LocalTime.class, new LocalTimeSerialization());
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerialization());
         gsonBuilder.registerTypeAdapter(byte[].class, new ByteArraySerialization());
         gsonBuilder.excludeFieldsWithModifiers(Modifier.PRIVATE);
         gsonBuilder.excludeFieldsWithModifiers(Modifier.STATIC);
@@ -92,6 +94,43 @@ public class CommonHelper {
 			return LocalDateTime.parse(arg0.getAsString(), DateTimeFormatter.ISO_DATE);
 		}
 	}
+	
+	public static class LocalTimeSerialization implements JsonDeserializer<LocalTime>, JsonSerializer<LocalTime> {
+		@Override
+		public JsonElement serialize(LocalTime arg0, Type arg1, JsonSerializationContext arg2) {
+			if (arg0 == null)
+				return null;
+			return new JsonPrimitive(
+					DateTimeFormatter.ISO_TIME.format(arg0));
+		}
+		
+		@Override
+		public LocalTime deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2)
+				throws JsonParseException {
+			if (arg0 == null)
+				return null;
+			return LocalTime.parse(arg0.getAsString(), DateTimeFormatter.ISO_TIME);
+		}
+	}
+	
+	public static class LocalDateSerialization implements JsonDeserializer<LocalDate>, JsonSerializer<LocalDate> {
+		@Override
+		public JsonElement serialize(LocalDate arg0, Type arg1, JsonSerializationContext arg2) {
+			if (arg0 == null)
+				return null;
+			return new JsonPrimitive(
+					DateTimeFormatter.ISO_DATE.format(arg0));
+		}
+		
+		@Override
+		public LocalDate deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2)
+				throws JsonParseException {
+			if (arg0 == null)
+				return null;
+			return LocalDate.parse(arg0.getAsString(), DateTimeFormatter.ISO_DATE);
+		}
+	}		
+	
 	
 	public static class ByteArraySerialization implements JsonDeserializer<byte[]>, JsonSerializer<byte[]> {
 		@Override

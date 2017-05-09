@@ -144,6 +144,16 @@ public class DataValidator {
                 		valueTypeError = "Dates must be in the format yyyy-MM-dd or yyyy/MM/dd";
                 	}
                 }
+            else if (validPropertyTypeName.equals("Time"))
+                try {
+                    new SimpleDateFormat("hh:mm:ss").parse(propertyValue.asText());
+                } catch (ParseException e) {
+                	try {
+                		new SimpleDateFormat("hh:mm:ss.SSS").parse(propertyValue.asText());
+                	} catch (ParseException e2) {
+                		valueTypeError = "Times must be in the format hh:mm:ss[.SSS]";
+                	}
+                }
             else if (property.getTypeRef().getKind() == TypeKind.Enumeration) {
                 if (!property.getEnumerationLiterals().containsKey(propertyValue.asText())) {
                     valueTypeError = "Expected one of " + property.getEnumerationLiterals().toString() + ", found: "
