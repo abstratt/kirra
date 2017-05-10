@@ -60,7 +60,7 @@ public class InstanceListResource {
     		} else
         		criteria.put(entry.getKey(), new ArrayList<Object>(entry.getValue()));
         List<Instance> allInstances = KirraContext.getInstanceManagement().filterInstances(criteria, entityRef.getEntityNamespace(),
-                entityRef.getTypeName(), false, includeSubtypes);
+                entityRef.getTypeName(), true, includeSubtypes);
         InstanceList instanceList = new InstanceList(allInstances);
         return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instanceList);
     }
