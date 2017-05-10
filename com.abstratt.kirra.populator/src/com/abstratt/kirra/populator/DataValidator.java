@@ -115,7 +115,7 @@ public class DataValidator {
         for (String missing : requiredProperties)
             collector.addError("Instance " + entityName + "#" + index + " missing required property: '" + missing + "'");
     }
-
+    
     private boolean validateProperty(String entityName, JsonNode propertyValue, DataElement property) {
         if (property.isDerived()) {
             collector.addWarning("Instance " + entityName + "#" + index + " has value for a derived property (" + property.getName() + "): "
@@ -152,6 +152,20 @@ public class DataValidator {
                 		new SimpleDateFormat("hh:mm:ss.SSS").parse(propertyValue.asText());
                 	} catch (ParseException e2) {
                 		valueTypeError = "Times must be in the format hh:mm:ss[.SSS]";
+                	}
+                }
+            else if (validPropertyTypeName.equals("DateTime"))
+                try {
+                    new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ").parse(propertyValue.asText());
+                } catch (ParseException e) {
+                	try {
+                		new SimpleDateFormat("yyyy-MM-dd").parse(propertyValue.asText());
+                	} catch (ParseException e2) {
+                    	try {
+                    		new SimpleDateFormat("yyyy/MM/dd").parse(propertyValue.asText());
+                    	} catch (ParseException e3) {
+                    		valueTypeError = "DateTime must be in the format yyyy-MM-dd'T'HH:mmZ or yyyy-MM-dd or yyyy/MM/dd";
+                    	}
                 	}
                 }
             else if (property.getTypeRef().getKind() == TypeKind.Enumeration) {
