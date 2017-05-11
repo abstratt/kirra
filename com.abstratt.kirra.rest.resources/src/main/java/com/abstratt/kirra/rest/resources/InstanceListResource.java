@@ -23,6 +23,7 @@ import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
+import com.abstratt.kirra.rest.common.Page;
 import com.abstratt.kirra.rest.common.Paths;
 
 @Path(Paths.INSTANCES_PATH)
@@ -64,4 +65,29 @@ public class InstanceListResource {
         InstanceList instanceList = new InstanceList(allInstances);
         return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instanceList);
     }
+    
+    @GET
+    @Path(Paths.METRICS)
+    public String getMetrics(@PathParam("entityName") String entityName, @Context UriInfo uriInfo) {
+        TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
+        AuthorizationHelper.checkEntityListAuthorized(entityRef);
+        
+        Map<String, List<Object>> criteria = new LinkedHashMap<String, List<Object>>();
+        List<String> builtInParameters = Arrays.asList("includesubtypes");
+        boolean includeSubtypes = false;
+        for (Entry<String, List<String>> entry : uriInfo.getQueryParameters().entrySet())
+        	if (builtInParameters.contains(entry.getKey())) {
+        		if (entry.getKey().equals("includesubtypes")) {
+        			// carefully avoiding Restlet bug #640 https://github.com/restlet/restlet-framework-java/issues/640
+        			includeSubtypes = Boolean.parseBoolean(entry.getValue().stream().findAny().orElse(Boolean.FALSE.toString()));        		    	
+        		}
+    		} else
+        		criteria.put(entry.getKey(), new ArrayList<Object>(entry.getValue()));
+        long count = KirraContext.getInstanceManagement().countInstances(criteria, entityRef.getEntityNamespace(),
+                entityRef.getTypeName(), includeSubtypes);
+        Page metrics = new Page<>(Arrays.asList(count));
+        return CommonHelper.buildBasicGson().create().toJson(metrics);
+    }
+    
+    
 }

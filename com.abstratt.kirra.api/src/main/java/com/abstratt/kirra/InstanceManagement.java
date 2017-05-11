@@ -42,6 +42,19 @@ public interface InstanceManagement {
      */
     public List<?> executeOperation(Operation operation, String externalId, List<?> arguments);
 
+    public default List<?> executeQuery(Operation operation, String externalId, List<?> arguments, boolean full) {
+    	return executeOperation(operation, externalId, arguments);
+    }
+    
+    public default List<?> executeQuery(Operation operation, String externalId, List<?> arguments) {
+    	return executeQuery(operation, externalId, arguments, true);
+    }
+    
+    public default long countQueryResults(Operation operation, String externalId, List<?> arguments) {
+    	return executeQuery(operation, externalId, arguments, false).size();
+    }
+
+    
     /**
      * Returns an instance describing the currently logged-in user/profile.
      */
@@ -102,6 +115,14 @@ public interface InstanceManagement {
     
     public List<Instance> getInstances(String namespace, String name, boolean full);
 
+    public default Long countInstances(String namespace, String name) {
+    	return (long) getInstances(namespace, name, false).size();
+    }
+    
+    public default Long countInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean includeSubclasses) {
+    	return (long) filterInstances(criteria, namespace, name, false, includeSubclasses).size();
+    }
+    
     public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full);
     
     public default List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full, boolean includeSubclasses) {

@@ -21,6 +21,7 @@ public class EntitySerializer extends TopLevelElementSerializer<Entity> {
         URI entityUri = getTopLevelURI(element);
         asJson.addProperty("fullName", element.getTypeRef().getFullName());
         asJson.addProperty("extentUri", CommonHelper.resolve(entityUri, Paths.INSTANCES + "/").toString());
+        asJson.addProperty("extentMetricUri", CommonHelper.resolve(entityUri, Paths.INSTANCES, Paths.METRICS).toString());
         asJson.addProperty("entityCapabilityUri", CommonHelper.resolve(entityUri, Paths.CAPABILITIES + "/").toString());
         asJson.addProperty("instanceCapabilityUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.CAPABILITIES).toString());
         basicValues.entrySet().forEach((entry) -> asJson.add(entry.getKey(), entry.getValue()));
@@ -34,6 +35,7 @@ public class EntitySerializer extends TopLevelElementSerializer<Entity> {
         asJson.addProperty("relatedInstanceUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.RELATIONSHIPS, "(relationshipName)", "(relatedObjectId)").toString());        
         asJson.addProperty("instanceActionParameterDomainUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.ACTIONS, "(actionName)", Paths.PARAMETERS, "(parameterName)", Paths.DOMAIN).toString());
         asJson.addProperty("finderUriTemplate", CommonHelper.resolve(entityUri, Paths.FINDERS, "(finderName)").toString());
+        asJson.addProperty("finderMetricUriTemplate", CommonHelper.resolve(entityUri, Paths.FINDERS, "(finderName)", Paths.METRICS).toString());
         return asJson;
     }
 

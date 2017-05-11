@@ -14,6 +14,7 @@ public interface Paths {
     String RETRIEVERS = "retrievers";
     String RELATIONSHIPS = "relationships";
     String INSTANCES = "instances";
+    String METRICS = "metrics";
 
     String ENTITIES_PATH = Paths.ROOT_PATH + Paths.ENTITIES + "/";
     String CAPABILITIES = "capabilities";
@@ -21,7 +22,9 @@ public interface Paths {
     String ENTITY_PATH = Paths.ENTITIES_PATH + "{entityName}/";
     String ENTITY_ACTION_PATH = ENTITY_PATH + Paths.ACTIONS + "/{actionName}";
     String INSTANCES_PATH = Paths.ENTITY_PATH + Paths.INSTANCES + "/";
+    String INSTANCE_METRICS_PATH = INSTANCES_PATH + METRICS;
     String FINDER_RESULTS_PATH = Paths.ENTITY_PATH + Paths.FINDERS + "/{finderName}";
+    String FINDER_RESULTS_METRICS_PATH = Paths.FINDER_RESULTS_PATH + "/" + METRICS;
     String INSTANCE_PATH = Paths.INSTANCES_PATH + "{objectId}";
     String INSTANCE_BLOB_PATH = INSTANCE_PATH + "/" + Paths.BLOBS + "/{propertyName}";
     String INSTANCE_ACTION_PATH = INSTANCE_PATH + "/" + Paths.ACTIONS + "/{actionName}";
