@@ -3,6 +3,7 @@ package com.abstratt.kirra.rest.common;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -137,9 +138,11 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
     private String getShorthand(Instance instance) {
         String shorthand = instance.getShorthand();
         if (shorthand == null) {
-            Map<String, Object> values = instance.getValues();
-            if (values != null && !values.isEmpty())
-                shorthand = values.values().iterator().next().toString();
+            Map<String, Object> valueMap = instance.getValues();
+            if (valueMap != null && !valueMap.isEmpty()) {
+				Collection<Object> values = valueMap.values();
+				shorthand = values.iterator().next().toString();
+			}
         }
         return shorthand;
     }

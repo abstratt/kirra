@@ -71,8 +71,8 @@ public class Tuple implements Serializable {
         return this.values.containsKey(propertyName);
     }
 
-    public void setShorthand(String shorthand) {
-        this.shorthand = shorthand;
+    public void setShorthand(String newShorthand) {
+        this.shorthand = newShorthand;
     }
 
     public void setValue(String propertyName, Object value) {
