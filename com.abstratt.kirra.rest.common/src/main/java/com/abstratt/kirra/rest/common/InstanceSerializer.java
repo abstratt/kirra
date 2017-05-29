@@ -4,7 +4,6 @@ import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -75,8 +74,10 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
 	            Instance linkValue = link.getValue();
 				if (linkValue == null)
 	            	element = JsonNull.INSTANCE;
-	            else
-	            	element = addBasicProperties(gson, link.getValue(), new JsonObject()); 
+	            else {
+	            	Entity relatedEntity = KirraContext.getSchemaManagement().getEntity(linkValue.getTypeRef());
+	            	element = addBasicProperties(gson, relatedEntity, link.getValue(), new JsonObject());
+	            }
 	            linksAsJson.add(relationshipName, element);
             }
         }
@@ -84,7 +85,7 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         asJson.add("links", linksAsJson);
         asJson.add("values", valuesAsJson);
         asJson.add("disabledActions", context.serialize(instance.getDisabledActions()));
-    	addBasicProperties(gson, instance, asJson);
+    	addBasicProperties(gson, entity, instance, asJson);
         return asJson;
     }
     
@@ -122,12 +123,12 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         return instance;
     }
 
-    private JsonObject addBasicProperties(Gson gson, Instance instance, JsonObject instanceAsJson) {
+    private JsonObject addBasicProperties(Gson gson, Entity entity, Instance instance, JsonObject instanceAsJson) {
         URI entityUri = CommonHelper.resolve(KirraContext.getBaseURI(), Paths.ENTITIES, instance.getTypeRef().toString());
         URI instanceUri = CommonHelper.resolve(entityUri, Paths.INSTANCES, instance.getObjectId());
         instanceAsJson.addProperty("objectId", instance.getObjectId());
         instanceAsJson.addProperty("uri", instanceUri.toString());
-        instanceAsJson.addProperty("shorthand", getShorthand(instance));
+        instanceAsJson.addProperty("shorthand", getShorthand(entity, instance));
         instanceAsJson.addProperty("entityUri", entityUri.toString());
         instanceAsJson.add("typeRef", gson.toJsonTree(instance.getTypeRef()));
         instanceAsJson.addProperty("scopeName", instance.getTypeRef().getTypeName());
@@ -135,7 +136,7 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         return instanceAsJson;
     }
 
-    private String getShorthand(Instance instance) {
+    private String getShorthand(Entity entity, Instance instance) {
         String shorthand = instance.getShorthand();
         if (shorthand == null) {
             Map<String, Object> valueMap = instance.getValues();
