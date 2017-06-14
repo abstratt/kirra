@@ -8,6 +8,22 @@ import java.util.stream.Collectors;
  * Basic protocol for managing entity instances.
  */
 public interface InstanceManagement {
+    
+    public class PageRequest {
+        public Long getFirst() {
+            return first;
+        }
+        public Integer getMaximum() {
+            return maximum;
+        }
+        public PageRequest(Long first, Integer maximum) {
+            super();
+            this.first = first;
+            this.maximum = maximum;
+        }
+        Long first;
+        Integer maximum;
+    }
 
     /**
      * Persists a transient instance. It is an error to try to invoke create on
@@ -104,9 +120,13 @@ public interface InstanceManagement {
      * @param full
      *            whether instances should be fully loaded
      * @param includeSubclasses            
+     * @param pageRequest optional page request
      * @return
      * @see Instance#isFull()
      */
+    public default List<Instance> getInstances(String namespace, String name, boolean full, boolean includeSubclasses, PageRequest pageRequest) {
+        return getInstances(namespace, name, full, includeSubclasses); 
+    }
     public default List<Instance> getInstances(String namespace, String name, boolean full, boolean includeSubclasses) {
     	if (includeSubclasses) 
     		throw new UnsupportedOperationException("Support for subclasses not implemented");
