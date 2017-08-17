@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.InstanceManagement.Page;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.TypeRef;
@@ -31,7 +32,7 @@ public class RelationshipDomainResource {
         ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
         
         List<Instance> domain = KirraContext.getInstanceManagement().getRelationshipDomain(entity, objectId, relationship);
-        InstanceList instanceList = new InstanceList(domain);
+        Page<Instance> instanceList = new Page<>(domain);
         return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instanceList);
     }
 }

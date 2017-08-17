@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -18,12 +20,15 @@ import javax.ws.rs.core.UriInfo;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.InstanceManagement.DataProfile;
+import com.abstratt.kirra.InstanceManagement.Page;
+import com.abstratt.kirra.InstanceManagement.PageRequest;
+import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Operation.OperationKind;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
-import com.abstratt.kirra.rest.common.Page;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,33 +42,46 @@ public class FinderResultResource {
 			@Context UriInfo uriInfo) {
 		Operation finder = getOperation(entityName, finderName);
 
-		Map<String, Object> arguments = parseArgumentsFromQuery(uriInfo);
+		Map<String, Object> arguments = new LinkedHashMap<>();
+		PageRequest pageRequest = ResourceHelper.processQuery(uriInfo, (key, values) -> arguments.put(key, values.iterator().next()));
 		List<Object> argumentList = ResourceHelper.matchArgumentsToParameters(finder, arguments);
 
-		List<Instance> matchingInstances = (List<Instance>) KirraContext.getInstanceManagement().executeQuery(finder,
-				null, argumentList);
-		InstanceList instanceList = new InstanceList(matchingInstances);
+        List<Instance> matchingInstances = (List<Instance>) KirraContext.getInstanceManagement().executeQuery(finder,
+				null, argumentList, pageRequest);
+		InstanceList instanceList = new InstanceList(matchingInstances, pageRequest.getFirst(), matchingInstances.size());
 		return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES))
 				.create().toJson(instanceList);
 	}
 
 	@POST
 	public String findInstances(@PathParam("entityName") String entityName, @PathParam("finderName") String finderName,
-			String argumentMapRepresentation) {
+			String requestBodyAsString,
+            @Context UriInfo uriInfo) {
 		Operation finder = getOperation(entityName, finderName);
 
-		Map<String, Object> arguments = new Gson().fromJson(argumentMapRepresentation,
-				new TypeToken<Map<String, Object>>() {
-				}.getType());
+		PageRequest pageRequest = ResourceHelper.processQuery(uriInfo, (key, values) -> {});
+        Map<String, Object> request = new Gson().fromJson(requestBodyAsString,
+                new TypeToken<Map<String, Object>>() {
+                }.getType());
+		Map<String, Object> arguments = (Map<String, Object>) request.get("arguments");
 		List<Object> argumentList = ResourceHelper.matchArgumentsToParameters(finder, arguments);
 
+		List<String> subset = (List<String>) request.get("subset");
+		if (subset != null) {
+		    pageRequest = new PageRequest(0L, Integer.MAX_VALUE, pageRequest.getDataProfile(), pageRequest.getIncludeSubtypes());
+		}
 		List<Instance> matchingInstances = (List<Instance>) KirraContext.getInstanceManagement().executeQuery(finder,
-				null, argumentList);
-		InstanceList instanceList = new InstanceList(matchingInstances);
+		        null, argumentList, pageRequest);
+		if (subset != null) {
+		    Set<InstanceRef> instancesToInclude = subset.stream().map(it -> InstanceRef.parse(it, null)).collect(Collectors.toSet());
+		    matchingInstances = matchingInstances.stream().filter(it -> instancesToInclude.contains(it.getReference())).collect(Collectors.toList());
+		}
+		
+		InstanceList instanceList = new InstanceList(matchingInstances, pageRequest.getFirst(), matchingInstances.size());
 		return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES))
 				.create().toJson(instanceList);
 	}
-
+	
 	@GET
 	@Path(Paths.METRICS)
 	public String getMetrics(@PathParam("entityName") String entityName, @PathParam("finderName") String finderName,

@@ -20,7 +20,9 @@ public class EntitySerializer extends TopLevelElementSerializer<Entity> {
         JsonObject asJson = new JsonObject();
         URI entityUri = getTopLevelURI(element);
         asJson.addProperty("fullName", element.getTypeRef().getFullName());
-        asJson.addProperty("extentUri", CommonHelper.resolve(entityUri, Paths.INSTANCES + "/").toString());
+        String extentUri = CommonHelper.resolve(entityUri, Paths.INSTANCES + "/").toString();
+        asJson.addProperty("extentUri", extentUri);
+        asJson.addProperty("extentUriTemplate", extentUri + "?" + Paths.DATA_SELECTORS);
         asJson.addProperty("extentMetricUri", CommonHelper.resolve(entityUri, Paths.INSTANCES, Paths.METRICS).toString());
         asJson.addProperty("entityCapabilityUri", CommonHelper.resolve(entityUri, Paths.CAPABILITIES + "/").toString());
         asJson.addProperty("instanceCapabilityUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.CAPABILITIES).toString());
@@ -34,7 +36,7 @@ public class EntitySerializer extends TopLevelElementSerializer<Entity> {
         asJson.addProperty("relatedInstancesUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.RELATIONSHIPS, "(relationshipName)").toString() + "?includesubtypes=true");
         asJson.addProperty("relatedInstanceUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.RELATIONSHIPS, "(relationshipName)", "(relatedObjectId)").toString());        
         asJson.addProperty("instanceActionParameterDomainUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.ACTIONS, "(actionName)", Paths.PARAMETERS, "(parameterName)", Paths.DOMAIN).toString());
-        asJson.addProperty("finderUriTemplate", CommonHelper.resolve(entityUri, Paths.FINDERS, "(finderName)").toString());
+        asJson.addProperty("finderUriTemplate", CommonHelper.resolve(entityUri, Paths.FINDERS, "(finderName)").toString() + "?" + Paths.DATA_SELECTORS);
         asJson.addProperty("finderMetricUriTemplate", CommonHelper.resolve(entityUri, Paths.FINDERS, "(finderName)", Paths.METRICS).toString());
         return asJson;
     }

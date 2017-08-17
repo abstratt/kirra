@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response.Status;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
-import com.abstratt.kirra.rest.common.KirraContext.Options;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

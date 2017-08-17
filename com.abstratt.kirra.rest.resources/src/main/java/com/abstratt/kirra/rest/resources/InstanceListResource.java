@@ -20,17 +20,20 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.InstanceManagement;
+import com.abstratt.kirra.InstanceManagement.DataProfile;
+import com.abstratt.kirra.InstanceManagement.Page;
+import com.abstratt.kirra.InstanceManagement.PageRequest;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
-import com.abstratt.kirra.rest.common.Page;
 import com.abstratt.kirra.rest.common.Paths;
 
 @Path(Paths.INSTANCES_PATH)
 @Produces("application/json")
-@Consumes("application/json")
 public class InstanceListResource {
     @POST
+    @Consumes("application/json")
     public Response createInstance(@PathParam("entityName") String entityName, String newInstanceRepresentation) {
     	TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         AuthorizationHelper.checkInstanceCreationAuthorized(entityRef);
@@ -49,21 +52,11 @@ public class InstanceListResource {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         AuthorizationHelper.checkEntityListAuthorized(entityRef);
         
-        Map<String, List<Object>> criteria = new LinkedHashMap<String, List<Object>>();
-        List<String> builtInParameters = Arrays.asList("includesubtypes");
-        boolean includeSubtypes = false;
-        for (Entry<String, List<String>> entry : uriInfo.getQueryParameters().entrySet())
-        	if (builtInParameters.contains(entry.getKey())) {
-        		if (entry.getKey().equals("includesubtypes")) {
-        			// carefully avoiding Restlet bug #640 https://github.com/restlet/restlet-framework-java/issues/640
-        			includeSubtypes = Boolean.parseBoolean(entry.getValue().stream().findAny().orElse(Boolean.FALSE.toString()));        		    	
-        		}
-    		} else
-        		criteria.put(entry.getKey(), new ArrayList<Object>(entry.getValue()));
-        List<Instance> allInstances = KirraContext.getInstanceManagement().filterInstances(criteria, entityRef.getEntityNamespace(),
-                entityRef.getTypeName(), true, includeSubtypes);
-        InstanceList instanceList = new InstanceList(allInstances);
-        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instanceList);
+        Map<String, List<Object>> criteria = new LinkedHashMap<>();
+        PageRequest pageRequest = ResourceHelper.processQuery(uriInfo, (key, value) -> criteria.put(key, value));
+        Page<Instance> instancePage = KirraContext.getInstanceManagement().filterInstances(pageRequest , criteria, entityRef.getEntityNamespace(),
+                entityRef.getTypeName());
+        return CommonHelper.buildGson(ResourceHelper.resolve(true, Paths.ENTITIES, entityName, Paths.INSTANCES)).create().toJson(instancePage);
     }
     
     @GET

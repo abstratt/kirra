@@ -15,6 +15,8 @@ public interface Paths {
     String RELATIONSHIPS = "relationships";
     String INSTANCES = "instances";
     String METRICS = "metrics";
+    
+    String DATA_SELECTORS = "first=(first)&maximum=(maximum)&dataprofile=(dataProfile)";
 
     String ENTITIES_PATH = Paths.ROOT_PATH + Paths.ENTITIES + "/";
     String CAPABILITIES = "capabilities";

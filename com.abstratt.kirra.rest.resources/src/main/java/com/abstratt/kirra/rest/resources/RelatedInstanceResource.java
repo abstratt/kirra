@@ -32,16 +32,20 @@ public class RelatedInstanceResource extends InstanceResource {
         Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
         ResourceHelper.ensure(entity != null, null, Status.NOT_FOUND);
         
+        Instance parentInstance = instanceManagement.getInstance(entityRef.getEntityNamespace(), entityRef.getTypeName(),
+                objectId, false);
+        ResourceHelper.ensure(parentInstance != null, "Parent " + entity.getLabel() + " " + objectId + " not found", Status.NOT_FOUND);
+        
         Relationship relationship = entity.getRelationship(relationshipName);
         ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
 
         InstanceRef relatedInstanceRef = getInstanceRef(relatedObjectId, relationship.getTypeRef());
         
-		Instance instance = instanceManagement.getInstance(relatedInstanceRef.getEntityNamespace(), relatedInstanceRef.getEntityName(),
+		Instance relatedInstance = instanceManagement.getInstance(relatedInstanceRef.getEntityNamespace(), relatedInstanceRef.getEntityName(),
 				relatedInstanceRef.getObjectId(), true);
         
-        ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
-        return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES, objectId, Paths.RELATIONSHIPS, relationshipName)).create().toJson(instance);
+        ResourceHelper.ensure(relatedInstance != null, "Instance not found", Status.NOT_FOUND);
+        return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES, entityName, Paths.INSTANCES, objectId, Paths.RELATIONSHIPS, relationshipName)).create().toJson(relatedInstance);
     }
     @DELETE
     public void detachInstance(@PathParam("entityName") String entityName, @PathParam("objectId") String objectId, @PathParam("relationshipName") String relationshipName, @PathParam("relatedObjectId") String relatedObjectId) {

@@ -5,15 +5,22 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.BiConsumer;
 
+import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.NamedElement;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Parameter;
+import com.abstratt.kirra.InstanceManagement.DataProfile;
+import com.abstratt.kirra.InstanceManagement.PageRequest;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
@@ -83,6 +90,30 @@ public class ResourceHelper extends CommonHelper {
             argumentList.add(argumentValue);
         }
         return argumentList;
+    }
+    
+
+    public static PageRequest processQuery(UriInfo uriInfo, BiConsumer<String, List<Object>> argumentConsumer) {
+        boolean includeSubtypes = false;
+        int defaultFirst = 0;
+        long first = defaultFirst;
+        int defaultMaximum = 10;
+        int maximum = defaultMaximum;
+        DataProfile dataProfile = DataProfile.Full;
+        for (Entry<String, List<String>> entry : uriInfo.getQueryParameters().entrySet())
+            if (entry.getKey().equals("includesubtypes")) {
+                // carefully avoiding Restlet bug #640 https://github.com/restlet/restlet-framework-java/issues/640
+                includeSubtypes = Boolean.parseBoolean(entry.getValue().stream().findAny().orElse(Boolean.FALSE.toString()));                       
+            } else if (entry.getKey().equalsIgnoreCase("first")) {
+                first = entry.getValue().stream().map(it -> NumberUtils.toLong(it, defaultFirst)).findAny().orElse(first);                       
+            } else if (entry.getKey().equalsIgnoreCase("maximum")) {
+                maximum = entry.getValue().stream().map(it -> NumberUtils.toInt(it, defaultMaximum)).findAny().orElse(maximum);
+            } else if (entry.getKey().equalsIgnoreCase("dataprofile")) {
+                dataProfile = entry.getValue().stream().map(it -> InstanceManagement.DataProfile.from(it)).findAny().orElse(dataProfile);             
+            } else
+                argumentConsumer.accept(entry.getKey(), new ArrayList<Object>(entry.getValue()));
+        PageRequest pageRequest = new PageRequest(first, maximum, dataProfile, includeSubtypes);
+        return pageRequest;
     }
 
 }

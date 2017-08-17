@@ -1,11 +1,8 @@
 package com.abstratt.kirra.rest.resources;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

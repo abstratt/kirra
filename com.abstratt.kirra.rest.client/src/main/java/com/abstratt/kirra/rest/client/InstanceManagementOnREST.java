@@ -16,7 +16,6 @@ import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.TypeRef;
-import com.abstratt.kirra.rest.common.Page;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.reflect.TypeToken;
 
@@ -84,14 +83,14 @@ public class InstanceManagementOnREST implements InstanceManagement {
 
 	@Override
 	public Instance getInstance(String namespace, String name,
-			String externalId, boolean full) {
+			String externalId, DataProfile profile) {
 		return restClient.get(baseUri, Instance.class, Paths.ENTITIES,
 				TypeRef.toString(namespace, name), Paths.INSTANCES, externalId);
 	}
 
 	@Override
 	public List<Instance> getInstances(String namespace, String name,
-			boolean full) {
+			DataProfile profile) {
 		Page<Instance> page = restClient.get(baseUri,
 				new TypeToken<Page<Instance>>() {
 				}.getType(), Paths.ENTITIES, TypeRef.toString(namespace, name),
@@ -100,8 +99,8 @@ public class InstanceManagementOnREST implements InstanceManagement {
 	}
 	
 	@Override
-	public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full) {
-	    return getInstances(namespace, name, full);
+	public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, DataProfile profile) {
+	    return getInstances(namespace, name, profile);
 	}
 
 	@Override
@@ -113,7 +112,7 @@ public class InstanceManagementOnREST implements InstanceManagement {
 
 	@Override
 	public List<Instance> getRelatedInstances(String namespace, String name,
-			String externalId, String relationship, boolean full) {
+			String externalId, String relationship, DataProfile profile) {
 		// TODO Auto-generated method stub
 		return null;
 	}

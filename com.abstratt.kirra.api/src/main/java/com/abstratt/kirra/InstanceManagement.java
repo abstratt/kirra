@@ -1,5 +1,6 @@
 package com.abstratt.kirra;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -8,21 +9,65 @@ import java.util.stream.Collectors;
  * Basic protocol for managing entity instances.
  */
 public interface InstanceManagement {
+
+    enum DataProfile {
+        Full, Slim, Empty;
+
+        public static DataProfile from(boolean full) {
+            return full ? Full : Slim;
+        }
+        public static DataProfile from(String name) {
+            return Arrays.stream(DataProfile.values()).filter(it -> it.name().equalsIgnoreCase(name)).findAny().orElse(DataProfile.Full);
+        }
+    }
     
     public class PageRequest {
-        public Long getFirst() {
-            return first;
-        }
-        public Integer getMaximum() {
-            return maximum;
-        }
-        public PageRequest(Long first, Integer maximum) {
-            super();
+
+
+        public PageRequest(Long first, Integer maximum, DataProfile profile, boolean includeSubtypes) {
             this.first = first;
             this.maximum = maximum;
+            this.dataProfile = profile;
+            this.includeSubtypes = includeSubtypes;
+        }
+        public PageRequest() {
+            this(0L, Integer.MAX_VALUE, DataProfile.Full, true);
         }
         Long first;
         Integer maximum;
+        private Boolean includeSubtypes;
+        private DataProfile dataProfile;
+        
+        public int getMaximum() {
+            return (maximum == null || maximum <= 0) ? Integer.MAX_VALUE : maximum; 
+        }
+        public long getFirst() {
+            return (first == null || first < 0) ? 0 : first;
+        }
+        public DataProfile getDataProfile() {
+            return dataProfile;
+        }
+        public boolean getIncludeSubtypes() {
+            return includeSubtypes == null || includeSubtypes;
+        }
+    }
+    
+    public class Page<T> {
+        public final long offset;
+        public final long length;
+        public final List<T> contents;
+        
+        public Page(List<T> contents) {
+            this.contents = contents;
+            this.offset = 0;
+            this.length = contents.size();
+        }
+
+        public Page(List<T> contents, long offset, long length) {
+            this.contents = contents;
+            this.offset = offset;
+            this.length = length;
+        }
     }
 
     /**
@@ -64,6 +109,10 @@ public interface InstanceManagement {
     
     public default List<?> executeQuery(Operation operation, String externalId, List<?> arguments) {
     	return executeQuery(operation, externalId, arguments, true);
+    }
+    
+    public default List<?> executeQuery(Operation operation, String externalId, List<?> arguments, PageRequest pageRequest) {
+        return executeQuery(operation, externalId, arguments, pageRequest.getDataProfile() == DataProfile.Full);
     }
     
     public default long countQueryResults(Operation operation, String externalId, List<?> arguments) {
@@ -110,7 +159,11 @@ public interface InstanceManagement {
      * @return an instance, or <code>null</code> if no object exists
      * @see Instance#isFull()
      */
-    public Instance getInstance(String namespace, String name, String externalId, boolean full);
+    public Instance getInstance(String namespace, String name, String externalId, DataProfile dataProfile);
+    
+    public default Instance getInstance(String namespace, String name, String externalId, boolean full) {
+        return getInstance(namespace, name, externalId, full ? DataProfile.Full : DataProfile.Slim);
+    }
 
     /**
      * Loads all instances of the given entity type.
@@ -124,36 +177,59 @@ public interface InstanceManagement {
      * @return
      * @see Instance#isFull()
      */
-    public default List<Instance> getInstances(String namespace, String name, boolean full, boolean includeSubclasses, PageRequest pageRequest) {
-        return getInstances(namespace, name, full, includeSubclasses); 
+    public default List<Instance> getInstances(String namespace, String name, PageRequest pageRequest) {
+        return getInstances(namespace, name, pageRequest.getDataProfile(), pageRequest.getIncludeSubtypes()); 
     }
     public default List<Instance> getInstances(String namespace, String name, boolean full, boolean includeSubclasses) {
+        return getInstances(namespace, name, full ? DataProfile.Full : DataProfile.Slim, includeSubclasses);
+    }
+
+    public default List<Instance> getInstances(String namespace, String name, DataProfile dataProfile, boolean includeSubclasses) {
     	if (includeSubclasses) 
     		throw new UnsupportedOperationException("Support for subclasses not implemented");
-    	return getInstances(namespace, name, full);
+    	return getInstances(namespace, name, dataProfile);
     }
     
-    public List<Instance> getInstances(String namespace, String name, boolean full);
+    public default List<Instance> getInstances(String namespace, String name, boolean full) {
+        return getInstances(namespace, name, full ? DataProfile.Full : DataProfile.Slim);
+    }
+    public List<Instance> getInstances(String namespace, String name, DataProfile dataProfile);
 
     public default Long countInstances(String namespace, String name) {
     	return (long) getInstances(namespace, name, false).size();
     }
     
     public default Long countInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean includeSubclasses) {
-    	return (long) filterInstances(criteria, namespace, name, false, includeSubclasses).size();
+    	return (long) filterInstances(criteria, namespace, name, DataProfile.Slim, includeSubclasses).size();
     }
     
-    public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full);
+    public default List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, DataProfile dataProfile) {
+        return filterInstances(criteria, namespace, name, dataProfile, true);
+    }
     
-    public default List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full, boolean includeSubclasses) {
-    	if (includeSubclasses) 
+    public default List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full) {
+        return filterInstances(criteria, namespace, name, DataProfile.from(full), true);
+    }
+
+    public default List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, DataProfile dataProfile, boolean includeSubclasses) {
+        return filterInstances(new PageRequest(null, null, dataProfile, includeSubclasses), criteria, namespace, name).contents;
+    }
+    public default Page<Instance> filterInstances(PageRequest pageRequest, Map<String, List<Object>> criteria, String namespace, String name) {
+    	if (pageRequest.getIncludeSubtypes()) 
     		throw new UnsupportedOperationException("Support for subclasses not implemented");
-    	return filterInstances(criteria, namespace, name, full);
+    	List<Instance> instances = filterInstances(criteria, namespace, name, pageRequest.getDataProfile());
+        List<Instance> limitedList = instances.stream().skip(pageRequest.getFirst()).limit(pageRequest.getMaximum()).collect(Collectors.toList());
+        return new Page<>(limitedList, pageRequest.first, limitedList.size());
     }
 
     public List<Instance> getParameterDomain(Entity entity, String externalId, Operation action, Parameter parameter);
 
-    public List<Instance> getRelatedInstances(String namespace, String name, String externalId, String relationship, boolean full);
+    public default List<Instance> getRelatedInstances(String namespace, String name, String externalId, String relationship, boolean full) {
+        return getRelatedInstances(namespace, name, externalId, relationship, full ? DataProfile.Full : DataProfile.Slim);
+    }
+
+    public List<Instance> getRelatedInstances(String namespace, String name, String externalId, String relationship, DataProfile dataProfile);
+
     
     public default List<Instance> getRelatedInstances(Instance anchorInstance, String relationship, boolean full) {
     	List<Instance> relatedInstances = getRelatedInstances(anchorInstance.getScopeNamespace(), anchorInstance.getScopeName(), anchorInstance.getObjectId(), relationship, full);

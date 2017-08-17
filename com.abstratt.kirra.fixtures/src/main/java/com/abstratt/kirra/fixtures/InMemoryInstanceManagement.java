@@ -11,9 +11,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import com.abstratt.kirra.Entity;
-import com.abstratt.kirra.EntityCapabilities;
 import com.abstratt.kirra.Instance;
-import com.abstratt.kirra.InstanceCapabilities;
 import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.KirraException;
@@ -24,7 +22,6 @@ import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
-import com.abstratt.kirra.rest.common.Page;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.reflect.TypeToken;
 
@@ -140,7 +137,7 @@ public class InMemoryInstanceManagement implements InstanceManagement {
     }
 
     @Override
-    public synchronized Instance getInstance(String namespace, String name, String externalId, boolean full) {
+    public synchronized Instance getInstance(String namespace, String name, String externalId, DataProfile dataProfile) {
         TypeRef typeRef = new TypeRef(namespace, name, TypeKind.Entity);
         return getInstance(typeRef, externalId);
     }
@@ -155,14 +152,14 @@ public class InMemoryInstanceManagement implements InstanceManagement {
     }
 
     @Override
-    public synchronized List<Instance> getInstances(String namespace, String name, boolean full) {
+    public synchronized List<Instance> getInstances(String namespace, String name, DataProfile dataProfile) {
         TypeRef typeRef = new TypeRef(namespace, name, TypeKind.Entity);
         return getInstances(typeRef);
     }
     
     @Override
-    public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full) {
-        return getInstances(namespace, name, full);
+    public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, DataProfile dataProfile) {
+        return getInstances(namespace, name, dataProfile);
     }
 
     @Override
@@ -173,7 +170,7 @@ public class InMemoryInstanceManagement implements InstanceManagement {
 
     @Override
     public synchronized List<Instance> getRelatedInstances(String namespace, String name, String externalId, String relationship,
-            boolean full) {
+            DataProfile dataProfile) {
         // TODO Auto-generated method stub
         return null;
     }
