@@ -193,7 +193,9 @@ public interface InstanceManagement {
     public default List<Instance> getInstances(String namespace, String name, boolean full) {
         return getInstances(namespace, name, full ? DataProfile.Full : DataProfile.Slim);
     }
-    public List<Instance> getInstances(String namespace, String name, DataProfile dataProfile);
+    public default List<Instance> getInstances(String namespace, String name, DataProfile dataProfile) {
+        return getInstances(namespace, name, dataProfile, true);
+    }
 
     public default Long countInstances(String namespace, String name) {
     	return (long) getInstances(namespace, name, false).size();
