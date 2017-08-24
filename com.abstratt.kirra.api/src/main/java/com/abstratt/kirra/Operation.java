@@ -24,7 +24,11 @@ public class Operation extends TypedElement<BehaviorScope> {
          * instances, but it can really be any arbitrary tuple-shaped data.
          * Retrievers return sets of {@link Tuple}s.
          */
-        Retriever
+        Retriever,
+        /**
+         * An operation that creates an instance of the parent entity.
+         */
+        Construtor
     }
 
     private static final long serialVersionUID = 1L;
