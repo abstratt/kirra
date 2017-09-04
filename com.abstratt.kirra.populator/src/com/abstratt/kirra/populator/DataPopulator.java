@@ -1,6 +1,6 @@
 package com.abstratt.kirra.populator; 
 
-import java.io.BufferedInputStream; 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,14 +8,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -29,6 +28,7 @@ import java.util.function.Consumer;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
+import com.abstratt.kirra.Blob;
 import com.abstratt.kirra.DataElement;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
@@ -45,6 +45,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class DataPopulator {
     class Loader {
         private Map<String, Map<String, List<String>>> instances;
+        private List<BlobAction> blobActions;
         private Map<Instance, List<LinkingAction>> simpleLinkingActions;
         private Map<Instance, List<LinkingAction>> multipleLinkingActions;
         
@@ -94,6 +95,7 @@ public class DataPopulator {
                 validRelationships.put(relationship.getName(), relationship);
             List<LinkingAction> simpleInstanceLinkingActions = new LinkedList<>();
             List<LinkingAction> multipleInstanceLinkingActions = new LinkedList<>();
+            blobActions = new LinkedList<>();
             for (Iterator<String> propertyNames = instanceNode.fieldNames(); propertyNames.hasNext();) {
                 String slotName = propertyNames.next();
                 if (validProperties.containsKey(slotName))
@@ -109,6 +111,12 @@ public class DataPopulator {
             Instance created = repository.createInstance(newInstance);
             simpleLinkingActions.put(created, simpleInstanceLinkingActions);
             multipleLinkingActions.put(created, multipleInstanceLinkingActions);
+            if (!blobActions.isEmpty()) {
+                blobActions.forEach(action -> action.accept(created));
+                repository.updateInstance(created);
+                blobActions.clear();
+            }
+
             getEntityInstances(entity.getEntityNamespace(), entity.getName()).add(created.getObjectId());
             return created;
         }
@@ -222,13 +230,14 @@ public class DataPopulator {
             case START_OBJECT:
                 if (property.getTypeRef().getKind() == TypeKind.Blob) {
             		Map<String, Object> asMap = new LinkedHashMap<>();
-            		asMap.put("token", propertyValue.get("token").asText());
-            		asMap.put("contentType", propertyValue.get("contentType").asText());
-            		asMap.put("originalName", Optional.ofNullable(propertyValue.get("originalName")).map(it -> it.asText()).orElse(null));
-            		asMap.put("contentLength", propertyValue.get("contentLength").asInt());
-            		asMap.put("contents", propertyValue.get("contents").asText());
+            		String contentType = propertyValue.get("contentType").asText();
+            		String originalName = Optional.ofNullable(propertyValue.get("originalName")).map(it -> it.asText()).orElse(null);
+                    asMap.put("contentType", contentType);
+                    asMap.put("originalName", originalName);
             		value = asMap;
-                }                
+            		blobActions.add(new BlobAction(property.getName(), propertyValue.get("contents").asText(), contentType, propertyValue.get("originalName").asText()));
+                }
+                
                 break;
             }
             newInstance.setValue(property.getName(), value);
@@ -247,7 +256,11 @@ public class DataPopulator {
                 newInstance.setSingleRelated(relationship.getName(), related);
         }
         
-    	class LinkingAction implements Consumer<Instance> { 
+        abstract class DelayedAction implements Consumer<Instance> {
+            
+        }
+        
+    	class LinkingAction extends DelayedAction { 
 			private Relationship relationship;
 			private JsonNode instanceNode;
 			private String slotName;
@@ -260,6 +273,27 @@ public class DataPopulator {
 			public void accept(Instance instance) {
     			setRelationship(instance, instanceNode.get(slotName), relationship);
     		}
+    	}
+    	
+    	class BlobAction extends DelayedAction {
+    	    private String slotName;
+            private String contents;
+            private String originalName;
+            private String contentType;
+            BlobAction(String slotName, String contents, String contentType, String originalName) {
+    	        this.slotName = slotName;
+    	        this.contents = contents;
+    	        this.contentType = contentType;
+    	        this.originalName = originalName;
+    	    }
+            @Override
+            public void accept(Instance instance) {
+                Blob blob = repository.createBlob(instance.getTypeRef(), instance.getObjectId(), slotName, contentType, originalName);
+                instance.setValue(slotName, blob.toMap());
+                repository.updateInstance(instance);
+                byte[] asBytes = Base64.getDecoder().decode(contents);
+                repository.writeBlob(instance.getTypeRef(), instance.getObjectId(), slotName, blob.getToken(), new ByteArrayInputStream(asBytes));
+            }
     	}
 
     }
@@ -285,6 +319,7 @@ public class DataPopulator {
     }
 
     public int populate() {
+        repository.zap();
         File dataFile = getDataFile();
         InputStream in = null;
         try {

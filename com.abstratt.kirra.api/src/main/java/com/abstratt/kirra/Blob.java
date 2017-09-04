@@ -6,7 +6,6 @@ import java.util.Map;
 public class Blob {
 	private final String token;
 	private final long contentLength;
-	private final byte[] contents;
 	private final String contentType;
 	private final String originalName;
 	public String getOriginalName() {
@@ -18,17 +17,13 @@ public class Blob {
 	public long getContentLength() {
 		return contentLength;
 	}
-	public byte[] getContents() {
-		return contents;
-	}
 	public String getContentType() {
 		return contentType;
 	}
-	public Blob(String token, long contentLength, byte[] contents, String contentType, String originalName) {
+	public Blob(String token, long contentLength, String contentType, String originalName) {
 		super();
 		this.token = token;
 		this.contentLength = contentLength;
-		this.contents = contents;
 		this.contentType = contentType;
 		this.originalName = originalName;
 	}
@@ -38,7 +33,6 @@ public class Blob {
 		asMap.put("contentType", contentType);
 		asMap.put("originalName", originalName);
 		asMap.put("contentLength", contentLength);
-		asMap.put("contents", contents);
 		return asMap;
 	}
 }

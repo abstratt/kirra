@@ -1,5 +1,6 @@
 package com.abstratt.kirra;
 
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -298,14 +299,19 @@ public interface InstanceManagement {
 
     public void zap();
 
-	default public void deleteBlob(TypeRef entityRef, String objectId, String blobPropertyName, String blobToken) {
+	default public void deleteBlob(TypeRef entityRef, String objectId, String blobPropertyName, String blob) {
 		throw new UnsupportedOperationException();
 	}
-	default public Blob addBlob(TypeRef entityRef, String objectId, String blobPropertyName, Blob newBlob) {
+	default public Blob getBlob(TypeRef entityRef, String objectId, String blobPropertyName, String token) {
+        throw new UnsupportedOperationException();
+    }
+	default public InputStream readBlob(TypeRef entityRef, String objectId, String blobPropertyName, String token) {
 		throw new UnsupportedOperationException();
 	}
-	default public Blob getBlob(TypeRef entityRef, String objectId, String blobPropertyName, String blobToken) {
-		throw new UnsupportedOperationException();
-	}
-	
+	default public Blob writeBlob(TypeRef entityRef, String objectId, String blobPropertyName, String token, InputStream contents) {
+        throw new UnsupportedOperationException();
+    }
+    default public Blob createBlob(TypeRef entityRef, String objectId, String blobPropertyName, String contentType, String originalName) {
+        throw new UnsupportedOperationException();
+    }
 }
