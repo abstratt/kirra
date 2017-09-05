@@ -21,7 +21,7 @@ public class ServiceResource {
 
         TypeRef typeRef = new TypeRef(serviceName, TypeKind.Service);
         Service service = KirraContext.getSchemaManagement().getService(typeRef);
-        ResourceHelper.ensure(service != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(service != null, Status.NOT_FOUND);
         return CommonHelper.buildGson(ResourceHelper.resolve(Paths.SERVICES)).create().toJson(service);
     }
 }

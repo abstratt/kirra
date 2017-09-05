@@ -30,14 +30,14 @@ public class RelatedInstanceResource extends InstanceResource {
         InstanceManagement instanceManagement = KirraContext.getInstanceManagement();
         
         Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
-        ResourceHelper.ensure(entity != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(entity != null, Status.NOT_FOUND);
         
         Instance parentInstance = instanceManagement.getInstance(entityRef.getEntityNamespace(), entityRef.getTypeName(),
                 objectId, false);
         ResourceHelper.ensure(parentInstance != null, "Parent " + entity.getLabel() + " " + objectId + " not found", Status.NOT_FOUND);
         
         Relationship relationship = entity.getRelationship(relationshipName);
-        ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(relationship != null, Status.NOT_FOUND);
 
         InstanceRef relatedInstanceRef = getInstanceRef(relatedObjectId, relationship.getTypeRef());
         
@@ -53,10 +53,10 @@ public class RelatedInstanceResource extends InstanceResource {
         InstanceManagement instanceManagement = KirraContext.getInstanceManagement();
         
         Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
-        ResourceHelper.ensure(entity != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(entity != null, Status.NOT_FOUND);
         
         Relationship relationship = entity.getRelationship(relationshipName);
-        ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(relationship != null, Status.NOT_FOUND);
         InstanceRef relatedInstanceRef = getInstanceRef(relatedObjectId, relationship.getTypeRef());
         instanceManagement.unlinkInstances(relationship, objectId, relatedInstanceRef);
     }    
@@ -67,10 +67,10 @@ public class RelatedInstanceResource extends InstanceResource {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         SchemaManagement schemaManagement = KirraContext.getSchemaManagement();
         Entity entity = schemaManagement.getEntity(entityRef);
-        ResourceHelper.ensure(entity != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(entity != null, Status.NOT_FOUND);
         
         Relationship relationship = entity.getRelationship(relationshipName);
-        ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(relationship != null, Status.NOT_FOUND);
         
         InstanceRef relatedInstanceRef = getInstanceRef(relatedObjectId, relationship.getTypeRef());
         
@@ -90,7 +90,7 @@ public class RelatedInstanceResource extends InstanceResource {
         TypeRef instanceType;
         if (objectId.contains("@")) {
         	String[] components = objectId.split("@");
-        	ResourceHelper.ensure(components.length == 2, null, Status.NOT_FOUND); 
+        	ResourceHelper.ensure(components.length == 2, Status.NOT_FOUND); 
         	instanceType = new TypeRef(components[0], TypeKind.Entity);
         	objectId = components[1];
         } else {

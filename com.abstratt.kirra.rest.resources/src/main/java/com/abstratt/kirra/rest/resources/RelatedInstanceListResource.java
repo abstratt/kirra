@@ -27,10 +27,10 @@ public class RelatedInstanceListResource {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         SchemaManagement schemaManagement = KirraContext.getSchemaManagement();
         Entity entity = schemaManagement.getEntity(entityRef);
-        ResourceHelper.ensure(entity != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(entity != null, Status.NOT_FOUND);
         
         Relationship relationship = entity.getRelationship(relationshipName);
-        ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(relationship != null, Status.NOT_FOUND);
         
         List<Instance> relatedInstances = KirraContext.getInstanceManagement().getRelatedInstances(entityRef.getNamespace(), entityRef.getTypeName(), objectId, relationshipName, true);
         InstanceList instanceList = new InstanceList(relatedInstances);

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
@@ -27,11 +28,19 @@ import com.abstratt.kirra.rest.common.KirraContext;
 
 public class ResourceHelper extends CommonHelper {
 
+    public static void ensure(boolean condition, Status status) {
+        ensure(condition, (String) null, status);
+    }
+    
     public static void ensure(boolean condition, String message, Status status) {
+        ensure(condition, () -> message, status);
+    }
+    
+    public static void ensure(boolean condition, Supplier<String> message, Status status) {
         if (!condition) {
             if (status == null)
                 status = Status.BAD_REQUEST;
-            throw new KirraRestException(message, status, null);
+            throw new KirraRestException(message == null ? null : message.get(), status, null);
         }
     }
 

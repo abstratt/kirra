@@ -25,7 +25,7 @@ public class EntityResource {
     public String getEntity(@PathParam("entityName") String entityName) {
         TypeRef typeRef = new TypeRef(entityName, TypeKind.Entity);
         Entity entity = KirraContext.getSchemaManagement().getEntity(typeRef);
-        ResourceHelper.ensure(entity != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(entity != null, () -> null, Status.NOT_FOUND);
         return CommonHelper.buildGson(ResourceHelper.resolve(Paths.ENTITIES)).create().toJson(entity);
     }
     @GET

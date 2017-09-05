@@ -26,10 +26,10 @@ public class RelationshipDomainResource {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         SchemaManagement schemaManagement = KirraContext.getSchemaManagement();
         Entity entity = schemaManagement.getEntity(entityRef);
-        ResourceHelper.ensure(entity != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(entity != null, Status.NOT_FOUND);
         
         Relationship relationship = entity.getRelationship(relationshipName);
-        ResourceHelper.ensure(relationship != null, null, Status.NOT_FOUND);
+        ResourceHelper.ensure(relationship != null, Status.NOT_FOUND);
         
         List<Instance> domain = KirraContext.getInstanceManagement().getRelationshipDomain(entity, objectId, relationship);
         Page<Instance> instanceList = new Page<>(domain);
