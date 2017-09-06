@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -108,16 +109,15 @@ public class DataPopulator {
                 		simpleInstanceLinkingActions.add(new LinkingAction(relationship, instanceNode, slotName));
                 }
             }
+        
             Instance created = repository.createInstance(newInstance);
-            simpleLinkingActions.put(created, simpleInstanceLinkingActions);
-            multipleLinkingActions.put(created, multipleInstanceLinkingActions);
+            getEntityInstances(entity.getEntityNamespace(), entity.getName()).add(created.getObjectId());
             if (!blobActions.isEmpty()) {
                 blobActions.forEach(action -> action.accept(created));
-                repository.updateInstance(created);
                 blobActions.clear();
             }
-
-            getEntityInstances(entity.getEntityNamespace(), entity.getName()).add(created.getObjectId());
+            multipleLinkingActions.put(created, multipleInstanceLinkingActions);
+            simpleLinkingActions.put(created, simpleInstanceLinkingActions);
             return created;
         }
 
@@ -229,15 +229,11 @@ public class DataPopulator {
                 break;
             case START_OBJECT:
                 if (property.getTypeRef().getKind() == TypeKind.Blob) {
-            		Map<String, Object> asMap = new LinkedHashMap<>();
             		String contentType = propertyValue.get("contentType").asText();
             		String originalName = Optional.ofNullable(propertyValue.get("originalName")).map(it -> it.asText()).orElse(null);
-                    asMap.put("contentType", contentType);
-                    asMap.put("originalName", originalName);
-            		value = asMap;
-            		blobActions.add(new BlobAction(property.getName(), propertyValue.get("contents").asText(), contentType, propertyValue.get("originalName").asText()));
+            		blobActions.add(new BlobAction(property.getName(), propertyValue.get("contents").asText(), contentType, originalName));
+            		value = null; 
                 }
-                
                 break;
             }
             newInstance.setValue(property.getName(), value);
@@ -289,10 +285,9 @@ public class DataPopulator {
             @Override
             public void accept(Instance instance) {
                 Blob blob = repository.createBlob(instance.getTypeRef(), instance.getObjectId(), slotName, contentType, originalName);
-                instance.setValue(slotName, blob.toMap());
-                repository.updateInstance(instance);
                 byte[] asBytes = Base64.getDecoder().decode(contents);
                 repository.writeBlob(instance.getTypeRef(), instance.getObjectId(), slotName, blob.getToken(), new ByteArrayInputStream(asBytes));
+                LogUtils.debug(ID, () -> instance.getReference().toString() + blob.toMap().toString());
             }
     	}
 
