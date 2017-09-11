@@ -28,7 +28,7 @@ public class Operation extends TypedElement<BehaviorScope> {
         /**
          * An operation that creates an instance of the parent entity.
          */
-        Construtor
+        Constructor
     }
 
     private static final long serialVersionUID = 1L;
