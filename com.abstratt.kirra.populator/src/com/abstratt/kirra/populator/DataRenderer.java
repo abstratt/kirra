@@ -1,17 +1,24 @@
 package com.abstratt.kirra.populator;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
+
+import com.abstratt.kirra.Blob;
 import com.abstratt.kirra.DataElement;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.Repository;
+import com.abstratt.kirra.TypeRef.TypeKind;
 
 /**
  * Produces a JSON representation from a repository's data.
@@ -81,7 +88,7 @@ public class DataRenderer {
         Map<String, Object> instanceMap = new LinkedHashMap<String, Object>();
         for (DataElement property : entity.getProperties())
             if (!property.isDerived() && !property.isMultiple())
-                instanceMap.put(property.getName(), instance.getValue(property.getName()));
+                instanceMap.put(property.getName(), getPropertyValue(instance, property));
         for (Relationship relationship : entity.getRelationships())
             if (!relationship.isDerived() && relationship.isPrimary()) {
                 if (!relationship.isMultiple()) {
@@ -100,6 +107,29 @@ public class DataRenderer {
                 }
             }
         return instanceMap;
+    }
+
+    private Object getPropertyValue(Instance instance, DataElement property) {
+        if (property.getTypeRef().getKind() == TypeKind.Blob) {
+            return getBlobValue(instance, property);
+        }
+        return instance.getValue(property.getName());
+    }
+
+    private Map<String, Object> getBlobValue(Instance instance, DataElement property) {
+        Blob blobValue = (Blob) instance.getValue(property.getName());
+        if (blobValue == null)
+            return null;
+        Map<String, Object> asMap = blobValue.toMap();
+        byte[] asBytes;
+        try (InputStream blobContents = repository.readBlob(instance.getTypeRef(), instance.getObjectId(), property.getName(), blobValue.getToken())) {
+            asBytes = IOUtils.toByteArray(blobContents);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String asString = Base64.getEncoder().encodeToString(asBytes);
+        asMap.put("contents", asString);
+        return asMap;
     }
 
     /**
