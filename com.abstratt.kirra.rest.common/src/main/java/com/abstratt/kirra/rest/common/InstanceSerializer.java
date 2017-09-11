@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.InstanceManagement.DataProfile;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.google.gson.ExclusionStrategy;
@@ -53,18 +54,10 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         // hide any non-user visible properties and relationships
         Entity entity = KirraContext.getSchemaManagement().getEntity(instance.getTypeRef());
 
-        Map<String, Object> values = instance.getValues();
-        // remove non-user visible properties
-		entity.getProperties()
-			.stream()
-			.filter(it -> !it.isUserVisible())
-			.forEach(it -> values.remove(it.getName()));
-		JsonElement valuesAsJson = gson.toJsonTree(values);
+        JsonElement valuesAsJson = getJsonValues(instance, gson, entity);
 		
         // flatten links to avoid infinite recursion due to cyclic refs
         Map<String, Instance> links = instance.getLinks();
-        Set<String> filledInSlotNames = links.keySet();
-        Set<String> allSlotNames = entity.getRelationships().stream().map(it -> it.getName()).collect(Collectors.toSet());
         JsonObject linksAsJson = new JsonObject();
         for (Map.Entry<String, Instance> link : links.entrySet()) {
             String relationshipName = link.getKey();
@@ -76,7 +69,11 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
 	            	element = JsonNull.INSTANCE;
 	            else {
 	            	Entity relatedEntity = KirraContext.getSchemaManagement().getEntity(linkValue.getTypeRef());
-	            	element = addBasicProperties(gson, relatedEntity, link.getValue(), new JsonObject());
+	            	JsonObject relatedAsJson = new JsonObject();
+	            	element = addBasicProperties(gson, relatedEntity, linkValue, relatedAsJson);
+	            	if (linkValue.getProfile() != DataProfile.Empty) {
+	            	    relatedAsJson.add("values", getJsonValues(linkValue, gson, relatedEntity));
+	            	}
 	            }
 	            linksAsJson.add(relationshipName, element);
             }
@@ -87,6 +84,17 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         asJson.add("disabledActions", context.serialize(instance.getDisabledActions()));
     	addBasicProperties(gson, entity, instance, asJson);
         return asJson;
+    }
+
+    private JsonElement getJsonValues(Instance instance, Gson gson, Entity entity) {
+        Map<String, Object> values = instance.getValues();
+        // remove non-user visible properties
+		entity.getProperties()
+			.stream()
+			.filter(it -> !it.isUserVisible())
+			.forEach(it -> values.remove(it.getName()));
+		JsonElement valuesAsJson = gson.toJsonTree(values);
+        return valuesAsJson;
     }
     
     @Override
@@ -115,7 +123,7 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
 	                }
 	                linkAsObject.remove("values");
 	                linkAsObject.remove("links");
-	                linkAsObject.addProperty("full", false);
+	                linkAsObject.addProperty("profile", DataProfile.Slim.name());
             	}
             }
         }
@@ -129,6 +137,7 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         instanceAsJson.addProperty("objectId", instance.getObjectId());
         instanceAsJson.addProperty("uri", instanceUri.toString());
         instanceAsJson.addProperty("shorthand", getShorthand(entity, instance));
+        instanceAsJson.addProperty("profile", instance.getProfile().name());
         instanceAsJson.addProperty("entityUri", entityUri.toString());
         instanceAsJson.add("typeRef", gson.toJsonTree(instance.getTypeRef()));
         instanceAsJson.addProperty("scopeName", instance.getTypeRef().getTypeName());

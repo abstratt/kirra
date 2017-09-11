@@ -12,13 +12,21 @@ import java.util.stream.Collectors;
 public interface InstanceManagement {
 
     enum DataProfile {
-        Full, Slim, Empty;
+        Full("Slim"), Slim ("Empty"), Empty ("Empty");
+        
+        private String lighter;
+        DataProfile(String lighter) {
+            this.lighter = lighter;
+        }
 
         public static DataProfile from(boolean full) {
             return full ? Full : Slim;
         }
         public static DataProfile from(String name) {
             return Arrays.stream(DataProfile.values()).filter(it -> it.name().equalsIgnoreCase(name)).findAny().orElse(DataProfile.Full);
+        }
+        public DataProfile lighter() {
+            return valueOf(lighter);
         }
     }
     

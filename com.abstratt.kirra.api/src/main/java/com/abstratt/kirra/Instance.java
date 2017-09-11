@@ -1,11 +1,10 @@
 package com.abstratt.kirra;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.abstratt.kirra.InstanceManagement.DataProfile;
 import com.abstratt.kirra.TypeRef.TypeKind;
 
 /**
@@ -25,7 +24,7 @@ public class Instance extends Tuple {
      * A map of disabled action names -> reasons.
      */
     protected Map<String, String> disabledActions = new HashMap<String, String>();
-    protected boolean full;
+    protected DataProfile profile;
     protected Map<String, Instance> links = new HashMap<String, Instance>();
     protected String objectId;
 
@@ -75,16 +74,6 @@ public class Instance extends Tuple {
     	return getRelated(reference);
     }
 
-    /**
-     * Returns whether this instance was fully loaded.
-     * 
-     * @return <code>true</code> if this instance was fully loaded,
-     *         <code>false</code> otherwise
-     */
-    public boolean isFull() {
-        return full;
-    }
-
     public boolean isInstanceOf(TypeRef type) {
         return getEntityName().equals(type.getTypeName()) && getEntityNamespace().equals(type.getEntityNamespace());
     }
@@ -103,10 +92,6 @@ public class Instance extends Tuple {
 
     public void setEntityNamespace(String namespace) {
         setScopeNamespace(namespace);
-    }
-
-    public void setFull(boolean full) {
-        this.full = full;
     }
 
     public void setLinks(Map<String, Instance> links) {
@@ -137,5 +122,15 @@ public class Instance extends Tuple {
     @Override
     protected TypeKind getTypeKind() {
         return TypeKind.Entity;
+    }
+    
+    public void setProfile(DataProfile profile) {
+        this.profile = profile;
+    }
+    public DataProfile getProfile() {
+        return profile;
+    }
+    public boolean isFull() {
+        return profile == DataProfile.Full;
     }
 }
