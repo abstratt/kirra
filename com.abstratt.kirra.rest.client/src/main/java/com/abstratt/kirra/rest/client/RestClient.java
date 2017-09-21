@@ -32,6 +32,7 @@ public class RestClient {
 
     public <T> T executeMethod(HttpMethod method, Type resultType, int... acceptedStatuses) {
         try {
+            System.out.println(method);
             if (method instanceof EntityEnclosingMethod)
                 ((EntityEnclosingMethod) method).getRequestEntity().writeRequest(System.out);
             int response = httpClient.executeMethod(method);
@@ -42,6 +43,7 @@ public class RestClient {
                 throw new RuntimeException("Unexpected status code: " + response + " - expected: "
                         + Arrays.asList(acceptedStatuses).toString());
             String responseBody = new String(method.getResponseBody());
+            System.out.println(responseBody);
             return new Gson().fromJson(new StringReader(responseBody), resultType);
         } catch (JsonParseException e) {
             throw e;

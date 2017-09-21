@@ -240,4 +240,9 @@ public class InMemoryInstanceManagement implements InstanceManagement {
         }.getType(), Paths.ENTITIES, typeRef.toString() + '/' + Paths.INSTANCES);
         return entityInstances == null ? new ArrayList<>() : entityInstances.contents;
     }
+    
+    @Override
+    public boolean isRestricted() {
+        return false;
+    }
 }

@@ -24,7 +24,7 @@ public class Instance extends Tuple {
      * A map of disabled action names -> reasons.
      */
     protected Map<String, String> disabledActions = new HashMap<String, String>();
-    protected DataProfile profile;
+    protected DataProfile profile = DataProfile.Empty;
     protected Map<String, Instance> links = new HashMap<String, Instance>();
     protected String objectId;
 

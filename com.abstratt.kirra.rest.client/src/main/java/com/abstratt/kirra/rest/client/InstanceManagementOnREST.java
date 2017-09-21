@@ -167,4 +167,9 @@ public class InstanceManagementOnREST implements InstanceManagement {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public boolean isRestricted() {
+	    return false;
+	}
 }

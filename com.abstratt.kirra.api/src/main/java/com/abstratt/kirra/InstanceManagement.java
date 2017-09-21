@@ -326,4 +326,8 @@ public interface InstanceManagement {
     default public Blob createBlob(TypeRef entityRef, String objectId, String blobPropertyName, String contentType, String originalName) {
         throw new UnsupportedOperationException();
     }
+
+    default public boolean isRestricted() {
+        return true;
+    }
 }
