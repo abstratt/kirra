@@ -1,6 +1,7 @@
 package com.abstratt.kirra.rest.resources;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class SignupResource {
         AuthorizationHelper.checkInstanceCreationAuthorized(entityRef);
     	
     	ResourceHelper.ensure(instanceManagement.getCurrentUser() == null, "Already logged in", Status.BAD_REQUEST);
-    	Instance newUserProfile = new Instance("userprofile", "Profile");
+    	Instance newUserProfile = new Instance("userprofile", "UserProfile");
     	
     	List<String> credentialPairs = headers.getRequestHeader("X-Kirra-Credentials");
     	ResourceHelper.ensure(!credentialPairs.isEmpty(), "missing credentials", Status.BAD_REQUEST);
@@ -42,6 +43,9 @@ public class SignupResource {
     	String username = StringUtils.trimToNull(credentials[0]);
     	String password = StringUtils.trimToNull(credentials[1]);
     	ResourceHelper.ensure(username != null, "username is required", Status.BAD_REQUEST);
+    	ResourceHelper.ensure(username.length() >= 6, "email is not valid", Status.BAD_REQUEST);
+    	ResourceHelper.ensure(!username.startsWith("@") && !username.endsWith("@"), "email is not valid", Status.BAD_REQUEST);
+        ResourceHelper.ensure(username.chars().filter(it -> it == '@').count() == 1, "email is not valid", Status.BAD_REQUEST);
     	ResourceHelper.ensure(password != null, "password is required", Status.BAD_REQUEST);
     	ResourceHelper.ensure(password.length() >= 4, "password must be at least 4 chars long", Status.BAD_REQUEST);
     	ResourceHelper.ensure(password.length() <= 256, "password is too long", Status.BAD_REQUEST);

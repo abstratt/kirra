@@ -110,6 +110,10 @@ public interface InstanceManagement {
     /**
      * Returns a collection of instances or values, never null.
      */
+    public default List<?> executeOperation(Operation operation, String externalId, List<?> arguments, String parameterSet) {
+        return executeOperation(operation, externalId, arguments);
+    }
+    
     public List<?> executeOperation(Operation operation, String externalId, List<?> arguments);
 
     public default List<?> executeQuery(Operation operation, String externalId, List<?> arguments, boolean full) {

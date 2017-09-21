@@ -1,8 +1,11 @@
 package com.abstratt.kirra;
 
+import java.util.Collection;
 import java.util.List;
 
-public class Operation extends TypedElement<BehaviorScope> {
+import com.abstratt.kirra.TypeRef.TypeKind;
+
+public class Operation extends TypedElement<BehaviorScope> implements ParameterScope {
     public enum OperationKind {
         /**
          * An operation that performs a change on the target object and or
@@ -36,6 +39,7 @@ public class Operation extends TypedElement<BehaviorScope> {
     protected boolean instanceOperation;
     protected OperationKind kind;
     protected List<Parameter> parameters;
+    protected List<ParameterSet> parameterSets;
 
     @Override
     public boolean equals(Object obj) {
@@ -57,14 +61,19 @@ public class Operation extends TypedElement<BehaviorScope> {
     }
 
     public Parameter getParameter(String parameterName) {
-        for (Parameter current : parameters)
-            if (parameterName.equals(current.getName()))
-                return current;
-        return null;
+        return NameScope.find(parameters, parameterName);
+    }
+    
+    public ParameterSet getParameterSet(String parameterName) {
+        return NameScope.find(parameterSets, parameterName);
     }
 
     public List<Parameter> getParameters() {
         return parameters;
+    }
+    
+    public List<ParameterSet> getParameterSets() {
+        return parameterSets;
     }
 
     @Override
@@ -98,5 +107,19 @@ public class Operation extends TypedElement<BehaviorScope> {
 
     public void setParameters(List<Parameter> parameters) {
         this.parameters = parameters;
+    }
+    
+    @Override
+    public TypeKind getTypeKind() {
+        return TypeKind.Operation;
+    }
+    
+    @Override
+    public TypeRef getTypeRef() {
+        return new TypeRef(TypeRef.toString(getOwner().getFullName(), getName()), getTypeKind());
+    }
+
+    public void setParameterSets(List<ParameterSet> parameterSets) {
+        this.parameterSets = parameterSets;
     }
 }

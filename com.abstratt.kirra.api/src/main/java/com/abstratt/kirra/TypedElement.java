@@ -9,12 +9,9 @@ import com.abstratt.kirra.KirraException.Kind;
 
 public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
     public static <T extends TypedElement<?>> T findElement(Collection<T> elements, String name, boolean mustFind) {
-        for (T e : elements)
-            if (e.getName().equals(name))
-                return e;
         if (mustFind)
-            throw new KirraException("No element found named " + name, null, Kind.SCHEMA);
-        return null;
+            return NameScope.tryToFind(elements, name).orElseThrow(() -> new KirraException("No element found named " + name, null, Kind.SCHEMA));
+        return NameScope.find(elements, name);
     }
 
     private static final long serialVersionUID = 1L;

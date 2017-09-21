@@ -9,7 +9,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
@@ -30,7 +34,7 @@ import com.google.gson.reflect.TypeToken;
 public class EntityActionResource {
     @POST
     public String execute(@PathParam("entityName") String entityName, 
-            @PathParam("actionName") String actionName, String argumentMapRepresentation) {
+            @PathParam("actionName") String actionName, @Context UriInfo uriInfo, String argumentMapRepresentation) {
         TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
         AuthorizationHelper.checkEntityActionAuthorized(entityRef, actionName);
         
@@ -41,16 +45,21 @@ public class EntityActionResource {
         ResourceHelper.ensure(!action.isInstanceOperation(), "Not an entity action", Status.BAD_REQUEST);
         ResourceHelper.ensure(action.getKind() == OperationKind.Action, "Not an action", Status.BAD_REQUEST);
 
+        String selectedParameterSet = StringUtils.trimToNull(uriInfo.getQueryParameters().getFirst("parameterSet"));
+        
         Map<String, Object> argumentMap = new Gson().fromJson(argumentMapRepresentation, new TypeToken<Map<String, Object>>() {
         }.getType());
         List<Object> argumentList = new ArrayList<Object>();
         for (Parameter parameter : action.getParameters()) {
+            if (selectedParameterSet != null)
+                if (!parameter.getParameterSets().contains(selectedParameterSet))
+                    continue;
             Object argumentValue = argumentMap.get(parameter.getName());
             if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity)
                 argumentValue = new Instance(parameter.getTypeRef(), ((Map<String,Object>) argumentValue).get("objectId").toString());
             argumentList.add(argumentValue);
         }
-        List<?> result = KirraContext.getInstanceManagement().executeOperation(action, null, argumentList);
+        List<?> result = KirraContext.getInstanceManagement().executeOperation(action, null, argumentList, selectedParameterSet);
         return CommonHelper.buildGson(null).create().toJson(result);
     }
 }

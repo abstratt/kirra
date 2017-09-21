@@ -27,11 +27,12 @@ public class EntitySerializer extends TopLevelElementSerializer<Entity> {
         asJson.addProperty("entityCapabilityUri", CommonHelper.resolve(entityUri, Paths.CAPABILITIES + "/").toString());
         asJson.addProperty("instanceCapabilityUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.CAPABILITIES).toString());
         basicValues.entrySet().forEach((entry) -> asJson.add(entry.getKey(), entry.getValue()));
-        asJson.addProperty("entityActionUriTemplate", CommonHelper.resolve(entityUri, Paths.ACTIONS, "(actionName)").toString());        
+        asJson.addProperty("entityActionUriTemplate", CommonHelper.resolve(entityUri, Paths.ACTIONS, "(actionName)", "?parameterSet=(parameterSet)").toString());        
         asJson.addProperty("instanceUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)").toString());
+        asJson.addProperty("instanceTemplateUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "_template").toString());
         asJson.addProperty("instanceNewBlobUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.BLOBS, "(propertyName)").toString());
         asJson.addProperty("instanceExistingBlobUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.BLOBS, "(propertyName)", "(token)").toString());        
-        asJson.addProperty("instanceActionUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.ACTIONS, "(actionName)").toString());
+        asJson.addProperty("instanceActionUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.ACTIONS, "(actionName)", "?parameterSet=(parameterSet)").toString());
         asJson.addProperty("relationshipDomainUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.RELATIONSHIPS, "(relationshipName)", Paths.DOMAIN).toString());
         asJson.addProperty("relatedInstancesUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.RELATIONSHIPS, "(relationshipName)").toString() + "?includesubtypes=true");
         asJson.addProperty("relatedInstanceUriTemplate", CommonHelper.resolve(entityUri, Paths.INSTANCES, "(objectId)", Paths.RELATIONSHIPS, "(relationshipName)", "(relatedObjectId)").toString());        

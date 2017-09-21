@@ -17,23 +17,16 @@ public class Namespace extends NamedElement<NameScope> implements NameScope {
         this.name = namespaceName;
     }
 
-    public <NE extends NamedElement<?>> NE findElement(List<NE> elements, String name) {
-        for (NE element : elements)
-            if (element.getName().equals(name))
-                return element;
-        return null;
-    }
-
     public Entity findEntity(String name) {
-        return findElement(entities, name);
+        return NameScope.find(entities, name);
     }
 
     public Service findService(String name) {
-        return findElement(services, name);
+        return NameScope.find(services, name);
     }
 
     public TupleType findTupleType(String name) {
-        return findElement(tupleTypes, name);
+        return NameScope.find(tupleTypes, name);
     }
 
     public List<Entity> getEntities() {

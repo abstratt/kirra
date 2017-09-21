@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -151,7 +152,7 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
             Map<String, Object> valueMap = instance.getValues();
             if (valueMap != null && !valueMap.isEmpty()) {
 				Collection<Object> values = valueMap.values();
-				shorthand = values.iterator().next().toString();
+				shorthand = Optional.ofNullable(values.iterator().next()).map(it -> it.toString()).orElse(null);
 			}
         }
         return shorthand;

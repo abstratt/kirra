@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class TypeRef implements Serializable {
     public enum TypeKind {
-        Entity, Enumeration, Namespace, Primitive, Service, Tuple, Blob
+        Entity, Enumeration, Namespace, Primitive, Service, Tuple, Blob, Operation
     }
 
     public static String sanitize(String externalTypeName) {

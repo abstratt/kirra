@@ -173,7 +173,7 @@ public class DataValidator {
                     valueTypeError = "Expected one of " + property.getEnumerationLiterals().toString() + ", found: "
                             + propertyValue.textValue();
                 }
-            } else if (!validPropertyTypeName.equals("String") && !validPropertyTypeName.equals("Memo") && !validPropertyTypeName.equals("Geolocation"))
+            } else if (!validPropertyTypeName.equals("String") && !validPropertyTypeName.equals("Memo") && !validPropertyTypeName.equals("Geolocation") && !validPropertyTypeName.equals("Email"))
                 valueTypeError = "Expected " + validPropertyTypeName + " value, found string value";
             break;
         case VALUE_NUMBER_INT:
@@ -240,13 +240,13 @@ public class DataValidator {
 
     private void validateRelationship(Entity entity, JsonNode relatedInstanceNode, Relationship relationship) {
         if (relationship.isDerived()) {
-            collector.addError("Instance " + entity.getName() + "#" + index + " attempted to modify a derived relationship ("
+            collector.addWarning("Instance " + entity.getName() + "#" + index + " attempted to modify a derived relationship ("
                     + relationship.getName() + ")");
             return;
         }
         if (relationship.isMultiple()) {
             if (!relatedInstanceNode.isArray()) {
-                collector.addError("Instance " + entity + "#" + index + " must provide an arry, relationship is multiple ("
+                collector.addError("Instance " + entity + "#" + index + " must provide an array, relationship is multiple ("
                         + relationship.getName() + ")");
                 return;
             }
