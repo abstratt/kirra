@@ -89,7 +89,7 @@ public class ResourceHelper extends CommonHelper {
             if (selectedParameterSet != null)
                 if (!parameter.getParameterSets().contains(selectedParameterSet))
                     continue;
-            ResourceHelper.ensure((argumentsByAllCapsNames.containsKey(parameter.getName().toUpperCase())) || !parameter.isRequired(), "Parameter is required: " + parameter.getName(), Status.BAD_REQUEST);
+            ResourceHelper.ensure((argumentsByAllCapsNames.containsKey(parameter.getName().toUpperCase())) || !parameter.isRequired(), "Parameter is required: " + parameter.getLabel(), Status.BAD_REQUEST);
             Object argumentValue = argumentsByAllCapsNames.get(parameter.getName().toUpperCase());
             if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity) {
                 if (argumentValue instanceof List)

@@ -12,7 +12,9 @@ import com.abstratt.kirra.rest.common.KirraContext;
 
 public class AuthorizationHelper {
 	private static EntityCapabilities getEntityCapabilities(TypeRef entityRef) {
-		return KirraContext.getInstanceManagement().getEntityCapabilities(entityRef);
+		EntityCapabilities entityCapabilities = KirraContext.getInstanceManagement().getEntityCapabilities(entityRef);
+		checkAuthorized(entityCapabilities != null);
+        return entityCapabilities;
 	}
 	
 	private static boolean isRestricted() {
@@ -20,7 +22,9 @@ public class AuthorizationHelper {
 	}
 
 	private static InstanceCapabilities getInstanceCapabilities(TypeRef entityRef, String objectId) {
-		return KirraContext.getInstanceManagement().getInstanceCapabilities(entityRef, objectId);
+		InstanceCapabilities instanceCapabilities = KirraContext.getInstanceManagement().getInstanceCapabilities(entityRef, objectId);
+		checkAuthorized(instanceCapabilities != null);
+        return instanceCapabilities;
 	}
 	
 	private static boolean isLoggedIn() {
