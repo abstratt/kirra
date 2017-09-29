@@ -17,7 +17,7 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
     private static final long serialVersionUID = 1L;
     protected boolean hasDefault;
 
-    protected Map<String, String> enumerationLiterals;
+    protected Map<String, EnumerationLiteral> enumerationLiterals;
     protected boolean multiple;
     protected boolean required;
 
@@ -44,7 +44,7 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
      * In the case this typed element is typed by an enumeration, these are the
      * enumeration values.
      */
-    public Map<String, String> getEnumerationLiterals() {
+    public Map<String, EnumerationLiteral> getEnumerationLiterals() {
         return enumerationLiterals;
     }
 
@@ -80,12 +80,12 @@ public abstract class TypedElement<O extends NameScope> extends SubElement<O> {
         this.hasDefault = defaulting;
     }
 
-    public void setEnumerationLiterals(Map<String, String> enumerationLiterals) {
+    public void setEnumerationLiterals(Map<String, EnumerationLiteral> enumerationLiterals) {
         this.enumerationLiterals = enumerationLiterals;
     }
     
-    public void setEnumerationLiterals(List<String> enumerationLiterals) {
-        this.enumerationLiterals = enumerationLiterals == null ? null : enumerationLiterals.stream().collect(Collectors.toMap(it -> it, it -> it));
+    public void setEnumerationLiterals(List<EnumerationLiteral> enumerationLiterals) {
+        this.enumerationLiterals = enumerationLiterals == null ? null : enumerationLiterals.stream().collect(Collectors.toMap(it -> it.getName(), it -> it));
     }
 
     public void setMultiple(boolean multiple) {
