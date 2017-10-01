@@ -39,11 +39,11 @@ public class EntityActionResource {
         AuthorizationHelper.checkEntityActionAuthorized(entityRef, actionName);
         
         Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
-        ResourceHelper.ensure(entity != null, "Entity not found", Status.NOT_FOUND);
+        ResourceHelper.ensure(entity != null, "entity_not_found", Status.NOT_FOUND);
         Operation action = entity.getOperation(actionName);
-        ResourceHelper.ensure(action != null, "Action not found", Status.NOT_FOUND);
-        ResourceHelper.ensure(!action.isInstanceOperation(), "Not an entity action", Status.BAD_REQUEST);
-        ResourceHelper.ensure(action.getKind() == OperationKind.Action, "Not an action", Status.BAD_REQUEST);
+        ResourceHelper.ensure(action != null, "operation_not_found", Status.NOT_FOUND);
+        ResourceHelper.ensure(!action.isInstanceOperation(), "not_entity_action", Status.BAD_REQUEST);
+        ResourceHelper.ensure(action.getKind() == OperationKind.Action, "not_action", Status.BAD_REQUEST);
 
         String selectedParameterSet = StringUtils.trimToNull(uriInfo.getQueryParameters().getFirst("parameterSet"));
         

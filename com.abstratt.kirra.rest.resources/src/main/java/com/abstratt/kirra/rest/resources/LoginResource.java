@@ -35,6 +35,6 @@ public class LoginResource {
     
     private void ensureLoggedIn() {
     	Instance currentUser = KirraContext.getInstanceManagement().getCurrentUser();
-    	ResourceHelper.ensure(currentUser != null, "Login failed", Status.UNAUTHORIZED);
+    	ResourceHelper.ensure(currentUser != null, "login_failed", Status.UNAUTHORIZED);
 	}	
 }

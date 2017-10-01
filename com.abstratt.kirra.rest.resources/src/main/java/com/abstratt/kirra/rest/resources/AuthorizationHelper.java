@@ -32,7 +32,7 @@ public class AuthorizationHelper {
 	}
 	
 	private static void checkAuthorized(boolean authorized) {
-	    ResourceHelper.ensure(authorized, isLoggedIn() ? "User is logged in but does not have permission" : "Action requires permission and user is not logged in", isLoggedIn() ? Status.FORBIDDEN : Status.UNAUTHORIZED);
+	    ResourceHelper.ensure(authorized, isLoggedIn() ? "no_authorization" : "login_required", isLoggedIn() ? Status.FORBIDDEN : Status.UNAUTHORIZED);
 	}
 
 	public static void checkInstanceReadAuthorized(TypeRef entityRef, String objectId) {
