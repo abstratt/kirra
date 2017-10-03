@@ -129,7 +129,7 @@ public class ResourceHelper extends CommonHelper {
         boolean includeSubtypes = false;
         int defaultFirst = 0;
         long first = defaultFirst;
-        int defaultMaximum = 10;
+        int defaultMaximum = Integer.MAX_VALUE;
         int maximum = defaultMaximum;
         DataProfile dataProfile = DataProfile.Full;
         for (Entry<String, List<String>> entry : uriInfo.getQueryParameters().entrySet())
