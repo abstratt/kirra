@@ -168,7 +168,11 @@ public class DataValidator {
                     	}
                 	}
                 }
-            else if (property.getTypeRef().getKind() == TypeKind.Enumeration) {
+            else if (validPropertyTypeName.equals("Email")) {
+                String asText = propertyValue.asText().trim();
+                if (asText.length() < 6 || asText.startsWith("@") || asText.endsWith("@") || asText.chars().filter(it -> it == '@').count() != 1)
+                    valueTypeError = "Invalid email format";
+            } else if (property.getTypeRef().getKind() == TypeKind.Enumeration) {
                 if (!property.getEnumerationLiterals().containsKey(propertyValue.asText())) {
                     valueTypeError = "Expected one of " + property.getEnumerationLiterals().toString() + ", found: "
                             + propertyValue.textValue();
