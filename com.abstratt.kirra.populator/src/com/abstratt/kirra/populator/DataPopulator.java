@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -293,12 +295,21 @@ public class DataPopulator {
 
     }
 
+    private static final String DEFAULT_SNAPSHOT_FILENAME = "data.json";
+    public static final Path DEFAULT_SNAPSHOT_PATH = Paths.get(DEFAULT_SNAPSHOT_FILENAME);
+
     public static String ID = DataPopulator.class.getPackage().getName();
 
     private Repository repository;
 
-    public DataPopulator(Repository repository) {
+    private Path dataFileName;
+
+    public DataPopulator(Repository repository) { 
+        this(repository, DEFAULT_SNAPSHOT_PATH);
+    }
+    public DataPopulator(Repository repository, Path dataFileName) {
         this.repository = repository;
+        this.dataFileName = dataFileName;
     }
 
     public File getDataFile() {
@@ -309,12 +320,11 @@ public class DataPopulator {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        File dataFile = new File(repositoryPath, "data.json");
+        File dataFile = new File(repositoryPath, this.dataFileName.toString());
         return dataFile;
     }
 
     public int populate() {
-        repository.zap();
         File dataFile = getDataFile();
         InputStream in = null;
         try {
@@ -333,6 +343,7 @@ public class DataPopulator {
     public int populate(InputStream contents) {
     	boolean wasPopulating = repository.isPopulating();
         try {
+            repository.zap();
         	repository.setPopulating(true);
             JsonNode tree = DataParser.parse(new InputStreamReader(contents));
             if (tree == null || !tree.isObject())
