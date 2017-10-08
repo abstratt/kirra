@@ -105,8 +105,12 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
     public Instance deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject asJsonObject = jsonElement.getAsJsonObject();
 
-        String scopeNamespace = asJsonObject.get("scopeNamespace").getAsString();
-        String scopeName = asJsonObject.get("scopeName").getAsString();
+        if (!asJsonObject.has("typeRef"))
+            throw new IllegalArgumentException("Missing type reference");
+            
+        JsonObject typeRefAsJson = asJsonObject.get("typeRef").getAsJsonObject();
+        String scopeNamespace = typeRefAsJson.get("entityNamespace").getAsString();
+        String scopeName = typeRefAsJson.get("typeName").getAsString();
         String objectId = asJsonObject.has("objectId") ? asJsonObject.get("objectId").getAsString() : null;
         Instance instance = new Instance(scopeNamespace, scopeName);
         instance.setObjectId(objectId);
