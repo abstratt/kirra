@@ -1,6 +1,7 @@
 package com.abstratt.kirra;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class Instance extends Tuple {
      */
     protected Map<String, String> disabledActions = new HashMap<String, String>();
     protected DataProfile profile = DataProfile.Empty;
-    protected Map<String, Instance> links = new HashMap<String, Instance>();
+    protected Map<String, Instance> links = new LinkedHashMap<String, Instance>();
     protected String objectId;
 
     public Instance() {
@@ -33,6 +34,11 @@ public class Instance extends Tuple {
 
     public Instance(String namespace, String entity) {
         super(namespace, entity);
+    }
+    
+    public Instance(String namespace, String entity, String objectId) {
+        super(namespace, entity);
+        this.objectId = objectId;
     }
 
     public Instance(TypeRef typeRef, String objectId) {
@@ -55,7 +61,7 @@ public class Instance extends Tuple {
     public Map<String, Instance> getLinks() {
         return links;
     }
-
+    
     public String getObjectId() {
         return objectId;
     }
@@ -73,7 +79,7 @@ public class Instance extends Tuple {
     public Instance getSingleRelated(String reference) {
     	return getRelated(reference);
     }
-
+    
     public boolean isInstanceOf(TypeRef type) {
         return getEntityName().equals(type.getTypeName()) && getEntityNamespace().equals(type.getEntityNamespace());
     }
@@ -97,7 +103,7 @@ public class Instance extends Tuple {
     public void setLinks(Map<String, Instance> links) {
         this.links = new HashMap<String, Instance>(links);
     }
-
+    
     public void setObjectId(String objectId) {
         this.objectId = objectId;
     }

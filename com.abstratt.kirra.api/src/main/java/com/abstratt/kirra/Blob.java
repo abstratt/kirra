@@ -35,4 +35,7 @@ public class Blob {
 		asMap.put("contentLength", contentLength);
 		return asMap;
 	}
+	public static Blob fromMap(Map<String, Object> asMap) {
+        return new Blob((String) asMap.get("token"), ((Double) asMap.get("contentLength")).longValue(), (String) asMap.get("contentType"), (String) asMap.get("originalName"));
+    }
 }

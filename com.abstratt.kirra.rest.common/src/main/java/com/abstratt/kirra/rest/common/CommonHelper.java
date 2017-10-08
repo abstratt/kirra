@@ -15,6 +15,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.abstratt.kirra.Blob;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.Service;
@@ -57,6 +58,7 @@ public class CommonHelper {
         gsonBuilder.registerTypeAdapter(LocalTime.class, new LocalTimeSerialization());
         gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerialization());
         gsonBuilder.registerTypeAdapter(byte[].class, new ByteArraySerialization());
+        gsonBuilder.registerTypeAdapter(Blob.class, new BlobSerialization());
         gsonBuilder.excludeFieldsWithModifiers(Modifier.PRIVATE);
         gsonBuilder.excludeFieldsWithModifiers(Modifier.STATIC);
         for (Map.Entry<Class<?>, ?> entry : adapters.entrySet()) 
@@ -131,6 +133,22 @@ public class CommonHelper {
 		}
 	}		
 	
+    public static class BlobSerialization implements JsonDeserializer<Blob>, JsonSerializer<Blob> {
+        @Override
+        public JsonElement serialize(Blob arg0, Type arg1, JsonSerializationContext arg2) {
+            if (arg0 == null)
+                return null;
+            return arg2.serialize(arg0.toMap());
+        }
+        
+        @Override
+        public Blob deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2)
+                throws JsonParseException {
+            if (arg0 == null)
+                return null;
+            return Blob.fromMap(arg2.deserialize(arg0, Map.class));
+        }
+    }   
 	
 	public static class ByteArraySerialization implements JsonDeserializer<byte[]>, JsonSerializer<byte[]> {
 		@Override
