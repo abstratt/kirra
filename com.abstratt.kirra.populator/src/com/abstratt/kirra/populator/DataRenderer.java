@@ -15,6 +15,7 @@ import com.abstratt.kirra.Blob;
 import com.abstratt.kirra.DataElement;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.InstanceManagement.DataProfile;
 import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.Repository;
@@ -140,7 +141,7 @@ public class DataRenderer {
      */
     private List<Map<String, ?>> renderInstances(Entity entity) {
         List<Map<String, ?>> renderedInstances = new ArrayList<Map<String, ?>>();
-        List<Instance> entityInstances = repository.getInstances(entity.getEntityNamespace(), entity.getName(), true);
+        List<Instance> entityInstances = repository.getInstances(entity.getEntityNamespace(), entity.getName(), DataProfile.Full, false);
         long id = 0;
         for (Instance instance : entityInstances) {
             registerReference(instance, ++id);

@@ -19,6 +19,7 @@ import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement.DataProfile;
 import com.abstratt.kirra.Property;
 import com.abstratt.kirra.Relationship;
+import com.abstratt.kirra.Relationship.Style;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.google.gson.ExclusionStrategy;
@@ -135,24 +136,31 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         if (asJsonObject.has("links")) {
             for (Entry<String, JsonElement> entry : asJsonObject.get("links").getAsJsonObject().entrySet()) {
                 Relationship relationship = entity.getRelationship(entry.getKey());
-            	if (relationship.isUserVisible() && !relationship.isMultiple()) {
+            	if ((relationship.isUserVisible() || relationship.getStyle() == Style.PARENT) && !relationship.isMultiple()) {
             	    if (entry.getValue().isJsonObject()) {
             	        JsonObject linkAsObject = entry.getValue().getAsJsonObject();
-            	        if (linkAsObject.has("uri")) {
+            	        TypeRef linkedType = null;
+            	        String relatedObjectId = null;
+            	        if (linkAsObject.has("objectId") && linkAsObject.has("typeRef")) {
+            	            relatedObjectId = linkAsObject.get("objectId").getAsString();
+            	            linkedType = new TypeRef(linkAsObject.get("typeRef").getAsJsonObject().get("fullName").getAsString(), TypeKind.Entity);
+            	        } else if (linkAsObject.has("uri")) {
             	            JsonElement uri = linkAsObject.get("uri");
             	            if (!uri.isJsonNull()) {
             	                String uriString = uri.getAsString();
             	                String[] segments = StringUtils.split(uriString, "/");
             	                // uri is '...<entity>/instances/<objectId>'
             	                if (segments.length > 2) {
-            	                    String relatedObjectId = segments[segments.length - 1];
-            	                    String linkedTypeName = segments[segments.length - 3];
-            	                    TypeRef linkType = new TypeRef(linkedTypeName, TypeKind.Entity);
-            	                    Instance relatedInstance = new Instance(linkType, relatedObjectId);
-            	                    relatedInstance.setProfile(DataProfile.Empty);
-            	                    instance.setSingleRelated(relationship.getName(), relatedInstance);
+            	                    relatedObjectId = segments[segments.length - 1];
+            	                    String relatedTypeName = segments[segments.length - 3];
+            	                    linkedType = new TypeRef(relatedTypeName, TypeKind.Entity);
             	                }
             	            }
+            	        }
+            	        if (linkedType != null) {
+                            Instance relatedInstance = new Instance(linkedType, relatedObjectId);
+                            relatedInstance.setProfile(DataProfile.Empty);
+                            instance.setSingleRelated(relationship.getName(), relatedInstance);
             	        }
             	    } else {
             	        instance.setSingleRelated(relationship.getName(), null);

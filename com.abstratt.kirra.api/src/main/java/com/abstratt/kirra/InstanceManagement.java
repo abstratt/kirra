@@ -219,7 +219,7 @@ public interface InstanceManagement {
     }
     
     public default List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, DataProfile dataProfile) {
-        return filterInstances(criteria, namespace, name, dataProfile, true);
+        return filterInstances(criteria, namespace, name, dataProfile, false);
     }
     
     public default List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, boolean full) {
