@@ -5,11 +5,17 @@ import java.net.URI;
 import java.util.List;
 
 import com.abstratt.kirra.InstanceManagement;
+import com.abstratt.kirra.KirraApplication;
 import com.abstratt.kirra.SchemaManagement;
 
 public class KirraContext {
+
     public static URI getBaseURI() {
         return KirraContext.baseURI.get();
+    }
+
+    public static KirraApplication getApplication() {
+        return KirraContext.application.get();
     }
 
     public static InstanceManagement getInstanceManagement() {
@@ -44,6 +50,10 @@ public class KirraContext {
     
     public static void setOptions(Options newValue) {
         KirraContext.setOrClear(KirraContext.options, newValue);
+    }
+
+    public static void setApplication(KirraApplication newValue) {
+        KirraContext.setOrClear(KirraContext.application, newValue);
     }
 
     public static void setInstanceManagement(InstanceManagement newValue) {
@@ -101,6 +111,8 @@ public class KirraContext {
 			return isLoginAllowed;
 		}
     }
+    private static ThreadLocal<KirraApplication> application = new ThreadLocal<>();
+    
     private static ThreadLocal<Options> options = new ThreadLocal<>();
     
     private static ThreadLocal<List<Upload>> uploads = new ThreadLocal<>();
