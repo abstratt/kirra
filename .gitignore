@@ -8,3 +8,5 @@
 .settings
 _site
 /qooxdoo
+.idea
+*.iml
