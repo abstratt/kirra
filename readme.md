@@ -52,7 +52,7 @@ An Angular-based renderer for a Kirra-based REST API. Status: [in progress](http
 #### EBUI - Email-Based User Interface
 An email-based front-end for your Kirra-compliant business application. Status: [in progress](http://github.com/abstratt/ebui).
 
-###Ideas
+###  Ideas
 
 #### MetaWidget
 
