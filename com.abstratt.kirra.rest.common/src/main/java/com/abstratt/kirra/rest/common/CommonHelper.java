@@ -53,6 +53,7 @@ public class CommonHelper {
     
     public static GsonBuilder buildGson(URI baseURI, Map<Class<?>, ?> adapters) {
         GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.disableHtmlEscaping();
         gsonBuilder.setPrettyPrinting();
         gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialization());
         gsonBuilder.registerTypeAdapter(LocalTime.class, new LocalTimeSerialization());
