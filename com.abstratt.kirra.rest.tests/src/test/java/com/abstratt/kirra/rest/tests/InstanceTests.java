@@ -1,61 +1,92 @@
 package com.abstratt.kirra.rest.tests;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.stream.IntStream;
 
-import junit.framework.TestCase;
-
-import com.abstratt.kirra.DataElement;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.InstanceManagement.DataProfile;
+import com.abstratt.kirra.InstanceManagement.PageRequest;
 import com.abstratt.kirra.Operation;
 
 public class InstanceTests extends AbstractRestTests {
+	private String uniqueString = UUID.randomUUID().toString();
+	
+	private String unique(String string) {
+		return string + "-" + getName() + "-" + uniqueString;
+	}
+	
     public void testCreateInstance() {
-        Instance newInstance = new Instance("expenses", "Expense");
-        newInstance.setValue("amount", 10);
-        TestCase.assertTrue(newInstance.isNew());
+        Instance newInstance = new Instance("expenses", "Category");
+        newInstance.setValue("name", unique("My Category"));
         Instance created = instanceManagement.createInstance(newInstance);
-        TestCase.assertFalse(created.isNew());
-        TestCase.assertEquals(10.0, created.getValue("amount"));
+        assertFalse(created.isNew());
+        assertEquals(newInstance.getValue("name"), created.getValue("name"));
     }
 
-    public void testGetInstance() {
-        Instance newInstance = new Instance("expenses", "Expense");
-        newInstance.setValue("amount", 10);
+    public void testGetInstance() throws IOException {
+        Instance newInstance = new Instance("expenses", "Category");
+        newInstance.setValue("name", unique("My Category"));
         Instance created = instanceManagement.createInstance(newInstance);
-        Instance retrieved = instanceManagement.getInstance("expenses", "Expense", created.getObjectId(), false);
-        TestCase.assertEquals(10.0, retrieved.getValue("amount"));
+        Instance retrieved = instanceManagement.getInstance("expenses", "Category", created.getObjectId(), true);
+        assertEquals(unique("My Category"), retrieved.getValue("name"));
     }
     
     public void testPutInstance() {
-        Instance newInstance = new Instance("expenses", "Expense");
-        newInstance.setValue("amount", 10);
+        Instance newInstance = new Instance("expenses", "Category");
+        newInstance.setValue("name", unique("My Category"));
         Instance created = instanceManagement.createInstance(newInstance);
-        created.setValue("amount", 20);
+        created.setValue("name", newInstance.getValue("name") + "foobar");
         Instance updated = instanceManagement.updateInstance(created);
-        TestCase.assertEquals(20.0, updated.getValue("amount"));
-        Instance retrieved = instanceManagement.getInstance("expenses", "Expense", created.getObjectId(), false);
-        TestCase.assertEquals(20.0, retrieved.getValue("amount"));
+        assertEquals(newInstance.getValue("name") + "foobar", updated.getValue("name"));
+        Instance retrieved = instanceManagement.getInstance("expenses", "Category", created.getObjectId(), false);
+        assertEquals(newInstance.getValue("name") + "foobar", retrieved.getValue("name"));
     }
 
     public void testGetInstances() {
-        int count = 10;
-        int before = instanceManagement.getInstances("expenses", "Expense", false).size();
-        Stream.generate(() -> instanceManagement.createInstance(new Instance("expenses", "Expense"))).limit(count).count();
-        int after = instanceManagement.getInstances("expenses", "Expense", false).size();
-        TestCase.assertEquals(count, after - before);
+        int count = 2;
+        int before = instanceManagement.getInstances("expenses", "Category", false).size();
+        IntStream.range(0, count).mapToObj(index -> {
+        	Instance newInstance = instanceManagement.getInstance("expenses", "Category", "_template");
+            newInstance.setValue("name", unique("My Category " + "-" + index));
+            return instanceManagement.createInstance(newInstance);
+        	
+    	}).limit(count).count();
+        int after = instanceManagement.getInstances("expenses", "Category", false).size();
+        assertEquals(count, after - before);
     }
     
-    public void testInvokeAction() {
-        Instance instance = instanceManagement.createInstance(new Instance("expenses", "Expense"));
-        Entity entity = schemaManagement.getEntity(instance.getTypeRef());
-        DataElement property = findByName(entity.getProperties(), "status");
+    public void testCurrentUser() throws IOException {
+    	Instance currentUser = instanceManagement.getCurrentUser();
+    	assertNotNull(currentUser);
+    }
+    
+    public void testInvokeAction() throws IOException {
+    	login(kirraEmployeeUsername, kirraEmployeePassword);
+    	Instance currentUser = instanceManagement.getCurrentUser();
+    	Instance employee = instanceManagement.getInstance("expenses", "Employee", currentUser.getSingleRelated("roleAsEmployee").getObjectId());    	
+		Instance category = getAnyInstance("expenses", "Category");
+    	login(kirraAdminUsername, kirraAdminPassword);
+        Instance expense = createInstance("expenses", "Expense", it -> {
+        	it.setSingleRelated("category", category);
+        	it.setSingleRelated("employee", employee);
+        	it.setValue("description", "Some expense");
+        	it.setValue("date", LocalDate.now().toString());
+        	it.setValue("amount", 150.50);
+        });
+    	login(kirraEmployeeUsername, kirraEmployeePassword);
+        
+        Entity entity = schemaManagement.getEntity(expense.getTypeRef());
         Operation operation = findByName(entity.getOperations(), "submit");
         
-        assertEquals("Draft", instance.getValue(property.getName()));
-        instanceManagement.executeOperation(operation, instance.getObjectId(), Arrays.asList());
-        Instance afterSubmitted = instanceManagement.getInstance(instance.getEntityNamespace(), instance.getEntityName(), instance.getObjectId(), true);
-        assertEquals("Submitted", afterSubmitted.getValue(property.getName()));
+        assertEquals("Draft", expense.getValue("status"));
+        instanceManagement.executeOperation(operation, expense.getObjectId(), Arrays.asList());
+        Instance afterSubmitted = instanceManagement.getInstance(expense.getEntityNamespace(), expense.getEntityName(), expense.getObjectId(), true);
+        assertEquals("Submitted", afterSubmitted.getValue("status"));
     }
+
 }

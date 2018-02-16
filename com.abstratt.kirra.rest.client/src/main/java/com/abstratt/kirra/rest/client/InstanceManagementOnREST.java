@@ -5,6 +5,11 @@ import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.lang.StringUtils;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
@@ -16,6 +21,7 @@ import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.TypeRef;
+import com.abstratt.kirra.rest.common.Index;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.reflect.TypeToken;
 
@@ -28,8 +34,12 @@ public class InstanceManagementOnREST implements InstanceManagement {
 	private RestClient restClient;
 
 	public InstanceManagementOnREST(URI baseUri) {
+		this(new RestClient(), baseUri);
+	}
+
+	public InstanceManagementOnREST(RestClient restClient, URI baseUri) {
 		this.baseUri = baseUri;
-		this.restClient = new RestClient();
+		this.restClient = restClient;
 	}
 
 	@Override
@@ -71,8 +81,10 @@ public class InstanceManagementOnREST implements InstanceManagement {
 
 	@Override
 	public Instance getCurrentUser() {
-		// TODO Auto-generated method stub
-		return null;
+		get(baseUri, Void.class, Paths.LOGIN);
+		Index index = get(baseUri, Index.class);
+		Instance currentUser = Optional.ofNullable(index.getCurrentUser()).map(it -> (Instance) get(it, Instance.class)).orElse(null);
+		return currentUser;
 	}
 
 	@Override
@@ -84,20 +96,25 @@ public class InstanceManagementOnREST implements InstanceManagement {
 	@Override
 	public Instance getInstance(String namespace, String name,
 			String externalId, DataProfile profile) {
-		return restClient.get(baseUri, Instance.class, Paths.ENTITIES,
+		return get(baseUri, Instance.class, Paths.ENTITIES,
 				TypeRef.toString(namespace, name), Paths.INSTANCES, externalId);
 	}
 
 	@Override
 	public List<Instance> getInstances(String namespace, String name,
 			DataProfile profile) {
-		Page<Instance> page = restClient.get(baseUri,
+		Page<Instance> page = get(baseUri,
 				new TypeToken<Page<Instance>>() {
 				}.getType(), Paths.ENTITIES, TypeRef.toString(namespace, name),
 				Paths.INSTANCES);
 		return page.contents;
 	}
 	
+	private <T> T get(URI baseUri, Type type, String... segments) {
+		URI uri = segments.length > 0 ? baseUri.resolve(StringUtils.join(segments, "/")) : baseUri;
+		return restClient.executeMethod(new GetMethod(uri.toString()), type, HttpStatus.SC_OK);
+	}
+
 	@Override
 	public List<Instance> filterInstances(Map<String, List<Object>> criteria, String namespace, String name, DataProfile profile) {
 	    return getInstances(namespace, name, profile);

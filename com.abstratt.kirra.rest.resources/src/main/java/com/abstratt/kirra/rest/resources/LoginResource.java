@@ -1,10 +1,10 @@
 package com.abstratt.kirra.rest.resources;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.rest.common.KirraContext;
@@ -17,23 +17,31 @@ import com.abstratt.kirra.rest.common.Paths;
 @Produces("application/json")
 public class LoginResource {
     @GET
-    public void loginAsGET() {
+    public Response loginAsGET(@Context UriInfo uriInfo) {
     	ensureLoggedIn();
+		return Response.ok().build();
     }
 
 
 	@POST
-    public void login(String argumentMapRepresentation) {
+	@Consumes("application/json")
+    public Response login(@Context UriInfo uriInfo, String argumentMapRepresentation) {
 		ensureLoggedIn();
+		return Response.ok().build();
     }
 	
 	@POST
-    public void loginAsEmptyPOST() {
+    public Response loginAsEmptyPOST(@Context UriInfo uriInfo) {
 		ensureLoggedIn();
+		return Response.ok().build();
     }
 	
     
-    private void ensureLoggedIn() {
+    private Response response() {
+		return Response.temporaryRedirect(KirraContext.getBaseURI()).build();
+	}
+
+	private void ensureLoggedIn() {
     	Instance currentUser = KirraContext.getInstanceManagement().getCurrentUser();
     	ResourceHelper.ensure(currentUser != null, "login_failed", Status.UNAUTHORIZED);
 	}	

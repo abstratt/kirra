@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.rest.common.CommonHelper;
+import com.abstratt.kirra.rest.common.Index;
 import com.abstratt.kirra.rest.common.KirraContext;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.Gson;
@@ -22,20 +23,9 @@ import com.google.gson.GsonBuilder;
 @Path(Paths.ROOT_PATH)
 @Produces("application/json")
 public class IndexResource {
-    public static class Index {
-        public final String applicationName;
-        public final String applicationLabel;
-        public final String applicationLogo;
-        public final URI entities;
-        public final URI entityCapabilities;
-        public final URI services;
-        public final URI currentUser;
-        public final URI session;
-        public final Map<String, URI> currentUserRoles;
-        public final URI uri;
-        public final KirraContext.Options options;
+    public static class LiveIndex extends Index {
 
-        private Index() {
+        private LiveIndex() {
             this.uri = ResourceHelper.resolve();
             this.applicationName = KirraContext.getSchemaManagement().getApplicationName();
             this.applicationLabel = KirraContext.getSchemaManagement().getApplicationLabel();
@@ -70,7 +60,7 @@ public class IndexResource {
     }
     @GET
     public String getIndex() {
-        Index index = new Index();
+        LiveIndex index = new LiveIndex();
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.excludeFieldsWithModifiers(Modifier.PRIVATE.ordinal());
         Gson gson = gsonBuilder.create();

@@ -8,10 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.abstratt.kirra.Blob;
 import com.abstratt.kirra.Entity;
@@ -106,12 +104,19 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
     public Instance deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject asJsonObject = jsonElement.getAsJsonObject();
 
-        if (!asJsonObject.has("typeRef"))
-            throw new IllegalArgumentException("Missing type reference");
-            
-        JsonObject typeRefAsJson = asJsonObject.get("typeRef").getAsJsonObject();
-        String scopeNamespace = typeRefAsJson.get("entityNamespace").getAsString();
-        String scopeName = typeRefAsJson.get("typeName").getAsString();
+        String scopeNamespace = null;
+        String scopeName = null; 
+        if (asJsonObject.has("typeRef")) {
+        	JsonObject typeRefAsJson = asJsonObject.get("typeRef").getAsJsonObject();
+            scopeNamespace = typeRefAsJson.get("entityNamespace").getAsString();
+            scopeName = typeRefAsJson.get("typeName").getAsString();
+        } else if (asJsonObject.has("scopeNamespace") && asJsonObject.has("scopeName")) {
+        	scopeNamespace = asJsonObject.get("scopeNamespace").getAsString();
+        	scopeName = asJsonObject.get("scopeName").getAsString();
+        }
+        if (scopeName == null || scopeNamespace == null)
+            throw new IllegalArgumentException("Missing scope information (scope/scopeNamespace)");
+
         String objectId = asJsonObject.has("objectId") ? asJsonObject.get("objectId").getAsString() : null;
         Instance instance = new Instance(scopeNamespace, scopeName);
         instance.setObjectId(objectId);

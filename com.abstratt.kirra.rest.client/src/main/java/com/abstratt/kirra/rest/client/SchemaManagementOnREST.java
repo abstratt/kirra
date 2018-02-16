@@ -32,9 +32,14 @@ public class SchemaManagementOnREST implements SchemaManagement {
     private RestClient restClient;
 
     public SchemaManagementOnREST(URI baseUri) {
-        this.baseUri = baseUri;
-        this.restClient = new RestClient();
+    	this(new RestClient(), baseUri);
     }
+    
+    public SchemaManagementOnREST(RestClient restClient, URI baseUri) {
+        this.baseUri = baseUri;
+        this.restClient = restClient;
+    }
+
 
     @Override
     public List<Entity> getAllEntities() {

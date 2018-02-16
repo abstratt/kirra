@@ -329,8 +329,16 @@ public class DataPopulator {
         InputStream in = null;
         try {
             // populate with empty data set if data.json not found
-            in = new BufferedInputStream(dataFile.isFile() ? new FileInputStream(dataFile) : new ByteArrayInputStream("{}".getBytes()),
-                    8192);
+        	if (dataFile.isFile()) {
+        		in = new BufferedInputStream(new FileInputStream(dataFile), 8192);
+        	} else {
+        		if (dataFile.getName().equals(DEFAULT_SNAPSHOT_FILENAME)) {
+        			in = new ByteArrayInputStream("{}".getBytes());
+        		} else {
+        			LogUtils.logWarning(DataPopulator.ID, "Snapshot file found " + dataFile, null);
+                    return -1;		
+        		}
+        	}
             return populate(in);
         } catch (IOException e) {
             LogUtils.logWarning(DataPopulator.ID, "Error loading " + dataFile, e);

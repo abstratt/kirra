@@ -1,11 +1,12 @@
 package com.abstratt.kirra;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public class InstanceCapabilities {
 	public InstanceCapabilities() {
-		super();
+		this(Collections.emptyList(), Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap());
 	}
 	public InstanceCapabilities(List<String> instance, Map<String, List<String>> attributes,
 			Map<String, List<String>> relationships, Map<String, List<String>> actions) {

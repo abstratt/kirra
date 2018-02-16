@@ -2,6 +2,7 @@ package com.abstratt.kirra;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -149,7 +150,7 @@ public interface InstanceManagement {
     public List<Operation> getEnabledEntityActions(Entity entity);
     
     public default EntityCapabilities getEntityCapabilities(TypeRef entity) {
-    	return new EntityCapabilities();
+    	return new EntityCapabilities(Collections.emptyList(), Collections.emptyMap(), Collections.emptyMap());
     }
     
     public default Map<TypeRef, EntityCapabilities> getEntityCapabilities(List<TypeRef> entities) {
@@ -173,6 +174,10 @@ public interface InstanceManagement {
      * @see Instance#isFull()
      */
     public Instance getInstance(String namespace, String name, String externalId, DataProfile dataProfile);
+    
+    public default Instance getInstance(String namespace, String name, String externalId) {
+    	return getInstance(namespace, name, externalId, DataProfile.Full);
+    }
     
     public default Instance getInstance(String namespace, String name, String externalId, boolean full) {
         return getInstance(namespace, name, externalId, full ? DataProfile.Full : DataProfile.Slim);
