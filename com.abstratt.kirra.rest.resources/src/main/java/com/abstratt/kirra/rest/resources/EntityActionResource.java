@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Operation.OperationKind;
 import com.abstratt.kirra.Parameter;
@@ -47,16 +48,17 @@ public class EntityActionResource {
 
         String selectedParameterSet = StringUtils.trimToNull(uriInfo.getQueryParameters().getFirst("parameterSet"));
         
-        Map<String, Object> argumentMap = new Gson().fromJson(argumentMapRepresentation, new TypeToken<Map<String, Object>>() {
-        }.getType());
+        Map<String, Object> argumentMap = ResourceHelper.deserializeArguments(argumentMapRepresentation, action.getParameters());
         List<Object> argumentList = new ArrayList<Object>();
         for (Parameter parameter : action.getParameters()) {
             if (selectedParameterSet != null)
                 if (!parameter.getParameterSets().contains(selectedParameterSet))
                     continue;
             Object argumentValue = argumentMap.get(parameter.getName());
-            if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity)
-                argumentValue = new Instance(parameter.getTypeRef(), ((Map<String,Object>) argumentValue).get("objectId").toString());
+            if (argumentValue != null && parameter.getTypeRef().getKind() == TypeKind.Entity) {
+				String objectId = (argumentValue instanceof InstanceRef) ? ((InstanceRef) argumentValue).getObjectId() : ((Map<String,Object>) argumentValue).get("objectId").toString();
+				argumentValue = new Instance(parameter.getTypeRef(), objectId);
+			}
             argumentList.add(argumentValue);
         }
         List<?> result = KirraContext.getInstanceManagement().executeOperation(action, null, argumentList, selectedParameterSet);

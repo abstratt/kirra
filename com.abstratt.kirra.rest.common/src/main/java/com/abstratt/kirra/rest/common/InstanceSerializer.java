@@ -129,6 +129,8 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
                     Object value;
                     if (property.getTypeRef().getKind() == TypeKind.Blob) {
                         value = Blob.fromMap(context.deserialize(entry.getValue(), Map.class));
+                    } else if (property.getTypeRef().getKind() == TypeKind.Primitive) {
+                    	value = context.deserialize(entry.getValue(), SerializationHelper.getTargetType(property.getTypeRef()));
                     } else {
                         value = context.deserialize(entry.getValue(), Object.class);
                     }

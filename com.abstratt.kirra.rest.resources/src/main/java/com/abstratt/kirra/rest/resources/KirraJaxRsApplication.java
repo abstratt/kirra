@@ -1,13 +1,20 @@
 package com.abstratt.kirra.rest.resources;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class KirraJaxRsApplication extends javax.ws.rs.core.Application {
 	@Override
 	public Set<Class<?>> getClasses() {
-		Class<?>[] resourceClasses = new Class[] { IndexResource.class,
+		List<Class<?>> resourceClasses = new ArrayList<Class<?>>(Arrays.asList(new Class<?>[] {
+				KirraRestExceptionMapper.class,
+				KirraExceptionMapper.class,
+				WebApplicationExceptionMapper.class,
+				ThrowableMapper.class,
+				IndexResource.class,
 				AllEntityCapabilityResource.class,
 				EntityResource.class, EntityListResource.class,
 				ServiceResource.class, ServiceListResource.class,
@@ -18,7 +25,14 @@ public class KirraJaxRsApplication extends javax.ws.rs.core.Application {
 				InstanceActionResource.class, EntityActionResource.class, 
 				RelatedInstanceListResource.class, RelatedInstanceResource.class,
 				InstanceListResource.class,
-				LoginResource.class, LogoutResource.class, SignupResource.class};
-		return new HashSet<Class<?>>(Arrays.asList(resourceClasses));
+				LoginResource.class, LogoutResource.class, SignupResource.class}));
+		// carefully add JAX-RS 2 dependant providers
+		try {
+			getClass().getClassLoader().loadClass("javax.ws.rs.container.ContainerResponseFilter");
+			resourceClasses.add(ResponseLoggingInterceptor.class);
+		} catch (ClassNotFoundException e) {
+			// not available in this version of jaxrs, ignore it
+		}
+		return new LinkedHashSet<Class<?>>(resourceClasses);
 	}
 }

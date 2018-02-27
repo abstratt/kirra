@@ -1,5 +1,7 @@
 package com.abstratt.kirra;
 
+import java.util.function.Supplier;
+
 public class KirraException extends RuntimeException {
     public static enum Kind {
         ELEMENT_NOT_FOUND, ENTITY, EXTERNAL, OBJECT_NOT_FOUND, SCHEMA, VALIDATION
@@ -12,6 +14,12 @@ public class KirraException extends RuntimeException {
     private Kind kind;
 
     private String symbol;
+    
+    public static void ensure(boolean condition, Kind kind, Supplier<String> message) {
+    	if (!condition) {
+    		throw new KirraException(message.get(), kind);
+    	}
+    }
 
     public KirraException(String message, Kind kind) {
         this(message, null, kind, null, null);

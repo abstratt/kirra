@@ -17,7 +17,11 @@ public class EntityTests extends AbstractRestTests {
         Operation operation = findByName(entity.getOperations(), "newExpense");
         // provide the number of arguments expected by the operation
         Instance category = getAnyInstance("expenses", "Category");
-        List<?> result = instanceManagement.executeOperation(operation, null, Arrays.asList("Some expense", 200d, LocalDate.now(), category, null));
+        assertNotNull(category);
+        // provide the number of arguments expected by the operation
+        Instance employee = getAnyInstance("expenses", "Employee");
+        assertNotNull(category);
+        List<?> result = instanceManagement.executeOperation(operation, null, Arrays.asList("Some expense", 200d, LocalDate.now(), category, employee));
         assertEquals(1, result.size());
         assertTrue(result.get(0).getClass().getSimpleName(), result.get(0) instanceof Map<?, ?>);
     }

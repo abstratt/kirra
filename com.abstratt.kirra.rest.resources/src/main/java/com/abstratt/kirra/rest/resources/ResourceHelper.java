@@ -1,5 +1,6 @@
 package com.abstratt.kirra.rest.resources;
 
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
@@ -21,11 +23,23 @@ import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.NamedElement;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Parameter;
+import com.abstratt.kirra.Property;
 import com.abstratt.kirra.InstanceManagement.DataProfile;
 import com.abstratt.kirra.InstanceManagement.PageRequest;
+import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
+import com.abstratt.kirra.rest.common.SerializationHelper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
 
 public class ResourceHelper extends CommonHelper {
 
@@ -147,5 +161,31 @@ public class ResourceHelper extends CommonHelper {
         PageRequest pageRequest = new PageRequest(first, maximum, dataProfile, includeSubtypes);
         return pageRequest;
     }
+
+	public static Map<String, Object> deserializeArguments(String argumentMapRepresentation,
+			List<Parameter> parameters) {
+		Map<String, Parameter> parametersAsMap = parameters.stream().collect(Collectors.toMap(it -> it.getName(), it -> it));
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Map.class, new JsonDeserializer<Map<String, Object>>() {
+			@Override
+			public Map<String, Object> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context)
+					throws JsonParseException {
+				JsonObject asJsonObject = jsonElement.getAsJsonObject();
+				Map<String, Object> result = new LinkedHashMap<>();
+				for (Entry<String, JsonElement> entry : asJsonObject.entrySet()) {
+	                Parameter parameter = parametersAsMap.get(entry.getKey());
+	                Type targetType = SerializationHelper.getTargetType(parameter.getTypeRef());
+					Object value = context.deserialize(entry.getValue(), targetType);
+	                result.put(parameter.getName(), value);
+				}
+				return result;
+			}
+		});
+		CommonHelper.registerDefaultSerializers(gsonBuilder);
+		Gson gson = gsonBuilder.create();
+		Map<String, Object> fromJson = gson.fromJson(argumentMapRepresentation, new TypeToken<Map<String, Object>>() {
+        }.getType());
+		return fromJson;		
+	}
 
 }

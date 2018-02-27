@@ -12,6 +12,9 @@ public class InstanceRef {
         this.objectId = objectId;
     }
     
+    public InstanceRef() {
+    }
+    
     public static InstanceRef parse(String asString, String defaultNamespace) {
     	String[] components = asString.split("@");
     	if (components.length != 2)
@@ -56,10 +59,38 @@ public class InstanceRef {
     public String getEntityNamespace() {
         return entityNamespace;
     }
+    
+    public void setEntityName(String entityName) {
+		this.entityName = entityName;
+	}
+    
+    public void setEntityNamespace(String entityNamespace) {
+		this.entityNamespace = entityNamespace;
+	}
+    
+    public String getScopeNamespace() {
+        return getEntityNamespace();
+    }
+    
+    public String getScopeName() {
+        return getEntityName();
+    }
+    
+    public void setScopeName(String entityName) {
+		setEntityName(entityName);
+	}
+    
+    public void setScopeNamespace(String entityNamespace) {
+		setEntityNamespace(entityNamespace);
+	}
 
     public String getObjectId() {
         return objectId;
     }
+    
+    public void setObjectId(String objectId) {
+		this.objectId = objectId;
+	}
 
     @Override
     public int hashCode() {

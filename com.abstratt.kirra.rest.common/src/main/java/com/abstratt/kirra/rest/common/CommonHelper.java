@@ -55,17 +55,21 @@ public class CommonHelper {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.disableHtmlEscaping();
         gsonBuilder.setPrettyPrinting();
-        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialization());
-        gsonBuilder.registerTypeAdapter(LocalTime.class, new LocalTimeSerialization());
-        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerialization());
-        gsonBuilder.registerTypeAdapter(byte[].class, new ByteArraySerialization());
-        gsonBuilder.registerTypeAdapter(Blob.class, new BlobSerialization());
+        registerDefaultSerializers(gsonBuilder);
         gsonBuilder.excludeFieldsWithModifiers(Modifier.PRIVATE);
         gsonBuilder.excludeFieldsWithModifiers(Modifier.STATIC);
         for (Map.Entry<Class<?>, ?> entry : adapters.entrySet()) 
             gsonBuilder.registerTypeAdapter(entry.getKey(), entry.getValue());
         return gsonBuilder;
     }
+
+	protected static void registerDefaultSerializers(GsonBuilder gsonBuilder) {
+		gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialization());
+        gsonBuilder.registerTypeAdapter(LocalTime.class, new LocalTimeSerialization());
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerialization());
+        gsonBuilder.registerTypeAdapter(byte[].class, new ByteArraySerialization());
+        gsonBuilder.registerTypeAdapter(Blob.class, new BlobSerialization());
+	}
 
     public static URI resolve(URI base, String... segments) {
         if (!base.getPath().endsWith("/"))

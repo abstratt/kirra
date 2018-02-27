@@ -16,6 +16,7 @@ Import-Package:
  com.abstratt.kirra.rest.client,
  com.abstratt.kirra.rest.common,
  com.abstratt.kirra.fixtures,
+ org.apache.commons.lang3,
  junit.framework
 
 

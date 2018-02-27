@@ -13,11 +13,14 @@ Import-Package: com.abstratt.kirra,
  com.google.gson.reflect;version="2.2.4",
  javax.ws.rs,
  javax.ws.rs.core,
+ javax.ws.rs.ext,
+ javax.ws.rs.container;resolution:=optional,
  org.apache.commons.lang3;version="3.1.0",
  org.apache.commons.lang3.math;version="3.1.0",
  org.apache.commons.io,
  org.apache.commons.httpclient,
- org.apache.commons.httpclient.methods
+ org.apache.commons.httpclient.methods,
+ org.slf4j
 
 
 

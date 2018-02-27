@@ -1,6 +1,5 @@
 package com.abstratt.kirra.rest.common;
 
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;

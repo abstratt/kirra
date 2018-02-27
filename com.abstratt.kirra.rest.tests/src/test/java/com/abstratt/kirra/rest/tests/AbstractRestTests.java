@@ -5,6 +5,8 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.function.Consumer;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.KirraApplication;
@@ -34,12 +36,12 @@ public class AbstractRestTests extends TestCase {
 
     @Override
     public void setUp() throws Exception {
-    	assertNotNull("kirra.uri not set", KIRRA_SERVER_URI_STRING);
-    	assertNotNull("kirra.realm not set", kirraRealm);
-    	assertNotNull("kirra.admin.username not set", kirraAdminUsername);
-    	assertNotNull("kirra.admin.password not set", kirraAdminPassword);
-    	assertNotNull("kirra.employee.username not set", kirraEmployeeUsername);
-    	assertNotNull("kirra.employee.password not set", kirraEmployeePassword);
+    	assertNotNull("kirra.uri not set", StringUtils.trimToNull(KIRRA_SERVER_URI_STRING));
+    	assertNotNull("kirra.realm not set", StringUtils.trimToNull(kirraRealm));
+    	assertNotNull("kirra.admin.username not set", StringUtils.trimToNull(kirraAdminUsername));
+    	assertNotNull("kirra.admin.password not set", StringUtils.trimToNull(kirraAdminPassword));
+    	assertNotNull("kirra.employee.username not set", StringUtils.trimToNull(kirraEmployeeUsername));
+    	assertNotNull("kirra.employee.password not set", StringUtils.trimToNull(kirraEmployeePassword));
     	
     	this.kirraServerUri = URI.create(KIRRA_SERVER_URI_STRING);
     	login(kirraAdminUsername, kirraAdminPassword);

@@ -69,7 +69,8 @@ public class FixtureServer {
                     throwable = throwable.getCause();
                 if (throwable instanceof KirraRestException) {
                     KirraRestException restException = (KirraRestException) throwable;
-                    return new Status(Status.valueOf(restException.getStatus().getStatusCode()), restException.getMessage());
+                    javax.ws.rs.core.Response.Status status = restException.getStatus();
+					return new Status(Status.valueOf(status.getStatusCode()), restException.getMessage());
                 }
                 return super.getStatus(original, request, response);
             }

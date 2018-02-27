@@ -12,6 +12,9 @@
 		<version>0.2.201601-SNAPSHOT</version>
 	</parent>
 
+	<properties>
+		<kirra.rest.tests.skip>true</kirra.rest.tests.skip>
+	</properties>
 
 	<build>
 		<pluginManagement>
@@ -34,13 +37,61 @@
 				<configuration>
 					<testSuite>com.abstratt.kirra.rest.tests</testSuite>
 					<testClass>com.abstratt.kirra.rest.tests.AllKirraRESTTests</testClass>
+					<skip>${kirra.rest.tests.skip}</skip>
 					<systemProperties>
 						<eclipse.consoleLog>true</eclipse.consoleLog>
 						<kirra.fixtures.port>38083</kirra.fixtures.port>
+						<kirra.uri>${kirra.uri}</kirra.uri>
+						<kirra.realm>${kirra.realm}</kirra.realm>
+						<kirra.admin.username>${kirra.admin.username}</kirra.admin.username>
+						<kirra.admin.password>${kirra.admin.password}</kirra.admin.password>
+						<kirra.employee.username>${kirra.employee.username}</kirra.employee.username>
+						<kirra.employee.password>${kirra.employee.password}</kirra.employee.password>						
 					</systemProperties>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
+	
+	<profiles>
+		<profile>
+			<id>cloudfier-tests</id>
+			<activation>
+				<property>
+					<name>kirra-rest-tests-target</name>
+					<value>cloudfier</value>
+				</property>
+			</activation>
+			<properties>
+				<kirra.rest.tests.skip>false</kirra.rest.tests.skip>
+				<kirra.fixtures.port>38083</kirra.fixtures.port>
+				<kirra.uri>http://localhost/services/api-v2/demo-cloudfier-examples-expenses/</kirra.uri>
+				<kirra.realm>demo-cloudfier-examples-expenses-realm</kirra.realm>
+				<kirra.admin.username>admin@abstratt.com</kirra.admin.username>
+				<kirra.admin.password>pass</kirra.admin.password>
+				<kirra.employee.username>employee1@abstratt.com</kirra.employee.username>
+				<kirra.employee.password>pass</kirra.employee.password>						
+			</properties>
+		</profile>
+		<profile>
+			<id>kirra-boot-tests</id>
+			<activation>
+				<property>
+					<name>kirra-rest-tests-target</name>
+					<value>kirra-boot</value>
+				</property>
+			</activation>
+			<properties>
+				<kirra.rest.tests.skip>false</kirra.rest.tests.skip>
+				<kirra.fixtures.port>38083</kirra.fixtures.port>
+				<kirra.uri>http://localhost:8090/</kirra.uri>
+				<kirra.realm>expenses</kirra.realm>
+				<kirra.admin.username>admin@abstratt.com</kirra.admin.username>
+				<kirra.admin.password>pass</kirra.admin.password>
+				<kirra.employee.username>employee1@abstratt.com</kirra.employee.username>
+				<kirra.employee.password>pass</kirra.employee.password>						
+			</properties>
+		</profile>
+		
+	</profiles>
 </project>

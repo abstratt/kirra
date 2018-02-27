@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.abstratt.kirra.Entity;
@@ -26,6 +27,11 @@ public class InstanceTests extends AbstractRestTests {
         Instance created = instanceManagement.createInstance(newInstance);
         assertFalse(created.isNew());
         assertEquals(newInstance.getValue("name"), created.getValue("name"));
+    }
+    
+    public void testGetTemplate() throws IOException {
+        Instance template = instanceManagement.getInstance("expenses", "Expense", "_template", DataProfile.Full);
+        assertEquals(LocalDate.now(), template.getValue("date"));
     }
 
     public void testGetInstance() throws IOException {
@@ -50,12 +56,11 @@ public class InstanceTests extends AbstractRestTests {
     public void testGetInstances() {
         int count = 2;
         int before = instanceManagement.getInstances("expenses", "Category", false).size();
-        IntStream.range(0, count).mapToObj(index -> {
+        IntStream.range(0, count).forEach(index -> {
         	Instance newInstance = instanceManagement.getInstance("expenses", "Category", "_template");
             newInstance.setValue("name", unique("My Category " + "-" + index));
-            return instanceManagement.createInstance(newInstance);
-        	
-    	}).limit(count).count();
+            instanceManagement.createInstance(newInstance);
+    	});
         int after = instanceManagement.getInstances("expenses", "Category", false).size();
         assertEquals(count, after - before);
     }

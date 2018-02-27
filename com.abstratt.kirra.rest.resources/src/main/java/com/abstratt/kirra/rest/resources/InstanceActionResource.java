@@ -47,8 +47,7 @@ public class InstanceActionResource {
         ResourceHelper.ensure(instance != null, "Instance not found", Status.NOT_FOUND);
         AuthorizationHelper.checkInstanceActionAuthorized(entityRef, objectId, actionName);
         
-        Map<String, Object> argumentMap = new Gson().fromJson(argumentMapRepresentation, new TypeToken<Map<String, Object>>() {
-        }.getType());
+        Map<String, Object> argumentMap = ResourceHelper.deserializeArguments(argumentMapRepresentation, action.getParameters());
         List<Object> argumentList = ResourceHelper.matchArgumentsToParameters(action, argumentMap, selectedParameterSet);
         List<?> result = KirraContext.getInstanceManagement().executeOperation(action, objectId, argumentList, selectedParameterSet);
         return CommonHelper.buildGson(null).create().toJson(result);
