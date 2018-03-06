@@ -71,11 +71,12 @@ public class InstanceTests extends AbstractRestTests {
     }
     
     public void testInvokeAction() throws IOException {
-    	login(kirraEmployeeUsername, kirraEmployeePassword);
-    	Instance currentUser = instanceManagement.getCurrentUser();
-    	Instance employee = instanceManagement.getInstance("expenses", "Employee", currentUser.getSingleRelated("roleAsEmployee").getObjectId());    	
+//    	login(kirraEmployeeUsername, kirraEmployeePassword);
+//    	Instance currentUser = instanceManagement.getCurrentUser();
+//    	Instance employee = instanceManagement.getInstance("expenses", "Employee", currentUser.getSingleRelated("roleAsEmployee").getObjectId());    	
+    	Instance employee = getAnyInstance("expenses", "Employee");
 		Instance category = getAnyInstance("expenses", "Category");
-    	login(kirraAdminUsername, kirraAdminPassword);
+//    	login(kirraAdminUsername, kirraAdminPassword);
         Instance expense = createInstance("expenses", "Expense", it -> {
         	it.setSingleRelated("category", category);
         	it.setSingleRelated("employee", employee);
@@ -83,7 +84,7 @@ public class InstanceTests extends AbstractRestTests {
         	it.setValue("date", LocalDate.now().toString());
         	it.setValue("amount", 150.50);
         });
-    	login(kirraEmployeeUsername, kirraEmployeePassword);
+//    	login(kirraEmployeeUsername, kirraEmployeePassword);
         
         Entity entity = schemaManagement.getEntity(expense.getTypeRef());
         Operation operation = findByName(entity.getOperations(), "submit");

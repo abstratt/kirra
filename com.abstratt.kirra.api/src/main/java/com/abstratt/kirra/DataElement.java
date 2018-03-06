@@ -7,6 +7,19 @@ public abstract class DataElement extends TypedElement<DataScope> {
     protected boolean initializable;
     protected Integer position;
 	protected boolean mnemonic;
+    protected boolean unique;
+    
+    /**
+     * A unique property does not allow duplicated values.
+     */
+    public boolean isUnique() {
+        return unique;
+    }
+
+    public void setUnique(boolean unique) {
+        this.unique = unique;
+    }
+    
     
     public void setPosition(Integer position) {
         this.position = position;
