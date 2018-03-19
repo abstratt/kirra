@@ -13,7 +13,9 @@ import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement.DataProfile;
 import com.abstratt.kirra.InstanceManagement.PageRequest;
+import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.Operation;
+import com.abstratt.kirra.TypeRef;
 
 public class InstanceTests extends AbstractRestTests {
 	private String uniqueString = UUID.randomUUID().toString();
@@ -74,13 +76,17 @@ public class InstanceTests extends AbstractRestTests {
     	assertNull(currentUser);
     }
     
-//    public void testCurrentUserRoles() throws IOException {
-//    	List<Instance> roles = instanceManagement.getCurrentUserRoles();
-//		assertTrue(roles.size() >= 1);
-//    	login(null, null);
-//    	roles = instanceManagement.getCurrentUserRoles();
-//    	assertEquals(0, roles.size());
-//    }
+    public void testCurrentUserRoles() throws IOException {
+    	List<Instance> roles = instanceManagement.getCurrentUserRoles();
+		assertEquals(1, roles.size());
+		assertEquals(new TypeRef("expenses.Administrator", TypeKind.Entity), roles.get(0).getTypeRef());
+		Instance role = instanceManagement.getInstance("expenses", "Administrator", roles.get(0).getObjectId(), DataProfile.Full);
+		assertNotNull(role);
+		
+    	login(null, null);
+    	roles = instanceManagement.getCurrentUserRoles();
+    	assertEquals(0, roles.size());
+    }
     
     public void testInvokeAction() throws IOException {
 //    	login(kirraEmployeeUsername, kirraEmployeePassword);

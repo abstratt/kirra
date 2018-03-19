@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -84,6 +85,12 @@ public class InstanceManagementOnREST implements InstanceManagement {
 		Index index = get(baseUri, Index.class);
 		Instance currentUser = Optional.ofNullable(index.getCurrentUser()).map(it -> (Instance) get(baseUri.resolve(it.getPath()), Instance.class)).orElse(null);
 		return currentUser;
+	}
+	
+	@Override
+	public List<Instance> getCurrentUserRoles() {
+		Index index = get(baseUri, Index.class);
+		return index.getCurrentUserRoles().values().stream().map(it -> (Instance) get(baseUri.resolve(it.getPath()), Instance.class)).collect(Collectors.toList());
 	}
 
 	@Override
