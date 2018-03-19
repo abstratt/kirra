@@ -34,7 +34,7 @@ public class InstanceManagementOnREST implements InstanceManagement {
 	private RestClient restClient;
 
 	public InstanceManagementOnREST(URI baseUri) {
-		this(new RestClient(), baseUri);
+		this(new RestClient(baseUri.resolve("/")), baseUri);
 	}
 
 	public InstanceManagementOnREST(RestClient restClient, URI baseUri) {
@@ -81,9 +81,8 @@ public class InstanceManagementOnREST implements InstanceManagement {
 
 	@Override
 	public Instance getCurrentUser() {
-		get(baseUri, Void.class, Paths.LOGIN);
 		Index index = get(baseUri, Index.class);
-		Instance currentUser = Optional.ofNullable(index.getCurrentUser()).map(it -> (Instance) get(it, Instance.class)).orElse(null);
+		Instance currentUser = Optional.ofNullable(index.getCurrentUser()).map(it -> (Instance) get(baseUri.resolve(it.getPath()), Instance.class)).orElse(null);
 		return currentUser;
 	}
 
@@ -111,8 +110,12 @@ public class InstanceManagementOnREST implements InstanceManagement {
 	}
 	
 	private <T> T get(URI baseUri, Type type, String... segments) {
+		return get(baseUri, type, HttpStatus.SC_OK, segments);
+	}
+	
+	private <T> T get(URI baseUri, Type type, Integer expected, String... segments) {
 		URI uri = segments.length > 0 ? baseUri.resolve(StringUtils.join(segments, "/")) : baseUri;
-		return restClient.executeMethod(new GetMethod(uri.toString()), type, HttpStatus.SC_OK);
+		return restClient.executeMethod(new GetMethod(uri.toString()), type, expected);
 	}
 
 	@Override

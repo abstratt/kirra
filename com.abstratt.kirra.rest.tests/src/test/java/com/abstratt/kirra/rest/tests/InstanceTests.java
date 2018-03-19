@@ -3,6 +3,7 @@ package com.abstratt.kirra.rest.tests;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -67,8 +68,19 @@ public class InstanceTests extends AbstractRestTests {
     
     public void testCurrentUser() throws IOException {
     	Instance currentUser = instanceManagement.getCurrentUser();
-    	assertNotNull(currentUser);
+		assertNotNull(currentUser);
+    	login(null, null);
+    	currentUser = instanceManagement.getCurrentUser();
+    	assertNull(currentUser);
     }
+    
+//    public void testCurrentUserRoles() throws IOException {
+//    	List<Instance> roles = instanceManagement.getCurrentUserRoles();
+//		assertTrue(roles.size() >= 1);
+//    	login(null, null);
+//    	roles = instanceManagement.getCurrentUserRoles();
+//    	assertEquals(0, roles.size());
+//    }
     
     public void testInvokeAction() throws IOException {
 //    	login(kirraEmployeeUsername, kirraEmployeePassword);

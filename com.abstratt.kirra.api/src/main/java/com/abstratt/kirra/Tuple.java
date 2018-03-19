@@ -24,9 +24,13 @@ public class Tuple implements Serializable {
     }
 
     public Tuple(TypeRef typeRef) {
-        this.scopeName = typeRef.getTypeName();
-        this.scopeNamespace = typeRef.getEntityNamespace();
+        setTypeRef(typeRef);
     }
+
+	public void setTypeRef(TypeRef typeRef) {
+		this.scopeName = typeRef.getTypeName();
+        this.scopeNamespace = typeRef.getEntityNamespace();
+	}
     
 
     public Tuple(String namespace, String scopeName) {
@@ -58,7 +62,7 @@ public class Tuple implements Serializable {
     public TypeRef getTypeRef() {
         return new TypeRef(scopeNamespace, scopeName, getTypeKind());
     }
-
+    
     public Object getValue(String propertyName) {
         return values == null ? null : values.get(propertyName);
     }

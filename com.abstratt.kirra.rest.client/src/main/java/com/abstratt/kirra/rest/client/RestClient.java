@@ -6,11 +6,13 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collector;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
@@ -31,6 +33,8 @@ public class RestClient {
 
     private HttpClient httpClient;
 	private URI baseURI;
+	private String username;
+	private String password;
 
     public RestClient() {
         this(URI.create(""));
@@ -43,6 +47,10 @@ public class RestClient {
 
     public <T> T executeMethod(HttpMethod method, Type resultType, Integer... acceptedStatuses) {
         try {
+        	if (username != null) {
+        		String encodedCredentials = new String(Base64.getEncoder().encodeToString((username + ":" + password).getBytes("UTF-8")));
+        		method.addRequestHeader(new Header("Authorization", "Basic " + encodedCredentials));
+        	}
             System.out.println(method.getName() + " - " + method.getPath());
             if (method instanceof EntityEnclosingMethod)
                 ((EntityEnclosingMethod) method).getRequestEntity().writeRequest(System.out);
@@ -52,7 +60,7 @@ public class RestClient {
 
             boolean valid = acceptedStatuses.length == 0;
             for (int i = 0; !valid && i < acceptedStatuses.length; i++)
-                valid = acceptedStatuses[i] == response;
+                valid = acceptedStatuses[i] == null || acceptedStatuses[i] == response;
             String responseBody = method.getResponseBodyAsString();
             if (!valid)
                 throw new RuntimeException("Unexpected status code: " + response + " - expected: "
@@ -110,10 +118,18 @@ public class RestClient {
     }
     
 	public void setCredentials(URI baseUri, String realm, String username, String password) {
-		httpClient.getState().setCredentials(
-			new AuthScope(baseUri.getHost(), baseUri.getPort(), realm),
-			new UsernamePasswordCredentials(username, password)
-		);
+		this.username = username;
+		this.password = password;
+		if (username != null) {
+			String host = baseUri.getHost();
+			int port = baseUri.getPort();
+			httpClient.getState().setCredentials(
+				new AuthScope(host, port, realm),
+				new UsernamePasswordCredentials(username, password)
+			);
+		} else {
+			httpClient.getState().clearCredentials();
+		}
 	}
 
 }

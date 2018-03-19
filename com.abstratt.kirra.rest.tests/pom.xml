@@ -67,7 +67,7 @@
 				<kirra.fixtures.port>38083</kirra.fixtures.port>
 				<kirra.uri>http://localhost/services/api-v2/demo-cloudfier-examples-expenses/</kirra.uri>
 				<kirra.realm>demo-cloudfier-examples-expenses-realm</kirra.realm>
-				<kirra.admin.username>admin@abstratt.com</kirra.admin.username>
+				<kirra.admin.username>admin1@abstratt.com</kirra.admin.username>
 				<kirra.admin.password>pass</kirra.admin.password>
 				<kirra.employee.username>employee1@abstratt.com</kirra.employee.username>
 				<kirra.employee.password>pass</kirra.employee.password>						
@@ -86,7 +86,7 @@
 				<kirra.fixtures.port>38083</kirra.fixtures.port>
 				<kirra.uri>http://localhost:8090/</kirra.uri>
 				<kirra.realm>expenses</kirra.realm>
-				<kirra.admin.username>admin@abstratt.com</kirra.admin.username>
+				<kirra.admin.username>admin1@abstratt.com</kirra.admin.username>
 				<kirra.admin.password>pass</kirra.admin.password>
 				<kirra.employee.username>employee1@abstratt.com</kirra.employee.username>
 				<kirra.employee.password>pass</kirra.employee.password>						
