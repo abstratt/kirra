@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ import java.util.stream.IntStream;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
+import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.InstanceManagement.DataProfile;
 import com.abstratt.kirra.InstanceManagement.PageRequest;
 import com.abstratt.kirra.TypeRef.TypeKind;
@@ -89,12 +91,8 @@ public class InstanceTests extends AbstractRestTests {
     }
     
     public void testInvokeAction() throws IOException {
-//    	login(kirraEmployeeUsername, kirraEmployeePassword);
-//    	Instance currentUser = instanceManagement.getCurrentUser();
-//    	Instance employee = instanceManagement.getInstance("expenses", "Employee", currentUser.getSingleRelated("roleAsEmployee").getObjectId());    	
     	Instance employee = getAnyInstance("expenses", "Employee");
 		Instance category = getAnyInstance("expenses", "Category");
-//    	login(kirraAdminUsername, kirraAdminPassword);
         Instance expense = createInstance("expenses", "Expense", it -> {
         	it.setSingleRelated("category", category);
         	it.setSingleRelated("employee", employee);
@@ -102,7 +100,6 @@ public class InstanceTests extends AbstractRestTests {
         	it.setValue("date", LocalDate.now().toString());
         	it.setValue("amount", 150.50);
         });
-//    	login(kirraEmployeeUsername, kirraEmployeePassword);
         
         Entity entity = schemaManagement.getEntity(expense.getTypeRef());
         Operation operation = findByName(entity.getOperations(), "submit");
@@ -111,6 +108,42 @@ public class InstanceTests extends AbstractRestTests {
         instanceManagement.executeOperation(operation, expense.getObjectId(), Arrays.asList());
         Instance afterSubmitted = instanceManagement.getInstance(expense.getEntityNamespace(), expense.getEntityName(), expense.getObjectId(), true);
         assertEquals("Submitted", afterSubmitted.getValue("status"));
+    }
+
+    public void testInvokeEntityAction() throws IOException {
+    	login(kirraEmployeeUsername, kirraEmployeePassword);
+        Entity entity = schemaManagement.getEntity("expenses", "Expense");
+        Operation operation = findByName(entity.getOperations(), "newExpense");
+        // provide the number of arguments expected by the operation
+        Instance category = getAnyInstance("expenses", "Category");
+        assertNotNull(category);
+        Instance employee = getAnyInstance("expenses", "Employee");
+        assertNotNull(category);
+        List<?> result = instanceManagement.executeOperation(operation, null, Arrays.asList("Some expense", 200d, LocalDate.now(), category, employee));
+        assertEquals(1, result.size());
+        assertTrue(result.get(0).getClass().getSimpleName(), result.get(0) instanceof Map<?, ?>);
+    }
+
+    public void testExecuteQuery() throws IOException {
+    	Instance employee = getAnyInstance("expenses", "Employee");
+		Instance category = getAnyInstance("expenses", "Category");
+        Instance expense = createInstance("expenses", "Expense", it -> {
+        	it.setSingleRelated("category", category);
+        	it.setSingleRelated("employee", employee);
+        	it.setValue("description", "Some expense");
+        	it.setValue("date", LocalDate.now().toString());
+        	it.setValue("amount", 150.50);
+        });
+
+        Entity entity = schemaManagement.getEntity(expense.getTypeRef());
+        Operation operation = findByName(entity.getOperations(), "findByStatus");
+        // provide the number of arguments expected by the operation
+        List<?> result1 = instanceManagement.executeQuery(operation, null, Arrays.asList("Draft"));
+        assertTrue(result1.size() > 0);
+        assertTrue(result1.stream().map(it -> (Instance) it).anyMatch(it -> it.getReference().equals(expense.getReference())));
+        
+        List<?> result2 = instanceManagement.executeQuery(operation, null, Arrays.asList("Submitted"));
+        assertFalse(result2.stream().map(it -> (Instance) it).anyMatch(it -> it.getReference().equals(expense.getReference())));
     }
 
 }

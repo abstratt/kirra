@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Operation;
+import com.abstratt.kirra.Operation.OperationKind;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.Property;
 import com.abstratt.kirra.TypeRef;
@@ -35,11 +36,13 @@ public class SchemaTests extends AbstractRestTests {
 
         Operation reviewOperation = findByName(operations, "review");
 		assertTrue(reviewOperation.isInstanceOperation());
+		assertEquals(OperationKind.Action, reviewOperation.getKind());
         List<Parameter> reviewParameters = reviewOperation.getParameters();
 		assertEquals(0, reviewParameters.size());
 
         Operation newExpenseOperation = findByName(operations, "newExpense");
 		assertFalse(newExpenseOperation.isInstanceOperation());
+		assertEquals(OperationKind.Action, newExpenseOperation.getKind());
         List<Parameter> newExpenseParameters = newExpenseOperation.getParameters();
         assertEquals(5, newExpenseParameters.size());
         assertEquals("description", newExpenseParameters.get(0).getName());
@@ -47,6 +50,13 @@ public class SchemaTests extends AbstractRestTests {
         assertEquals("date", newExpenseParameters.get(2).getName());
         assertEquals("category", newExpenseParameters.get(3).getName());
         assertEquals("employee", newExpenseParameters.get(4).getName());
+        
+        Operation findByStatusOperation = findByName(operations, "findByStatus");
+		assertFalse(findByStatusOperation.isInstanceOperation());
+		assertEquals(OperationKind.Finder, findByStatusOperation.getKind());
+        List<Parameter> findByStatusParameters = findByStatusOperation.getParameters();
+        assertEquals(1, findByStatusParameters.size());
+        assertEquals("status", findByStatusParameters.get(0).getName());
     }
     
     public void testEntityProperties() {

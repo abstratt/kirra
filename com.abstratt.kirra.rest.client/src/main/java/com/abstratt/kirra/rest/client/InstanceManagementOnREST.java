@@ -2,6 +2,7 @@ package com.abstratt.kirra.rest.client;
 
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.KirraException;
 import com.abstratt.kirra.KirraException.Kind;
 import com.abstratt.kirra.Operation;
+import com.abstratt.kirra.Operation.OperationKind;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.TypeRef;
@@ -65,21 +67,37 @@ public class InstanceManagementOnREST implements InstanceManagement {
 	@Override
 	public List<?> executeOperation(Operation operation, String externalId,
 			List<?> arguments) {
+		String operationKind = operation.getKind() == OperationKind.Finder ? Paths.FINDERS : Paths.ACTIONS;
 		List<Parameter> parameters = operation.getParameters();
 		if (parameters.size() != arguments.size())
 			throw new KirraException("Mismatch", Kind.SCHEMA);
 		Map<String, Object> values = new LinkedHashMap<String, Object>();
 		for (int i = 0; i < parameters.size(); i++)
 			values.put(parameters.get(i).getName(), arguments.get(i));
-		String[] instanceActionPath = new String[] { Paths.ENTITIES,
+		
+		if (operation.getKind() == OperationKind.Finder) {
+			values = Collections.singletonMap("arguments", values);
+		}
+		String[] instanceOperationPath = new String[] { Paths.ENTITIES,
 				operation.getOwner().getFullName(), Paths.INSTANCES,
-				externalId, Paths.ACTIONS, operation.getName() };
-		String[] entityActionPath = new String[] { Paths.ENTITIES,
-				operation.getOwner().getFullName(), Paths.ACTIONS, operation.getName() };
+				externalId, operationKind, operation.getName() };
+		String[] entityOperationPath = new String[] { Paths.ENTITIES,
+				operation.getOwner().getFullName(), operationKind, operation.getName() };
+		
+		if (operation.getKind() == OperationKind.Finder) {
+			TypeRef returnType = operation.getTypeRef();
+			// not always correct but covers the most common case 
+			Type typeToken = new TypeToken<Page<Instance>>() {}.getType();
+			
+			Page<Instance> finderResult = (Page<Instance>) restClient.post(baseUri, values, typeToken, 
+					operation.isInstanceOperation() ? instanceOperationPath : entityOperationPath);
+			return (List<?>) finderResult.contents;
+		}
+		
 		return (List<?>) restClient.post(baseUri, values, List.class, 
-				operation.isInstanceOperation() ? instanceActionPath : entityActionPath);
+				operation.isInstanceOperation() ? instanceOperationPath : entityOperationPath);
 	}
-
+	
 	@Override
 	public Instance getCurrentUser() {
 		Index index = get(baseUri, Index.class);

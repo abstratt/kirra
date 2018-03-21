@@ -7,7 +7,6 @@ public class AllKirraRESTTests {
     public static Test suite() {
         TestSuite suite = new TestSuite(AllKirraRESTTests.class.getName());
         suite.addTest(new TestSuite(SchemaTests.class));
-        suite.addTest(new TestSuite(EntityTests.class));
         suite.addTest(new TestSuite(InstanceTests.class));
         return suite;
     }

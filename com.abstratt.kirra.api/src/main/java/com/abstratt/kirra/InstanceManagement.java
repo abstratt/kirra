@@ -118,7 +118,7 @@ public interface InstanceManagement {
     public List<?> executeOperation(Operation operation, String externalId, List<?> arguments);
 
     public default List<?> executeQuery(Operation operation, String externalId, List<?> arguments, boolean full) {
-    	return executeOperation(operation, externalId, arguments);
+    	return executeQuery(operation, externalId, arguments, new PageRequest(null, null, full ? DataProfile.Full : DataProfile.Empty, true));
     }
     
     public default List<?> executeQuery(Operation operation, String externalId, List<?> arguments) {
@@ -126,7 +126,7 @@ public interface InstanceManagement {
     }
     
     public default List<?> executeQuery(Operation operation, String externalId, List<?> arguments, PageRequest pageRequest) {
-        return executeQuery(operation, externalId, arguments, pageRequest.getDataProfile() == DataProfile.Full);
+    	return executeOperation(operation, externalId, arguments);
     }
     
     public default long countQueryResults(Operation operation, String externalId, List<?> arguments) {
@@ -156,6 +156,11 @@ public interface InstanceManagement {
     public default Map<TypeRef, EntityCapabilities> getEntityCapabilities(List<TypeRef> entities) {
     	return entities.stream().collect(Collectors.toMap(e -> e, e -> getEntityCapabilities(e)));
     }
+
+    public default Instance getInstance(InstanceRef ref) {
+    	return getInstance(ref.getEntityNamespace(), ref.getEntityName(), ref.getObjectId());
+    }
+
     
     public default InstanceCapabilities getInstanceCapabilities(TypeRef entity, String objectId) {
     	return new InstanceCapabilities();
