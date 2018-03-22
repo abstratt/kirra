@@ -101,13 +101,19 @@ public class InstanceTests extends AbstractRestTests {
         	it.setValue("amount", 150.50);
         });
         
-        Entity entity = schemaManagement.getEntity(expense.getTypeRef());
-        Operation operation = findByName(entity.getOperations(), "submit");
+        Entity expenseEntity = schemaManagement.getEntity(expense.getTypeRef());
+        Operation submitOperation = findByName(expenseEntity.getOperations(), "submit");
+        Operation reviewOperation = findByName(expenseEntity.getOperations(), "review");
         
         assertEquals("Draft", expense.getValue("status"));
-        instanceManagement.executeOperation(operation, expense.getObjectId(), Arrays.asList());
-        Instance afterSubmitted = instanceManagement.getInstance(expense.getEntityNamespace(), expense.getEntityName(), expense.getObjectId(), true);
+        instanceManagement.executeOperation(submitOperation, expense.getObjectId(), Arrays.asList());
+        Instance afterSubmitted = instanceManagement.getInstance(expense.getReference());
         assertEquals("Submitted", afterSubmitted.getValue("status"));
+        
+        instanceManagement.executeOperation(reviewOperation, expense.getObjectId(), Arrays.asList());
+        
+        Instance afterReviewed = instanceManagement.getInstance(expense.getReference());
+        assertEquals("Draft", afterReviewed.getValue("status"));
     }
 
     public void testInvokeEntityAction() throws IOException {

@@ -158,9 +158,12 @@ public interface InstanceManagement {
     }
 
     public default Instance getInstance(InstanceRef ref) {
-    	return getInstance(ref.getEntityNamespace(), ref.getEntityName(), ref.getObjectId());
+    	return getInstance(ref, DataProfile.Full);
     }
-
+    
+    public default Instance getInstance(InstanceRef ref, DataProfile dataProfile) {
+    	return getInstance(ref.getEntityNamespace(), ref.getEntityName(), ref.getObjectId(), dataProfile);
+    }
     
     public default InstanceCapabilities getInstanceCapabilities(TypeRef entity, String objectId) {
     	return new InstanceCapabilities();
