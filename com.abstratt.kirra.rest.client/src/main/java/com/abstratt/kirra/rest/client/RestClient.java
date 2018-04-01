@@ -10,7 +10,6 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -25,7 +24,10 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.lang.StringUtils;
 
+import com.abstratt.kirra.KirraException;
+import com.abstratt.kirra.KirraException.Kind;
 import com.abstratt.kirra.rest.common.CommonHelper;
+import com.abstratt.kirra.rest.common.ErrorDTO;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -41,7 +43,7 @@ public class RestClient {
     }
     
     public RestClient(URI baseURI) {
-        this.httpClient = new HttpClient();
+        this.httpClient = createHttpClient();
         this.baseURI = baseURI;
     }
 
@@ -62,10 +64,9 @@ public class RestClient {
             for (int i = 0; !valid && i < acceptedStatuses.length; i++)
                 valid = acceptedStatuses[i] == null || acceptedStatuses[i] == response;
             String responseBody = method.getResponseBodyAsString();
-            if (!valid)
-                throw new RuntimeException("Unexpected status code: " + response + " - expected: "
-                        + Arrays.asList(acceptedStatuses).toString() + " response:\n" + responseBody);
             System.out.println(responseBody);
+            if (!valid)
+				throwException(response, responseBody, acceptedStatuses);
             return getGson().fromJson(new StringReader(responseBody), resultType);
         } catch (JsonParseException e) {
             throw e;
@@ -75,6 +76,12 @@ public class RestClient {
             method.releaseConnection();
         }
     }
+
+	private void throwException(int response, String responseBody, Integer... acceptedStatuses) {
+		ErrorDTO error = getGson().fromJson(responseBody, ErrorDTO.class);
+		throw new KirraException(error.getMessage(), error.getKind());
+	}
+	
     public <T> T get(URI baseUri, Type type, String... segments) {
         return get(baseUri, type, Arrays.asList(segments), Collections.<String, List<String>>emptyMap());
     }
@@ -114,22 +121,17 @@ public class RestClient {
     }
     
     public void clearCredentials() {
-    	httpClient.getState().clearCredentials();
+    	this.httpClient = createHttpClient();
     }
     
 	public void setCredentials(URI baseUri, String realm, String username, String password) {
 		this.username = username;
 		this.password = password;
-		if (username != null) {
-			String host = baseUri.getHost();
-			int port = baseUri.getPort();
-			httpClient.getState().setCredentials(
-				new AuthScope(host, port, realm),
-				new UsernamePasswordCredentials(username, password)
-			);
-		} else {
-			httpClient.getState().clearCredentials();
-		}
+		this.httpClient = createHttpClient();
+	}
+
+	private HttpClient createHttpClient() {
+		return new HttpClient();
 	}
 
 }

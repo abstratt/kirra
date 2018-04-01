@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -24,6 +25,7 @@ import com.abstratt.kirra.Operation.OperationKind;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.TypeRef;
+import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.Index;
 import com.abstratt.kirra.rest.common.Paths;
 import com.google.gson.reflect.TypeToken;
@@ -67,7 +69,6 @@ public class InstanceManagementOnREST implements InstanceManagement {
 	@Override
 	public List<?> executeOperation(Operation operation, String externalId,
 			List<?> arguments) {
-		String operationKind = operation.getKind() == OperationKind.Finder ? Paths.FINDERS : Paths.ACTIONS;
 		List<Parameter> parameters = operation.getParameters();
 		if (parameters.size() != arguments.size())
 			throw new KirraException("Mismatch", Kind.SCHEMA);
@@ -78,24 +79,32 @@ public class InstanceManagementOnREST implements InstanceManagement {
 		if (operation.getKind() == OperationKind.Finder) {
 			values = Collections.singletonMap("arguments", values);
 		}
+		Type typeToken = List.class;
+		TypeRef returnType = operation.getTypeRef();
+		Function<Object, Object> mapper = it -> it;
+		if (returnType != null && returnType.getKind() == TypeKind.Entity) {
+			// not always correct but covers the most common case 
+			if (operation.getKind() == OperationKind.Finder) {
+				typeToken = new TypeToken<Page<Instance>>() {}.getType();
+				mapper = it -> ((Page<Instance>) it).contents;
+			} else if (operation.getKind() == OperationKind.Action) {
+				typeToken = new TypeToken<List<Instance>>() {}.getType();
+			}
+		}
+		return (List<?>) executeOperationViaPOST(operation, externalId, values, typeToken, mapper);
+	}
+
+	private <T> T executeOperationViaPOST(Operation operation, String externalId,
+			Map<String, Object> values, Type typeToken, Function<Object, T> mapper) {
+		String operationKind = operation.getKind() == OperationKind.Finder ? Paths.FINDERS : Paths.ACTIONS;
 		String[] instanceOperationPath = new String[] { Paths.ENTITIES,
 				operation.getOwner().getFullName(), Paths.INSTANCES,
 				externalId, operationKind, operation.getName() };
 		String[] entityOperationPath = new String[] { Paths.ENTITIES,
 				operation.getOwner().getFullName(), operationKind, operation.getName() };
-		
-		if (operation.getKind() == OperationKind.Finder) {
-			TypeRef returnType = operation.getTypeRef();
-			// not always correct but covers the most common case 
-			Type typeToken = new TypeToken<Page<Instance>>() {}.getType();
-			
-			Page<Instance> finderResult = (Page<Instance>) restClient.post(baseUri, values, typeToken, 
-					operation.isInstanceOperation() ? instanceOperationPath : entityOperationPath);
-			return (List<?>) finderResult.contents;
-		}
-		
-		return (List<?>) restClient.post(baseUri, values, List.class, 
+		T operationResult = (T) restClient.post(baseUri, values, typeToken, 
 				operation.isInstanceOperation() ? instanceOperationPath : entityOperationPath);
+		return mapper.apply(operationResult);
 	}
 	
 	@Override
