@@ -1,6 +1,5 @@
 package com.abstratt.kirra;
 
-import java.util.Collection;
 import java.util.List;
 
 import com.abstratt.kirra.TypeRef.TypeKind;
@@ -114,11 +113,6 @@ public class Operation extends TypedElement<BehaviorScope> implements ParameterS
         return TypeKind.Operation;
     }
     
-    @Override
-    public TypeRef getTypeRef() {
-        return new TypeRef(TypeRef.toString(getOwner().getFullName(), getName()), getTypeKind());
-    }
-
     public void setParameterSets(List<ParameterSet> parameterSets) {
         this.parameterSets = parameterSets;
     }

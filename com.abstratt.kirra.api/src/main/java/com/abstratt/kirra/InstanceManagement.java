@@ -79,6 +79,10 @@ public interface InstanceManagement {
             this.length = length;
         }
     }
+    
+    public default AuthorizationHandler getAuthorizationHandler() {
+    	return new AuthorizationHandler(this);
+    }
 
     /**
      * Persists a transient instance. It is an error to try to invoke create on
