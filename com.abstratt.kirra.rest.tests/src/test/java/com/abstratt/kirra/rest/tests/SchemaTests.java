@@ -10,6 +10,7 @@ import com.abstratt.kirra.Operation.OperationKind;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.Property;
 import com.abstratt.kirra.TypeRef;
+import com.abstratt.kirra.TypeRef.TypeKind;
 
 public class SchemaTests extends AbstractRestTests {
 
@@ -31,7 +32,8 @@ public class SchemaTests extends AbstractRestTests {
     }
 
     public void testEntityOperations() {
-        List<Operation> operations = schemaManagement.getEntityOperations("expenses", "Expense");
+    	TypeRef expenseEntity = new TypeRef("expenses.Expense", TypeKind.Entity);
+        List<Operation> operations = schemaManagement.getEntityOperations(expenseEntity.getEntityNamespace(), expenseEntity.getTypeName());
         assertTrue(!operations.isEmpty());
 
         Operation reviewOperation = findByName(operations, "review");
@@ -39,6 +41,7 @@ public class SchemaTests extends AbstractRestTests {
 		assertEquals(OperationKind.Action, reviewOperation.getKind());
         List<Parameter> reviewParameters = reviewOperation.getParameters();
 		assertEquals(0, reviewParameters.size());
+		assertNull(reviewOperation.getTypeRef());
 
         Operation newExpenseOperation = findByName(operations, "newExpense");
 		assertFalse(newExpenseOperation.isInstanceOperation());
@@ -50,6 +53,10 @@ public class SchemaTests extends AbstractRestTests {
         assertEquals("date", newExpenseParameters.get(2).getName());
         assertEquals("category", newExpenseParameters.get(3).getName());
         assertEquals("employee", newExpenseParameters.get(4).getName());
+        
+        TypeRef newExpenseResult = newExpenseOperation.getTypeRef();
+        assertNotNull(newExpenseResult);
+        assertEquals(expenseEntity, newExpenseResult);
         
         Operation findByStatusOperation = findByName(operations, "findByStatus");
 		assertFalse(findByStatusOperation.isInstanceOperation());

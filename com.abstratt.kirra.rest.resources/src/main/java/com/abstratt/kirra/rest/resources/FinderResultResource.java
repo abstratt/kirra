@@ -103,7 +103,7 @@ public class FinderResultResource {
 
 	private Operation getOperation(String entityName, String finderName) {
 		TypeRef entityRef = new TypeRef(entityName, TypeRef.TypeKind.Entity);
-		AuthorizationHelper.checkEntityFinderAuthorized(entityRef, finderName);
+		AuthorizationHelper.checkEntityQueryAuthorized(entityRef, finderName);
 
 		Entity entity = KirraContext.getSchemaManagement().getEntity(entityRef);
 		ResourceHelper.ensure(entity != null, "Entity not found", Status.NOT_FOUND);

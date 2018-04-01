@@ -1,110 +1,49 @@
 package com.abstratt.kirra.rest.resources;
 
-import java.util.Collections;
 import java.util.List;
-
-import javax.ws.rs.core.Response.Status;
+import java.util.function.Supplier;
 
 import com.abstratt.kirra.EntityCapabilities;
 import com.abstratt.kirra.InstanceCapabilities;
+import com.abstratt.kirra.KirraErrorCode;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.rest.common.KirraContext;
 
 public class AuthorizationHelper {
-	private static EntityCapabilities getEntityCapabilities(TypeRef entityRef) {
-		EntityCapabilities entityCapabilities = KirraContext.getInstanceManagement().getEntityCapabilities(entityRef);
-		checkAuthorized(entityCapabilities != null);
-        return entityCapabilities;
-	}
-	
-	private static boolean isRestricted() {
-	    return KirraContext.getInstanceManagement().isRestricted();
-	}
-
-	private static InstanceCapabilities getInstanceCapabilities(TypeRef entityRef, String objectId) {
-		InstanceCapabilities instanceCapabilities = KirraContext.getInstanceManagement().getInstanceCapabilities(entityRef, objectId);
-		checkAuthorized(instanceCapabilities != null);
-        return instanceCapabilities;
-	}
-	
-	private static boolean isLoggedIn() {
-		return KirraContext.getInstanceManagement().getCurrentUser() != null;
-	}
-	
-	private static void checkAuthorized(boolean authorized) {
-	    ResourceHelper.ensure(authorized, isLoggedIn() ? "no_authorization" : "login_required", isLoggedIn() ? Status.FORBIDDEN : Status.UNAUTHORIZED);
-	}
-
 	public static void checkInstanceReadAuthorized(TypeRef entityRef, String objectId) {
-	    if (!isRestricted())
-            return;
-		InstanceCapabilities capabilities = getInstanceCapabilities(entityRef, objectId);
-		List<String> instanceCapabilities = capabilities.getInstance(); 
-		boolean authorized = instanceCapabilities.contains("Read");
-		checkAuthorized(authorized);
+		KirraContext.getInstanceManagement().getAuthorizationHandler().checkInstanceReadAuthorized(entityRef, objectId);
 	}
 
 	public static void checkInstanceUpdateAuthorized(TypeRef entityRef, String objectId) {
-	    if (!isRestricted())
-            return;
-		InstanceCapabilities capabilities = getInstanceCapabilities(entityRef, objectId);
-		List<String> instanceCapabilities = capabilities.getInstance();
-		boolean authorized = instanceCapabilities.contains("Update");
-		checkAuthorized(authorized);
+		KirraContext.getInstanceManagement().getAuthorizationHandler().checkInstanceUpdateAuthorized(entityRef,
+				objectId);
 	}
-	
+
 	public static void checkInstanceDeleteAuthorized(TypeRef entityRef, String objectId) {
-	    if (!isRestricted())
-            return;
-		InstanceCapabilities capabilities = getInstanceCapabilities(entityRef, objectId);
-		List<String> instanceCapabilities = capabilities.getInstance();
-		boolean authorized = instanceCapabilities.contains("Delete");
-		checkAuthorized(authorized);
+		KirraContext.getInstanceManagement().getAuthorizationHandler().checkInstanceDeleteAuthorized(entityRef,
+				objectId);
 	}
 
 	public static void checkInstanceActionAuthorized(TypeRef entityRef, String objectId, String actionName) {
-	    if (!isRestricted())
-            return;
-		InstanceCapabilities capabilities = getInstanceCapabilities(entityRef, objectId);
-		List<String> actionCapabilities = capabilities.getActions().getOrDefault(actionName, Collections.emptyList());
-		boolean authorized = actionCapabilities.contains("Call");
-		checkAuthorized(authorized);
+		KirraContext.getInstanceManagement().getAuthorizationHandler().checkInstanceActionAuthorized(entityRef,
+				objectId, actionName);
 	}
-	
+
 	public static void checkEntityListAuthorized(TypeRef entityRef) {
-	    if (!isRestricted())
-	        return;
-		EntityCapabilities capabilities = getEntityCapabilities(entityRef);
-		List<String> entityCapabilities = capabilities.getEntity();
-		boolean authorized = entityCapabilities.contains("List");
-		checkAuthorized(authorized);
+		KirraContext.getInstanceManagement().getAuthorizationHandler().checkEntityListAuthorized(entityRef);
 	}
-	
+
 	public static void checkInstanceCreationAuthorized(TypeRef entityRef) {
-	    if (!isRestricted())
-            return;
-		EntityCapabilities capabilities = getEntityCapabilities(entityRef);
-		List<String> entityCapabilities = capabilities.getEntity();
-		boolean authorized = entityCapabilities.contains("Create");
-		checkAuthorized(authorized);
+		KirraContext.getInstanceManagement().getAuthorizationHandler().checkInstanceCreationAuthorized(entityRef);
 	}
 
 	public static void checkEntityActionAuthorized(TypeRef entityRef, String actionName) {
-	    if (!isRestricted())
-            return;
-		EntityCapabilities capabilities = getEntityCapabilities(entityRef);
-		List<String> queryCapabilities = capabilities.getActions().getOrDefault(actionName, Collections.emptyList());
-		boolean authorized = queryCapabilities.contains("StaticCall");
-		checkAuthorized(authorized);
+		KirraContext.getInstanceManagement().getAuthorizationHandler().checkEntityActionAuthorized(entityRef,
+				actionName);
 	}
 
-	public static void checkEntityFinderAuthorized(TypeRef entityRef, String finderName) {
-	    if (!isRestricted())
-            return;
-		EntityCapabilities capabilities = getEntityCapabilities(entityRef);
-		List<String> queryCapabilities = capabilities.getQueries().getOrDefault(finderName, Collections.emptyList());
-		boolean authorized = queryCapabilities.contains("StaticCall");
-		checkAuthorized(authorized);
+	public static void checkEntityQueryAuthorized(TypeRef entityRef, String finderName) {
+		KirraContext.getInstanceManagement().getAuthorizationHandler().checkEntityQueryAuthorized(entityRef,
+				finderName);
 	}
-
 }

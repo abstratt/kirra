@@ -19,12 +19,7 @@ import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.TypeRef;
 
-public class InstanceTests extends AbstractRestTests {
-	private String uniqueString = UUID.randomUUID().toString();
-	
-	private String unique(String string) {
-		return string + "-" + getName() + "-" + uniqueString;
-	}
+public class InstanceTests extends AbstractFactoryRestTests {
 	
     public void testCreateInstance() {
         Instance newInstance = new Instance("expenses", "Category");
@@ -44,7 +39,7 @@ public class InstanceTests extends AbstractRestTests {
         newInstance.setValue("name", unique("My Category"));
         Instance created = instanceManagement.createInstance(newInstance);
         Instance retrieved = instanceManagement.getInstance("expenses", "Category", created.getObjectId(), true);
-        assertEquals(unique("My Category"), retrieved.getValue("name"));
+        assertEquals(newInstance.getValue("name"), retrieved.getValue("name"));
     }
     
     public void testPutInstance() {
@@ -118,16 +113,8 @@ public class InstanceTests extends AbstractRestTests {
 
     public void testInvokeEntityAction() throws IOException {
     	login(kirraEmployeeUsername, kirraEmployeePassword);
-        Entity entity = schemaManagement.getEntity("expenses", "Expense");
-        Operation operation = findByName(entity.getOperations(), "newExpense");
-        // provide the number of arguments expected by the operation
-        Instance category = getAnyInstance("expenses", "Category");
-        assertNotNull(category);
-        Instance employee = getAnyInstance("expenses", "Employee");
-        assertNotNull(category);
-        List<?> result = instanceManagement.executeOperation(operation, null, Arrays.asList("Some expense", 200d, LocalDate.now(), category, employee));
-        assertEquals(1, result.size());
-        assertTrue(result.get(0).getClass().getSimpleName(), result.get(0) instanceof Map<?, ?>);
+        Instance expense = newExpense();
+        assertEquals(expense.getClass().getSimpleName(), "Expense", expense.getEntityName());
     }
 
     public void testExecuteQuery() throws IOException {

@@ -27,6 +27,8 @@ import com.abstratt.kirra.Property;
 import com.abstratt.kirra.InstanceManagement.DataProfile;
 import com.abstratt.kirra.InstanceManagement.PageRequest;
 import com.abstratt.kirra.InstanceRef;
+import com.abstratt.kirra.KirraErrorCode;
+import com.abstratt.kirra.KirraException.Kind;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.KirraContext;
@@ -58,8 +60,12 @@ public class ResourceHelper extends CommonHelper {
             throw new KirraRestException(message == null ? null : message.get(), status, null);
         }
     }
+    
+    public static void ensure(boolean condition, KirraErrorCode errorCode) {
+        KirraRestException.ensure(condition, errorCode);
+    }
 
-    public static void fail(Throwable exception, Status status) {
+	public static void fail(Throwable exception, Status status) {
     	fail(exception, null, status);
     }
     

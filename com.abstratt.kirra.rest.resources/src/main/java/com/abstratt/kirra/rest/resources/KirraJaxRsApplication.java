@@ -30,6 +30,7 @@ public class KirraJaxRsApplication extends javax.ws.rs.core.Application {
 		try {
 			getClass().getClassLoader().loadClass("javax.ws.rs.container.ContainerResponseFilter");
 			resourceClasses.add(ResponseLoggingInterceptor.class);
+			resourceClasses.add(KirraCorsFilter.class);
 		} catch (ClassNotFoundException e) {
 			// not available in this version of jaxrs, ignore it
 		}

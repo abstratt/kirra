@@ -6,7 +6,6 @@ public interface Paths {
     String BLOBS = "blobs";
     String DATA = "data";
     String DOMAIN = "domain";
-    String CURRENT_USER = "currentUser";
     String ENTITIES = "entities";
     String EVENTS = "events";
     String PARAMETERS = "parameters";

@@ -8,6 +8,7 @@ import javax.ws.rs.ext.Provider;
 
 import com.abstratt.kirra.KirraException;
 import com.abstratt.kirra.KirraException.Kind;
+import com.abstratt.kirra.rest.common.ErrorDTO;
 import com.google.gson.Gson;
 
 @Provider
@@ -29,7 +30,7 @@ public class KirraExceptionMapper extends AbstractExceptionMapper<KirraException
 
 	@Override
 	protected Response exceptionToResponse(KirraException e) {
-		return Response.status(getStatus(e.getKind())).type(MediaType.APPLICATION_JSON).entity(new Gson().toJson(new ErrorDTO(e.getMessage()))).build();
+		return Response.status(getStatus(e.getKind())).type(MediaType.APPLICATION_JSON).entity(new Gson().toJson(new ErrorDTO(e.getMessage(), e.getKind()))).build();
 	}
 
 }

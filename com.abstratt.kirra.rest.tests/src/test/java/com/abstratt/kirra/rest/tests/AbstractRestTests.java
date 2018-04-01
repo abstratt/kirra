@@ -2,15 +2,22 @@ package com.abstratt.kirra.rest.tests;
 
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
+import com.abstratt.kirra.InstanceRef;
 import com.abstratt.kirra.KirraApplication;
 import com.abstratt.kirra.NamedElement;
+import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.SchemaManagement;
 import com.abstratt.kirra.InstanceManagement.DataProfile;
 import com.abstratt.kirra.InstanceManagement.PageRequest;
@@ -30,9 +37,15 @@ public class AbstractRestTests extends TestCase {
     protected String kirraAdminPassword = System.getProperty("kirra.admin.password");
     protected String kirraEmployeeUsername = System.getProperty("kirra.employee.username");
     protected String kirraEmployeePassword = System.getProperty("kirra.employee.password");
+    protected String kirraEmployee2Username = System.getProperty("kirra.employee2.username");
+    protected String kirraEmployee2Password = System.getProperty("kirra.employee2.password");
     private RestClient restClient;
 	protected InstanceManagement instanceManagement;
     protected SchemaManagement schemaManagement;
+    
+	protected String unique(String string) {
+		return string + "-" + getName() + "-" + UUID.randomUUID();
+	}
 
     @Override
     public void setUp() throws Exception {
@@ -80,5 +93,4 @@ public class AbstractRestTests extends TestCase {
         Instance created = instanceManagement.createInstance(newInstance);
         return created;
     }
-
 }

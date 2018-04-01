@@ -8,6 +8,7 @@ public class AllKirraRESTTests {
         TestSuite suite = new TestSuite(AllKirraRESTTests.class.getName());
         suite.addTest(new TestSuite(SchemaTests.class));
         suite.addTest(new TestSuite(InstanceTests.class));
+        suite.addTest(new TestSuite(AccessTests.class));
         return suite;
     }
 
