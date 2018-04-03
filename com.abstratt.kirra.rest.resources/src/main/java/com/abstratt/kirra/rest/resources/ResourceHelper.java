@@ -20,6 +20,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import com.abstratt.kirra.Entity;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
+import com.abstratt.kirra.InstanceProtocol;
 import com.abstratt.kirra.NamedElement;
 import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Parameter;
@@ -126,16 +127,14 @@ public class ResourceHelper extends CommonHelper {
                     newInstance.setLinks(argumentLinks);
                     argumentValue = newInstance;
                 } else {
-                    if (argumentValue instanceof Map) {
-                        Map<String, Object> referenceArgument = (Map<String,Object>) argumentValue;
-                        String referencedObjectId = (String) referenceArgument.get("objectId");
-                        if (referenceArgument.containsKey("uri")) {
-                            String[] segments = StringUtils.split(referenceArgument.get("uri").toString(), "/");
-                            referencedObjectId = segments[segments.length - 1];
-                        }
+                    if (argumentValue instanceof InstanceProtocol) {
+                        String referencedObjectId = ((InstanceProtocol) argumentValue).getObjectId();
                         argumentValue = referencedObjectId != null ? new Instance(parameter.getTypeRef(), referencedObjectId.toString()) : null;
-                    } else {
+                    } else if (argumentValue instanceof String) {
                         argumentValue = new Instance(parameter.getTypeRef(), (String) argumentValue);
+                    } else {
+                    	final Object argValue = argumentValue;
+                    	KirraRestException.ensure(false, Status.INTERNAL_SERVER_ERROR, () -> ("Unexpected argument type: " + argValue.getClass().getSimpleName() + " for " + argValue));
                     }
                 }
             }

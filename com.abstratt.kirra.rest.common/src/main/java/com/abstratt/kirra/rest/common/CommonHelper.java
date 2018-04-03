@@ -135,7 +135,7 @@ public class CommonHelper {
 		}
 		@Override
 		public LocalTime parse(String asString, DateTimeFormatter format) {
-			return LocalTime.parse(asString, format);
+			return LocalDateTime.parse(asString, format).toLocalTime();
 		}
 	}
 	

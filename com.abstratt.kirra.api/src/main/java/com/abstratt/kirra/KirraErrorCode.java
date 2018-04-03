@@ -3,7 +3,9 @@ package com.abstratt.kirra;
 import com.abstratt.kirra.KirraException.Kind;
 
 public enum KirraErrorCode {
-	NO_AUTHORIZATION(Kind.AUTHORIZATION), AUTHENTICATION_REQUIRED(Kind.AUTHENTICATION);
+	NO_AUTHORIZATION(Kind.AUTHORIZATION), 
+	AUTHENTICATION_REQUIRED(Kind.AUTHENTICATION),
+	INTERNAL(Kind.INTERNAL);
 
 	private Kind kind;
 

@@ -19,7 +19,7 @@ import com.abstratt.kirra.TypeRef.TypeKind;
  * are always loaded in light mode.
  * </p>
  */
-public class Instance extends Tuple {
+public class Instance extends Tuple implements InstanceProtocol {
     private static final long serialVersionUID = 1L;
     /**
      * A map of disabled action names -> reasons.

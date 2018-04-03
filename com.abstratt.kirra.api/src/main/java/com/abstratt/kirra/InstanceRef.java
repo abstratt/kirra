@@ -1,6 +1,6 @@
 package com.abstratt.kirra;
 
-public class InstanceRef {
+public class InstanceRef implements InstanceProtocol {
     protected String entityName;
     protected String entityNamespace;
     protected String objectId;
