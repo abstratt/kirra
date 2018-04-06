@@ -32,6 +32,9 @@ Implementations
 #### Java Model
 A Java-based specification of the Kirra metamodel. This specification has no dependencies and can be used in any Java-based application. Status: [released](http://github.com/abstratt/kirra/tree/master/com.abstratt.kirra.api).
 
+#### Kotlin + Spring Boot
+A Kotlin/Spring Boot based implementation of Kirra. Implement you domain model and related services, and you get a Kirra-compliant API automagically! Status: [In progress](http://github.com/abstratt/kirra-boot/).
+
 #### JAX-RS-based REST API implementation
 JAX-RS based implementation of Kirra as a REST API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/com.abstratt.kirra.rest.resources).
 
