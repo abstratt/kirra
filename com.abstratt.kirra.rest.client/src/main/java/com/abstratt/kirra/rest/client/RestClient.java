@@ -15,8 +15,6 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -25,7 +23,6 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.lang.StringUtils;
 
 import com.abstratt.kirra.KirraException;
-import com.abstratt.kirra.KirraException.Kind;
 import com.abstratt.kirra.rest.common.CommonHelper;
 import com.abstratt.kirra.rest.common.ErrorDTO;
 import com.google.gson.Gson;
@@ -58,6 +55,7 @@ public class RestClient {
                 ((EntityEnclosingMethod) method).getRequestEntity().writeRequest(System.out);
             int response = httpClient.executeMethod(method);
             System.out.println("Request headers: " + Arrays.stream(method.getRequestHeaders()).map(it -> it.getName() + " -> " + it.getValue()).reduce("", (a, b) -> a + "\n" + b));
+            System.out.println("Status: " + response + " - accepted: " + Arrays.asList(acceptedStatuses));
             System.out.println("Response headers: " + Arrays.stream(method.getResponseHeaders()).map(it -> it.getName() + " -> " + it.getValue()).reduce("", (a, b) -> a + "\n" + b));
 
             boolean valid = acceptedStatuses.length == 0;

@@ -1,5 +1,6 @@
 package com.abstratt.kirra.rest.tests;
 
+import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -17,9 +18,8 @@ public class SchemaTests extends AbstractRestTests {
     public void testEntities() {
         List<Entity> allEntities = schemaManagement.getAllEntities();
         assertTrue(!allEntities.isEmpty());
-        findByName(allEntities, "Category");
-        findByName(allEntities, "Expense");
-        findByName(allEntities, "Employee");
+        List<String> expectedEntities = Arrays.asList("Category", "Expense", "Employee");
+        expectedEntities.forEach(it -> assertTrue(it, findByName(allEntities, it).isUserVisible()));
     }
 
     public void testEntity() {
@@ -28,23 +28,24 @@ public class SchemaTests extends AbstractRestTests {
         assertEquals("Category", category.getLabel());
         Property categoryName = category.getProperty("name");
         assertTrue(categoryName.isUserVisible());
-        
     }
 
     public void testEntityOperations() {
-    	TypeRef expenseEntity = new TypeRef("expenses.Expense", TypeKind.Entity);
-        List<Operation> operations = schemaManagement.getEntityOperations(expenseEntity.getEntityNamespace(), expenseEntity.getTypeName());
-        assertTrue(!operations.isEmpty());
+    	Entity expenseEntity = schemaManagement.getEntity(new TypeRef("expenses.Expense", TypeKind.Entity));
+    	Entity employeeEntity = schemaManagement.getEntity(new TypeRef("expenses.Employee", TypeKind.Entity));
 
-        Operation reviewOperation = findByName(operations, "review");
+        Operation reviewOperation = expenseEntity.getOperation("review");
+        assertEquals("Review", reviewOperation.getLabel());
 		assertTrue(reviewOperation.isInstanceOperation());
 		assertEquals(OperationKind.Action, reviewOperation.getKind());
         List<Parameter> reviewParameters = reviewOperation.getParameters();
 		assertEquals(0, reviewParameters.size());
 		assertNull(reviewOperation.getTypeRef());
-
-        Operation newExpenseOperation = findByName(operations, "newExpense");
-		assertFalse(newExpenseOperation.isInstanceOperation());
+		reviewParameters.forEach(it -> assertTrue(it.getInAllSets()));
+        
+        Operation newExpenseOperation = expenseEntity.getOperation("newExpense");
+        assertEquals("New Expense", newExpenseOperation.getLabel());
+        assertFalse(newExpenseOperation.isInstanceOperation());
 		assertEquals(OperationKind.Action, newExpenseOperation.getKind());
         List<Parameter> newExpenseParameters = newExpenseOperation.getParameters();
         assertEquals(5, newExpenseParameters.size());
@@ -53,23 +54,35 @@ public class SchemaTests extends AbstractRestTests {
         assertEquals("date", newExpenseParameters.get(2).getName());
         assertEquals("category", newExpenseParameters.get(3).getName());
         assertEquals("employee", newExpenseParameters.get(4).getName());
+        assertEquals(expenseEntity.getTypeRef(), newExpenseOperation.getTypeRef());
+        newExpenseParameters.forEach(it -> assertTrue(it.getInAllSets()));
         
-        TypeRef newExpenseResult = newExpenseOperation.getTypeRef();
-        assertNotNull(newExpenseResult);
-        assertEquals(expenseEntity, newExpenseResult);
-        
-        Operation findByStatusOperation = findByName(operations, "findByStatus");
+        Operation findByStatusOperation = expenseEntity.getOperation("findByStatus");
 		assertFalse(findByStatusOperation.isInstanceOperation());
 		assertEquals(OperationKind.Finder, findByStatusOperation.getKind());
         List<Parameter> findByStatusParameters = findByStatusOperation.getParameters();
         assertEquals(1, findByStatusParameters.size());
         assertEquals("status", findByStatusParameters.get(0).getName());
+        findByStatusParameters.forEach(it -> assertTrue(it.getInAllSets()));
+        
+        Operation declareExpenseOperation = employeeEntity.getOperation("declareExpense");
+		assertTrue(declareExpenseOperation.isInstanceOperation());
+		assertEquals(OperationKind.Action, declareExpenseOperation.getKind());
+        List<Parameter> declareExpenseParameters = declareExpenseOperation.getParameters();
+	        assertEquals(4, declareExpenseParameters.size());
+        assertEquals("description", declareExpenseParameters.get(0).getName());
+        assertEquals("amount", declareExpenseParameters.get(1).getName());
+        assertEquals("date", declareExpenseParameters.get(2).getName());
+        assertEquals("category", declareExpenseParameters.get(3).getName());
+        declareExpenseParameters.forEach(it -> assertTrue(it.getInAllSets()));
     }
+
     
     public void testEntityProperties() {
         List<Property> properties = schemaManagement.getEntityProperties("expenses", "Expense");
         assertTrue(!properties.isEmpty());
         Property amount = findByName(properties, "amount");
+        assertEquals("Amount", amount.getLabel());
 		assertTrue(amount.isUserVisible());
 		assertFalse(amount.isHasDefault());
 		assertTrue(amount.isInitializable());
@@ -79,6 +92,7 @@ public class SchemaTests extends AbstractRestTests {
 		assertEquals(TypeRef.TypeKind.Primitive, amount.getTypeRef().getKind());
 		
 		Property expenseDate = findByName(properties, "date");
+		assertEquals("Date", expenseDate.getLabel());
 		assertTrue(expenseDate.isUserVisible());
 		assertTrue(expenseDate.isHasDefault());
 		assertTrue(expenseDate.isInitializable());

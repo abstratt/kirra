@@ -61,7 +61,8 @@ public class AuthorizationHandler {
 		if (!isRestricted())
 			return;
 		List<String> capabilities = provider.get();
-		boolean authorized = capabilities.contains(capabilityName);
+		// no capabilities specified means everything is allowed (easier to implement)
+		boolean authorized = capabilities == null || capabilities.contains(capabilityName);
 		checkAuthorized(authorized);
 	}
 

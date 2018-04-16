@@ -20,9 +20,14 @@ public class KirraExceptionMapper extends AbstractExceptionMapper<KirraException
 			return Status.NOT_FOUND;
 		case VALIDATION:
 		case SCHEMA:
+		case ENTITY:
 			return Status.BAD_REQUEST;
 		case EXTERNAL:
 			return Status.SERVICE_UNAVAILABLE;
+		case AUTHENTICATION:
+			return Status.UNAUTHORIZED;
+		case AUTHORIZATION:
+			return Status.FORBIDDEN;
 		default:
 			return Status.INTERNAL_SERVER_ERROR;
 		}

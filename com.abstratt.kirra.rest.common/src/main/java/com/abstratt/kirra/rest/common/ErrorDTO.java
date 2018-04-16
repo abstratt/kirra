@@ -14,6 +14,7 @@ public class ErrorDTO {
 	public ErrorDTO(KirraErrorCode errorCode) {
 		this.errorCode = errorCode.name();
 		this.kind = errorCode.getKind();
+		this.message = errorCode.getMessage();
 	}
 	public ErrorDTO(String message) {
 		super();

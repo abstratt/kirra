@@ -79,7 +79,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
     public List<Operation> getOperations() {
         return operations == null ? null : new ArrayList<Operation>(operations.values());
     }
-
+    
     public List<Property> getProperties() {
         return properties == null ? null : new ArrayList<Property>(properties.values());
     }

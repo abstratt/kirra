@@ -15,6 +15,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 
 import com.abstratt.kirra.Entity;
+import com.abstratt.kirra.EntityCapabilities;
 import com.abstratt.kirra.Instance;
 import com.abstratt.kirra.InstanceManagement;
 import com.abstratt.kirra.InstanceRef;
@@ -125,7 +126,12 @@ public class InstanceManagementOnREST implements InstanceManagement {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	public EntityCapabilities getEntityCapabilities(TypeRef entity) {
+		return get(baseUri, EntityCapabilities.class, Paths.ENTITIES,
+				entity.toString(), Paths.CAPABILITIES);
+	}
+	
 	@Override
 	public Instance getInstance(String namespace, String name,
 			String externalId, DataProfile profile) {

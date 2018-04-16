@@ -98,7 +98,9 @@ public interface InstanceManagement {
      * 
      * @param instance
      */
-    public void deleteInstance(Instance instance);
+    public default void deleteInstance(Instance instance) {
+    	deleteInstance(instance.getEntityNamespace(), instance.getEntityName(), instance.getObjectId());
+    }
 
     /**
      * Destroys an instance, persisted or not.
