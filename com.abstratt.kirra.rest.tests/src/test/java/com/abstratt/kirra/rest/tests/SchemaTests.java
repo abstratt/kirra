@@ -79,7 +79,8 @@ public class SchemaTests extends AbstractRestTests {
 
     
     public void testEntityProperties() {
-        List<Property> properties = schemaManagement.getEntityProperties("expenses", "Expense");
+        Entity expenseEntity = schemaManagement.getEntity("expenses", "Expense");
+		List<Property> properties = expenseEntity.getProperties();
         assertTrue(!properties.isEmpty());
         Property amount = findByName(properties, "amount");
         assertEquals("Amount", amount.getLabel());
@@ -100,6 +101,11 @@ public class SchemaTests extends AbstractRestTests {
 		assertTrue(expenseDate.isRequired());
 		assertEquals(TypeRef.TypeKind.Primitive, expenseDate.getTypeRef().getKind());
 		assertEquals("Date", expenseDate.getTypeRef().getTypeName());
+		
+        List<String> orderedDataElements = expenseEntity.getOrderedDataElements();
+		assertNotNull(orderedDataElements);
+        assertTrue(!orderedDataElements.isEmpty());
+        assertTrue(orderedDataElements.containsAll(Arrays.asList("amount", "date", "description", "employee")));
     }
 
     public void testNamespaces() {
