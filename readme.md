@@ -32,6 +32,9 @@ Implementations
 #### Java Model
 A Java-based specification of the Kirra metamodel. This specification has no dependencies and can be used in any Java-based application. Status: [released](http://github.com/abstratt/kirra/tree/master/com.abstratt.kirra.api).
 
+#### Kotlin + Spring Boot
+A Kotlin/Spring Boot based implementation of Kirra. Implement you domain model and related services, and you get a Kirra-compliant API automagically! Status: [In progress](http://github.com/abstratt/kirra-boot/).
+
 #### JAX-RS-based REST API implementation
 JAX-RS based implementation of Kirra as a REST API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/com.abstratt.kirra.rest.resources).
 
@@ -41,16 +44,15 @@ Implements the SchemaManagement and InstanceManagement protocols as a proxy to a
 #### Cloudfier
 Cloudfier implements the Kirra API to expose the funcionality of business applications running off of executable UML models. Cloudfier can generate fully functional clients based on the schema exposed by the Kirra API. Status: [released](http://cloudfier.com/doc).
 
-#### HTML5 mobile-styled client
-A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [in progress](http://github.com/abstratt/kirra/tree/master/kirra_qooxdoo) ([demo](http://develop.cloudfier.com/kirra-api/kirra_qooxdoo/build/?app-path=/services/api-v2/demo-cloudfier-examples-taxi-fleet)).
-
 #### HTML desktop-styled client
 
 An Angular-based renderer for a Kirra-based REST API. Status: [in progress](http://github.com/abstratt/kirra-angular) ([demo](http://develop.cloudfier.com/kirra-api/kirra-ng/?app-uri=http://develop.cloudfier.com/services/api-v2/test-cloudfier-examples-carserv#/dashboard)).
 
+#### HTML5 mobile-styled client
+A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [retired](http://github.com/abstratt/kirra/tree/master/kirra_qooxdoo) ([demo](http://develop.cloudfier.com/kirra-api/kirra_qooxdoo/build/?app-path=/services/api-v2/demo-cloudfier-examples-taxi-fleet)).
 
 #### EBUI - Email-Based User Interface
-An email-based front-end for your Kirra-compliant business application. Status: [in progress](http://github.com/abstratt/ebui).
+An email-based front-end for your Kirra-compliant business application. Status: [retired](http://github.com/abstratt/ebui).
 
 ###  Ideas
 
