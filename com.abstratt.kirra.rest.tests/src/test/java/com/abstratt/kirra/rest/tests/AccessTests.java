@@ -3,6 +3,7 @@ package com.abstratt.kirra.rest.tests;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.TreeSet;
 import java.util.function.Supplier;
 
 import com.abstratt.kirra.EntityCapabilities;
@@ -50,7 +51,7 @@ public class AccessTests extends AbstractFactoryRestTests {
 		runAs(() -> {
 			TypeRef expenseType = new TypeRef("expenses.Expense", TypeKind.Entity);
 			EntityCapabilities capabilities = getEntityCapabilities(expenseType);
-			assertEquals(Arrays.asList("Create", "List"), capabilities.getEntity());
+			assertEquals(new TreeSet<>(Arrays.asList("Create", "List")), new TreeSet<>(capabilities.getEntity()));
 			assertEquals(Arrays.asList("StaticCall"), capabilities.getQueries().get("myExpenses"));
 			assertEquals(Arrays.asList("StaticCall"), capabilities.getActions().get("newExpense"));
 		},kirraAdminUsername, kirraAdminPassword, null);
@@ -60,13 +61,13 @@ public class AccessTests extends AbstractFactoryRestTests {
 		runAs(() -> {
 			TypeRef expenseType = new TypeRef("expenses.Employee", TypeKind.Entity);
 			EntityCapabilities capabilities = getEntityCapabilities(expenseType);
-			assertEquals(Arrays.asList("Create", "List"), capabilities.getEntity());
+			assertEquals(new TreeSet<>(Arrays.asList("Create", "List")), new TreeSet<>(capabilities.getEntity()));
 			assertEquals(Arrays.asList("StaticCall"), capabilities.getQueries().get("employeesWithNoExpenses"));
 		},kirraEmployeeUsername, kirraEmployeePassword, null);
 		runAs(() -> {
 			TypeRef expenseType = new TypeRef("expenses.Employee", TypeKind.Entity);
 			EntityCapabilities capabilities = getEntityCapabilities(expenseType);
-			assertEquals(Arrays.asList("Create", "List"), capabilities.getEntity());
+			assertEquals(new TreeSet<>(Arrays.asList("Create", "List")), new TreeSet<>(capabilities.getEntity()));
 			assertEquals(Arrays.asList(), capabilities.getQueries().get("employeesWithNoExpenses"));
 		},kirraAdminUsername, kirraAdminPassword, null);
 	}

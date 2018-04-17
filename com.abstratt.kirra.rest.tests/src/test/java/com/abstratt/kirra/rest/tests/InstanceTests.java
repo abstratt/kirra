@@ -42,6 +42,17 @@ public class InstanceTests extends AbstractFactoryRestTests {
         assertEquals(newInstance.getValue("name"), retrieved.getValue("name"));
     }
     
+    public void testGetInstance_WithRelationships() throws IOException {
+    	login(kirraEmployeeUsername, kirraEmployeePassword);
+    	Instance created = newExpense();
+    	Instance read = instanceManagement.getInstance(created.getReference());
+    	assertNotNull(read.getLinks());
+    	Instance employee = read.getLinks().get("employee");
+    	assertNotNull(employee);
+    	Instance category = read.getLinks().get("category");
+    	assertNotNull(category);
+    }
+    
     public void testPutInstance() {
         Instance newInstance = new Instance("expenses", "Category");
         newInstance.setValue("name", unique("My Category"));
@@ -133,10 +144,15 @@ public class InstanceTests extends AbstractFactoryRestTests {
         // provide the number of arguments expected by the operation
         List<?> result1 = instanceManagement.executeQuery(operation, null, Arrays.asList("Draft"));
         assertTrue(result1.size() > 0);
-        assertTrue(result1.stream().map(it -> (Instance) it).anyMatch(it -> it.getReference().equals(expense.getReference())));
+        
+        assertTrue(contains(result1, expense));
         
         List<?> result2 = instanceManagement.executeQuery(operation, null, Arrays.asList("Submitted"));
-        assertFalse(result2.stream().map(it -> (Instance) it).anyMatch(it -> it.getReference().equals(expense.getReference())));
+        assertFalse(contains(result2, expense));
     }
+
+	private boolean contains(List<?> result, Instance expense) {
+		return result.stream().map(it -> (Instance) it).anyMatch(it -> it.getReference().equals(expense.getReference()));
+	}
 
 }

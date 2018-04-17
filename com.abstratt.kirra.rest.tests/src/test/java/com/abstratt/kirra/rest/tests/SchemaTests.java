@@ -82,15 +82,31 @@ public class SchemaTests extends AbstractRestTests {
         Entity expenseEntity = schemaManagement.getEntity("expenses", "Expense");
 		List<Property> properties = expenseEntity.getProperties();
         assertTrue(!properties.isEmpty());
-        Property amount = findByName(properties, "amount");
+        
+        assertEquals("moniker", expenseEntity.getMnemonicSlot());
+        
+        Property moniker = findByName(properties, "moniker");
+        assertEquals("Moniker", moniker.getLabel());
+		assertTrue(moniker.isUserVisible());
+		assertTrue(moniker.isHasDefault());
+		assertFalse(moniker.isInitializable());
+		assertFalse(moniker.isEditable());
+		assertFalse(moniker.isRequired());
+		assertTrue(moniker.isMnemonic());
+		assertEquals("String", moniker.getTypeRef().getTypeName());
+		assertEquals(TypeRef.TypeKind.Primitive, moniker.getTypeRef().getKind());
+		
+		Property amount = findByName(properties, "amount");
         assertEquals("Amount", amount.getLabel());
 		assertTrue(amount.isUserVisible());
 		assertFalse(amount.isHasDefault());
 		assertTrue(amount.isInitializable());
 		assertFalse(amount.isEditable());
 		assertTrue(amount.isRequired());
+		assertFalse(amount.isMnemonic());
 		assertEquals("Double", amount.getTypeRef().getTypeName());
 		assertEquals(TypeRef.TypeKind.Primitive, amount.getTypeRef().getKind());
+		
 		
 		Property expenseDate = findByName(properties, "date");
 		assertEquals("Date", expenseDate.getLabel());
@@ -99,6 +115,7 @@ public class SchemaTests extends AbstractRestTests {
 		assertTrue(expenseDate.isInitializable());
 		assertTrue(expenseDate.isEditable());
 		assertTrue(expenseDate.isRequired());
+		assertFalse(expenseDate.isMnemonic());
 		assertEquals(TypeRef.TypeKind.Primitive, expenseDate.getTypeRef().getKind());
 		assertEquals("Date", expenseDate.getTypeRef().getTypeName());
 		
@@ -106,6 +123,7 @@ public class SchemaTests extends AbstractRestTests {
 		assertNotNull(orderedDataElements);
         assertTrue(!orderedDataElements.isEmpty());
         assertTrue(orderedDataElements.containsAll(Arrays.asList("amount", "date", "description", "employee")));
+        
     }
 
     public void testNamespaces() {
