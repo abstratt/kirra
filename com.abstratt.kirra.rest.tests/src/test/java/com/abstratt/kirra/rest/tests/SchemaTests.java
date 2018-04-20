@@ -10,6 +10,7 @@ import com.abstratt.kirra.Operation;
 import com.abstratt.kirra.Operation.OperationKind;
 import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.Property;
+import com.abstratt.kirra.Relationship;
 import com.abstratt.kirra.TypeRef;
 import com.abstratt.kirra.TypeRef.TypeKind;
 
@@ -75,6 +76,23 @@ public class SchemaTests extends AbstractRestTests {
         assertEquals("date", declareExpenseParameters.get(2).getName());
         assertEquals("category", declareExpenseParameters.get(3).getName());
         declareExpenseParameters.forEach(it -> assertTrue(it.getInAllSets()));
+    }
+
+    
+
+    public void testEntityRelationships() {
+        Entity employeeEntity = schemaManagement.getEntity("expenses", "Employee");
+        List<Relationship> relationships = employeeEntity.getRelationships();
+        assertTrue(!relationships.isEmpty());
+        
+        Relationship allExpenses = findByName(relationships, "expenses");
+        assertTrue(allExpenses.isMultiple());
+        assertFalse(allExpenses.isDerived());
+
+        Relationship myExpenses = findByName(relationships, "recordedExpenses");
+        assertTrue(myExpenses.isMultiple());
+        assertTrue(myExpenses.isDerived());
+
     }
 
     
