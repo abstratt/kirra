@@ -41,34 +41,32 @@ public class AccessTests extends AbstractFactoryRestTests {
 	}
 	
 	public void testExpenseEntityCapabilities() {
+		TypeRef expenseType = new TypeRef("expenses.Expense", TypeKind.Entity);
 		runAs(() -> {
-			TypeRef expenseType = new TypeRef("expenses.Expense", TypeKind.Entity);
 			EntityCapabilities capabilities = getEntityCapabilities(expenseType);
 			assertEquals(Arrays.asList(), capabilities.getEntity());
-			assertEquals(Arrays.asList("StaticCall"), capabilities.getQueries().get("myExpenses"));
+			assertEquals(Arrays.asList("StaticCall"), capabilities.getQueries().get("myExpenses"));	
 			assertEquals(Arrays.asList("StaticCall"), capabilities.getActions().get("newExpense"));
 		},kirraEmployeeUsername, kirraEmployeePassword, null);
 		runAs(() -> {
-			TypeRef expenseType = new TypeRef("expenses.Expense", TypeKind.Entity);
 			EntityCapabilities capabilities = getEntityCapabilities(expenseType);
 			assertEquals(new TreeSet<>(Arrays.asList("Create", "List")), new TreeSet<>(capabilities.getEntity()));
-			assertEquals(Arrays.asList("StaticCall"), capabilities.getQueries().get("myExpenses"));
+			assertEquals(Arrays.asList(), capabilities.getQueries().get("myExpenses"));
 			assertEquals(Arrays.asList("StaticCall"), capabilities.getActions().get("newExpense"));
 		},kirraAdminUsername, kirraAdminPassword, null);
 	}
 	
 	public void testEmployeeEntityCapabilities() {
+		TypeRef expenseType = new TypeRef("expenses.Employee", TypeKind.Entity);
 		runAs(() -> {
-			TypeRef expenseType = new TypeRef("expenses.Employee", TypeKind.Entity);
 			EntityCapabilities capabilities = getEntityCapabilities(expenseType);
 			assertEquals(new TreeSet<>(Arrays.asList("Create", "List")), new TreeSet<>(capabilities.getEntity()));
 			assertEquals(Arrays.asList("StaticCall"), capabilities.getQueries().get("employeesWithNoExpenses"));
 		},kirraEmployeeUsername, kirraEmployeePassword, null);
 		runAs(() -> {
-			TypeRef expenseType = new TypeRef("expenses.Employee", TypeKind.Entity);
 			EntityCapabilities capabilities = getEntityCapabilities(expenseType);
 			assertEquals(new TreeSet<>(Arrays.asList("Create", "List")), new TreeSet<>(capabilities.getEntity()));
-			assertEquals(Arrays.asList(), capabilities.getQueries().get("employeesWithNoExpenses"));
+			assertEquals(Arrays.asList("StaticCall"), capabilities.getQueries().get("employeesWithNoExpenses"));
 		},kirraAdminUsername, kirraAdminPassword, null);
 	}
 	

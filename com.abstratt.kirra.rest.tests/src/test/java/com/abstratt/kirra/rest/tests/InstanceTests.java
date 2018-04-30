@@ -97,9 +97,19 @@ public class InstanceTests extends AbstractFactoryRestTests {
     }
     
     public void testInvokeAction() throws IOException {
-    	Instance employee = getAnyInstance("expenses", "Employee");
+    	login(kirraEmployeeUsername, kirraEmployeePassword);
+    	Instance currentUser = instanceManagement.getCurrentUser();
+    	Instance fullUser = instanceManagement.getInstance(currentUser.getReference(), DataProfile.Full);
+    	Instance employee = fullUser.getLinks().get("roleAsEmployee");
+    	assertNotNull(employee);
+    	
 		Instance category = getAnyInstance("expenses", "Category");
-        Instance expense = createInstance("expenses", "Expense", it -> {
+		Entity expenseEntity = schemaManagement.getEntity(new TypeRef("expenses.Expense", TypeKind.Entity));
+		Operation submitOperation = findByName(expenseEntity.getOperations(), "submit");
+		Operation reviewOperation = findByName(expenseEntity.getOperations(), "review");
+
+    	login(kirraAdminUsername, kirraAdminPassword);
+		Instance expense = createInstance("expenses", "Expense", it -> {
         	it.setSingleRelated("category", category);
         	it.setSingleRelated("employee", employee);
         	it.setValue("description", "Some expense");
@@ -107,11 +117,9 @@ public class InstanceTests extends AbstractFactoryRestTests {
         	it.setValue("amount", 150.50);
         });
         
-        Entity expenseEntity = schemaManagement.getEntity(expense.getTypeRef());
-        Operation submitOperation = findByName(expenseEntity.getOperations(), "submit");
-        Operation reviewOperation = findByName(expenseEntity.getOperations(), "review");
-        
         assertEquals("Draft", expense.getValue("status"));
+        
+        login(kirraEmployeeUsername, kirraEmployeePassword);
         instanceManagement.executeOperation(submitOperation, expense.getObjectId(), Arrays.asList());
         Instance afterSubmitted = instanceManagement.getInstance(expense.getReference());
         assertEquals("Submitted", afterSubmitted.getValue("status"));
@@ -140,7 +148,7 @@ public class InstanceTests extends AbstractFactoryRestTests {
         });
 
         Entity entity = schemaManagement.getEntity(expense.getTypeRef());
-        Operation operation = findByName(entity.getOperations(), "findByStatus");
+        Operation operation = findByName(entity.getOperations(), "byStatus");
         // provide the number of arguments expected by the operation
         List<?> result1 = instanceManagement.executeQuery(operation, null, Arrays.asList("Draft"));
         assertTrue(result1.size() > 0);

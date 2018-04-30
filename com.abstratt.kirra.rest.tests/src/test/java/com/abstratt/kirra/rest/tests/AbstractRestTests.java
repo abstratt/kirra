@@ -84,7 +84,7 @@ public class AbstractRestTests extends TestCase {
     }
     
 	protected Instance getAnyInstance(String namespace, String entityName) {
-		return instanceManagement.getInstances(namespace, entityName, new PageRequest(0L, 1, DataProfile.Empty, false)).get(0);
+		return instanceManagement.getInstances(namespace, entityName, new PageRequest(0L, 1, DataProfile.Full, false)).get(0);
 	}
     
     protected Instance createInstance(String namespace, String entity, Consumer<Instance> configurer) {

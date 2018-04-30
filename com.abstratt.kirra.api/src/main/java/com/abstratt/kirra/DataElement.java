@@ -29,6 +29,13 @@ public abstract class DataElement extends TypedElement<DataScope> {
         return position;
     }
 
+    /**
+     * A data element that is derived requires some computation before it can be determined.
+     * A client that wants to copy data around without generating unnecessary computations
+     * can safely skip derived properties.
+     * 
+     * @return
+     */
     public boolean isDerived() {
         return derived;
     }

@@ -58,8 +58,9 @@ public class SchemaTests extends AbstractRestTests {
         assertEquals(expenseEntity.getTypeRef(), newExpenseOperation.getTypeRef());
         newExpenseParameters.forEach(it -> assertTrue(it.getInAllSets()));
         
-        Operation findByStatusOperation = expenseEntity.getOperation("findByStatus");
-		assertFalse(findByStatusOperation.isInstanceOperation());
+        Operation findByStatusOperation = expenseEntity.getOperation("byStatus");
+        assertNotNull(findByStatusOperation);
+        assertFalse(findByStatusOperation.isInstanceOperation());
 		assertEquals(OperationKind.Finder, findByStatusOperation.getKind());
         List<Parameter> findByStatusParameters = findByStatusOperation.getParameters();
         assertEquals(1, findByStatusParameters.size());
@@ -106,7 +107,10 @@ public class SchemaTests extends AbstractRestTests {
         Property moniker = findByName(properties, "moniker");
         assertEquals("Moniker", moniker.getLabel());
 		assertTrue(moniker.isUserVisible());
-		assertTrue(moniker.isHasDefault());
+		// being derived is not the same as having a default value
+		assertFalse(moniker.isHasDefault());
+		// what is the use case for having this bit available in the metadata?
+		assertTrue(moniker.isDerived());
 		assertFalse(moniker.isInitializable());
 		assertFalse(moniker.isEditable());
 		assertFalse(moniker.isRequired());
@@ -118,6 +122,7 @@ public class SchemaTests extends AbstractRestTests {
         assertEquals("Amount", amount.getLabel());
 		assertTrue(amount.isUserVisible());
 		assertFalse(amount.isHasDefault());
+		assertFalse(amount.isDerived());
 		assertTrue(amount.isInitializable());
 		assertFalse(amount.isEditable());
 		assertTrue(amount.isRequired());
@@ -130,6 +135,7 @@ public class SchemaTests extends AbstractRestTests {
 		assertEquals("Date", expenseDate.getLabel());
 		assertTrue(expenseDate.isUserVisible());
 		assertTrue(expenseDate.isHasDefault());
+		assertFalse(expenseDate.isDerived());
 		assertTrue(expenseDate.isInitializable());
 		assertTrue(expenseDate.isEditable());
 		assertTrue(expenseDate.isRequired());
