@@ -28,7 +28,7 @@ public class AccessTests extends AbstractFactoryRestTests {
     }
     
 	public void testReadExpense() {
-		InstanceRef expenseRef = runAs(this::newExpense, kirraEmployeeUsername, kirraEmployeePassword, null).getReference();
+		InstanceRef expenseRef = runAs(() -> newExpense(), kirraEmployeeUsername, kirraEmployeePassword, null).getReference();
 		runAs(() -> readInstance(expenseRef), "baduser@baddomain.com", "badpassword", KirraErrorCode.AUTHENTICATION_REQUIRED);
 		runAs(() -> readInstance(expenseRef), kirraEmployeeUsername, kirraEmployeePassword, null);
 		runAs(() -> readInstance(expenseRef), kirraAdminUsername, kirraAdminPassword, null);
@@ -57,14 +57,14 @@ public class AccessTests extends AbstractFactoryRestTests {
 	}
 	
 	public void testEmployeeEntityCapabilities() {
-		TypeRef expenseType = new TypeRef("expenses.Employee", TypeKind.Entity);
+		TypeRef employeeType = new TypeRef("expenses.Employee", TypeKind.Entity);
 		runAs(() -> {
-			EntityCapabilities capabilities = getEntityCapabilities(expenseType);
+			EntityCapabilities capabilities = getEntityCapabilities(employeeType);
 			assertEquals(new TreeSet<>(Arrays.asList("Create", "List")), new TreeSet<>(capabilities.getEntity()));
 			assertEquals(Arrays.asList("StaticCall"), capabilities.getQueries().get("employeesWithNoExpenses"));
 		},kirraEmployeeUsername, kirraEmployeePassword, null);
 		runAs(() -> {
-			EntityCapabilities capabilities = getEntityCapabilities(expenseType);
+			EntityCapabilities capabilities = getEntityCapabilities(employeeType);
 			assertEquals(new TreeSet<>(Arrays.asList("Create", "List")), new TreeSet<>(capabilities.getEntity()));
 			assertEquals(Arrays.asList("StaticCall"), capabilities.getQueries().get("employeesWithNoExpenses"));
 		},kirraAdminUsername, kirraAdminPassword, null);

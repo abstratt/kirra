@@ -13,17 +13,20 @@ public abstract class AbstractFactoryRestTests extends AbstractRestTests {
 
 	
 	/**
-	 * @param employee optional - will use current employee if not provided
 	 * @return
 	 */
 	public Instance newExpense() {
+		return newExpense(null);
+	}
+	
+	public Instance newExpense(LocalDate date) {
 		Entity entity = schemaManagement.getEntity("expenses", "Expense");
         Operation operation = findByName(entity.getOperations(), "newExpense");
         // provide the number of arguments expected by the operation
         Instance category = getAnyInstance("expenses", "Category");
         assertNotNull(category);
         Instance employee = null;
-		List<?> result = instanceManagement.executeOperation(operation, null, Arrays.asList("Some expense", 200d, LocalDate.now(), category, employee ));
+		List<?> result = instanceManagement.executeOperation(operation, null, Arrays.asList("Some expense", 200d, date, category, employee ));
         assertEquals(1, result.size());
 		return (Instance) result.get(0);
 	}
