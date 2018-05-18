@@ -91,10 +91,10 @@ public class AuthorizationHandler {
 	}
 
 	public void checkEntityActionAuthorized(TypeRef entityRef, String actionName) {
-		checkCapability(supplyEntityActionCapabilities(entityRef, actionName), "StaticCall");
+		checkCapability(supplyEntityActionCapabilities(entityRef, actionName), "Call");
 	}
 
 	public void checkEntityQueryAuthorized(TypeRef entityRef, String finderName) {
-		checkCapability(supplyEntityQueryCapabilities(entityRef, finderName), "StaticCall");
+		checkCapability(supplyEntityQueryCapabilities(entityRef, finderName), "Call");
 	}
 }
