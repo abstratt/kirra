@@ -45,7 +45,7 @@
   {
     "APPLICATION"  : "kirra_qooxdoo",
     "APPLICATION_PATH" : "kirra_qooxdoo",    
-    "APPLICATION_CSS" : "${APPLICATION_PATH}/css/styles.css",  // resource id of custom css    
+    "APPLICATION_CSS" : "${APPLICATION_PATH}/css/styles.css",    
     "QOOXDOO_PATH" : "../../qooxdoo",
     "QXTHEME"      : "kirra_qooxdoo.theme.Theme",
     "API_EXCLUDE"  : ["qx.test.*", "${APPLICATION}.theme.*", "${APPLICATION}.test.*", "${APPLICATION}.simulation.*"],
