@@ -2,6 +2,7 @@ package com.abstratt.kirra.rest.client;
 
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -166,8 +167,14 @@ public class InstanceManagementOnREST implements InstanceManagement {
 	@Override
 	public List<Instance> getParameterDomain(Entity entity, String externalId,
 			Operation action, Parameter parameter) {
-		// TODO Auto-generated method stub
-		return null;
+		String path = action.isInstanceOperation() ? Paths.INSTANCE_ACTION_PARAMETER_DOMAIN_PATH : Paths.ENTITY_ACTION_PARAMETER_DOMAIN_PATH;
+		path = path.replace("{application}", ".").replace("{entityName}", entity.getTypeRef().toString()).replace("{actionName}", action.getName()).replace("{parameterName}", parameter.getName()).replace("{objectId}", StringUtils.trimToEmpty(externalId));
+		
+		Page<Instance> page = get(baseUri,
+				new TypeToken<Page<Instance>>() {
+				}.getType(), path);
+		return page.contents;
+		
 	}
 
 	@Override

@@ -34,6 +34,7 @@ public interface Paths {
     String RELATIONSHIP_PATH = INSTANCE_PATH + "/" + Paths.RELATIONSHIPS + "/{relationshipName}/";
     String RELATIONSHIP_DOMAIN_PATH = RELATIONSHIP_PATH + DOMAIN;
     String INSTANCE_ACTION_PARAMETER_DOMAIN_PATH = INSTANCE_ACTION_PATH + "/" + Paths.PARAMETERS + "/{parameterName}/" + DOMAIN;
+    String ENTITY_ACTION_PARAMETER_DOMAIN_PATH = ENTITY_ACTION_PATH + "/" + Paths.PARAMETERS + "/{parameterName}/" + DOMAIN;
     String SESSION = "session";
     String LOGIN = SESSION + "/" + "login";
     String LOGOUT = SESSION + "/" + "logout";

@@ -34,17 +34,18 @@ public class TypeRef implements Serializable {
     }
 
     public TypeRef(String namespace, String name, TypeKind kind) {
-        this.typeName = name;
-        this.entityNamespace = namespace;
-        this.kind = kind;
+        initialize(namespace, name, kind);
     }
 
     public TypeRef(String typeName, TypeKind kind) {
-        typeName = TypeRef.sanitize(typeName);
-        String[] components = splitName(typeName);
-        this.entityNamespace = components[0];
-        this.typeName = components[1];
-        this.kind = kind;
+        String[] components = splitName(TypeRef.sanitize(typeName));
+        initialize(components[0], components[1], kind);
+    }
+    
+    private void initialize(String namespace, String name, TypeKind kind) {
+    	this.typeName = name;
+    	this.entityNamespace = namespace;
+    	this.kind = kind;
     }
 
     @Override

@@ -66,7 +66,8 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
             String relationshipName = link.getKey();
             JsonElement element;
             // only include user visible properties
-            if (entity.getRelationship(relationshipName).isUserVisible()) {
+            Relationship relationship = entity.getRelationship(relationshipName);
+			if (relationship != null && relationship.isUserVisible()) {
 	            Instance linkValue = link.getValue();
 				if (linkValue == null)
 	            	element = JsonNull.INSTANCE;
@@ -125,7 +126,7 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         if (asJsonObject.has("values")) {
             for (Entry<String, JsonElement> entry : asJsonObject.get("values").getAsJsonObject().entrySet()) {
                 Property property = entity.getProperty(entry.getKey());
-                if (property.isUserVisible()) {
+                if (property != null && property.isUserVisible()) {
                     Object value;
                     if (property.getTypeRef().getKind() == TypeKind.Blob) {
                         value = Blob.fromMap(context.deserialize(entry.getValue(), Map.class));
@@ -143,7 +144,7 @@ public class InstanceSerializer implements JsonSerializer<Instance>, JsonDeseria
         if (asJsonObject.has("links")) {
             for (Entry<String, JsonElement> entry : asJsonObject.get("links").getAsJsonObject().entrySet()) {
                 Relationship relationship = entity.getRelationship(entry.getKey());
-            	if ((relationship.isUserVisible() || relationship.getStyle() == Style.PARENT) && !relationship.isMultiple()) {
+            	if ((relationship != null && (relationship.isUserVisible() || relationship.getStyle() == Style.PARENT) && !relationship.isMultiple())) {
             	    if (entry.getValue().isJsonObject()) {
             	        JsonObject linkAsObject = entry.getValue().getAsJsonObject();
             	        TypeRef linkedType = null;

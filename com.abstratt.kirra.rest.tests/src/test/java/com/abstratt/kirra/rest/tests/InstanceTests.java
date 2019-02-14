@@ -17,6 +17,7 @@ import com.abstratt.kirra.InstanceManagement.DataProfile;
 import com.abstratt.kirra.InstanceManagement.PageRequest;
 import com.abstratt.kirra.TypeRef.TypeKind;
 import com.abstratt.kirra.Operation;
+import com.abstratt.kirra.Parameter;
 import com.abstratt.kirra.TypeRef;
 
 public class InstanceTests extends AbstractFactoryRestTests {
@@ -135,6 +136,25 @@ public class InstanceTests extends AbstractFactoryRestTests {
         Instance expense = newExpense();
         assertEquals(expense.getClass().getSimpleName(), "Expense", expense.getEntityName());
     }
+    
+    public void testActionParameterDomain() throws IOException {
+    	InstanceRef disabledCategory = createInstance("expenses", "Category", it -> {
+        	it.setValue("name", "Some disabled category " + UUID.randomUUID());
+        	it.setValue("enabled", false);
+        }).getReference();
+    	InstanceRef enabledCategory = createInstance("expenses", "Category", it -> {
+        	it.setValue("name", "Some enabled category " + UUID.randomUUID());
+        }).getReference();
+        Entity expenseEntity = schemaManagement.getEntity(new TypeRef("expenses", "Expense", TypeKind.Entity));
+    	Operation newExpenseOperation = expenseEntity.getOperation("newExpense");
+        Parameter categoryParameter = newExpenseOperation.getParameter("category");
+        assertNotNull(categoryParameter);
+    	List<Instance> domain = instanceManagement.getParameterDomain(expenseEntity, null, newExpenseOperation, categoryParameter);
+        assertTrue(domain.size() > 0);
+        assertTrue(domain.stream().anyMatch(it -> it.getReference().equals(enabledCategory)));
+        assertFalse(domain.stream().anyMatch(it -> it.getReference().equals(disabledCategory)));
+    }
+
 
     public void testExecuteQuery() throws IOException {
     	Instance employee = getAnyInstance("expenses", "Employee");

@@ -26,7 +26,7 @@ public abstract class AbstractFactoryRestTests extends AbstractRestTests {
         Instance category = getAnyInstance("expenses", "Category");
         assertNotNull(category);
         Instance employee = null;
-		List<?> result = instanceManagement.executeOperation(operation, null, Arrays.asList("Some expense", 200d, date, category, employee ));
+		List<?> result = instanceManagement.executeOperation(operation, null, Arrays.asList("Some expense", category, 200d, date, employee ));
         assertEquals(1, result.size());
 		return (Instance) result.get(0);
 	}
