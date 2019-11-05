@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.kirra</groupId>
 	<artifactId>com.abstratt.kirra.parent</artifactId>
-	<version>2.6.201911.kirra</version>
+	<version>2.7.201911</version>
 	<packaging>pom</packaging>
 
 	<parent>
@@ -14,7 +14,10 @@
 
 	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>		
+		<bintray.package>kirra</bintray.package>
 	</properties>
+	
+
 
 	<repositories>
 		<repository>
@@ -27,19 +30,6 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-	<scm>
-		<connection>scm:git:https://abstratt@bitbucket.org/abstratt/kirra-api.git</connection>
-		<developerConnection>scm:git:https://abstratt@bitbucket.org/abstratt/kirra-api.git</developerConnection>
-		<url>https://bitbucket.org/abstratt/kirra-api/src</url>
-	</scm>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>tycho-staged</id>
-			<url>https://oss.sonatype.org/content/repositories/orgeclipsetycho-1018/</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<build>
 		<pluginManagement>
