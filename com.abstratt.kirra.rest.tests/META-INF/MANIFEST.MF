@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Kirra REST Implementation
 Bundle-SymbolicName: com.abstratt.kirra.rest.tests
-Bundle-Version: 2.5.201812
+Bundle-Version: 2.6.201911.kirra
 Bundle-Vendor: ABSTRATT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: 
