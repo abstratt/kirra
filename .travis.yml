@@ -14,9 +14,8 @@ notifications:
 
 env:
   global:
-  - secure: HwR6sIQdg/+mYnsXG1pvfyoIXIUVe+6T16fvjCm4lIAcUCofxgCt8C/rZduMzk4bCNnkGBuJ0XWAaRPGup9TvFF+fiYNgqfVAm/3LTvGodMW7G6Th3PwLyzHwpOdUEaIZEOFP1vUkrQhdPBiLz0F95gdQ/1WhK55W49/kSV+j8g=
-  - secure: C+xpd427Po1Z79Snt4gSOZYtXoRzhSlxnCG3cXeuqpEdXfdFMLXwQjHEMaMiHkSfgsMbXODNgEox2p+CIC6R15/xyafsAqCy9ryEXsCTpuFfF1oiBextbVeYG4gqtHr9TYNLBqAxEgQkY0XHnk3k0Y+/8MSt3+nPUsv5ee0YVOM=
-
+  - secure: "hqV8skr8j/LVLnMWhQoDowKaKDx1RmXAc85hDLRf1OecXFMAej5cZXEB/sotBCQ147ujwbI6kBSOShT3XrzHSsrHLHa9M1uHSKFaTvBUBUGD/M1zH8NgZnOMW208r5pT166V0lQjKd0Lgx3qOircuIkkK5RWKmTCkMzC9VCfy2w="
+  - secure: "i/kFabkQTREcXI8t2LR8Gs7LoN5V31LHbYG8LxqLxAx/11YUgDSGia3NxL6W3V8nk+hfWV5DwcdbA08QLs2YIMFyzg5cQ6y7LTpV42LrD9f8uwtf9mKtGT7FCBR0z3aWVJuwWXUTeyw4CgcRyP2AYQya266/p767VRpgE+l/+Vs="
 
 cache:
   directories:
