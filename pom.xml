@@ -9,7 +9,7 @@
 	<parent>
 		<artifactId>master</artifactId>
 		<groupId>com.abstratt</groupId>
-		<version>4.0</version>
+		<version>4.1</version>
 	</parent>
 
 	<properties>
