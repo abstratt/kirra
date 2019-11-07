@@ -3,8 +3,7 @@ language: java
 jdk:
   - oraclejdk8
 install: 
-  - mvn clean install -Dmaven.test.skip=true
-  - mvn deploy --settings deploy.settings.xml -DdeployAtEnd=true
+  - mvn clean package maven-deploy-plugin:2.8.2:deploy --settings deploy.settings.xml -Dmaven.test.skip=true -DdeployAtEnd=true -X
 
 notifications:
   email:
