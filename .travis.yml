@@ -4,8 +4,7 @@ jdk:
 - oraclejdk8
 install: 
   mvn clean install -Dmaven.test.skip=true
-after_success:
-  mvn clean deploy --settings deploy.settings.xml -DdeployAtEnd=true
+  mvn deploy --settings deploy.settings.xml -DdeployAtEnd=true
 
 notifications:
   email:
