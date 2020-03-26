@@ -44,7 +44,7 @@ Cloudfier implements the Kirra API to expose the funcionality of business applic
 
 #### HTML desktop-styled client
 
-An Angular-based renderer for a Kirra-based REST API. Status: [in progress](http://github.com/abstratt/kirra-angular) ([demo](http://develop.cloudfier.com/kirra-api/kirra-ng/?app-uri=http://develop.cloudfier.com/services/api-v2/test-cloudfier-examples-carserv#/dashboard)).
+An Angular-based renderer for a Kirra-based REST API. Status: [in progress](http://github.com/abstratt/kirra-angular) ([demo](https://develop.cloudfier.com/kirra-api/kirra-ng/?app-path=/services/api-v2/test-cloudfier-examples-carserv#/dashboard)).
 
 #### HTML5 mobile-styled client
 A generic mobile-styled HTML5 client that allows accessing any business application that provides a Kirra compliant API. Status: [retired](http://github.com/abstratt/kirra/tree/master/kirra_qooxdoo) ([demo](http://develop.cloudfier.com/kirra-api/kirra_qooxdoo/build/?app-path=/services/api-v2/demo-cloudfier-examples-taxi-fleet)).
