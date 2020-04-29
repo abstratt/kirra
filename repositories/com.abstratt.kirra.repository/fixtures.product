@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Kirra Fixture Server" uid="com.abstratt.kirra.fixtures.product" id="com.abstratt.kirra.fixtures.product" application="com.abstratt.kirra.fixtures.app" useFeatures="false" includeLaunchers="true" version="2.7.201911">
+<product name="Kirra Fixture Server" uid="com.abstratt.kirra.fixtures.product" id="com.abstratt.kirra.fixtures.product" application="com.abstratt.kirra.fixtures.app" useFeatures="false" includeLaunchers="true" version="2.8.202004">
 
    <configIni use="default">
    </configIni>
@@ -66,11 +66,11 @@
       <plugin id="org.eclipse.jetty.util"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
-      <plugin id="org.restlet" version="2.2.0.v20140327-1540"/>
-      <plugin id="org.restlet.ext.crypto" version="2.2.0.v20140327-1540"/>
-      <plugin id="org.restlet.ext.jaxrs" version="2.2.0.v20140327-1540"/>
-      <plugin id="org.restlet.ext.servlet" version="2.2.0.v20140327-1540"/>
-      <plugin id="org.restlet.ext.xml" version="2.2.0.v20140327-1540"/>
+      <plugin id="org.restlet"/>
+      <plugin id="org.restlet.ext.crypto"/>
+      <plugin id="org.restlet.ext.jaxrs"/>
+      <plugin id="org.restlet.ext.servlet"/>
+      <plugin id="org.restlet.ext.xml"/>
    </plugins>
 
    <configurations>
