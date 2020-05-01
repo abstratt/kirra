@@ -9,6 +9,10 @@ import java.util.Map;
 
 import com.abstratt.kirra.TypeRef.TypeKind;
 
+/**
+ * An entity defines the type of {@link Instance}s that contains properties, relationships
+ * and behavior elements.
+ */
 public class Entity extends TopLevelElement implements BehaviorScope, DataScope {
     private static final long serialVersionUID = 1L;
     protected boolean concrete;
@@ -63,6 +67,11 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return true;
     }
 
+    /**
+     * Returns the map of names of disabled actions and optionally reasons for the disablement.
+     * 
+     * For instance, checkout should be disabled while the shopping cart is empty.
+     */
     public Map<String, String> getDisabledActions() {
         return disabledActions;
     }
@@ -96,6 +105,9 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return relationships == null ? null : new ArrayList<Relationship>(relationships.values());
     }
 
+    /**
+     * Entities may be derived from other entities.
+     */
     public Collection<TypeRef> getSuperTypes() {
         return superTypes;
     }
@@ -105,6 +117,11 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return TypeKind.Entity;
     }
     
+    /**
+     * Returns the name of the property or relationship to be used to identify instances of this entity.
+     * 
+     * For instance, for a Person, "fullName" may be a good choice. 
+     */
     public String getMnemonicSlot() {
 		return mnemonicSlot;
 	}
@@ -126,15 +143,16 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         return super.isA(anotherType) || superTypes != null && superTypes.contains(anotherType);
     }
 
+    /**
+     * Only concrete entities may be instantiated.
+     */
     public boolean isConcrete() {
         return concrete;
-    }
+    } 
 
     /**
      * Returns whether this entity is standalone. An entity is standalone if it
      * has no required container references.
-     * 
-     * @return
      */
     public boolean isStandalone() {
         return standalone;
@@ -148,7 +166,6 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
      * a top-level class</li>
      * </ul>
      * 
-     * @param toTry
      * @return <code>true</code> if the given class corresponds to a top-level
      *         entity, <code>false</code> otherwise
      */
@@ -213,7 +230,7 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         this.topLevel = topLevel;
     }
 
-
+    /** Does this entity represent a user role in the system? */
     public boolean isRole() {
         return role;
     }
@@ -222,6 +239,9 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         this.role = role;
     }
     
+    /**
+     * Does this entity repesent a user entity in the system?
+     */
     public boolean isUser() {
         return user;
     }
@@ -238,10 +258,17 @@ public class Entity extends TopLevelElement implements BehaviorScope, DataScope 
         this.instantiable = instantiable;
     }
     
+    /**
+     * One reason entities may not be instantiatable is that they are not concrete. Another
+     * may that they can only be created via actions on other instances. 
+     */
     public boolean isInstantiable() {
         return instantiable;
     }
     
+    /**
+     * The lists of names of data elements, in the order they should be presented to users. 
+     */
     public List<String> getOrderedDataElements() {
 		return orderedDataElements;
 	}

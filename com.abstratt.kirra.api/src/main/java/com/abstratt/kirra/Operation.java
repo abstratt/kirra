@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.abstratt.kirra.TypeRef.TypeKind;
 
+/**
+ * Represents behavioral elements such as Actions and Queries.
+ */
 public class Operation extends TypedElement<BehaviorScope> implements ParameterScope {
     public enum OperationKind {
         /**
@@ -28,7 +31,7 @@ public class Operation extends TypedElement<BehaviorScope> implements ParameterS
          */
         Retriever,
         /**
-         * An operation that creates an instance of the parent entity.
+         * An operation that creates an instance of its entity.
          */
         Constructor
     }

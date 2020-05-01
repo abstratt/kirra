@@ -12,6 +12,13 @@ import java.util.stream.Collectors;
  */
 public interface InstanceManagement {
 
+    /**
+        * A full instance loads all
+        * values for all properties and relationships available in the data repository.
+        * A slim instance contains only properties (and, less commonly, relationships)
+        * that are considered "essential".
+        * An empty instance may have only the object id and data for its mnemonic property.
+     */
     enum DataProfile {
         Full("Slim"), Slim ("Empty"), Empty ("Empty");
         
@@ -145,6 +152,9 @@ public interface InstanceManagement {
      */
     public Instance getCurrentUser();
     
+    /**
+     * Returns a list of instances representing the user roles for the current user.
+     */
     public default List<Instance> getCurrentUserRoles() {
     	throw new UnsupportedOperationException();
     }
@@ -153,8 +163,14 @@ public interface InstanceManagement {
     	return createInstance(userInfo);
     }
 
+    /**
+     * For an entity, what actions are currently enabled?
+     */
     public List<Operation> getEnabledEntityActions(Entity entity);
     
+    /**
+     * What capabilities are available for the given entity?
+     */
     public default EntityCapabilities getEntityCapabilities(TypeRef entity) {
     	return new EntityCapabilities(Collections.emptyList(), Collections.emptyMap(), Collections.emptyMap());
     }
@@ -163,14 +179,23 @@ public interface InstanceManagement {
     	return entities.stream().collect(Collectors.toMap(e -> e, e -> getEntityCapabilities(e)));
     }
 
+    /**
+     * Obtains the instance corresponding to the given reference. 
+     */
     public default Instance getInstance(InstanceRef ref) {
     	return getInstance(ref, DataProfile.Full);
     }
-    
+
+    /**
+     * Loads the instance corresponding to the given reference using the given data profile. 
+     */
     public default Instance getInstance(InstanceRef ref, DataProfile dataProfile) {
     	return getInstance(ref.getEntityNamespace(), ref.getEntityName(), ref.getObjectId(), dataProfile);
     }
     
+    /**
+     * What capabilities are available for thei given instance?
+     */
     public default InstanceCapabilities getInstanceCapabilities(TypeRef entity, String objectId) {
     	return new InstanceCapabilities();
     }
@@ -182,10 +207,8 @@ public interface InstanceManagement {
      * @param name
      * @param externalId
      *            the object identifier
-     * @param full
-     *            whether the instance should be fully loaded
+     * @param dataProfile
      * @return an instance, or <code>null</code> if no object exists
-     * @see Instance#isFull()
      */
     public Instance getInstance(String namespace, String name, String externalId, DataProfile dataProfile);
     
@@ -202,16 +225,21 @@ public interface InstanceManagement {
      * 
      * @param namespace
      * @param name
-     * @param full
-     *            whether instances should be fully loaded
-     * @param includeSubclasses            
      * @param pageRequest optional page request
-     * @return
-     * @see Instance#isFull()
      */
     public default List<Instance> getInstances(String namespace, String name, PageRequest pageRequest) {
         return getInstances(namespace, name, pageRequest.getDataProfile(), pageRequest.getIncludeSubtypes()); 
     }
+    /**
+     * Loads all instances of the given entity type.
+     * 
+     * @param namespace
+     * @param name
+     * @param full
+     *            whether instances should be fully loaded
+     * @param includeSubclasses            
+     * @param pageRequest optional page request
+     */
     public default List<Instance> getInstances(String namespace, String name, boolean full, boolean includeSubclasses) {
         return getInstances(namespace, name, full ? DataProfile.Full : DataProfile.Slim, includeSubclasses);
     }

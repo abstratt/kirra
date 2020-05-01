@@ -6,7 +6,7 @@ public abstract class DataElement extends TypedElement<DataScope> {
     protected boolean editable;
     protected boolean initializable;
     protected Integer position;
-	protected boolean mnemonic;
+    protected boolean mnemonic;
     protected boolean unique;
     
     /**
@@ -73,6 +73,7 @@ public abstract class DataElement extends TypedElement<DataScope> {
         return this.getOwner() + "->" + super.toString();
     }
 
+    /** Is this element a mnemonic, i.e. a piece of data that is used to represent the object is it part of? */
 	public boolean isMnemonic() {
 		return mnemonic;
 	}

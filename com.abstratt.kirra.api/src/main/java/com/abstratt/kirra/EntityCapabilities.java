@@ -3,6 +3,9 @@ package com.abstratt.kirra;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents the capabilities for an entity (not its instances), its entity/static queries and entity/static actions.
+ */
 public class EntityCapabilities {
 	public EntityCapabilities(List<String> entity, Map<String, List<String>> queries,
 			Map<String, List<String>> actions) {

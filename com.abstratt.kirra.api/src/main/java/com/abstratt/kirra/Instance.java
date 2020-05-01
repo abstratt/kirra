@@ -11,12 +11,7 @@ import com.abstratt.kirra.TypeRef.TypeKind;
 /**
  * Represents an object and its relationships.
  * <p>
- * Supports the idea of full vs. light instances. A full instance loads all
- * values for all properties and relationships available in the data repository.
- * A light instance contains only properties (and, less commonly, relationships)
- * that are marked as "essential" ({@link Repository#KIRRA_ESSENTIAL}). Note
- * that instances that are loaded due to being related to some focal instance
- * are always loaded in light mode.
+ * Supports the idea of full vs. light instances (see {@link DataProfile}).
  * </p>
  */
 public class Instance extends Tuple implements InstanceProtocol {
