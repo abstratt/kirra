@@ -1,0 +1,26 @@
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/workspace/kirra/com.abstratt.kirra.api/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2020. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/workspace/kirra/com.abstratt.kirra.api/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'com.abstratt.kirra.api 2.8.202004 API'
+-footer
+'Abstratt Technologies and contributors'
+-header
+'Kirra API - Reference Implementation'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' '/workspace/kirra/com.abstratt.kirra.api/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'com.abstratt.kirra.api 2.8.202004 API'
