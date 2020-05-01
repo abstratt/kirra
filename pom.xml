@@ -10,7 +10,12 @@
 		<artifactId>master</artifactId>
 		<groupId>com.abstratt</groupId>
 		<version>4.2.0</version>
-	</parent>
+    </parent>
+    
+    <organization>
+        <name>Abstratt Technologies and Contributors</name>
+        <url>https://abstratt.com</url>
+    </organization>
 
 	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>		
