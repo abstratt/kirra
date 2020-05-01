@@ -1,7 +1,7 @@
 # Credit: https://vaadin.com/blog/host-your-javadoc-s-online-in-github
 set -x 
 mvn clean javadoc:javadoc -f com.abstratt.kirra.api -Dmaven.javadoc.failOnError=false \
-   "-Dfooter=Abstratt Technologies and contributors" \
+   "-Dfooter=Kirra API - Reference Implementation" \
    "-Dheader=Kirra API - Reference Implementation"
 cd com.abstratt.kirra.api/target/site/apidocs/
 git init
