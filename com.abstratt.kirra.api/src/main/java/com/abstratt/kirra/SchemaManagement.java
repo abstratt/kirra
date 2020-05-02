@@ -69,6 +69,17 @@ public interface SchemaManagement {
 
     public Collection<TypeRef> getEntityNames();
     
+    default <S extends DataScope> S getDataScope(TypeRef typeRef) {
+        switch (typeRef.kind) {
+        case Entity:
+            return (S) getEntity(typeRef);
+        case Tuple:
+            return (S) getTupleType(typeRef);
+        default:
+            throw new IllegalArgumentException("" + typeRef);
+        }
+    }
+    
     /**
      * Returns all entities that represent roles.
      */
