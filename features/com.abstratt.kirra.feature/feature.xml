@@ -2,7 +2,7 @@
 <feature
       id="com.abstratt.kirra.feature"
       label="%featureName"
-      version="2.9.14.qualifier"
+      version="2.9.14"
       provider-name="%providerName">
 
    <description>
