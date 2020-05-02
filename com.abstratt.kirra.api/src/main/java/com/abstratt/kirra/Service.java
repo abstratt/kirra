@@ -7,6 +7,9 @@ import java.util.Map;
 
 import com.abstratt.kirra.TypeRef.TypeKind;
 
+/**
+ * A service is a collection of operations.
+ */
 public class Service extends TopLevelElement implements BehaviorScope {
     private static final long serialVersionUID = 1L;
 
