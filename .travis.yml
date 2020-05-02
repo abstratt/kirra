@@ -7,7 +7,7 @@ install:
 
 deploy:
   provider: script
-  script: "mvn org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -s deploy.settings.xml -Dmaven.test.skip=true -DdeployAtEnd=true"
+  script: "mvn deploy -s deploy.settings.xml -Dmaven.test.skip=true -DdeployAtEnd=true"
   skip_cleanup: true
   on:
     tags: true
