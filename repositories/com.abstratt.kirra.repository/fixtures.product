@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Kirra Fixture Server" uid="com.abstratt.kirra.fixtures.product" id="com.abstratt.kirra.fixtures.product" application="com.abstratt.kirra.fixtures.app" useFeatures="false" includeLaunchers="true" version="2.9.9">
+<product name="Kirra Fixture Server" uid="com.abstratt.kirra.fixtures.product" id="com.abstratt.kirra.fixtures.product" application="com.abstratt.kirra.fixtures.app" useFeatures="false" includeLaunchers="true" version="2.9.10.qualifier">
 
    <configIni use="default">
    </configIni>
