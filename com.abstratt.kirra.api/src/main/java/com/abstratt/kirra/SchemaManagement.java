@@ -4,15 +4,30 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Provides access to various pieces of information about a schema.
+ */
 public interface SchemaManagement {
+    /**
+     * The name of the application.
+     */
     public String getApplicationName();
+    /**
+     * The human-friendly title of the application. 
+     */
     public default String getApplicationLabel() {
     	return getApplicationName();
     }
+    /**
+     * The logo of the application, as a base64-encoded string.
+     */
     public default String getApplicationLogo() {
     	return null;
     }
 
+    /**
+     * The current build of the application.
+     */
     public String getBuild();
 
     /**
@@ -24,6 +39,9 @@ public interface SchemaManagement {
      */
     public List<Entity> getEntities(String namespace);
     
+    /**
+     * Returns the entities in the application that represent roles.
+     */
     public default List<Entity> getRoleEntities(String namespace) {
     	return getEntities(namespace).stream().filter(e -> e.isRole()).collect(Collectors.toList());
     }
@@ -51,6 +69,9 @@ public interface SchemaManagement {
 
     public Collection<TypeRef> getEntityNames();
     
+    /**
+     * Returns all entities that represent roles.
+     */
     public default Collection<Entity> getRoleEntities() {
     	return getEntityNames().stream().map(t -> getEntity(t)).filter(it -> it.isRole()).collect(Collectors.toList());
     }
@@ -70,11 +91,12 @@ public interface SchemaManagement {
      */
     public List<Relationship> getEntityRelationships(String namespace, String name);
 
+    /**
+     * Returns the namespace with the given name.
+     */
     public Namespace getNamespace(String namespaceName);
 
     public List<String> getNamespaces();
-
-    // ENTITY DATA API
 
     /**
      * Returns the entire schema at once.

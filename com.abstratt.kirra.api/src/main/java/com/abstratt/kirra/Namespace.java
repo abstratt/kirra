@@ -5,13 +5,16 @@ import java.util.List;
 
 import com.abstratt.kirra.TypeRef.TypeKind;
 
+/**
+ * A namespace allows grouping entities, services, tuple types under a common context.
+ */
 public class Namespace extends NamedElement<NameScope> implements NameScope {
     private static final long serialVersionUID = 1L;
     protected List<Entity> entities = Collections.emptyList();
     protected List<Service> services = Collections.emptyList();
+    protected List<TupleType> tupleTypes = Collections.emptyList();
     protected String timestamp;
 
-    protected List<TupleType> tupleTypes = Collections.emptyList();
 
     public Namespace(String namespaceName) {
         this.name = namespaceName;
