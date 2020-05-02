@@ -88,4 +88,3 @@ Implement RO on top of the Kirra API, allowing any business application that is 
 
 In a way, the Kirra API has similar goals to Restful Objects, but aims to achieve them within the application, without requiring a network hop.
 
-{% include ribbon.html %}
