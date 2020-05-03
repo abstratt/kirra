@@ -1,5 +1,10 @@
 package com.abstratt.kirra;
 
+/** 
+ * A typed reference to an instance. 
+ * 
+ * Can be resolved to an actual instance via {@link InstanceManagement.getInstance(InstanceRef)}.
+ */
 public class InstanceRef implements InstanceProtocol {
     protected String entityName;
     protected String entityNamespace;

@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/** 
+ * The capabilities available for a given instance.
+ */
 public class InstanceCapabilities {
 	public InstanceCapabilities() {
 		this(Collections.emptyList(), Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap());
@@ -19,25 +22,31 @@ public class InstanceCapabilities {
 	protected List<String> instance;
 	protected Map<String, List<String>> attributes;
 	protected Map<String, List<String>> relationships;
-	protected Map<String, List<String>> actions;
+    protected Map<String, List<String>> actions;
+    
+    /** Capabilities about the instance */
 	public List<String> getInstance() {
 		return instance;
 	}
 	public void setInstance(List<String> instance) {
 		this.instance = instance;
-	}
+    }
+    /** Capabilities for each property. */
 	public Map<String, List<String>> getAttributes() {
 		return attributes;
 	}
 	public void setAttributes(Map<String, List<String>> attributes) {
 		this.attributes = attributes;
-	}
+    }
+    /** Capabilities for each relationship */
 	public Map<String, List<String>> getRelationships() {
 		return relationships;
 	}
 	public void setRelationships(Map<String, List<String>> relationships) {
 		this.relationships = relationships;
-	}
+    }
+    
+    /** Capabilities for each action */
 	public Map<String, List<String>> getActions() {
 		return actions;
 	}

@@ -1,5 +1,8 @@
 package com.abstratt.kirra;
 
+/**
+ * The Kirra application.
+ */
 public class KirraApplication {
     protected String name;
 

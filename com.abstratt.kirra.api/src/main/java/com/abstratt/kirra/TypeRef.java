@@ -2,6 +2,9 @@ package com.abstratt.kirra;
 
 import java.io.Serializable;
 
+/**
+ * A reference to a type. Includes both the name and the {@link TypeKind} of type.
+ */
 public class TypeRef implements Serializable {
     public enum TypeKind {
         Entity, Enumeration, Namespace, Primitive, Service, Tuple, Blob, Operation

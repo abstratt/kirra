@@ -8,6 +8,9 @@ import com.abstratt.kirra.TypeRef.TypeKind;
  * Represents behavioral elements such as Actions and Queries.
  */
 public class Operation extends TypedElement<BehaviorScope> implements ParameterScope {
+    /**
+     * An operation can of many kinds. See {@link Operation#getKind()}.
+     */
     public enum OperationKind {
         /**
          * An operation that performs a change on the target object and or

@@ -3,6 +3,9 @@ package com.abstratt.kirra;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The schema for an application. Provides access to application basic metadata, and its namespaces.
+ */
 public class Schema {
     protected String applicationName;
     protected String applicationLabel;
@@ -79,6 +82,7 @@ public class Schema {
         this.namespaces = namespaces;
     }
 
+    /** Returns this application's entity that represents users. */
 	public Entity getUserEntity() {
 		return userEntity;
 	}

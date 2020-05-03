@@ -1,5 +1,11 @@
 package com.abstratt.kirra;
 
+/**
+ * A relationship connects two entities. There are multiple {@link Style}s of relationships.
+ * 
+ * A relationship represents one side of an association. Often, the same association will be represented as 
+ * two, complementary relationships.
+ */
 public class Relationship extends DataElement {
     /**
      * The style of a relationship.
