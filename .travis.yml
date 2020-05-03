@@ -1,27 +1,23 @@
 dist: trusty
 language: java
 jdk:
-  - oraclejdk8
-install: 
-  - mvn clean test
-
+- oraclejdk8
+install:
+- mvn clean test
 deploy:
   provider: script
-  script: "mvn deploy -s deploy.settings.xml -Dmaven.test.skip=true -DdeployAtEnd=true"
+  script: mvn deploy -s deploy.settings.xml -Dmaven.test.skip=true -DdeployAtEnd=true
   skip_cleanup: true
   on:
     tags: true
-
 notifications:
   email:
     on_success: change
     on_failure: change
-
-env:
-  global:
-  - secure: "hqV8skr8j/LVLnMWhQoDowKaKDx1RmXAc85hDLRf1OecXFMAej5cZXEB/sotBCQ147ujwbI6kBSOShT3XrzHSsrHLHa9M1uHSKFaTvBUBUGD/M1zH8NgZnOMW208r5pT166V0lQjKd0Lgx3qOircuIkkK5RWKmTCkMzC9VCfy2w="
-  - secure: "i/kFabkQTREcXI8t2LR8Gs7LoN5V31LHbYG8LxqLxAx/11YUgDSGia3NxL6W3V8nk+hfWV5DwcdbA08QLs2YIMFyzg5cQ6y7LTpV42LrD9f8uwtf9mKtGT7FCBR0z3aWVJuwWXUTeyw4CgcRyP2AYQya266/p767VRpgE+l/+Vs="
-
 cache:
   directories:
-  - $HOME/.m2
+  - "$HOME/.m2"
+env:
+  global:
+  - secure: lX51N3XbkyBIyVba/3zmZsVpmbXze4spJhrvszaMJQ4PUyIzXqH6GfgKYpRT6nM5BWoXpV3D8ReI8Cg0ACl8d4ZhaSSPkb92aROhSZdaiD/XAqkL7V7XI3oWhGIvHExSczd4J8wnurx+vAlwAMRjg9fQrwhY6gR8Ok3dF4XstHE=
+  - secure: AO6x+I4Ju/TzkxccyM7vyaxjM+uHnYYUPnWNKZ6Wuc+KUXyDhA9C8joAnPN4o2IxzhjR6lirRCkZl0NAjKSUMkoE5CYhC2OJ35Al6es0Isd/1noqlOkA+EzW12o/5+veniB0IL79a048X6+QOPszW7z4CJ4K4J4QGHUq7lSfsEM=
