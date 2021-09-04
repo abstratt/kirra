@@ -3,6 +3,6 @@
   "version": "0.2.201601",
   "repository" : {},
   "devDependencies": {
-    "grunt": "~0.4.2"
+    "grunt": "0.4.5"
   }
 }
